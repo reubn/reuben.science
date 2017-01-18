@@ -16,43 +16,52 @@ html, body {
       margin: 0;
       width: 100vw;
       height: 100vh;
-      background: var(--background);
+    background: var(--background);
   }
 
-  flask {
-      display: flex;
-      align-items: flex-end;
-      white-space: pre;
-      font-size: 2rem;
-      font-weight: 600;
-      color: var(--flask);
-      user-select: none;
-      cursor: default;
-      flex-grow: 1;
+flask {
+  display: flex;
+  align-items: flex-end;
+  white-space: pre;
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--flask);
+  user-select: none;
+  cursor: default;
+  flex-grow: 1;
   }
 
 accent {
-  position: absolute;
   background: var(--gradient);
   color: transparent;
   -webkit-background-clip: text;
   background-clip: text;
+  left: -25%;
+}
+
+bas {
+    left: 25%;
+}
+
+accent, bas {
+  position: relative;
+  width: 50%;
 }
 
 email{
   display: flex;
-    align-items: center;
-    font-size: 1.5rem;
-    font-weight: 400;
-    flex-grow: 1;
-    color: var(--email);
+  align-items: center;
+  font-size: 1.5rem;
+  font-weight: 400;
+  flex-grow: 1;
+  color: var(--email);
 }
 arroba, dot {
-    background: var(--gradient);
-    color: transparent;
-    -webkit-background-clip: text;
-    background-clip: text;
-    font-weight: 600;
+  background: var(--gradient);
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  font-weight: 600;
 }
 ::selection {
   background: var(--background);
@@ -60,7 +69,8 @@ arroba, dot {
 </style>
 <script>
 </script>
-<flask><accent>  o
+<flask>
+<bas>  o
      o
 
     o
@@ -68,13 +78,12 @@ arroba, dot {
     o
      o
 '._____.'
-</accent>
-
+</bas><accent>
   ⎺| |⎺
    | |
   .' '.
  /     \
-          
-</flask>
+
+</accent></flask>
 <email>me<arroba>@</arroba>reuben<dot>.</dot>science</email>
 </html>
