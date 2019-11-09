@@ -64,7 +64,7 @@ accent {
 }
 
 bas {
-    left: -25%;
+  left: -25%;
 }
 
 accent, bas {
@@ -80,6 +80,7 @@ email{
   font-weight: 400;
   flex-grow: 1;
   color: var(--email);
+  cursor: pointer;
 }
 arroba, dot {
   background: var(--gradient);
@@ -110,5 +111,5 @@ arroba, dot {
  /     \
 
 </bas></flask>
-<email>me<arroba>@</arroba>reuben<dot>.</dot>science</email>
+<email onclick="(() => window.location.href = `mailto:${document.getElementsByTagName('email')[0].innerText.replace(/\n/g, '')}`)()">me<arroba>@</arroba>reuben<dot>.</dot>science</email>
 </html>
