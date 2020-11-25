@@ -10,7 +10,7 @@ import Logo from '../components/Logo'
 import {app, header, content, logo, nav, link, active as activeStyle} from './_app.module.css'
 
 function App({Component, pageProps}) {
-  console.log(pageProps)
+  // console.log(pageProps)
   return (
     <>
       <Head>
