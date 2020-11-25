@@ -1,6 +1,8 @@
 import Head from 'next/head'
 
+import ActiveLink from '../components/ActiveLink'
 import Memoji from '../components/Memoji'
+import PostLink from '../components/PostLink'
 
 import {me, memoji} from './styles'
 
@@ -19,6 +21,7 @@ export default function Home({posts}) {
 
       <main className={me}>
         <Memoji className={memoji} frameCount={frameCount} getFrameURL={getFrameURL}/>
+        {posts.map(props => <PostLink {...props} />)}
       </main>
     </>
   )
