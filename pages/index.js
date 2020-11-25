@@ -4,6 +4,8 @@ import Head from 'next/head'
 
 import {me, memoji} from './styles'
 
+import * as posts from './posts/[slug].js'
+
 // import videoA from '../public/me-cut.webm'
 // import videoB from '../public/me-cut.mov'
 //
@@ -125,7 +127,7 @@ const Memoji = props => {
 }
 
 
-export default function Home() {
+export default function Home({posts}) {
   return (
     <>
       <Head>
@@ -138,3 +140,11 @@ export default function Home() {
     </>
   )
 }
+
+export const getStaticProps = async () => {
+  return {
+    props: {
+      posts: (await posts.getStaticPaths()).paths.map(posts.getStaticProps).map(({props: {metadata, slug}}) => ({metadata, slug}))
+    },
+  };
+};
