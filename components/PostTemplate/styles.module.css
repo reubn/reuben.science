@@ -1,3 +1,15 @@
+.article {
+  max-width: 1000px;
+  width: calc((100vw - 3.5rem));
+
+  margin: 3rem auto 4rem auto;
+}
+
+.article *:not(li):not(figure) {
+  max-width: 100%;
+  overflow-x: scroll;
+}
+
 .title {
   text-align: center;
   font-size: 2rem;
@@ -30,17 +42,4 @@
   color: hsla(205deg, 15%, 25%, 0.8);
 
   letter-spacing: 0.8px;
-}
-
-
-.article {
-  max-width: 900px;
-  width: calc((100vw - 3.5rem));
-
-  margin: 3rem auto 4rem auto;
-}
-
-.article *:not(li):not(figure) {
-  max-width: 100%;
-  overflow-x: scroll;
 }
