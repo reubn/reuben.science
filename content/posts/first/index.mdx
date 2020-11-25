@@ -1,9 +1,11 @@
 import Button from '../../../components/button.js'
 
 export const metadata = {
-  title: "How I Made My Custom Swiss Army Knife",
-  subtitle: "Adding house keys to my Victorinox EDC",
-  date: "2020-11-22",
+  title: 'How I Made My Custom Swiss Army Knife',
+  subtitle: 'The Jack Knife Hack: adding my housekeys to my Victorinox Knife',
+  description: 'The Jack Knife Hack: adding my housekeys to my Victorinox Knife',
+  emoji: '🔑',
+  date: '2020-11-22',
   category: ['hardware', 'medicine']
 };
 
@@ -38,10 +40,10 @@ by one or more blank lines. (A blank line is any line that looks like a
 blank line -- a line containing nothing but spaces or tabs is considered
 blank.) Normal paragraphs should not be indented with spaces or tabs.
 
-The implication of the "one or more consecutive lines of text" rule is
-that Markdown supports "hard-wrapped" text paragraphs. This differs
+The implication of the 'one or more consecutive lines of text' rule is
+that Markdown supports 'hard-wrapped' text paragraphs. This differs
 significantly from most other text-to-HTML formatters (including Movable
-Type's "Convert Line Breaks" option) which translate every line break
+Type's 'Convert Line Breaks' option) which translate every line break
 character in a paragraph into a `<br />` tag.
 
 When you ***do*** want to insert a `<br />` break tag using Markdown, you
@@ -69,7 +71,7 @@ js^if (process.browser) {
   mdx = <Mdx />;
 } else {
   const Component = require(`../../content/posts/${slug} ${text + 6 % 100}`).default;
-  const ReactDOMServer = require("react-dom/server");
+  const ReactDOMServer = require('react-dom/server');
 
   const ssr = ReactDOMServer.renderToString(<Component />);
 
@@ -88,7 +90,7 @@ Using Ian
 
 Markdown supports two styles of headers, [Setext] [1] and [atx] [2].
 
-Optionally, you may "close" atx-style headers. This is purely
+Optionally, you may 'close' atx-style headers. This is purely
 cosmetic -- you can use this if you think it looks better. The
 closing hashes don't even need to match the number of hashes
 used to open the header. (The number of opening hashes
@@ -142,13 +144,13 @@ and code blocks:
 >
 > Here's some example code:
 >
->     return shell_exec("echo $input | $markdown_script");
+>     return shell_exec('echo $input | $markdown_script');
 
 Any decent text editor should make email-style quoting easy. For
 example, with BBEdit, you can make a selection and choose Increase
 Quote Level from the Text menu.
 
-`js^return shell_exec("echo $input | $markdown_script");`
+`js^return shell_exec('echo $input | $markdown_script');`
 
 ### Lists
 
@@ -192,9 +194,9 @@ If you instead wrote the list in Markdown like this:
 or even:
 
 <ul>
-  <li data-marker="A.">McHale</li>
-  <li data-marker="B.">City</li>
-  <li data-marker="C.">Buffalo</li>
+  <li data-marker='A.'>McHale</li>
+  <li data-marker='B.'>City</li>
+  <li data-marker='C.'>Buffalo</li>
 </ul>
 
 you'd get the exact same HTML output. The point is, if you want to,
@@ -275,7 +277,7 @@ This is a normal paragraph:
 
 Here is an example of AppleScript:
 
-    tell application "Foo"
+    tell application 'Foo'
         beep
     end tell
 
@@ -288,7 +290,7 @@ easy to include example HTML source code using Markdown -- just paste
 it and indent it, and Markdown will handle the hassle of encoding the
 ampersands and angle brackets. For example, this:
 
-    <div class="footer">
+    <div class='footer'>
         &copy; 2004 Foo Corporation
     </div>
 
@@ -297,7 +299,7 @@ asterisks are just literal asterisks within a code block. This means
 it's also easy to use Markdown to write about Markdown's own syntax.
 
 ``` AppleScript AppleScript
-tell application "Foo"
+tell application 'Foo'
     beep
 end tell
 ```
@@ -381,7 +383,7 @@ test.. test... test..... test?..... test!....
 
 !!!!!! ???? ,,  -- ---
 
-"Smartypants, double quotes" and 'single quotes'
+'Smartypants, double quotes' and 'single quotes'
 
 
 ## Emphasis
@@ -445,7 +447,7 @@ Indented code
     line 3 of code
 
 
-Block code "fences"
+Block code 'fences'
 
 ```
 Sample text here...
@@ -474,7 +476,7 @@ Right aligned columns
 
 [link text](http://dev.nodeca.com)
 
-[link with title](http://nodeca.github.io/pica/demo/ "title text!")
+[link with title](http://nodeca.github.io/pica/demo/ 'title text!')
 
 Autoconverted link https://github.com/nodeca/pica (enable linkify to see)
 
@@ -484,7 +486,7 @@ Autoconverted link https://github.com/nodeca/pica (enable linkify to see)
 ![Minion](https://images.unsplash.com/photo-1604837293951-4a3efaeaea8e?ixlib=rb-1.2.1&auto=format&fit=crop&w=2852&q=80)
 <figure>
 
-![Stormtroopocat](https://images.unsplash.com/photo-1564415900645-30612d54dd0c?ixlib=rb-1.2.1&auto=format&fit=crop&w=2852&q=80 "The Stormtroopocat")
+![Stormtroopocat](https://images.unsplash.com/photo-1564415900645-30612d54dd0c?ixlib=rb-1.2.1&auto=format&fit=crop&w=2852&q=80 'The Stormtroopocat')
 
 <caption>Oranges en La Mezquita de Sevilla</caption>
 </figure>
@@ -497,7 +499,7 @@ With a reference later in the document defining the URL location:
 
 <figure style={{width: '400px'}}>
 
-![Stormtroopocat](https://images.unsplash.com/photo-1564087354956-f730761e650a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=80 "The Stormtroopocat")
+![Stormtroopocat](https://images.unsplash.com/photo-1564087354956-f730761e650a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=80 'The Stormtroopocat')
 
 <caption>Crassula u.</caption>
 </figure>
@@ -575,7 +577,7 @@ Term 2
 
 This is HTML abbreviation example.
 
-It converts "HTML", but keep intact partial entries like "xxxHTMLyyy" and so on.
+It converts 'HTML', but keep intact partial entries like 'xxxHTMLyyy' and so on.
 
 *[HTML]: Hyper Text Markup Language
 

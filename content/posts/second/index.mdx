@@ -3,9 +3,11 @@ import Link from 'next/link'
 import Button from '../../../components/button.js'
 
 export const metadata = {
-  title: "How to Make Interactive Memojis",
-  subtitle: "",
-  date: "2020-07-07",
+  title: 'How to Make Interactive Memojis',
+  subtitle: 'Interactive Memojis on the Web',
+  description: 'The process of creating my interactive Memoji',
+  emoji: '👦🏻',
+  date: '2020-07-07',
   category: ['dev']
 };
 
@@ -47,10 +49,10 @@ https://developers.google.com/speed/webp/docs/cwebp
 less when gzipped????
 
 ```bash ZSH
-for file in *.png; do cwebp -lossless -mt "./$file" -o "./${file//\.png/.webp}"; done
-for file in *.png; do cwebp -near_lossless 60 -mt "./$file" -o "./${file//\.png/.webp}"; done
-for file in *.png; do cwebp -q 80 -mt "./$file" -o "./${file//\.png/.webp}"; done
-for file in *.png; do cwebp -q 80 -mt -crop 100 26 459 350 "./$file" -o "./${file//\.png/.webp}"; done
+for file in *.png; do cwebp -lossless -mt './$file' -o './${file//\.png/.webp}'; done
+for file in *.png; do cwebp -near_lossless 60 -mt './$file' -o './${file//\.png/.webp}'; done
+for file in *.png; do cwebp -q 80 -mt './$file' -o './${file//\.png/.webp}'; done
+for file in *.png; do cwebp -q 80 -mt -crop 100 26 459 350 './$file' -o './${file//\.png/.webp}'; done
 ```
 
 
@@ -74,7 +76,7 @@ import AVFoundation
 let arguments = Array(CommandLine.arguments[1...])
 var stderr = StandardErrorOutputStream()
 
-if(arguments.count == 0) {print("need a file", to: &stderr); exit(1)}
+if(arguments.count == 0) {print('need a file', to: &stderr); exit(1)}
 
 let videoPath = arguments[0]
 let frameSkip = arguments.count > 1 ? Int(arguments[1]) : nil
@@ -84,11 +86,11 @@ let videoURL = URL(fileURLWithPath: videoPath)
 let asset = AVAsset(url: videoURL)
 let reader = try? AVAssetReader(asset: asset)
 
-if(reader == nil) {print("sure this is a media file?", to: &stderr); exit(1)}
+if(reader == nil) {print('sure this is a media file?', to: &stderr); exit(1)}
 
 let videoTracks = asset.tracks(withMediaType: AVMediaType.video)
 
-if(videoTracks.count == 0) {print("sure this is a video file?", to: &stderr); exit(1)}
+if(videoTracks.count == 0) {print('sure this is a video file?', to: &stderr); exit(1)}
 
 let videoTrack = videoTracks[0]
 
@@ -110,7 +112,7 @@ while let sampleBuffer = trackReaderOutput.copyNextSampleBuffer() {
           let quality = 1.0 // 1.0 = lossless
 
           let outFolderURL = videoURL.deletingPathExtension()
-          let outURL = outFolderURL.appendingPathComponent("frame-\(frameIndex).png")
+          let outURL = outFolderURL.appendingPathComponent('frame-\(frameIndex).png')
 
           let context = CIContext()
 
