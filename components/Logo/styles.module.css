@@ -1,0 +1,48 @@
+.svg {
+  --colours-cloud: hsl(0deg 0% 98%);
+  --colours-peat: hsl(205deg 15% 20%);
+}
+
+.re {
+  fill: var(--colours-cloud);
+  transition: fill 0.25s cubic-bezier(0.47, 0, 0.75, 0.72);
+}
+
+.svg:hover .re {}
+
+.ex {
+  width: 100px;
+  height: 100px;
+
+  opacity: 0;
+  transition: opacity 0.25s cubic-bezier(0.47, 0, 0.75, 0.72);
+}
+
+.ex.red {transition-delay: 0.2s;}
+.ex.orange {transition-delay: 0.5s;}
+.ex.yellow {transition-delay: 0.1s;}
+.ex.green {transition-delay: 0.4s;}
+.ex.blue {transition-delay: 0.3s;}
+.ex.purple {transition-delay: 0.6s;}
+
+.ex.dim {
+  opacity: 1;
+  fill: var(--colours-peat);
+}
+
+.ex:active{
+  transform: translate(-2.5px, -2.5px);
+  width: 105px;
+  height: 105px;
+}
+
+.svg:hover .ex.red {transition-delay: 0.1s;}
+.svg:hover .ex.orange {transition-delay: 0.5s;}
+.svg:hover .ex.yellow {transition-delay: 0.3s;}
+.svg:hover .ex.green {transition-delay: 0.4s;}
+.svg:hover .ex.blue {transition-delay: 0.6s;}
+.svg:hover .ex.purple {transition-delay: 0.2s;}
+
+.svg:hover .ex {
+  opacity: 1;
+}

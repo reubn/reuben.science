@@ -1,0 +1,11 @@
+.me {
+  width: 33.3%;
+  margin-left: auto;
+  /* background: linear-gradient(135deg, hsla(205deg, 30%, 13%, 1) 0%, hsla(205deg, 30%, 11%, 1) 100%); */
+}
+
+.memoji {
+  /* background-color: green; */
+  /* width: 100%; */
+  max-height: 15rem;
+}

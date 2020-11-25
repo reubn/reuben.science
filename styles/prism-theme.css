@@ -1,0 +1,95 @@
+/* Generated with http://k88hudson.github.io/syntax-highlighting-theme-generator/www */
+/* http://k88hudson.github.io/react-markdocs */
+/**
+ * @author k88hudson
+ *
+ * Based on prism.js default theme for JavaScript, CSS and HTML
+ * Based on dabblet (http://dabblet.com)
+ * @author Lea Verou
+ */
+
+/*********************************************************
+* Tokens
+*/
+.namespace {
+  opacity: .7;
+}
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+  color: hsl(205deg, 15%, 30%);;
+}
+.token.punctuation {
+  color: hsl(205deg, 16%, 40%)
+}
+.token.property,
+.token.boolean,
+.token.number,
+.token.constant,
+.token.symbol,
+.token.deleted {
+  color: #c34ef9;
+}
+.token.selector,
+.token.builtin,
+.token.inserted {
+  color: #3dfa89;
+}
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {
+  color: #ffed61;
+}
+.token.atrule,
+.token.attr-value,
+.token.keyword,
+.token.attr-name {
+  color: hsl(327deg 80% 60%);
+}
+.token.function {
+  color: hsl(240deg 100% 70%);
+}
+.token.regex,
+.token.important,
+.token.variable,
+.token.tag {
+  color: #ffc629;
+}
+
+.token.string,
+.token.char {
+  color: #fefefe;
+}
+.token.important,
+.token.bold {
+  font-weight: bold;
+}
+.token.italic {
+  font-style: italic;
+}
+.token.entity {
+  cursor: help;
+}
+
+.token.interpolation {
+  color: #3dfa89;
+}
+
+.token.argument {
+  color: #ffc629;
+}
+
+.token.script.language-javascript {
+  color: #fefefe;
+}
+
+.language-bash .token.variable {
+  color: hsl(240deg 100% 70%);
+}
+
+.language-swift .token.builtin {
+  color: #ffc629;
+}
