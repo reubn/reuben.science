@@ -1,7 +1,7 @@
 import dynamic from "next/dynamic"
 
 import { fetchPostSlugs } from "../../src/fetchPostSlugs"
-import PostTemplate from "../../src/PostTemplate"
+import PostTemplate from "../../components/PostTemplate"
 
 import processPostMetadata from '../../src/processPostMetadata'
 
