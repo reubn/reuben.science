@@ -1,17 +1,17 @@
 import Head from 'next/head'
 
-import Category from '../../components/Category'
+import Category from '../Category'
 
-import {title, subtitle, categories, date, article} from './styles'
+import {title, subtitle, categories, date, post} from './styles'
 
-export default function PostTemplate({metadata, children}){
+export default function Post({metadata, children}){
   return (
     <>
       <Head>
         <title>{metadata.title}</title>
       </Head>
 
-      <article className={article}>
+      <article className={post}>
         <section className={categories}>{metadata.category.map(category => <Category category={category}/>)}</section>
         <h1 className={title}>{metadata.title}</h1>
         {metadata.subtitle && <h3 className={subtitle}>{metadata.subtitle}</h3>}

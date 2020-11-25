@@ -1,11 +1,11 @@
-.article {
+.post {
   max-width: 1000px;
   width: calc((100vw - 3.5rem));
 
   margin: 3rem auto 4rem auto;
 }
 
-.article *:not(li):not(figure) {
+.post *:not(li):not(figure) {
   max-width: 100%;
   overflow-x: scroll;
 }

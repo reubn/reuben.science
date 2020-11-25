@@ -1,7 +1,7 @@
 import dynamic from "next/dynamic"
 
 import { fetchPostSlugs } from "../../src/fetchPostSlugs"
-import PostTemplate from "../../components/PostTemplate"
+import Post from "../../components/Post"
 
 import processPostMetadata from '../../src/processPostMetadata'
 
@@ -12,7 +12,7 @@ const renderToString = slug => {
   return ReactDOMServer.renderToString(<Component />);
 }
 
-export default function Post({slug, metadata}) {
+export default function PostWrapper({slug, metadata}) {
   let mdx;
 
   if (process.browser) {
@@ -26,9 +26,9 @@ export default function Post({slug, metadata}) {
   }
 
   return (
-    <PostTemplate slug={slug} metadata={processPostMetadata(metadata)}>
+    <Post slug={slug} metadata={processPostMetadata(metadata)}>
       {mdx}
-    </PostTemplate>
+    </Post>
   )
 }
 
