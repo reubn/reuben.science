@@ -1,5 +1,3 @@
-import Head from 'next/head'
-
 import ActiveLink from '../ActiveLink'
 
 import categories from '../../content/categories'
