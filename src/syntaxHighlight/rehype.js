@@ -26,12 +26,15 @@ module.exports = (options) => {
 
     let result;
     try {
-      if(parent.tagName === 'pre') {
-        parent.properties.className = (parent.properties.className || []).concat(
+      const properties = {
+        className: (parent.properties.className || []).concat(
           'language-' + lang
-        );
-        parent.properties.metastring = node.properties.metastring;
+        ),
+        metastring: node.properties.metastring
       }
+
+      if(parent.tagName === 'pre') parent.properties = properties
+      node.properties = properties
 
       result = refractor.highlight(nodeToString(node), lang);
     } catch (err) {
