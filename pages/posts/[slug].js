@@ -5,6 +5,13 @@ import PostTemplate from "../../components/PostTemplate"
 
 import processPostMetadata from '../../src/processPostMetadata'
 
+const renderToString = slug => {
+  const Component = require(`../../content/posts/${slug}`).default;
+  const ReactDOMServer = require("react-dom/server");
+
+  return ReactDOMServer.renderToString(<Component />);
+}
+
 export default function Post({slug, metadata}) {
   let mdx;
 
@@ -13,16 +20,13 @@ export default function Post({slug, metadata}) {
 
     mdx = <Mdx />;
   } else {
-    const Component = require(`../../content/posts/${slug}`).default;
-    const ReactDOMServer = require("react-dom/server");
-
-    const ssr = ReactDOMServer.renderToString(<Component />);
+    const ssr = renderToString(slug)
 
     mdx = <div dangerouslySetInnerHTML={{ __html: ssr }} />;
   }
 
   return (
-    <PostTemplate metadata={processPostMetadata(metadata)}>
+    <PostTemplate slug={slug} metadata={processPostMetadata(metadata)}>
       {mdx}
     </PostTemplate>
   )
@@ -30,11 +34,14 @@ export default function Post({slug, metadata}) {
 
 export const getStaticProps = ctx => {
   const slug = ctx.params?.slug;
+  const metadata = processPostMetadata(require(`../../content/posts/${slug}`).metadata)
+  // const preview = renderToString(slug).substring(0, 200)
 
   return {
     props: {
       slug,
-      metadata: processPostMetadata(require(`../../content/posts/${slug}`).metadata),
+      metadata
+      // preview
     },
   };
 };
