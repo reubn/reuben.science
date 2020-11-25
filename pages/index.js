@@ -141,10 +141,8 @@ export default function Home({posts}) {
   )
 }
 
-export const getStaticProps = async () => {
-  return {
-    props: {
-      posts: (await posts.getStaticPaths()).paths.map(posts.getStaticProps).map(({props: {metadata, slug}}) => ({metadata, slug}))
-    },
-  };
-};
+export const getStaticProps = async () => ({
+  props: {
+    posts: (await posts.getStaticPaths()).paths.map(posts.getStaticProps).map(({props}) => props)
+  }
+})
