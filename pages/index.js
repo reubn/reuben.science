@@ -20,7 +20,7 @@ export default function Home({posts}) {
       </Head>
 
       <main className={me}>
-        <Memoji className={memoji} frameCount={frameCount} getFrameURL={getFrameURL}/>
+        <Memoji className={memoji} frameCount={frameCount} getFrameURL={getFrameURL} width={Math.floor(459 * 1.5)} height={Math.floor(350 * 1.5)}/>
         {posts.map(props => <PostLink {...props} />)}
       </main>
     </>
