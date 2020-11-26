@@ -2,31 +2,36 @@ import {useEffect, useRef, useState} from 'react'
 
 import {memoji as memojiStyle, ready as readyStyle, notReady as notReadyStyle} from './styles'
 
-const Memoji = ({frameCount, getFrameURL, defaultFrame=Math.floor(frameCount / 2), width, height, className, ...props}) => {
+const Memoji = ({frameCount, getFrameURL, defaultFrameNumber=Math.floor(frameCount / 2), width, height, className, ...props}) => {
   const canvasRef = useRef(null)
-  const {current: videoFrames} = useRef([])
+  const {current: memojiFrames} = useRef([])
   const {current: savedMousePosition} = useRef({})
 
   const [ready, setReady] = useState(false)
+  const [framesLoading, setFramesLoading] = useState(false)
+  const [singleFrameReady, setSingleFrameReady] = useState(false)
 
   const loadImages = async () => {
-    const promises = Array.from({length: frameCount}, async (_, frame) => videoFrames[frame] = await createImage(frame))
+    setFramesLoading(true)
+    createFrame(defaultFrameNumber).then(() => setSingleFrameReady(true))
+
+    const promises = Array.from({length: frameCount}, async (_, frameNumber) => memojiFrames[frameNumber] = await createFrame(frameNumber))
 
     return Promise.all(promises)
   }
 
-  const createImage = async frame => {
-    if(videoFrames[frame]) return videoFrames[frame]
+  const createFrame = async frameNumber => {
+    if(memojiFrames[frameNumber]) return memojiFrames[frameNumber]
 
-    const frameImage = new Image()
-    frameImage.src = getFrameURL(frame)
+    const frame = new Image()
+    frame.src = getFrameURL(frameNumber)
 
-    await frameImage.decode()
+    await frame.decode()
 
-    return frameImage
+    return frame
   }
 
-  const drawImage = image => {
+  const drawFrame = image => {
     if(!image || !canvasRef.current) return
     const context = canvasRef.current.getContext("2d")
 
@@ -49,14 +54,15 @@ const Memoji = ({frameCount, getFrameURL, defaultFrame=Math.floor(frameCount / 2
     }
 
     window.requestAnimationFrame(() => {
-      const currentIndex = Math.floor(Math.max(Math.min(fraction * frameCount, frameCount), 0))
-      const currentImage = videoFrames[currentIndex]
+      const currentFrameNumber = Math.floor(Math.max(Math.min(fraction * frameCount, frameCount), 0))
+      const currentFrame = memojiFrames[currentFrameNumber]
 
-      drawImage(currentImage)
+      drawFrame(currentFrame)
     })
   }
 
   useEffect(() => {
+    console.log({singleFrameReady, ready, framesLoading})
     const canvas = canvasRef.current
 
     // canvas position + sizing
@@ -65,10 +71,13 @@ const Memoji = ({frameCount, getFrameURL, defaultFrame=Math.floor(frameCount / 2
     // translate to center of canvas
     const [mx, my] = [vx + (vw / 2), vy + (vh / 2)]
 
-    if(!ready) loadImages()
+    if(!framesLoading) loadImages()
       .then(() => setReady(true))
-      .then(async () => drawImage(await createImage(defaultFrame)))
-    else try {tiltHead({mx, my, ...savedMousePosition})} catch(_){console.log('')}
+      .then(async () => drawFrame(await createFrame(defaultFrameNumber)))
+
+    if(singleFrameReady) drawFrame(memojiFrames[defaultFrameNumber])
+
+    if(!ready) try {tiltHead({mx, my, ...savedMousePosition})} catch(_){console.log('')}
 
     const handler = event => {
       const {clientX: cx, clientY: cy} = event
@@ -123,11 +132,11 @@ const Memoji = ({frameCount, getFrameURL, defaultFrame=Math.floor(frameCount / 2
       return () => window.removeEventListener('mousemove', handler)
     }
 
-  }, [ready])
+  }, [ready, singleFrameReady, framesLoading])
 
 
   return  (
-    <canvas {...props} className={[memojiStyle, className || '', ready ? readyStyle : notReadyStyle].join(' ')} ref={canvasRef} width={width} height={height} />
+    <canvas {...props} className={[memojiStyle, className || '', (ready || singleFrameReady) ? readyStyle : notReadyStyle].join(' ')} ref={canvasRef} width={width} height={height} />
   )
 }
 
