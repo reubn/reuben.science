@@ -9,8 +9,13 @@ const withMDX = require('@next/mdx')({
 
 module.exports = withPlugins([[withMDX]], {
   pageExtensions: ['js', 'jsx', 'md', 'mdx'],
-  webpack: config => {
+  webpack: (config, {isServer}) => {
     config.resolve.extensions.push('.md', '.mdx', '.css', '.module.css')
+
+    // Fixes npm packages that depend on `fs` module
+    if(!isServer) config.node = {
+      fs: 'empty'
+    }
 
     return config
   }

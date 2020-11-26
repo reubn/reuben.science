@@ -1,10 +1,18 @@
+import fs from "fs"
+import path from "path"
+
 import dynamic from "next/dynamic"
 
+import readingTime from 'reading-time'
 
 import Post from "../../components/Post"
 
-import fetchPostSlugs from "./fetchPostSlugs"
-import processPost from './processPost'
+export const processPost = ({metadata, content}) => ({
+  ...metadata,
+  readingTime: content ? readingTime(content).text : undefined
+})
+
+export const allPostSlugs = async () => fs.promises.readdir(path.join(process.cwd(), "content/posts"))
 
 const renderToString = slug => {
   const Component = require(`../../content/posts/${slug}`).default
@@ -16,18 +24,13 @@ const renderToString = slug => {
 export default function PostWrapper({slug, metadata}) {
   let mdx
 
-  if (process.browser) {
+  if(process.browser) {
     const Mdx = dynamic(() => import(`../../content/posts/${slug}`))
-
     mdx = <Mdx />
-  } else {
-    const ssr = renderToString(slug)
-
-    mdx = <div dangerouslySetInnerHTML={{ __html: ssr }} />
-  }
+  } else mdx = <div dangerouslySetInnerHTML={{ __html: renderToString(slug) }} />
 
   return (
-    <Post slug={slug} metadata={processPost({metadata})}>
+    <Post slug={slug} metadata={processPost({metadata, content: renderToString(slug)})}>
       {mdx}
     </Post>
   )
@@ -43,15 +46,15 @@ export const getStaticProps = ctx => {
       slug,
       metadata
       // preview
-    },
+    }
   }
 }
 
 export async function getStaticPaths() {
-  const slugs = await fetchPostSlugs()
+  const slugs = await allPostSlugs()
 
   return {
-    paths: slugs?.map((slug) => ({params: {slug}})),
+    paths: slugs?.map(slug => ({params: {slug}})),
     fallback: false // In a static-only build, we don't need fallback rendering.
   }
 }
