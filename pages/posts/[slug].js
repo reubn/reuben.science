@@ -9,7 +9,7 @@ import Post from "../../components/Post"
 
 export const processPost = ({metadata, content}) => ({
   ...metadata,
-  readingTime: content ? readingTime(content).text : undefined
+  readingTime: content ? readingTime(content).text.replace(' read', '') : undefined
 })
 
 export const allPostSlugs = async () => fs.promises.readdir(path.join(process.cwd(), "content/posts"))

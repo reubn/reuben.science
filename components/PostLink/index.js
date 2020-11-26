@@ -7,8 +7,7 @@ export default ({slug, metadata: {title, subtitle, emoji, readingTime}, ...props
     <a {...props}>
       <div className={postStyle}>
           <p className={titleStyle}><span className={emojiStyle}>{emoji}</span>{title}</p>
-        <p className={subtitleStyle}>{subtitle || ''}</p>
-        <p className={subtitleStyle}>{readingTime || ''}</p>
+        <p className={subtitleStyle}>{subtitle || ''} — {readingTime}</p>
       </div>
     </a>
   )
