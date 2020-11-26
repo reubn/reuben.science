@@ -1,0 +1,22 @@
+.main {
+  max-width: 1000px;
+  width: calc((100vw - 3.5rem));
+
+  margin: 3rem auto;
+  /* margin-top: 3rem; */
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+@media (max-width: 650px) {
+  .main {
+    width: calc((100vw - 2rem));
+  }
+}
+
+.postLink {
+  width: 100%;
+}

@@ -3,7 +3,6 @@
   /* background: linear-gradient(135deg, hsla(205deg, 30%, 13%, 1) 0%, hsla(205deg, 30%, 11%, 1) 100%); */
   padding: 0.5rem 1.5rem;
   border-radius: 5px;
-  margin: 0;
   transition: all 0.15s ease-out;
 }
 
@@ -11,6 +10,7 @@
   transform: scale(1.05);
   /* background: linear-gradient(135deg, hsla(205deg, 30%, 15%, 1) 0%, hsla(205deg, 30%, 13%, 1) 100%); */
   background: linear-gradient(135deg, hsla(205deg, 30%, 13%, 1) 0%, hsla(205deg, 30%, 11%, 1) 100%);
+  box-shadow: 0 0 2rem 1rem hsla(205deg, 30%, 5%, 0.5);
 
   transition: all 0.2s cubic-bezier(.47,0,0,1.54);
 }
@@ -58,7 +58,6 @@
 
   overflow: hidden;
   white-space: nowrap;
-  width: 0;
   opacity: 0;
   display: inline-block;
 
@@ -68,6 +67,5 @@
 }
 
 .post:hover .readingTime {
-  width: initial;
   opacity: 1;
 }

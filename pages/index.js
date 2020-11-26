@@ -1,10 +1,9 @@
 import Head from 'next/head'
 
-import ActiveLink from '../components/ActiveLink'
 import Memoji from '../components/Memoji'
 import PostLink from '../components/PostLink'
 
-import {me, memoji, postLink, name, postsHeading, foreword} from './styles'
+import {me, memoji, name, postsHeading, posts as postsStyle, postLink, foreword} from './styles'
 
 import * as posts from './posts/[slug].js'
 
@@ -32,7 +31,9 @@ export default function Home({posts}) {
 
         <span className={foreword}>No idea what's gonna end up on here but enjoy what is a placeholder piece of text!</span>
         <p className={postsHeading}>Posts</p>
-        {sortedPosts.map(props => <PostLink key={props.slug} {...props} className={postLink}/>)}
+        <section className={postsStyle}>
+          {sortedPosts.map(props => <PostLink key={props.slug} {...props} className={postLink}/>)}
+        </section>
       </main>
     </>
   )
