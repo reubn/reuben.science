@@ -27,7 +27,7 @@ const Memoji = ({frameCount, getFrameURL, defaultFrame=Math.floor(frameCount / 2
   }
 
   const drawImage = image => {
-    if(!image) return
+    if(!image || !canvasRef.current) return
     const context = canvasRef.current.getContext("2d")
 
     // center image
