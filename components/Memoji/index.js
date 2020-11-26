@@ -77,7 +77,7 @@ const Memoji = ({frameCount, getFrameURL, defaultFrameNumber=Math.floor(frameCou
 
     if(singleFrameReady) drawFrame(memojiFrames[defaultFrameNumber])
 
-    if(!ready) try {tiltHead({mx, my, ...savedMousePosition})} catch(_){console.log('')}
+    if(ready) try {tiltHead({mx, my, ...savedMousePosition})} catch(_){}
 
     const handler = event => {
       const {clientX: cx, clientY: cy} = event
