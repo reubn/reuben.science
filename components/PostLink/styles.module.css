@@ -3,7 +3,7 @@
   /* background: linear-gradient(135deg, hsla(205deg, 30%, 13%, 1) 0%, hsla(205deg, 30%, 11%, 1) 100%); */
   padding: 0.5rem 1.5rem;
   border-radius: 5px;
-  margin: 0.5rem 0;
+  margin: 0;
   transition: all 0.15s ease-out;
 }
 
@@ -13,6 +13,12 @@
   background: linear-gradient(135deg, hsla(205deg, 30%, 13%, 1) 0%, hsla(205deg, 30%, 11%, 1) 100%);
 
   transition: all 0.2s cubic-bezier(.47,0,0,1.54);
+}
+
+@media (max-width: 650px) {
+  .post {
+    padding: 0.5rem 1rem;
+  }
 }
 
 .title {
@@ -31,9 +37,37 @@
   line-height: normal;
 }
 
+@media (max-width: 650px) {
+  .emoji {
+    font-size: 1rem;
+  }
+}
+
 .subtitle {
   color: hsl(205deg, 5%, 60%);
   font-weight: 400;
   line-height: 1;
   font-size: 0.9rem;
+}
+
+.readingTime {
+  font-weight: 500;
+  font-size: 0.8rem;
+  color: var(--colours-blue);
+  vertical-align: middle;
+
+  overflow: hidden;
+  white-space: nowrap;
+  width: 0;
+  opacity: 0;
+  display: inline-block;
+
+  user-select: none;
+
+  transition: opacity 0.2s ease-in;
+}
+
+.post:hover .readingTime {
+  width: initial;
+  opacity: 1;
 }

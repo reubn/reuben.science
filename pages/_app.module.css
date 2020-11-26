@@ -37,10 +37,22 @@
   }
 }
 
+@media (max-width: 350px) {
+  .header {
+    padding: 1rem 1rem;
+  }
+}
+
 .logo {
-  height: 6rem;
+  width: 6rem;
   pointer-events: initial;
 
+}
+
+@media (max-width: 400px) {
+  .logo {
+    width: 4rem;
+  }
 }
 
 .nav {

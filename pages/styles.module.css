@@ -11,6 +11,12 @@
   align-items: center;
 }
 
+@media (max-width: 650px) {
+  .me {
+    width: calc((100vw - 2rem));
+  }
+}
+
 /* .me * {
   max-width: 100%;
   overflow-x: scroll;
