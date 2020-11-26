@@ -13,6 +13,13 @@ const getFrameURL = frame => `/me-360t/frame-${frame * 3}.webp`
 
 
 export default function Home({posts}) {
+  const sortedPosts = posts
+    .map(({props}) => {
+      props.metadata.date = new Date(props.metadata.date)
+      return props
+    })
+    .sort(({metadata: {date: a}}, {metadata: {date: b}}) => a - b)
+
   return (
     <>
       <Head>
@@ -25,7 +32,7 @@ export default function Home({posts}) {
 
         <span className={foreword}>No idea what's gonna end up on here but enjoy what is a placeholder piece of text!</span>
         <p className={postsHeading}>Posts</p>
-        {[...posts, ...posts, ...posts].map(props => <PostLink {...props} className={postLink}/>)}
+        {sortedPosts.map(props => <PostLink key={props.slug} {...props} className={postLink}/>)}
       </main>
     </>
   )
@@ -33,6 +40,6 @@ export default function Home({posts}) {
 
 export const getStaticProps = async () => ({
   props: {
-    posts: (await posts.getStaticPaths()).paths.map(posts.getStaticProps).map(({props}) => props)
+    posts: (await posts.getStaticPaths()).paths.map(posts.getStaticProps)
   }
 })
