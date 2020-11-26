@@ -42,7 +42,7 @@ const Memoji = ({frameCount, getFrameURL, defaultFrameNumber=Math.floor(frameCou
     context.drawImage(image, x, y)
   }
 
-  const tiltHead = ({mx, my, cx, cy, fraction=null}) => {
+  const interactionToFrameNumber = ({mx, my, cx, cy, fraction=null}) => {
     if(fraction === null) {
       // delta between center and mouse
       const [dx, dy] = [cx - mx, cy - my]
@@ -53,12 +53,29 @@ const Memoji = ({frameCount, getFrameURL, defaultFrameNumber=Math.floor(frameCou
       fraction = (normalised / (2 * Math.PI))
     }
 
-    window.requestAnimationFrame(() => {
-      const currentFrameNumber = Math.floor(Math.max(Math.min(fraction * frameCount, frameCount), 0))
-      const currentFrame = memojiFrames[currentFrameNumber]
+    return Math.floor(Math.max(Math.min(fraction * frameCount, frameCount), 0))
+  }
 
-      drawFrame(currentFrame)
-    })
+  const tiltHead = ({mx, my, cx, cy, fraction=null}) => {
+    const frameNumber = interactionToFrameNumber({mx, my, cx, cy, fraction})
+
+    window.requestAnimationFrame(() => drawFrame(memojiFrames[frameNumber]))
+  }
+
+  const animateHead = ({fr, to}) => {
+    if(isNaN(to)) return
+
+    const direction = to > fr ? +1 : -1
+    const difference = Math.abs(to - fr)
+
+    let frameNumber = fr;
+    const interval = setInterval(() => {
+      frameNumber = frameNumber + direction;
+
+      if((direction === -1 && (frameNumber < to)) || (direction === 1 && (frameNumber > to))) return clearInterval(interval)
+
+      window.requestAnimationFrame(() => drawFrame(memojiFrames[frameNumber]))
+    }, 7)
   }
 
   useEffect(() => {
@@ -77,7 +94,9 @@ const Memoji = ({frameCount, getFrameURL, defaultFrameNumber=Math.floor(frameCou
 
     if(singleFrameReady) drawFrame(memojiFrames[defaultFrameNumber])
 
-    if(ready) try {tiltHead({mx, my, ...savedMousePosition})} catch(_){}
+    if(ready) try {
+      animateHead({fr: defaultFrameNumber, to: interactionToFrameNumber({mx, my, ...savedMousePosition})})
+    } catch(_){}
 
     const handler = event => {
       const {clientX: cx, clientY: cy} = event
@@ -92,10 +111,9 @@ const Memoji = ({frameCount, getFrameURL, defaultFrameNumber=Math.floor(frameCou
       tiltHead({mx, my, cx, cy})
     }
 
-
-
     let touched = false
     if("ontouchstart" in window && !touched) {
+      // crude animate head before touch interaction
       let f = 0
       let direction = +1
       const intervalA = setInterval(() => tiltHead({fraction: (f = (f + 1 + (direction * 0.01 * Math.random())) % 1)}), 10)
