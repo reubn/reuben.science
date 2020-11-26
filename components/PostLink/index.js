@@ -2,12 +2,13 @@ import ActiveLink from '../ActiveLink'
 
 import {post as postStyle, title as titleStyle, subtitle as subtitleStyle, emoji as emojiStyle} from './styles'
 
-export default ({slug, metadata: {title, subtitle, emoji}}) => {
+export default ({slug, metadata: {title, subtitle, emoji, readingTime}, ...props}) => {
   const post = active => (
-    <a>
+    <a {...props}>
       <div className={postStyle}>
-        <p className={titleStyle}><span className={emojiStyle}>{emoji}</span>{title}</p>
+          <p className={titleStyle}><span className={emojiStyle}>{emoji}</span>{title}</p>
         <p className={subtitleStyle}>{subtitle || ''}</p>
+        <p className={subtitleStyle}>{readingTime || ''}</p>
       </div>
     </a>
   )

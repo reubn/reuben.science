@@ -4,7 +4,7 @@ import dynamic from "next/dynamic"
 import Post from "../../components/Post"
 
 import fetchPostSlugs from "./fetchPostSlugs"
-import processPostMetadata from './processPostMetadata'
+import processPost from './processPost'
 
 const renderToString = slug => {
   const Component = require(`../../content/posts/${slug}`).default
@@ -27,7 +27,7 @@ export default function PostWrapper({slug, metadata}) {
   }
 
   return (
-    <Post slug={slug} metadata={processPostMetadata(metadata)}>
+    <Post slug={slug} metadata={processPost({metadata})}>
       {mdx}
     </Post>
   )
@@ -35,7 +35,7 @@ export default function PostWrapper({slug, metadata}) {
 
 export const getStaticProps = ctx => {
   const slug = ctx.params?.slug
-  const metadata = processPostMetadata(require(`../../content/posts/${slug}`).metadata)
+  const metadata = processPost({metadata: require(`../../content/posts/${slug}`).metadata, content: renderToString(slug)})
   // const preview = renderToString(slug).substring(0, 200)
 
   return {

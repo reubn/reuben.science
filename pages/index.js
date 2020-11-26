@@ -4,7 +4,7 @@ import ActiveLink from '../components/ActiveLink'
 import Memoji from '../components/Memoji'
 import PostLink from '../components/PostLink'
 
-import {me, memoji} from './styles'
+import {me, memoji, postLink, name, postsHeading, foreword} from './styles'
 
 import * as posts from './posts/[slug].js'
 
@@ -20,8 +20,12 @@ export default function Home({posts}) {
       </Head>
 
       <main className={me}>
+        <h1 className={name}>Reuben Eggar</h1>
         <Memoji className={memoji} frameCount={frameCount} getFrameURL={getFrameURL} width={Math.floor(459 * 1.5)} height={Math.floor(350 * 1.5)}/>
-        {posts.map(props => <PostLink {...props} />)}
+
+        <span className={foreword}>No idea what's gonna end up on here but enjoy what is a placeholder piece of text!</span>
+        <p className={postsHeading}>Posts</p>
+        {[...posts, ...posts, ...posts].map(props => <PostLink {...props} className={postLink}/>)}
       </main>
     </>
   )

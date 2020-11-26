@@ -1,16 +1,16 @@
 .post {
   display: block;
-  background: linear-gradient(135deg, hsla(205deg, 30%, 13%, 1) 0%, hsla(205deg, 30%, 11%, 1) 100%);
+  /* background: linear-gradient(135deg, hsla(205deg, 30%, 13%, 1) 0%, hsla(205deg, 30%, 11%, 1) 100%); */
   padding: 0.5rem 1.5rem;
   border-radius: 5px;
-  margin: 0.5rem 1rem;
+  margin: 0.5rem 0;
   transition: all 0.15s ease-out;
-
 }
 
 .post:hover {
   transform: scale(1.05);
-  background: linear-gradient(135deg, hsla(205deg, 30%, 15%, 1) 0%, hsla(205deg, 30%, 13%, 1) 100%);
+  /* background: linear-gradient(135deg, hsla(205deg, 30%, 15%, 1) 0%, hsla(205deg, 30%, 13%, 1) 100%); */
+  background: linear-gradient(135deg, hsla(205deg, 30%, 13%, 1) 0%, hsla(205deg, 30%, 11%, 1) 100%);
 
   transition: all 0.2s cubic-bezier(.47,0,0,1.54);
 }
@@ -19,11 +19,16 @@
   color: #fefefe;
   font-weight: 500;
   line-height: 1;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .emoji {
   font-size: 1.25rem;
   margin-right: 0.5rem;
+  user-select: none;
+  line-height: normal;
 }
 
 .subtitle {
