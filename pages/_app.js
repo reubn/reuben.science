@@ -1,5 +1,7 @@
 import Head from 'next/head'
 
+import {Camera, Twitter, Instagram, GitHub} from 'react-feather'
+
 import ActiveLink from '../components/ActiveLink'
 
 import '../styles/globals.css'
@@ -7,7 +9,7 @@ import '../styles/prism-theme.css'
 
 import Logo from '../components/Logo'
 
-import {app, header, content, logo, nav, link, active as activeStyle} from './_app.module.css'
+import {app, header, content, logo, nav, link, active as activeStyle, footer, icons, icon} from './_app.module.css'
 
 function App({Component, pageProps}) {
   // console.log(pageProps)
@@ -51,6 +53,14 @@ function App({Component, pageProps}) {
         <main className={content}>
           <Component {...pageProps} />
         </main>
+        <footer className={footer}>
+          <p className={icons}>
+            <Camera className={icon} />
+            <GitHub className={icon} />
+            <Twitter className={icon} />
+            <Instagram className={icon} />
+          </p>
+        </footer>
       </section>
     </>
   )
