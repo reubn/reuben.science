@@ -89,7 +89,7 @@ const Memoji = ({frameCount, getFrameURL, defaultFrame=Math.floor(frameCount / 2
     if("ontouchstart" in window && !touched) {
       let f = 0
       let direction = +1
-      const intervalA = setInterval(() => tiltHead({fraction: (f = (f + 1 + (direction * 0.01 * Math.random())) % 1)}), 15)
+      const intervalA = setInterval(() => tiltHead({fraction: (f = (f + 1 + (direction * 0.01 * Math.random())) % 1)}), 10)
       const intervalB = setInterval(() => direction *= Math.random() > 0.5 ? -1 : +1, 10 * 200)
 
       const touchHandler = event => {
@@ -111,8 +111,10 @@ const Memoji = ({frameCount, getFrameURL, defaultFrame=Math.floor(frameCount / 2
         clearInterval(intervalA)
         clearInterval(intervalB)
 
-        canvasRef.current.removeEventListener('touchstart', touchHandler, false)
-        canvasRef.current.removeEventListener('touchmove', touchHandler, false)
+        if(canvasRef.current){
+          canvasRef.current.removeEventListener('touchstart', touchHandler, false)
+          canvasRef.current.removeEventListener('touchmove', touchHandler, false)
+        }
       }
     }
     else {
