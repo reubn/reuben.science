@@ -1,3 +1,7 @@
+.memoji {
+  user-select: none;
+}
+
 .notReady {
   opacity: 0;
 }

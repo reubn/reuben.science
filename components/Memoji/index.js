@@ -1,6 +1,6 @@
 import {useEffect, useRef, useState} from 'react'
 
-import {ready as readyStyle, notReady as notReadyStyle} from './styles'
+import {memoji as memojiStyle, ready as readyStyle, notReady as notReadyStyle} from './styles'
 
 const Memoji = ({frameCount, getFrameURL, defaultFrame=Math.floor(frameCount / 2), width, height, className, ...props}) => {
   const canvasRef = useRef(null)
@@ -101,7 +101,7 @@ const Memoji = ({frameCount, getFrameURL, defaultFrame=Math.floor(frameCount / 2
 
         handler({clientX: cx, clientY: cy})
 
-        event.preventDefault()
+        // event.preventDefault()
       }
 
       canvasRef.current.addEventListener('touchstart', touchHandler, false)
@@ -127,7 +127,7 @@ const Memoji = ({frameCount, getFrameURL, defaultFrame=Math.floor(frameCount / 2
 
 
   return  (
-    <canvas {...props} className={[className || '', ready ? readyStyle : notReadyStyle].join(' ')} ref={canvasRef} width={width} height={height} />
+    <canvas {...props} className={[memojiStyle, className || '', ready ? readyStyle : notReadyStyle].join(' ')} ref={canvasRef} width={width} height={height} />
   )
 }
 
