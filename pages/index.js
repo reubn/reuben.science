@@ -29,8 +29,8 @@ export default function Home({posts}) {
         <h1 className={name}>Reuben Eggar</h1>
         <Memoji className={memoji} frameCount={frameCount} getFrameURL={getFrameURL} width={Math.floor(459 * 1.5)} height={Math.floor(350 * 1.5)}/>
 
-        <span className={foreword}>No idea what's gonna end up on here but enjoy what is a placeholder piece of text!</span>
-        <p className={postsHeading}>Posts</p>
+        <p className={foreword}>No idea what's gonna end up on here but enjoy what is a placeholder piece of text!</p>
+        <p className={postsHeading}>Recent Posts</p>
         <section className={postsStyle}>
           {sortedPosts.map(props => <PostLink key={props.slug} {...props} className={postLink}/>)}
         </section>
@@ -41,6 +41,6 @@ export default function Home({posts}) {
 
 export const getStaticProps = async () => ({
   props: {
-    posts: (await posts.getStaticPaths()).paths.map(posts.getStaticProps)
+    posts: (await posts.getStaticPaths()).paths.map(posts.getStaticProps).slice(0, 4)
   }
 })
