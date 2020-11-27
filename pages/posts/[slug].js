@@ -12,7 +12,7 @@ export const processPost = ({metadata, content}) => ({
   readingTime: content ? readingTime(content).text.replace(' read', '') : undefined
 })
 
-export const allPostSlugs = async () => (await fs.promises.readdir(path.join(process.cwd(), "content/posts"))).filter(path => !path.includes('.wip')).map(path => path.replace(/\.$/, ''))
+export const allPostSlugs = async () => (await fs.promises.readdir(path.join(process.cwd(), "content/posts"))).filter(path => !path.includes('.wip')).map(path => path.replace(/\..+$/, ''))
 
 const renderToString = slug => {
   const Component = require(`../../content/posts/${slug}`).default
