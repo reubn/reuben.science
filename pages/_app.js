@@ -1,17 +1,14 @@
 import Head from 'next/head'
 
-import {Camera, Twitter, Instagram, GitHub} from 'react-feather'
-
-import ActiveLink from '../components/ActiveLink'
-
 import '../styles/globals.css'
 import '../styles/prism-theme.css'
 
-import Logo from '../components/Logo'
+import Header from '../components/Header'
+import Footer from '../components/Footer'
 
-import {app, header, content, logo, nav, link, active as activeStyle, footer, icons, icon} from './_app.module.css'
+import {app, content} from './_app.module.css'
 
-function App({Component, pageProps}) {
+function App({Component, pageProps}){
   // console.log(pageProps)
   return (
     <>
@@ -38,29 +35,13 @@ function App({Component, pageProps}) {
         {/*<meta name="msapplication-TileColor" content="#ffffff" />*/}
         <meta name="msapplication-TileImage" content="/favicon-144x144.png" />
         <meta name="msapplication-config" content="/browserconfig.xml" />
-
-
       </Head>
       <section className={app}>
-        <header className={header}>
-          <Logo className={logo} easterEggPass="012345" easterEggCallback={() => alert('hello!')}/>
-          <section className={nav}>
-            <ActiveLink href="/" passHref>{active => <a className={`${link} ${active ? activeStyle : ''}`} style={{'--link-underline': 'linear-gradient(135deg, #FF5252 0%, #FC2727 100%)'}}>Home</a>}</ActiveLink>
-            <ActiveLink href="/posts" passHref>{active => <a className={`${link} ${active ? activeStyle : ''}`} style={{'--link-underline': 'linear-gradient(135deg, #0CE9E8 0%, #04A5FB 100%)'}}>Posts</a>}</ActiveLink>
-            <ActiveLink href="/me" passHref>{active => <a className={`${link} ${active ? activeStyle : ''}`} style={{'--link-underline': 'linear-gradient(135deg, #5E52FF 0%, #9F27FC 100%)'}}>Me</a>}</ActiveLink>
-          </section>
-        </header>
+        <Header />
         <main className={content}>
           <Component {...pageProps} />
         </main>
-        <footer className={footer}>
-          <p className={icons}>
-            <Camera className={icon} />
-            <GitHub className={icon} />
-            <Twitter className={icon} />
-            <Instagram className={icon} />
-          </p>
-        </footer>
+        <Footer />
       </section>
     </>
   )
