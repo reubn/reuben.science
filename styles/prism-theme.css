@@ -34,7 +34,7 @@
 .token.selector,
 .token.builtin,
 .token.inserted {
-  color: #3dfa89;
+  color: var(--colours-blue);
 }
 .token.operator,
 .token.entity,
@@ -75,7 +75,7 @@
 }
 
 .token.interpolation {
-  color: #3dfa89;
+  color: var(--colours-blue);
 }
 
 .token.argument {
