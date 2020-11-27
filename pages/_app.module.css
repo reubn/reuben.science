@@ -73,6 +73,8 @@
   font-weight:500;
   margin: auto 0.75rem;
 
+  min-height: 3rem;
+
   display: inline-flex;
   justify-content: center;
   align-items: center;
