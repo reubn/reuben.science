@@ -159,7 +159,7 @@
   font-weight: 500;
 }
 
-.content pre + caption {
+.content figure > pre + figcaption {
   margin-top: -1rem;
 }
 
@@ -232,11 +232,7 @@
   border-radius: 4px 4px 0 0;
 }
 
-.content figure p {
-  margin: 0;
-}
-
-.content caption {
+.content figure figcaption {
   display: block;
   font-family: var(--font-family);
 
@@ -251,12 +247,12 @@
 }
 
 @media (max-width: 650px) {
-  .content caption {
+  .content figure figcaption {
     padding: 1rem 1rem;
     font-size: 0.9rem;
   }
 }
 
-.content caption p {
+.content figure figcaption p {
   margin: 0;
 }

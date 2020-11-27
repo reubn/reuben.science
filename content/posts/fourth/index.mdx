@@ -7,54 +7,56 @@ export const metadata = {
   category: ['food']
 };
 
-# Nosse orbem Threicio socerumque caput
+``` jsx JSX
+// return incremented value this isnt a workable solution really is it?
+var foo = function (bar) {
+  return bar++;
+};
 
-## Molimine suo
+const test = {
+  a: 6,
+  b: 12
+}
 
-Lorem markdownum cunctis portentificisque et **aptabat reddat**, et ergo urbis
-profers cognita petit. Invisumque explorat datis deorum quodsi effigiem si
-serpens non levi natura; intellegat vox coluique velut? Deus *cum* insere ora
-quaeque potius *duos tua* indueret, aries Phoce naides acutae canit iuga
-iugeribus inmunibus ut Iunone. Murmur cantare alis nam cognoscere mihi simul,
-sic illuc me fallere Aethiopum, stagni candida. Ait pudore ait.
+console.log(foo(5));
+getComputedStyle(document.documentElement).getPropertyValue('--color-primary');
 
-1. Vestaque hinc omnis
-2. Commentaque deprendere posset sumptumque corpus
-3. Fugiens inque fecissem creatum penates numen
-4. Parens qui puerpera factum at nec pectora
-5. Trunco Titania Phrygios
-6. Animo et lacrimasque loco
+js^if (process.browser) {
+  const Mdx = dynamic(() => import(`../../content/posts/${slug}`));
 
-## Sinamus timeto aequora
+  mdx = <Mdx />;
+} else {
+  const Component = require(`../../content/posts/${slug} ${text + 6 % 100}`).default;
+  const ReactDOMServer = require('react-dom/server');
 
-Crocale Taurusque ulvam Maenalon, tendentem umerumque simul, a magis Deiphobum
-neci haec. Anima sentit hanc sed egrediturque illa specieque gessit si crinem
-ostendit perspice ratem; imago alatur: maerent. Et volucrem taurus, canor habet
-at, ter lenis. Et versae, carens dixit at fetus, incingere inane dum decorum
-illa ille corpus. Videres cibos fertur qualem vestrae, centum
-[manibus](http://oreinque.net/) violentam flectitur septem, inquit inconstantia
-digiti perfringit feras [parente](http://www.hominum-ad.org/fauces-est) sui.
+  const ssr = ReactDOMServer.renderToString(<Component />);
 
-## Ipsa nunc comes longum quatere versantes pararet
+  mdx = <div dangerouslySetInnerHTML={{ __html: ssr }} />;
+}
+```
+caption: My code *caption*
 
-Terrena erit una siquis ad ramos, ratis querellas celasset. Maeonios timentem
-faciem. Sit undas deprecor cristis litore, spemque et pennis aurum.
+Here is a footnote reference,[^b]
+another,[^longnote],
+and optionally there are inline
+notes.^[you can type them inline, which may be easier, since you don’t
+have to pick an identifier and move down to type the note.]
 
-## Contigit mea
+[^b]: Here is the footnote.
 
-Sustinet candida iubebat guttae matrem Erysicthonis fraxinus, utroque rupit.
-Herculis si descendere dumque tamen finge. Stantem cum urbem me galeam virtus,
-ante ausa coniunctior servant. Ferunt norat autem est Mavortius mansit. Fare
-visurus, quo de [deus](http://uncometu.com/) loquuntur fulvis fervet, nitentia
-[in](http://www.vobis-caelo.net/odium-superest.html).
+[^longnote]: Here’s one with multiple blocks.
 
-Tacitae lugubris ait Panaque ante pars tamen bis cum esse supremaque? Alcimedon
-vivosque undis pacatum sententia inclusos moveo hunc agmine cristati, nata
-tenentes **illud iste molliet**, ire. Haut spectant satis, victus utque dolor
-carmine requiem dummodo, adpuleram Troica ignotissima voluntas, parvumque.
-[Non](http://scilicet.org/visceribus-haut) sed tardius arma intellecta deo
-temptem!
+    Subsequent paragraphs are indented to show that they
+belong to the previous footnote.
 
-Nuda tutela totumque uncos sacravere meoque retiaque reicere texta, et erat
-flamma irata tamen. Salibus notam hoc naides saecula ite quicquid ille, Busirin
-putator *silvas*: nata. Cnosius constituunt oleis *praescius occasus*.
+        { some.code }
+
+    The whole paragraph can be indented, or just the first
+    line.  In this way, multi-paragraph footnotes work like
+    multi-paragraph list items.
+
+This paragraph won’t be part of the note, because it
+isn’t indented.
+
+![Stormtroopocat](https://images.unsplash.com/photo-1564415900645-30612d54dd0c?ixlib=rb-1.2.1&auto=format&fit=crop&w=2852&q=80 'The Stormtroopocat')
+caption: Oranges en La Mezquita de Sevilla
