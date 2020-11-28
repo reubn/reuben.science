@@ -29,14 +29,19 @@ export default function Post({slug, metadata, children}){
         itemListElements={[
           {
             position: 1,
-            name: 'Reuben',
+            name: 'Home',
             item: `https://${process.env.NEXT_PUBLIC_DOMAIN}/`,
           },
           {
             position: 2,
+            name: 'Posts',
+            item: `https://${process.env.NEXT_PUBLIC_DOMAIN}/posts`,
+          },
+          {
+            position: 3,
             name: metadata.title,
             item: `https://${process.env.NEXT_PUBLIC_DOMAIN}/posts/${slug}`,
-          },
+          }
         ]}
       />
 

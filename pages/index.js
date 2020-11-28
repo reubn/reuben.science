@@ -1,3 +1,5 @@
+import {NextSeo, BreadcrumbJsonLd} from 'next-seo'
+
 import Memoji from '../components/Memoji'
 import PostLink from '../components/PostLink'
 
@@ -22,6 +24,23 @@ export default function Home({posts, images}) {
 
   return (
     <>
+    <NextSeo
+      title="Home"
+      openGraph={{
+        title: 'Home',
+        site_name: process.env.NEXT_PUBLIC_DOMAIN,
+      }}
+    />
+
+    <BreadcrumbJsonLd
+      itemListElements={[
+        {
+          position: 1,
+          name: 'Home',
+          item: `https://${process.env.NEXT_PUBLIC_DOMAIN}/`,
+        }
+      ]}
+    />
       <main className={main}>
         <section className={me}>
           <Memoji className={memoji} frameCount={frameCount} getFrameURL={getFrameURL} width={Math.floor(459 * 1.5)} height={Math.floor(350 * 1.5)}/>

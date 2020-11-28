@@ -1,4 +1,4 @@
-import {NextSeo} from 'next-seo'
+import {NextSeo, BreadcrumbJsonLd} from 'next-seo'
 
 import PostLink from '../../components/PostLink'
 
@@ -22,6 +22,21 @@ export default function Home({posts}) {
           title: 'Posts',
           site_name: process.env.NEXT_PUBLIC_DOMAIN,
         }}
+      />
+
+      <BreadcrumbJsonLd
+        itemListElements={[
+          {
+            position: 1,
+            name: 'Home',
+            item: `https://${process.env.NEXT_PUBLIC_DOMAIN}/`,
+          },
+          {
+            position: 2,
+            name: 'Posts',
+            item: `https://${process.env.NEXT_PUBLIC_DOMAIN}/posts`,
+          }
+        ]}
       />
 
       <main className={main}>

@@ -39,7 +39,6 @@ function App({Component, pageProps}){
         <meta name="theme-color" content="#0E151B" />
       </Head>
       <DefaultSeo
-        title="Home"
         titleTemplate="%s | Reuben"
         description="Just some random stuff"
         openGraph={{
