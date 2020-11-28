@@ -6,7 +6,7 @@ const PostLink = ({slug, metadata: {title, subtitle, emoji, readingTime}, ...pro
   const post = active => (
     <a {...props}>
       <div className={postStyle}>
-          <p className={titleStyle}><span className={emojiStyle}>{emoji}</span>{title}</p>
+        <p className={titleStyle}><span className={emojiStyle}>{emoji}</span>{title}</p>
         <p className={subtitleStyle}>{subtitle || ''} <span className={readingTimeStyle}> • {readingTime}</span></p>
       </div>
     </a>

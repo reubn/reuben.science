@@ -23,19 +23,19 @@ const Gradient = () => (
 const Footer = () => (
   <footer className={footer}>
     <p className={icons}>
-      <a href="//unsplash.com/@re" className={unsplash}>
+      <a href="//unsplash.com/@re" className={unsplash} aria-label="unsplash">
         <Camera className={icon} />
       </a>
-      <a href="//github.com/reubn" className={github}>
+      <a href="//github.com/reubn" className={github} aria-label="github">
         <GitHub className={icon} />
       </a>
-      <a href="mailto:click.to.reveal@email.com" onClick={(() => window.location.href = `mailto:${localPart}@${domain}`)} className={mail}>
+      <a href="mailto:click.to.reveal@email.com" onClick={(() => window.location.href = `mailto:${localPart}@${domain}`)} className={mail} aria-label="email">
         <Mail className={icon} />
       </a>
-      <a href="//twitter.com/_reubn" className={twitter}>
+      <a href="//twitter.com/_reubn" className={twitter} aria-label="twitter">
         <Twitter className={icon} />
       </a>
-      <a href="//instagram.com/reubn" className={instagram}>
+      <a href="//instagram.com/reubn" className={instagram} aria-label="instagram">
         <Gradient />
         <Instagram className={icon} />
       </a>

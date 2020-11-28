@@ -14,7 +14,7 @@ export default function Post({metadata, children}){
       <article className={post}>
         <section className={categories}>{metadata.category.map(category => <Category category={category}/>)}</section>
         <h1 className={title}>{metadata.title}</h1>
-        {metadata.subtitle && <h3 className={subtitle}>{metadata.subtitle}</h3>}
+        {metadata.subtitle && <h2 className={subtitle}>{metadata.subtitle}</h2>}
         <span className={date}>{new Date(metadata.date).toLocaleDateString()}</span>
         {children}
       </article>
