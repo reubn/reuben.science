@@ -1,4 +1,4 @@
-.me {
+.main {
   max-width: 1000px;
   width: calc((100vw - 3.5rem));
 
@@ -12,15 +12,21 @@
 }
 
 @media (max-width: 650px) {
-  .me {
+  .main {
     width: calc((100vw - 2rem));
   }
 }
 
-/* .me * {
-  max-width: 100%;
-  overflow-x: scroll;
-} */
+.me {
+  display: grid;
+  grid-template-columns: auto auto;
+}
+
+@media (max-width: 800px) {
+  .me {
+    grid-template-columns: auto;
+  }
+}
 
 .memoji {
   margin: auto;
@@ -28,9 +34,18 @@
   max-width: 80vw;
 }
 
+.meText {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
 .name {
   font-weight: 400;
   line-height: 1;
+  font-size: 1.5rem;
+  color: #fefefe;
 }
 
 .foreword {
