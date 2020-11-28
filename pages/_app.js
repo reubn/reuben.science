@@ -1,5 +1,7 @@
 import Head from 'next/head'
 
+import {DefaultSeo} from 'next-seo'
+
 import '../styles/globals.css'
 import '../styles/prism-theme.css'
 
@@ -13,7 +15,6 @@ function App({Component, pageProps}){
   return (
     <>
       <Head>
-        <title>Reuben</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
 
         <link rel="apple-touch-icon" sizes="57x57" href="/favicon-57x57.png" />
@@ -32,10 +33,34 @@ function App({Component, pageProps}){
         <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192x192.png" />
         <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-        {/*<meta name="msapplication-TileColor" content="#ffffff" />*/}
         <meta name="msapplication-TileImage" content="/favicon-144x144.png" />
         <meta name="msapplication-config" content="/browserconfig.xml" />
+
+        <meta name="theme-color" content="#0E151B" />
       </Head>
+      <DefaultSeo
+        title="Home"
+        titleTemplate="%s | Reuben"
+        description="Just some random stuff"
+        openGraph={{
+          type: 'website',
+          site_name: 'reuben.science',
+          locale: 'en_GB',
+          images: [
+            {
+              url: 'https://reuben.science/og.png',
+              width: 1200,
+              height: 630,
+              alt: 'reuben.science',
+            }
+          ]
+        }}
+        twitter={{
+          handle: '@_reubn',
+          site: '@_reubn',
+          cardType: 'summary_large_image',
+        }}
+      />
       <section className={app}>
         <Header />
         <main className={content}>

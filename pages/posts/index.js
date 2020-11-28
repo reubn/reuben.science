@@ -1,4 +1,4 @@
-import Head from 'next/head'
+import {NextSeo} from 'next-seo'
 
 import PostLink from '../../components/PostLink'
 
@@ -16,9 +16,13 @@ export default function Home({posts}) {
 
   return (
     <>
-      <Head>
-        <title>Posts</title>
-      </Head>
+      <NextSeo
+        title="Posts"
+        openGraph={{
+          title: 'Posts',
+          site_name: 'reuben.science',
+        }}
+      />
 
       <main className={main}>
         {sortedPosts.map(props => <PostLink key={props.slug} {...props} className={postLink}/>)}

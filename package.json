@@ -15,6 +15,7 @@
     "hast-util-to-string": "^1.0.4",
     "next": "10.0.2",
     "next-compose-plugins": "^2.2.1",
+    "next-seo": "^4.17.0",
     "node-fetch": "^2.6.1",
     "react": "17.0.1",
     "react-dom": "17.0.1",
