@@ -57,6 +57,8 @@ jobs:
 
       - name: 🔥 Build Next.js Static Site  
         run: npm run export
+        env:
+          UNSPLASH_CLIENT_ID: ${{ secrets.UNSPLASH_CLIENT_ID }}
 
       - run: touch ./out/.nojekyll
 
