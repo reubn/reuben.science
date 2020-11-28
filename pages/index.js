@@ -2,6 +2,8 @@ import Memoji from '../components/Memoji'
 import PostLink from '../components/PostLink'
 
 import photos from '../src/photos'
+import sortPosts from '../src/sortPosts'
+
 
 import {main, me, memoji, heading, posts as postsStyle, photos as photosStyle, photo, postLink} from './styles'
 
@@ -9,7 +11,6 @@ import * as posts from './posts/[slug].js'
 
 const frameCount = Math.floor(315 / 3);
 const getFrameURL = frame => `/me-360t/frame-${frame * 3}.webp`
-
 
 export default function Home({posts, images}) {
   const sortedPosts = posts
@@ -31,7 +32,7 @@ export default function Home({posts, images}) {
         </section>
         <p className={heading}>Recent Posts</p>
         <section className={postsStyle}>
-          {sortedPosts.map(props => <PostLink key={props.slug} {...props} className={postLink}/>)}
+          {sortPosts(posts).map(props => <PostLink key={props.slug} {...props} className={postLink}/>)}
         </section>
 
         <p className={heading}>Recent Photos</p>

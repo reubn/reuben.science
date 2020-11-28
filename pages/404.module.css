@@ -1,0 +1,34 @@
+.errorCode {
+  --colour-a: #fefefe;
+  --colour-b: hsl(340deg, 100%, 50%);
+
+  --duration: 1.5s;
+  font-size: 5.5rem;
+  font-weight: 500;
+
+  animation-duration: var(--duration);
+  animation-name: errorFlash;
+  animation-iteration-count: infinite;
+}
+
+.errorCode:nth-child(2n) {
+  animation-delay: calc(var(--duration) / 2);
+}
+
+@keyframes errorFlash {
+  0% {
+    color: var(--colour-a);
+  }
+
+  49% {
+    color: var(--colour-a);
+  }
+
+  50% {
+    color: var(--colour-b);
+  }
+
+  100% {
+    color: var(--colour-b);
+  }
+}
