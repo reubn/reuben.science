@@ -27,6 +27,9 @@
 .github:hover svg {
   stroke: hsl(0, 0%, 30%);
 }
+.mail:hover svg {
+  stroke: #f05;
+}
 .twitter:hover svg {
   stroke: rgb(30 161 243);
 }
