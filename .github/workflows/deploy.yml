@@ -23,10 +23,10 @@ jobs:
         with:
           persist-credentials: false
     
-      - name: 📝 Load Environment Variables     
-        uses: c-py/action-dotenv-to-setenv@v2
-        with:
-          env-file: .env        
+#       - name: 📝 Load Environment Variables     
+#         uses: c-py/action-dotenv-to-setenv@v2
+#         with:
+#           env-file: .env        
      
       - name: 🚗 Install Node
         uses: actions/setup-node@v2-beta
@@ -56,10 +56,11 @@ jobs:
           key: ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}
 
       - name: 🔥 Build Next.js Static Site  
-        run: npm run export
-        env:
+      -  run: npx next build
+         env:
           UNSPLASH_CLIENT_ID: ${{ secrets.UNSPLASH_CLIENT_ID }}
-
+      -  run: npx next export
+        
       - run: touch ./out/.nojekyll
 
       - name: Deploy 🚀
