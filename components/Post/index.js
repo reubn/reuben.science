@@ -1,10 +1,10 @@
-import {NextSeo} from 'next-seo'
+import {NextSeo, BreadcrumbJsonLd, ArticleJsonLd} from 'next-seo'
 
 import Category from '../Category'
 
 import {title, description, categories, date as dateStyle, post} from './styles'
 
-export default function Post({metadata, children}){
+export default function Post({slug, metadata, children}){
   const date = new Date(metadata.date)
 
   return (
@@ -23,6 +23,29 @@ export default function Post({metadata, children}){
             tags: metadata.category,
           }
         }}
+      />
+
+      <BreadcrumbJsonLd
+        itemListElements={[
+          {
+            position: 1,
+            name: 'Reuben',
+            item: `https://${process.env.NEXT_PUBLIC_DOMAIN}/`,
+          },
+          {
+            position: 2,
+            name: metadata.title,
+            item: `https://${process.env.NEXT_PUBLIC_DOMAIN}/posts/${slug}`,
+          },
+        ]}
+      />
+
+      <ArticleJsonLd
+        title={metadata.title}
+        datePublished={date.toISOString()}
+        authorName={['Reuben']}
+        publisherName="Reuben"
+        description={metadata.description}
       />
 
       <article className={post}>
