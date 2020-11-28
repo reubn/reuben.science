@@ -15,7 +15,7 @@ export default function Post({metadata, children}){
         openGraph={{
           title: metadata.title,
           description: metadata.description,
-          site_name: process.env.DOMAIN,
+          site_name: process.env.NEXT_PUBLIC_DOMAIN,
           type: 'article',
           article: {
             publishedTime: date.toISOString(),

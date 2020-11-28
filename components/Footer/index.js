@@ -28,7 +28,7 @@ const Footer = () => (
       <a href="//github.com/reubn" className={github} aria-label="github">
         <GitHub className={icon} />
       </a>
-      <a href="mailto:click.to.reveal@email.com" onClick={(() => window.location.href = `mailto:${localPart}@${process.env.DOMAIN}`)} className={mail} aria-label="email">
+      <a href="mailto:click.to.reveal@email.com" onClick={(() => window.location.href = `mailto:${localPart}@${process.env.NEXT_PUBLIC_DOMAIN}`)} className={mail} aria-label="email">
         <Mail className={icon} />
       </a>
       <a href="//twitter.com/_reubn" className={twitter} aria-label="twitter">
