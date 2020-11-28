@@ -2,7 +2,7 @@ import {NextSeo} from 'next-seo'
 
 import Category from '../Category'
 
-import {title, subtitle, categories, date as dateStyle, post} from './styles'
+import {title, description, categories, date as dateStyle, post} from './styles'
 
 export default function Post({metadata, children}){
   const date = new Date(metadata.date)
@@ -28,7 +28,7 @@ export default function Post({metadata, children}){
       <article className={post}>
         <section className={categories}>{metadata.category.map(category => <Category category={category}/>)}</section>
         <h1 className={title}>{metadata.title}</h1>
-        {metadata.subtitle && <h2 className={subtitle}>{metadata.subtitle}</h2>}
+        {metadata.description && <h2 className={description}>{metadata.description}</h2>}
         <span className={dateStyle}>{date.toLocaleDateString()}</span>
         {children}
       </article>
