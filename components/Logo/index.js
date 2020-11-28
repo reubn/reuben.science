@@ -4,7 +4,7 @@ const rx = '20px'
 
 export default ({className='', easterEggCallback, easterEggPass, ...props}) => {
   let easterEggString = ''
-  const easterEgg = num => () => ((easterEggString += ('' + num)) === easterEggPass) ? (easterEggCallback(), easterEggString = '') : ((easterEggString.length === 6) && (easterEggString = ''))
+  const easterEgg = num => () => ((easterEggString += ('' + num)).endsWith(easterEggPass)) && (easterEggCallback(), easterEggString = '')
 
   return (
     <svg {...props} className={`${className} ${svg}`} viewBox="0 0 994 994">
