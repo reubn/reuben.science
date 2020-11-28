@@ -20,7 +20,7 @@ export default function Home({posts}) {
         title="Posts"
         openGraph={{
           title: 'Posts',
-          site_name: 'reuben.science',
+          site_name: process.env.DOMAIN,
         }}
       />
 

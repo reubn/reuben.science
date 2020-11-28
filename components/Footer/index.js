@@ -5,7 +5,6 @@ import ActiveLink from '../ActiveLink'
 import {footer, icons, icon, unsplash, github, mail, twitter, instagram} from './styles'
 
 const localPart = 'me'
-const domain = 'reuben.science'
 
 const Gradient = () => (
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 132 132" width="0" height="0">
@@ -29,7 +28,7 @@ const Footer = () => (
       <a href="//github.com/reubn" className={github} aria-label="github">
         <GitHub className={icon} />
       </a>
-      <a href="mailto:click.to.reveal@email.com" onClick={(() => window.location.href = `mailto:${localPart}@${domain}`)} className={mail} aria-label="email">
+      <a href="mailto:click.to.reveal@email.com" onClick={(() => window.location.href = `mailto:${localPart}@${process.env.DOMAIN}`)} className={mail} aria-label="email">
         <Mail className={icon} />
       </a>
       <a href="//twitter.com/_reubn" className={twitter} aria-label="twitter">

@@ -44,14 +44,14 @@ function App({Component, pageProps}){
         description="Just some random stuff"
         openGraph={{
           type: 'website',
-          site_name: 'reuben.science',
+          site_name: process.env.DOMAIN,
           locale: 'en_GB',
           images: [
             {
-              url: 'https://reuben.science/og.png',
+              url: `https://${process.env.DOMAIN}/og.png`,
               width: 1200,
               height: 630,
-              alt: 'reuben.science',
+              alt: process.env.DOMAIN,
             }
           ]
         }}
