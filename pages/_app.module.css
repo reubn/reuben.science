@@ -1,0 +1,258 @@
+.app {
+  --header-height: 6rem;
+
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+
+  overflow: scroll;
+
+  /* background-color: #0A0C10; */
+  background-color: hsl(205deg, 31%, 8%);
+  color: #fefefe;
+
+  -webkit-font-smoothing: antialiased;
+}
+
+.content {
+  overflow: hidden;
+
+  line-height: 1.6;
+  font-size: 1rem;
+
+  min-height: calc(100% - var(--header-height));
+
+  /* margin-bottom: 6rem; */
+}
+
+.content *:not(strong) > em {
+  font-weight: 400;
+  /* font-style: normal; */
+  transform: translateY(-1px) skew(-10deg, 0deg);
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.content strong > em {
+  font-family: 'Patrick Hand SC';
+  font-size: 1.5rem;
+  font-weight: 600;
+  font-style: normal;
+  color: var(--colours-yellow);
+  /* background: linear-gradient(135deg, hsl(45deg 100% 60%) 0%, hsl(50deg 100% 60%) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent; */
+
+  margin: 0 -2px 0 0;
+}
+
+/* HACK SAFARI DESKTOP + iOS  */
+@media not all and (min-resolution:.001dpcm) {
+    @media {
+        .content strong > em {  letter-spacing: -2px;}
+    }
+}
+
+.content strong > em::selection {
+  color: var(--colours-black);
+  -webkit-text-fill-color: initial;
+  background-color: var(--colours-yellow);
+}
+
+.content del {
+  text-decoration-thickness: 3px;
+  /* text-decoration-style: wavy; */
+  text-decoration-color: var(--colours-pink);
+}
+
+.content ul > li {
+  list-style-image: url("data:image/svg+xml;charset=utf-8,%3Csvg%20width%3D%2212%22%20height%3D%2212%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Ccircle%20fill%3D%22hsla%28205deg%2C%2015%25%2C%2020%25%2C%201%29%22%20cx%3D%226%22%20cy%3D%226%22%20r%3D%226%22%2F%3E%3C%2Fsvg%3E");
+}
+
+.content ol li:not([data-marker])::marker  {
+  content: initial ". ";
+  font-weight: 500;
+  color: hsla(205deg, 10%, 25%, 1);
+}
+
+.content li[data-marker]::marker {
+  content: attr(data-marker) " ";
+  font-weight: 500;
+  color: hsla(205deg, 10%, 25%, 1);
+}
+
+.content pre[metastring]{
+  position: relative;
+}
+.content pre[metastring]:before {
+  content: attr(metastring);
+
+  position: absolute;
+  right: calc(1.5rem - 3px);
+  top: calc(1.5rem - 3px);
+
+
+  font-family: var(--font-family);
+  font-weight: 500;
+  background: hsl(205deg, 20%, 20%);
+  padding: 3px 6px;
+  font-size: 0.8rem;
+  border-radius: 2px;
+
+  z-index: 1;
+}
+
+@media (max-width: 650px) {
+  .content pre[metastring]:before {
+    right: calc(1rem - 3px);
+    top: calc(1rem - 3px);
+  }
+}
+
+
+.content code {
+    background: linear-gradient(135deg, hsla(205deg, 30%, 13%, 1) 0%, hsla(205deg, 30%, 11%, 1) 100%);
+    /* background: linear-gradient(135deg, #0CE9E8 0%, #04A5FB 100%); */
+    padding: 1.5rem 2rem;
+    border-radius: 4px;
+    vertical-align: middle;
+    /* color: hsl(205deg 20% 6%); */
+
+    overflow: scroll;
+
+    position: relative;
+}
+
+
+@media (max-width: 650px) {
+  .content code {
+    padding: 1rem 1rem;
+  }
+}
+
+
+
+.content *:not(pre) > code::selection, .content pre::selection {
+  background-color: var(--colours-blue);
+}
+
+.content *:not(pre) > code {
+  background: hsla(205deg, 30%, 13%, 1);
+  white-space: nowrap;
+  padding: 1px 5px;
+}
+
+.content pre > code {
+  display: block;
+}
+
+.content pre, .content code {
+  font-weight: 400;
+  font-size: 0.9rem;
+  font-family: SF Mono, monospace;
+  -webkit-font-smoothing: subpixel-antialiased;
+
+}
+
+.content pre[class^="language"], .content code[class^="language"] {
+  font-weight: 500;
+}
+
+.content figure > pre + figcaption {
+  margin-top: -1rem;
+}
+
+.content a {
+  color: var(--colours-blue);
+}
+
+
+.content blockquote {
+    background: linear-gradient(135deg, hsla(205deg, 30%, 13%, 1) 0%, hsla(205deg, 30%, 11%, 1) 100%);
+    padding: 1rem 2rem;
+    border-radius: 4px;
+    vertical-align: middle;
+
+    overflow: scroll;
+}
+
+@media (max-width: 650px) {
+  .content blockquote {
+    padding: 0 1rem;
+    margin: 1rem auto;
+  }
+}
+
+.content hr {
+    border: 2px solid hsla(205deg, 20%, 15%, 1);
+    border-radius: 2px;
+    margin: 2rem;
+}
+
+
+.content table {
+  table-layout: fixed;
+  text-align: center;
+  background: linear-gradient(135deg, hsla(205deg, 30%, 13%, 1) 0%, hsla(205deg, 30%, 11%, 1) 100%);
+  padding: 0.5rem;
+  border-radius: 4px;
+}
+
+.content th, .content td, .content tr {
+  padding: 0.5rem;
+  border: 3px solid purple;
+  border-style: hidden;
+  font-size: 0.9rem;
+}
+
+.content thead th {
+  font-size: 1rem;
+  padding: 0.75rem 0;
+}
+
+.content img {
+    max-width: 100%;
+    background: #fefefe;
+    border-radius: 5px;
+    margin: 0.5rem auto;
+    display: flex;
+}
+
+.content figure {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.content figure img  {
+  width: 100%;
+  margin-bottom: 0;
+  border-radius: 4px 4px 0 0;
+}
+
+.content figure figcaption {
+  display: block;
+  font-family: var(--font-family);
+
+  font-weight: 400;
+  text-align: left;
+
+  background: hsla(205deg, 30%, 13%, 1);
+  width: 100%;
+  padding: 1rem 2rem;
+  margin: 0 auto;
+  border-radius: 0 0  4px 4px;
+}
+
+@media (max-width: 650px) {
+  .content figure figcaption {
+    padding: 1rem 1rem;
+    font-size: 0.9rem;
+  }
+}
+
+.content figure figcaption p {
+  margin: 0;
+}

@@ -1,0 +1,30 @@
+{
+  "name": "reuben",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "export": "next build && next export"
+  },
+  "dependencies": {
+    "@mapbox/rehype-prism": "^0.5.0",
+    "@mdx-js/loader": "^1.6.21",
+    "@next/mdx": "^10.0.2",
+    "hast-util-to-string": "^1.0.4",
+    "next": "10.0.2",
+    "next-compose-plugins": "^2.2.1",
+    "next-seo": "^4.17.0",
+    "node-fetch": "^2.6.1",
+    "react": "17.0.1",
+    "react-dom": "17.0.1",
+    "react-feather": "^2.0.9",
+    "reading-time": "^1.2.1",
+    "refractor": "^3.2.0",
+    "remark-captions": "^2.2.0",
+    "remark-numbered-footnotes": "^2.0.0",
+    "remark-sub-super": "^1.0.19",
+    "unist-util-visit": "^2.0.3"
+  }
+}
