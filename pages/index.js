@@ -3,7 +3,7 @@ import PostLink from '../components/PostLink'
 
 import photos from '../src/photos'
 
-import {main, me, memoji, meText, name, heading, posts as postsStyle, photos as photosStyle, photo, postLink, foreword} from './styles'
+import {main, me, memoji, heading, posts as postsStyle, photos as photosStyle, photo, postLink} from './styles'
 
 import * as posts from './posts/[slug].js'
 
@@ -24,9 +24,9 @@ export default function Home({posts, images}) {
       <main className={main}>
         <section className={me}>
           <Memoji className={memoji} frameCount={frameCount} getFrameURL={getFrameURL} width={Math.floor(459 * 1.5)} height={Math.floor(350 * 1.5)}/>
-          <div className={meText}>
-            <h1 className={name}>Reuben</h1>
-            <p className={foreword}>No idea what's gonna end up on here, inevitably just random shit</p>
+          <div>
+            <h1>Reuben</h1>
+            <p>No idea what's gonna end up on here, inevitably just some random shit</p>
           </div>
         </section>
         <p className={heading}>Recent Posts</p>
