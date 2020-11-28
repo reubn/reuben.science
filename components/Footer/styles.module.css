@@ -36,6 +36,7 @@
 
 .instagram svg {
   stroke: url(#instagram);
+  transform: rotate(-90deg);
 }
 .instagram stop {
   transition: all 0.2s ease-in-out;
