@@ -61,7 +61,7 @@ jobs:
           UNSPLASH_CLIENT_ID: ${{ secrets.UNSPLASH_CLIENT_ID }}
  
       -  name: 🔥 Export Next.js Static Site
-      -  run: npx next export
+         run: npx next export
         
       - run: touch ./out/.nojekyll
 
