@@ -5,6 +5,8 @@
   --duration: 1.5s;
   font-size: 5.5rem;
   font-weight: 500;
+  line-height: 0.4;
+  user-select: none;
 
   animation-duration: var(--duration);
   animation-name: errorFlash;
@@ -31,4 +33,9 @@
   100% {
     color: var(--colour-b);
   }
+}
+
+.errorMessage {
+  font-weight: 400;
+  margin-bottom: 4rem;
 }

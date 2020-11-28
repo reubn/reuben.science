@@ -1,7 +1,7 @@
 import PostLink from '../components/PostLink'
 
 import {main, heading, posts as postsStyle, postLink} from './styles'
-import {errorCode} from './404.module.css'
+import {errorCode, errorMessage} from './404.module.css'
 
 import sortPosts from '../src/sortPosts'
 
@@ -16,6 +16,7 @@ export default function Home({posts}) {
           <span className={errorCode}>0</span>
           <span className={errorCode}>4</span>
         </h1>
+        <h2 className={errorMessage}>ngl idk where this page is</h2>
 
         <p className={heading}>Recent Posts</p>
         <section className={postsStyle}>
