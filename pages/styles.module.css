@@ -3,7 +3,6 @@
   width: calc((100vw - 3.5rem));
 
   margin: 3rem auto;
-  /* margin-top: 3rem; */
 
   display: flex;
   flex-direction: column;
@@ -45,7 +44,7 @@
   font-weight: 500;
   line-height: 1;
   font-size: 1.5rem;
-  color: #fefefe;
+  color: var(--colours-light);
 
   margin: 0;
 }
@@ -54,7 +53,7 @@
   text-align: center;
   width: 66%;
 
-  color: hsl(205deg, 10%, 80%);
+  color: var(--colours-mid);
 }
 
 .heading {
@@ -88,6 +87,7 @@
 .photo {
   display: flex;
   justify-content: center;
+  height: fit-content;
 }
 
 @media (max-width: 650px) {
@@ -99,7 +99,6 @@
 .photo img {
   width: 100%;
   max-width: var(--image-size);
-  height: fit-content;
   height: intrinsic;
   margin: 0;
 
@@ -110,7 +109,7 @@
 
 .photo:hover img {
   transform: scale(1.05);
-  box-shadow: 0 0 2rem 1rem hsla(205deg, 30%, 5%, 0.5);
+  box-shadow: 0 0 2rem 1rem var(--colours-dark-shadow);
 
   transition: all 0.2s cubic-bezier(.47,0,0,1.54);
 }
@@ -126,7 +125,6 @@
   grid-template-columns: repeat(var(--columns), auto);
   column-gap: 1rem;
   row-gap: 1rem;
-  /* width: 50%; */
   align-self: center;
 
   width: 100%;

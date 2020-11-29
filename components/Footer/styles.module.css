@@ -1,7 +1,7 @@
 .footer {
   width: 100%;
   height: 7rem;
-  background: linear-gradient(135deg, hsla(205deg, 30%, 12%, 1) 0%, hsla(205deg, 30%, 10%, 1) 100%);
+  background: linear-gradient(135deg, var(--colours-dark-2) 0%, var(--colours-dark-1) 100%);
 
   display: flex;
   justify-content: center;
@@ -30,7 +30,7 @@
   stroke: #f05;
 }
 .twitter:hover svg {
-  stroke: rgb(30 161 243);
+  stroke: hsl(203, 90%, 54%);
 }
 
 .instagram svg {
