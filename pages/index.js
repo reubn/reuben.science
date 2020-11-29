@@ -14,7 +14,7 @@ import * as posts from './posts/[slug].js'
 const frameCount = Math.floor(315 / 3);
 const getFrameURL = frame => `/me-360t/frame-${frame * 3}.webp`
 
-export default function Home({posts, images}) {
+export default function Home({posts, images, imageSize}) {
   const sortedPosts = posts
     .map(({props}) => {
       props.metadata.date = new Date(props.metadata.date)
@@ -55,7 +55,7 @@ export default function Home({posts, images}) {
         </section>
 
         <p className={heading}>Recent Photos</p>
-        <section className={photosStyle}>
+        <section className={photosStyle} style={{'--columns': Math.min(images.length, 4), '--image-size': `${imageSize}px`}}>
           {images.map(({src, id}) => (
             <a href={`https://unsplash.com/photos/${id}`} className={photo} aria-label={`Unsplash Photo ${id}`}>
               <img src={src} key={id} alt={`Unsplash Photo ${id}`}/>
@@ -70,6 +70,7 @@ export default function Home({posts, images}) {
 export const getStaticProps = async () => ({
   props: {
     posts: (await posts.getStaticPaths()).paths.map(posts.getStaticProps).slice(0, 4),
-    images: (await photos()).slice(0, 8)
+    images: (await photos()).slice(0, 8),
+    imageSize: process.env.UNSPLASH_SIZE
   }
 })
