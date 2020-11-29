@@ -100,8 +100,6 @@
 .photo img {
   width: 100%;
   max-width: var(--image-size);
-  /* height: fit-content; */
-  /* object-fit: contain; */
   height: intrinsic;
   margin: 0;
 
