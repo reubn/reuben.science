@@ -26,7 +26,7 @@
   line-height: 1.1;
   overflow: hidden;
 
-  color: hsl(205, 5%, 60%);
+  color: var(--colours-mid-2);
   margin-top: -1rem;
 }
 
@@ -40,7 +40,7 @@
   font-size: 0.9rem;
   text-align: right;
   width: 100%;
-  color: hsl(205, 16%, 21%);
+  color: var(--colours-dark-3);
 
   letter-spacing: 0.8px;
 }

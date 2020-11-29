@@ -18,10 +18,10 @@
 .token.prolog,
 .token.doctype,
 .token.cdata {
-  color: hsl(205, 15%, 30%);
+  color: var(--colours-dark-5);
 }
 .token.punctuation {
-  color: hsl(205, 16%, 40%)
+  color: var(--colours-dark-7)
 }
 .token.property,
 .token.boolean,
@@ -29,7 +29,7 @@
 .token.constant,
 .token.symbol,
 .token.deleted {
-  color: #c34ef9;
+  color: var(--colours-purple);
 }
 .token.selector,
 .token.builtin,
@@ -41,27 +41,27 @@
 .token.url,
 .language-css .token.string,
 .style .token.string {
-  color: #ffed61;
+  color: var(--colours-yellow);
 }
 .token.atrule,
 .token.attr-value,
 .token.keyword,
 .token.attr-name {
-  color: hsl(327, 80%, 60%);
+  color: var(--colours-pink);
 }
 .token.function {
-  color: hsl(240, 100%, 70%);
+  color: var(--colours-indigo);
 }
 .token.regex,
 .token.important,
 .token.variable,
 .token.tag {
-  color: #ffc629;
+  color: var(--colours-orange);
 }
 
 .token.string,
 .token.char {
-  color: #fefefe;
+  color: var(--colours-light);
 }
 .token.important,
 .token.bold {
@@ -79,17 +79,17 @@
 }
 
 .token.argument {
-  color: #ffc629;
+  color: var(--colours-orange);
 }
 
 .token.script.language-javascript {
-  color: #fefefe;
+  color: var(--colours-light);
 }
 
 .language-bash .token.variable {
-  color: hsl(240, 100%, 70%);
+  color: var(--colours-indigo);
 }
 
 .language-swift .token.builtin {
-  color: #ffc629;
+  color: var(--colours-orange);
 }

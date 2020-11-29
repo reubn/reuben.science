@@ -1,6 +1,6 @@
 .errorCode {
-  --colour-a: #fefefe;
-  --colour-b: hsl(340, 100%, 50%);
+  --colour-a: var(--colours-light);
+  --colour-b: var(--colours-pink-red);
 
   --duration: 1.5s;
   font-size: 5.5rem;
@@ -38,5 +38,5 @@
 .errorMessage {
   font-weight: 400;
   margin-bottom: 4rem;
-  color: hsl(205, 10%, 80%);
+  color: var(--colours-mid);
 }

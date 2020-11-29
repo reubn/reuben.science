@@ -10,28 +10,28 @@ export default ({className='', easterEggCallback, easterEggPass, ...props}) => {
     <svg {...props} className={`${className} ${svg}`} viewBox="0 0 994 994">
       <defs>
           <linearGradient x1="0%" y1="0%" x2="99.9884439%" y2="99.9884439%" id="orange">
-              <stop stopColor="#FF6638" offset="0.0115561319%"></stop>
-              <stop stopColor="#FC9A27" offset="100%"></stop>
+              <stop stopColor="hsl(14, 100%, 61%)" offset="0.0115561319%"></stop>
+              <stop stopColor="hsl(32, 97%, 57%)" offset="100%"></stop>
           </linearGradient>
           <linearGradient x1="100%" y1="100%" x2="0%" y2="0%" id="yellow">
-              <stop stopColor="#FCEE27" offset="0%"></stop>
-              <stop stopColor="#FFE238" offset="100%"></stop>
+              <stop stopColor="hsl(56, 97%, 57%)" offset="0%"></stop>
+              <stop stopColor="hsl(51, 100%, 61%)" offset="100%"></stop>
           </linearGradient>
           <linearGradient x1="8.8817842e-14%" y1="8.8817842e-14%" x2="100%" y2="100%" id="red">
-              <stop stopColor="#FF5252" offset="0%"></stop>
-              <stop stopColor="#FC2727" offset="100%"></stop>
+              <stop stopColor="hsl(0, 100%, 66%)" offset="0%"></stop>
+              <stop stopColor="hsl(0, 97%, 57%)" offset="100%"></stop>
           </linearGradient>
           <linearGradient x1="0%" y1="0%" x2="100%" y2="100%" id="blue">
-              <stop stopColor="#0CE9E8" offset="0%"></stop>
-              <stop stopColor="#04A5FB" offset="100%"></stop>
+              <stop stopColor="hsl(180, 90%, 48%)" offset="0%"></stop>
+              <stop stopColor="hsl(201, 97%, 50%)" offset="100%"></stop>
           </linearGradient>
           <linearGradient x1="0%" y1="-1.77635684e-13%" x2="100%" y2="100%" id="purple">
-              <stop stopColor="#5E52FF" offset="0%"></stop>
-              <stop stopColor="#9F27FC" offset="100%"></stop>
+              <stop stopColor="hsl(244, 100%, 66%)" offset="0%"></stop>
+              <stop stopColor="hsl(274, 97%, 57%)" offset="100%"></stop>
           </linearGradient>
           <linearGradient x1="100%" y1="100%" x2="-7.10542736e-13%" y2="7.10542736e-13%" id="green">
-              <stop stopColor="#5BFF52" offset="0%"></stop>
-              <stop stopColor="#27FCAE" offset="100%"></stop>
+              <stop stopColor="hsl(117, 100%, 66%)" offset="0%"></stop>
+              <stop stopColor="hsl(158, 97%, 57%)" offset="100%"></stop>
           </linearGradient>
       </defs>
       <g>

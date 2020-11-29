@@ -11,21 +11,20 @@
   z-index: 1;
 
   cursor: pointer;
-  background: linear-gradient(135deg, #0CE9E8 0%, #04A5FB 100%);
   background: var(--category-background);
-  color: #fefefe!important;
+  color: var(--colours-light)!important;
 }
 
 .category:active {
-  color: hsl(205, 31%, 8%)!important;
-  background: #fefefe;
+  color: var(--colours-dark)!important;
+  background: var(--colours-light);
 }
 
 .category:after {
   content: "";
   display: inline-block;
   position: absolute;
-  background: hsl(205, 31%, 8%);
+  background: var(--colours-dark);
   top: 2px;
   left: 2px;
   width: calc(100% - 4px);
@@ -45,5 +44,5 @@
 }
 
 .category:active:after {
-  background: #fefefe;
+  background: var(--colours-light);
 }
