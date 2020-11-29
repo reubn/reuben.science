@@ -1,6 +1,6 @@
 .errorCode {
   --colour-a: #fefefe;
-  --colour-b: hsl(340deg, 100%, 50%);
+  --colour-b: hsl(340, 100%, 50%);
 
   --duration: 1.5s;
   font-size: 5.5rem;
@@ -38,5 +38,5 @@
 .errorMessage {
   font-weight: 400;
   margin-bottom: 4rem;
-  color: hsl(205deg, 10%, 80%);
+  color: hsl(205, 10%, 80%);
 }

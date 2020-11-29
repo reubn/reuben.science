@@ -8,8 +8,7 @@
 
   overflow: scroll;
 
-  /* background-color: #0A0C10; */
-  background-color: hsl(205deg, 31%, 8%);
+  background-color: hsl(205, 31%, 8%);
   color: #fefefe;
 
   -webkit-font-smoothing: antialiased;
@@ -22,8 +21,6 @@
   font-size: 1rem;
 
   min-height: calc(100% - var(--header-height));
-
-  /* margin-bottom: 6rem; */
 }
 
 .content *:not(strong) > em {
@@ -40,9 +37,6 @@
   font-weight: 600;
   font-style: normal;
   color: var(--colours-yellow);
-  /* background: linear-gradient(135deg, hsl(45deg 100% 60%) 0%, hsl(50deg 100% 60%) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent; */
 
   margin: 0 -2px 0 0;
 }
@@ -62,7 +56,6 @@
 
 .content del {
   text-decoration-thickness: 3px;
-  /* text-decoration-style: wavy; */
   text-decoration-color: var(--colours-pink);
 }
 
@@ -73,13 +66,13 @@
 .content ol li:not([data-marker])::marker  {
   content: initial ". ";
   font-weight: 500;
-  color: hsla(205deg, 10%, 25%, 1);
+  color: hsl(205, 10%, 25%);
 }
 
 .content li[data-marker]::marker {
   content: attr(data-marker) " ";
   font-weight: 500;
-  color: hsla(205deg, 10%, 25%, 1);
+  color: hsl(205, 10%, 25%);
 }
 
 .content pre[metastring]{
@@ -95,7 +88,7 @@
 
   font-family: var(--font-family);
   font-weight: 500;
-  background: hsl(205deg, 20%, 20%);
+  background: hsl(205, 20%, 20%);
   padding: 3px 6px;
   font-size: 0.8rem;
   border-radius: 2px;
@@ -112,12 +105,10 @@
 
 
 .content code {
-    background: linear-gradient(135deg, hsla(205deg, 30%, 13%, 1) 0%, hsla(205deg, 30%, 11%, 1) 100%);
-    /* background: linear-gradient(135deg, #0CE9E8 0%, #04A5FB 100%); */
+    background: linear-gradient(135deg, hsl(205, 30%, 13%) 0%, hsl(205, 30%, 11%) 100%);
     padding: 1.5rem 2rem;
     border-radius: 4px;
     vertical-align: middle;
-    /* color: hsl(205deg 20% 6%); */
 
     overflow: scroll;
 
@@ -138,7 +129,7 @@
 }
 
 .content *:not(pre) > code {
-  background: hsla(205deg, 30%, 13%, 1);
+  background: hsl(205, 30%, 13%);
   white-space: nowrap;
   padding: 1px 5px;
 }
@@ -169,7 +160,7 @@
 
 
 .content blockquote {
-    background: linear-gradient(135deg, hsla(205deg, 30%, 13%, 1) 0%, hsla(205deg, 30%, 11%, 1) 100%);
+    background: linear-gradient(135deg, hsl(205, 30%, 13%) 0%, hsl(205, 30%, 11%) 100%);
     padding: 1rem 2rem;
     border-radius: 4px;
     vertical-align: middle;
@@ -185,7 +176,7 @@
 }
 
 .content hr {
-    border: 2px solid hsla(205deg, 20%, 15%, 1);
+    border: 2px solid hsl(205, 20%, 15%);
     border-radius: 2px;
     margin: 2rem;
 }
@@ -194,7 +185,7 @@
 .content table {
   table-layout: fixed;
   text-align: center;
-  background: linear-gradient(135deg, hsla(205deg, 30%, 13%, 1) 0%, hsla(205deg, 30%, 11%, 1) 100%);
+  background: linear-gradient(135deg, hsl(205, 30%, 13%) 0%, hsl(205, 30%, 11%) 100%);
   padding: 0.5rem;
   border-radius: 4px;
 }
@@ -239,7 +230,7 @@
   font-weight: 400;
   text-align: left;
 
-  background: hsla(205deg, 30%, 13%, 1);
+  background: hsl(205, 30%, 13%);
   width: 100%;
   padding: 1rem 2rem;
   margin: 0 auto;

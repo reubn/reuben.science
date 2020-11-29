@@ -18,10 +18,10 @@
 .token.prolog,
 .token.doctype,
 .token.cdata {
-  color: hsl(205deg, 15%, 30%);;
+  color: hsl(205, 15%, 30%);
 }
 .token.punctuation {
-  color: hsl(205deg, 16%, 40%)
+  color: hsl(205, 16%, 40%)
 }
 .token.property,
 .token.boolean,
@@ -47,10 +47,10 @@
 .token.attr-value,
 .token.keyword,
 .token.attr-name {
-  color: hsl(327deg 80% 60%);
+  color: hsl(327, 80%, 60%);
 }
 .token.function {
-  color: hsl(240deg 100% 70%);
+  color: hsl(240, 100%, 70%);
 }
 .token.regex,
 .token.important,
@@ -87,7 +87,7 @@
 }
 
 .language-bash .token.variable {
-  color: hsl(240deg 100% 70%);
+  color: hsl(240, 100%, 70%);
 }
 
 .language-swift .token.builtin {

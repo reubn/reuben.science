@@ -54,7 +54,7 @@
   text-align: center;
   width: 66%;
 
-  color: hsl(205deg, 10%, 80%);
+  color: hsl(205, 10%, 80%);
 }
 
 .heading {
@@ -110,7 +110,7 @@
 
 .photo:hover img {
   transform: scale(1.05);
-  box-shadow: 0 0 2rem 1rem hsla(205deg, 30%, 5%, 0.5);
+  box-shadow: 0 0 2rem 1rem hsla(205, 30%, 5%, 0.5);
 
   transition: all 0.2s cubic-bezier(.47,0,0,1.54);
 }

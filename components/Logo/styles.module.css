@@ -1,6 +1,6 @@
 .svg {
-  --colours-cloud: hsl(0deg 0% 98%);
-  --colours-peat: hsl(205deg 15% 20%);
+  --colours-cloud: hsl(0, 0%, 98%);
+  --colours-peat: hsl(205, 15%, 20%);
 }
 
 .re {
