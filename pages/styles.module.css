@@ -88,6 +88,7 @@
 .photo {
   display: flex;
   justify-content: center;
+  height: fit-content;
 }
 
 @media (max-width: 650px) {
@@ -99,7 +100,8 @@
 .photo img {
   width: 100%;
   max-width: var(--image-size);
-  height: fit-content;
+  /* height: fit-content; */
+  /* object-fit: contain; */
   height: intrinsic;
   margin: 0;
 
