@@ -38,4 +38,5 @@
 .errorMessage {
   font-weight: 400;
   margin-bottom: 4rem;
+  color: hsl(205deg, 10%, 80%);
 }
