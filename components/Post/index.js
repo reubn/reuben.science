@@ -54,7 +54,7 @@ export default function Post({slug, metadata, children}){
       />
 
       <article className={post}>
-        <section className={categories}>{metadata.category.map(category => <CategoryLink category={category}/>)}</section>
+        <section className={categories}>{metadata.category.map(category => <CategoryLink category={category} key={category} />)}</section>
         <h1 className={title}>{metadata.title}</h1>
         {metadata.description && <h2 className={description}>{metadata.description}</h2>}
         <span className={dateStyle}>{date.toLocaleDateString()}</span>
