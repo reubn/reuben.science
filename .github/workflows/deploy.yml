@@ -56,14 +56,9 @@ jobs:
           key: ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}
 
       - name: 🔥 Build Next.js Static Site  
-        run: npx next build
+        run: npm run export
         env:
           UNSPLASH_CLIENT_ID: ${{ secrets.UNSPLASH_CLIENT_ID }}
- 
-      -  name: 🔥 Export Next.js Static Site
-         run: npx next export
-        
-      - run: touch ./out/.nojekyll
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@3.7.1
