@@ -4,7 +4,8 @@ import PostLink from '../../components/PostLink'
 
 import sortPosts from '../../src/sortPosts'
 
-import {main, postLink} from './styles'
+import {main} from '../styles'
+import {postLink} from './styles'
 
 import * as posts from '../posts/[slug].js'
 
