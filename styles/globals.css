@@ -16,13 +16,6 @@ a {
   box-sizing: border-box;
 }
 
-:root{
-  --font-family: 'Rubik', 'PT Sans', 'Arial Rounded', sans-serif;
-
-  font-family: var(--font-family);
-  font-size: 18px;
-}
-
 ::selection {
   color: var(--colours-light);
   background-color: var(--colours-pink-red);
