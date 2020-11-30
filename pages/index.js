@@ -49,8 +49,8 @@ export default function Home({posts, images, imageSize}) {
         <p className={heading}>Recent Photos</p>
         <section className={photosStyle} style={{'--columns': Math.min(images.length, 4), '--image-size': `${imageSize}px`}}>
           {images.map(({src, id}) => (
-            <a href={`https://unsplash.com/photos/${id}`} className={photo} aria-label={`Unsplash Photo ${id}`}>
-              <img src={src} key={id} alt={`Unsplash Photo ${id}`}/>
+            <a href={`https://unsplash.com/photos/${id}`} className={photo} aria-label={`Unsplash Photo ${id}`} key={id}>
+              <img src={src} alt={`Unsplash Photo ${id}`}/>
             </a>)
           )}
         </section>
