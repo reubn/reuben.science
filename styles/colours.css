@@ -8,8 +8,8 @@
   /* DONE */ --colours-orange: hsl(42, 100%, 60%);
   /* DONE */ --colours-orange-hint: hsl(44, 100%, 58%);
 
-  /* TODO --colours-green: hsl(140, 95%, 61%); */
-  /* TODO --colours-green-hint: hsl(144, 95%, 61%); */
+  /* DONE */ --colours-green: hsl(140, 95%, 61%);
+  /* DONE */ --colours-green-hint: hsl(144, 95%, 61%);
 
   /* TODO --colours-aqua: hsl(165, 80%, 64%); */
   /* TODO --colours-aqua-hint: hsl(162, 80%, 60%); */
