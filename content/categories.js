@@ -4,5 +4,6 @@ export default {
   hardware: gradient('pink'),
   medicine: gradient('blue'),
   dev: gradient('blue'),
-  food: gradient('orange')
+  food: gradient('orange'),
+  automation: gradient('green')
 }

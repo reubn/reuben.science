@@ -6,7 +6,6 @@ import PostLink from '../components/PostLink'
 import photos from '../src/photos'
 import sortPosts from '../src/sortPosts'
 
-
 import {main, me, memoji, heading, posts as postsStyle, photos as photosStyle, photo, postLink} from './styles'
 
 import * as posts from './posts/[slug].js'
@@ -15,13 +14,6 @@ const frameCount = Math.floor(315 / 3);
 const getFrameURL = frame => `/me-360t/frame-${frame * 3}.webp`
 
 export default function Home({posts, images, imageSize}) {
-  const sortedPosts = posts
-    .map(({props}) => {
-      props.metadata.date = new Date(props.metadata.date)
-      return props
-    })
-    .sort(({metadata: {date: a}}, {metadata: {date: b}}) => a - b)
-
   return (
     <>
     <NextSeo
@@ -57,8 +49,8 @@ export default function Home({posts, images, imageSize}) {
         <p className={heading}>Recent Photos</p>
         <section className={photosStyle} style={{'--columns': Math.min(images.length, 4), '--image-size': `${imageSize}px`}}>
           {images.map(({src, id}) => (
-            <a href={`https://unsplash.com/photos/${id}`} className={photo} aria-label={`Unsplash Photo ${id}`}>
-              <img src={src} key={id} alt={`Unsplash Photo ${id}`}/>
+            <a href={`https://unsplash.com/photos/${id}`} className={photo} aria-label={`Unsplash Photo ${id}`} key={id}>
+              <img src={src} alt={`Unsplash Photo ${id}`}/>
             </a>)
           )}
         </section>
