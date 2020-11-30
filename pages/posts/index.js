@@ -7,7 +7,7 @@ import sortPosts from '../../src/sortPosts'
 import {main} from '../styles'
 import {postLink} from './styles'
 
-import * as posts from '../posts/[slug].js'
+import * as posts from './[slug].js'
 
 export default function Posts({posts}) {
   return (
