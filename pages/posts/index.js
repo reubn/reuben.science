@@ -2,18 +2,13 @@ import {NextSeo, BreadcrumbJsonLd} from 'next-seo'
 
 import PostLink from '../../components/PostLink'
 
+import sortPosts from '../../src/sortPosts'
+
 import {main, postLink} from './styles'
 
 import * as posts from '../posts/[slug].js'
 
-export default function Home({posts}) {
-  const sortedPosts = posts
-    .map(({props}) => {
-      props.metadata.date = new Date(props.metadata.date)
-      return props
-    })
-    .sort(({metadata: {date: a}}, {metadata: {date: b}}) => a - b)
-
+export default function Posts({posts}) {
   return (
     <>
       <NextSeo
@@ -40,7 +35,7 @@ export default function Home({posts}) {
       />
 
       <main className={main}>
-        {sortedPosts.map(props => <PostLink key={props.slug} {...props} className={postLink}/>)}
+        {sortPosts(posts).map(props => <PostLink key={props.slug} {...props} className={postLink}/>)}
       </main>
     </>
   )
