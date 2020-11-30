@@ -64,7 +64,7 @@ export const getStaticProps = async ctx => {
   }
 }
 
-export async function getStaticPaths() {
+export function getStaticPaths() {
 
   return {
     paths: Object.keys(categories).map(slug => ({params: {slug}})),
