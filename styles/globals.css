@@ -18,5 +18,5 @@ a {
 
 ::selection {
   color: var(--colours-light);
-  background-color: var(--colours-pink-red);
+  background-color: var(--colours-pink);
 }
