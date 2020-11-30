@@ -1,6 +1,6 @@
 import {NextSeo, BreadcrumbJsonLd, ArticleJsonLd} from 'next-seo'
 
-import Category from '../Category'
+import CategoryLink from '../CategoryLink'
 
 import {title, description, categories, date as dateStyle, post} from './styles'
 
@@ -54,7 +54,7 @@ export default function Post({slug, metadata, children}){
       />
 
       <article className={post}>
-        <section className={categories}>{metadata.category.map(category => <Category category={category}/>)}</section>
+        <section className={categories}>{metadata.category.map(category => <CategoryLink category={category}/>)}</section>
         <h1 className={title}>{metadata.title}</h1>
         {metadata.description && <h2 className={description}>{metadata.description}</h2>}
         <span className={dateStyle}>{date.toLocaleDateString()}</span>
