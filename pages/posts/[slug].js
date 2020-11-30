@@ -1,20 +1,31 @@
-import fs from "fs"
-import path from "path"
-
 import dynamic from "next/dynamic"
-
-import readingTime from 'reading-time'
 
 import Post from "../../components/Post"
 
-export const processPost = ({metadata, content}) => ({
-  ...metadata,
-  readingTime: content ? readingTime(content).text.replace(' read', '') : undefined
-})
+import postList from '../../content/posts/.list'
 
-export const allPostSlugs = async () => (await fs.promises.readdir(path.join(process.cwd(), "content/posts")))
-  .filter(path => process.env.SHOW_WIP === 'SHOW_WIP' || !path.includes('.wip.'))
-  .map(path => path.replace(/\.[^\.]+$/, ''))
+const dynamicImports = postList.reduce((map, slug) => ({...map, [slug]: dynamic(() => import(`../../content/posts/${slug}`))}), {})
+
+export const processPost = ({metadata, content}) => {
+  const readingTime = require('reading-time')
+
+  return {
+    ...metadata,
+    readingTime: content ? readingTime(content).text.replace(' read', '') : undefined
+  }
+}
+
+const getPostSlugs = async () => {
+  const fs = require('fs')
+  const path = require('path')
+
+  const posts = await fs.promises.readdir(path.join(process.cwd(), "content/posts"))
+
+  return posts
+    .filter(path => !path.startsWith('.'))
+    .filter(path => process.env.SHOW_WIP === 'SHOW_WIP' || !path.includes('.wip.'))
+    .map(path => path.replace(/\.[^\.]+$/, ''))
+}
 
 const renderToString = slug => {
   const Component = require(`../../content/posts/${slug}`).default
@@ -24,16 +35,11 @@ const renderToString = slug => {
 }
 
 export default function PostWrapper({slug, metadata}) {
-  let mdx
-
-  if(process.browser) {
-    const Mdx = dynamic(() => import(`../../content/posts/${slug}`))
-    mdx = <Mdx />
-  } else mdx = <div dangerouslySetInnerHTML={{ __html: renderToString(slug) }} />
+  const Mdx = dynamicImports[slug]
 
   return (
-    <Post slug={slug} metadata={processPost({metadata, content: renderToString(slug)})}>
-      {mdx}
+    <Post slug={slug} metadata={metadata}>
+      <Mdx />
     </Post>
   )
 }
@@ -41,24 +47,20 @@ export default function PostWrapper({slug, metadata}) {
 export const getStaticProps = ctx => {
   const slug = ctx.params?.slug
   const metadata = processPost({metadata: require(`../../content/posts/${slug}`).metadata, content: renderToString(slug)})
-  // const preview = renderToString(slug).substring(0, 200)
 
   return {
     props: {
       slug,
       metadata
-      // preview
     }
   }
 }
 
 export async function getStaticPaths() {
-  const slugs = await allPostSlugs()
+  const slugs = await getPostSlugs()
 
   return {
     paths: slugs?.map(slug => ({params: {slug}})),
-    fallback: false // In a static-only build, we don't need fallback rendering.
+    fallback: false
   }
 }
-
-// export const config = {unstable_runtimeJS: false}
