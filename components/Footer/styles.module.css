@@ -61,6 +61,12 @@
   display: block;
 }
 
+@media (max-width: 650px) {
+  .code {
+    display: none;
+  }
+}
+
 .code svg {
   stroke: var(--colours-dark-5);
 }
