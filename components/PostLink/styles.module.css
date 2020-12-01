@@ -28,6 +28,8 @@
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+
+  margin: 0.5rem auto;
 }
 
 .emoji {
