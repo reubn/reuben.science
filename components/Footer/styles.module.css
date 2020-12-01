@@ -6,6 +6,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
 }
 
 .icons {
@@ -50,4 +51,20 @@
 }
 .instagram:not(:hover) stop {
   stop-color: currentColor!important;
+}
+
+.code {
+  position: absolute;
+  right: 1rem;
+
+  line-height: 0;
+  display: block;
+}
+
+.code svg {
+  stroke: var(--colours-dark-5);
+}
+
+.code:hover svg {
+  stroke: currentColor;
 }
