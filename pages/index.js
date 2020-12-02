@@ -35,7 +35,7 @@ export default function Home({posts, images, imageSize}) {
     />
       <main className={main}>
         <section className={me}>
-          <Memoji className={memoji} frameCount={frameCount} getFrameURL={getFrameURL} width={Math.floor(459 * 1.5)} height={Math.floor(350 * 1.5)}/>
+          <Memoji className={memoji} frameCount={frameCount} getFrameURL={getFrameURL} width={Math.floor(459 * 1.5)} height={Math.floor(350 * 1.5)} />
           <div>
             <h1>Reuben</h1>
             <p>No idea what's gonna end up on here, inevitably just some random shit</p>
@@ -50,7 +50,7 @@ export default function Home({posts, images, imageSize}) {
         <section className={photosStyle} style={{'--columns': Math.min(images.length, 4), '--image-size': `${imageSize}px`}}>
           {images.map(({src, id}) => (
             <a href={`https://unsplash.com/photos/${id}`} className={photo} aria-label={`Unsplash Photo ${id}`} key={id}>
-              <img src={src} alt={`Unsplash Photo ${id}`}/>
+              <img src={src} alt={`Unsplash Photo ${id}`} />
             </a>)
           )}
         </section>

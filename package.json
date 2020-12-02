@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "node generateLists && next dev",
-    "build": "node generateLists && next build",
-    "export": "npm run build && next export",
+    "dev": "node ./buildScripts/before && next dev",
+    "build": "node ./buildScripts/before && next build",
+    "export": "npm run build && next export && node ./buildScripts/after",
     "dev-export": "npm run export && python3 -m http.server -d ./out"
   },
   "dependencies": {

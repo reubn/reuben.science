@@ -1,8 +1,8 @@
-import {Camera, Twitter, Instagram, GitHub, Mail} from 'react-feather'
+import {Camera, Twitter, Instagram, GitHub, Mail, Code} from 'react-feather'
 
 import ActiveLink from '../ActiveLink'
 
-import {footer, icons, icon, unsplash, github, mail, twitter, instagram} from './styles'
+import {footer, icons, icon, unsplash, github, mail, twitter, instagram, code} from './styles'
 
 const localPart = 'me'
 
@@ -39,6 +39,10 @@ const Footer = () => (
         <Instagram className={icon} />
       </a>
     </p>
+
+    <a href="//github.com/reubn/reuben.science" className={code} aria-label="source code">
+      <Code className={icon} />
+    </a>
   </footer>
 )
 

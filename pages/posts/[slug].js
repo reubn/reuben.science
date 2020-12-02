@@ -11,6 +11,7 @@ export const processPost = ({metadata, content}) => {
 
   return {
     ...metadata,
+    date: new Date(metadata.date).toISOString(),
     readingTime: content ? readingTime(content).text.replace(' read', '') : undefined
   }
 }

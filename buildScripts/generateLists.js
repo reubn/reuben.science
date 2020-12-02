@@ -1,11 +1,7 @@
 const fs = require('fs')
 const path = require('path')
 
-const env = require('@next/env')
-
-env.loadEnvConfig(process.cwd(), process.env.NODE_ENV === 'development')
-
-const generateLists = async () => {
+module.exports = async () => {
   const posts = await fs.promises.readdir(path.join(process.cwd(), 'content/posts'))
 
   const slugs = posts
@@ -17,5 +13,3 @@ const generateLists = async () => {
 
     console.log('Generated Lists')
 }
-
-generateLists()

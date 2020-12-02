@@ -5,6 +5,7 @@ html,
 body {
   padding: 0;
   margin: 0;
+  background-color: var(--colours-dark);
 }
 
 a {
@@ -18,5 +19,5 @@ a {
 
 ::selection {
   color: var(--colours-light);
-  background-color: var(--colours-pink-red);
+  background-color: var(--colours-pink);
 }
