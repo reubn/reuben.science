@@ -4,6 +4,8 @@ import Post from "../../components/Post"
 
 import postList from '../../content/posts/.list'
 
+import getPostSlugs from '../../src/getPostSlugs'
+
 const dynamicImports = postList.reduce((map, slug) => ({...map, [slug]: dynamic(() => import(`../../content/posts/${slug}`))}), {})
 
 export const processPost = ({metadata, content}) => {
@@ -14,18 +16,6 @@ export const processPost = ({metadata, content}) => {
     date: new Date(metadata.date).toISOString(),
     readingTime: content ? readingTime(content).text.replace(' read', '') : undefined
   }
-}
-
-const getPostSlugs = async () => {
-  const fs = require('fs')
-  const path = require('path')
-
-  const posts = await fs.promises.readdir(path.join(process.cwd(), "content/posts"))
-
-  return posts
-    .filter(path => !path.startsWith('.'))
-    .filter(path => process.env.SHOW_WIP === 'SHOW_WIP' || !path.includes('.wip.'))
-    .map(path => path.replace(/\.[^\.]+$/, ''))
 }
 
 const renderToString = slug => {
