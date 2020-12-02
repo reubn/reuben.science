@@ -78,15 +78,22 @@ const Memoji = ({frameCount, getFrameURL, defaultFrameNumber=Math.floor(frameCou
     }, 7)
   }
 
-  useEffect(() => {
-    console.log({singleFrameReady, ready, framesLoading})
-    const canvas = canvasRef.current
-
+  const getMemojiPosition = () => {
     // canvas position + sizing
     const {x: vx, y: vy, width: vw, height: vh} = canvasRef.current.getBoundingClientRect()
 
     // translate to center of canvas
-    const [mx, my] = [vx + (vw / 2), vy + (vh / 2)]
+    return {
+      mx: vx + (vw / 2),
+      my: vy + (vh / 2)
+    }
+  }
+
+  useEffect(() => {
+    console.log({singleFrameReady, ready, framesLoading})
+    const canvas = canvasRef.current
+
+    const {mx, my} = getMemojiPosition()
 
     if(!framesLoading) loadImages()
       .then(() => setReady(true))
@@ -95,7 +102,7 @@ const Memoji = ({frameCount, getFrameURL, defaultFrameNumber=Math.floor(frameCou
     if(singleFrameReady) drawFrame(memojiFrames[defaultFrameNumber])
 
     if(ready) try {
-      animateHead({fr: defaultFrameNumber, to: interactionToFrameNumber({mx, my, ...savedMousePosition})})
+      animateHead({fr: defaultFrameNumber, to: interactionToFrameNumber({...getMemojiPosition(), ...savedMousePosition})})
     } catch(_){}
 
     const handler = event => {
@@ -108,7 +115,7 @@ const Memoji = ({frameCount, getFrameURL, defaultFrameNumber=Math.floor(frameCou
         return
       }
 
-      tiltHead({mx, my, cx, cy})
+      tiltHead({...getMemojiPosition(), cx, cy})
     }
 
     let touched = false
