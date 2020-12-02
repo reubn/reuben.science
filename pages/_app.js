@@ -37,6 +37,8 @@ function App({Component, pageProps}){
         <meta name="msapplication-config" content="/browserconfig.xml" />
 
         <meta name="theme-color" content="#0E151B" />
+
+        <link rel="alternate" type="application/rss+xml" href={`https://${process.env.NEXT_PUBLIC_DOMAIN}/${process.env.NEXT_PUBLIC_RSS_FILE}`} />
       </Head>
       <DefaultSeo
         titleTemplate="%s | Reuben"
