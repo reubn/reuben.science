@@ -5,5 +5,5 @@ const response = fetch(`https://api.unsplash.com/users/${process.env.UNSPLASH_US
 export default async () => {
 	const json = await response
 
-  return json.map(({id, urls: {raw}}) => ({src: `${raw}?q=${process.env.UNSPLASH_QUALITY}&fm=auto&w=${process.env.UNSPLASH_SIZE}&fit=max`, id}))
+  return json.map(({id, urls: {raw}}) => ({id, src: `${raw}&q=${process.env.UNSPLASH_QUALITY}&fm=auto&w=${process.env.UNSPLASH_SIZE}&fit=max`}))
 }
