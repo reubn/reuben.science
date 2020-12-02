@@ -135,7 +135,7 @@ const Memoji = ({frameCount, getFrameURL, defaultFrameNumber=Math.floor(frameCou
 
         handler({clientX: cx, clientY: cy})
 
-        // event.preventDefault()
+        event.preventDefault()
       }
 
       canvasRef.current.addEventListener('touchstart', touchHandler, false)
