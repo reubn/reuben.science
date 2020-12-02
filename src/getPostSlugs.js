@@ -6,6 +6,13 @@ module.exports = async () => {
 
   return posts
     .filter(path => !path.startsWith('.'))
-    .filter(path => process.env.SHOW_WIP === 'SHOW_WIP' || !path.includes('.wip.'))
-    .map(path => path.endsWith('.wip') ? path.replace(/\.[^\.]+\.wip$/, '') : path.replace(/\.[^\.]+$/, ''))
+    .filter(path => process.env.SHOW_WIP === 'SHOW_WIP' || !path.includes('.wip'))
+    .map(path => path.endsWith('.wip') ? path : path.replace(/\.[^\.]+$/, ''))
 }
+
+
+// a.wip.mdx => a.wip
+// b.mdx => b
+// c.wip => c.wip
+// d => d
+// e.mdx.wip=>e.mdx.wip
