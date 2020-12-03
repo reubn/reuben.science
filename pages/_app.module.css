@@ -23,6 +23,11 @@
   min-height: calc(100% - var(--header-height));
 }
 
+.content abbr {
+  cursor: help;
+  text-decoration-color: var(--colours-accent);
+}
+
 .content *:not(strong) > em {
   font-weight: 400;
   /* font-style: normal; */
