@@ -3,6 +3,7 @@
 
 html,
 body {
+  --colours-accent: var(--colours-blue);
   padding: 0;
   margin: 0;
   background-color: var(--colours-dark);

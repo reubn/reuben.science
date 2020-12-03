@@ -127,7 +127,7 @@
 
 
 .content *:not(pre) > code::selection, .content pre::selection {
-  background-color: var(--colours-blue);
+  background-color: var(--colours-accent);
 }
 
 .content *:not(pre) > code {
@@ -157,7 +157,7 @@
 }
 
 .content a {
-  color: var(--colours-blue);
+  color: var(--colours-accent);
 }
 
 
