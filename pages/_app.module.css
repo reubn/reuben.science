@@ -248,3 +248,11 @@
 .content figure figcaption p {
   margin: 0;
 }
+
+.content :global(.footnotes) li a {
+  word-break: keep-all;
+}
+.content :global(.footnotes) li:target::marker {
+  content: "➡️  ";
+  color: var(--colours-accent);
+}
