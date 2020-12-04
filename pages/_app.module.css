@@ -209,23 +209,27 @@
 }
 
 .content img {
-    max-width: 100%;
-    background: var(--colours-light);
-    border-radius: 5px;
-    margin: 0.5rem auto;
-    display: flex;
+  max-width: 100%;
+  background: transparent;
+  border-radius: 5px;
+  margin: 3rem auto;
+  display: flex;
 }
 
 .content figure {
   display: block;
-  width: 100%;
+  width: max-content;
   max-width: 100%;
-  margin: 0 auto;
+  margin: 3rem auto;
 }
 
-.content figure img  {
+.content figure:global(.code){
+  display: inline;
+}
+
+.content figure img {
   width: 100%;
-  margin-bottom: 0;
+  margin: 0 auto;
   border-radius: 4px 4px 0 0;
 }
 
