@@ -254,6 +254,10 @@
   margin: 0;
 }
 
+.content :global(.footnotes) li::marker {
+  content: attr(ref-number) ". ";
+}
+
 .content :global(.footnotes) li a {
   word-break: keep-all;
 }

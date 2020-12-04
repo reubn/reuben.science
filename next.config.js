@@ -1,15 +1,15 @@
 const withPlugins = require('next-compose-plugins')
 const withMDX = require('@next/mdx')({
   options: {
-    remarkPlugins: [require('remark-numbered-footnotes'), require('remark-sub-super'), [require('remark-captions'), {
-    external: {
-      code: 'caption:',
-    },
-    internal: {
-      image: 'caption:',
-    }
-  }], require('./src/syntaxHighlight/remark')],
-    rehypePlugins: [require('./src/syntaxHighlight/rehype')],
+    remarkPlugins: [require('./src/refs/remark'), require('remark-sub-super'), [require('remark-captions'), {
+      external: {
+        code: 'caption:',
+      },
+      internal: {
+        image: 'caption:',
+      }
+    }], require('./src/syntaxHighlight/remark')],
+    rehypePlugins: [require('./src/refs/rehype'), require('./src/syntaxHighlight/rehype')],
   },
   extension: /\.mdx?$/
 })
