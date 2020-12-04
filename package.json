@@ -12,6 +12,7 @@
     "@mapbox/rehype-prism": "^0.5.0",
     "@mdx-js/loader": "^1.6.21",
     "@next/mdx": "^10.0.2",
+    "file-loader": "^6.2.0",
     "hast-util-to-string": "^1.0.4",
     "next": "10.0.2",
     "next-compose-plugins": "^2.2.1",

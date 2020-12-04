@@ -19,6 +19,15 @@ module.exports = withPlugins([[withMDX]], {
   webpack: (config, {isServer}) => {
     config.resolve.extensions.push('.md', '.mdx', '.css', '.module.css', '.json')
 
+    config.module.rules.push({
+        test: /\.(png|jpe?g|gif|svg|webp)$/i,
+        loader: "file-loader",
+        options: {
+          outputPath: '../public/.assets/',
+          publicPath: '/.assets/',
+        }
+    })
+
     return config
   }
 })
