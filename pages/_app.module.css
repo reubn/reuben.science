@@ -12,15 +12,20 @@
   color: var(--colours-light);
 
   -webkit-font-smoothing: antialiased;
+  text-rendering: optimizelegibility;
 }
 
 .content {
   overflow: visible;
 
-  line-height: 1.6;
+  line-height: 1.75;
   font-size: 1rem;
 
   min-height: calc(100% - var(--header-height));
+}
+
+.content h2 {
+  font-weight: 500;
 }
 
 .content abbr {
@@ -42,6 +47,8 @@
   font-weight: 600;
   font-style: normal;
   color: var(--colours-yellow);
+  white-space: nowrap;
+
 
   margin: 0 -2px 0 0;
 }
@@ -57,8 +64,7 @@
 
 .content strong > em::selection {
   color: var(--colours-black);
-  -webkit-text-fill-color: initial;
-  background-color: var(--colours-yellow);
+  background: var(--colours-yellow);
 }
 
 .content del {
@@ -151,6 +157,10 @@
   font-family: SF Mono, monospace;
   -webkit-font-smoothing: subpixel-antialiased;
 
+}
+
+.content h2 code {
+  font-size: 1.25rem;
 }
 
 .content pre[class^="language"], .content code[class^="language"] {
