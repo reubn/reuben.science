@@ -90,6 +90,7 @@
 
 .content pre[metastring]{
   position: relative;
+  overflow-x: hidden;
 }
 .content pre[metastring]:before {
   content: attr(metastring);
@@ -105,8 +106,18 @@
   padding: 3px 6px;
   font-size: 0.8rem;
   border-radius: 2px;
+  transition: all 0.5s cubic-bezier(.47,0,0,1.2);
+
 
   z-index: 1;
+}
+
+.content pre[metastring]:hover:before {
+
+  transform: translateX(calc((1.5rem - 3px) + 100%));
+  pointer-events: none;
+
+  transition: all 0.5s cubic-bezier(.47,0,0,1.8);
 }
 
 @media (max-width: 650px) {
