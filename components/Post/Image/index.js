@@ -4,9 +4,8 @@ import {loading} from './styles'
 
 import Lazy from '../../Lazy'
 
-const Image = ({src, className, ...props}) => {
-  const densities = Array.isArray(src) ? src : [src]
-  const srcset = densities.map((s, i) => `${s} ${i + 1}x`).join(', ')
+const Image = ({image, className, ...props}) => {
+  const {src, srcSet='', size: {width=1000, height=0}={}} = image
 
   const [loaded, setLoaded] = useState(!process.browser)
 
@@ -18,11 +17,11 @@ const Image = ({src, className, ...props}) => {
 
           onLoad={() => setLoaded(true)}
 
-          src={inView ? densities[0] : ''}
-          srcSet={inView ? srcset : ''}
+          src={inView ? src : ''}
+          srcSet={inView ? srcSet : ''}
 
-          width={src.meta.width || 1000}
-          height={src.meta.height || 0}
+          width={width}
+          height={height}
           className={loaded ? className : [loading, className].join(' ')}
           loading="lazy"
           {...props}

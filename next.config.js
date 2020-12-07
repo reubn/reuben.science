@@ -19,13 +19,21 @@ module.exports = withPlugins([[withMDX]], {
   webpack: (config, {isServer}) => {
     config.resolve.extensions.push('.md', '.mdx', '.css', '.module.css', '.json')
 
+    const fileOptions = {
+      outputPath: '../public/.assets/',
+      publicPath: '/.assets/',
+    }
+
     config.module.rules.push({
-        test: /\.(webp|webm|mov)$/i,
-        loader: "file-loader",
-        options: {
-          outputPath: '../public/.assets/',
-          publicPath: '/.assets/',
-        }
+        test: /\.(webp)$/i,
+        loader: './src/image-loader.js',
+        options: fileOptions
+    })
+
+    config.module.rules.push({
+        test: /\.(webm|mov)$/i,
+        loader: 'file-loader',
+        options: fileOptions
     })
 
     return config

@@ -3,7 +3,9 @@ import Lazy from '../../Lazy'
 
 import {loading} from './styles'
 
-const Video = ({srcSet, className, ...props}) => {
+const Video = ({video, className, ...props}) => {
+  const {sources, size: {width=1000, height=0}={}} = video
+
   const [loaded, setLoaded] = useState(!process.browser)
 
   return (
@@ -15,13 +17,13 @@ const Video = ({srcSet, className, ...props}) => {
 
           onLoadedData={() => setLoaded(true)}
 
-          width={srcSet.meta.width || 1000}
-          height={srcSet.meta.height || 0}
+          width={width}
+          height={height}
 
           className={loaded ? className : [loading, className].join(' ')}
 
           {...props}>
-          {srcSet.map(({src, ...srcProps}) => <source src={inView ? src : null} {...srcProps} />)}
+          {sources.map(({src, ...sourceProps}) => <source key={src} src={inView ? src : null} {...sourceProps} />)}
         </video>
       )}
     </Lazy>
