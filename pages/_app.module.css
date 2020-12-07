@@ -236,6 +236,8 @@
   border-radius: 5px;
   margin: 3rem auto;
   display: flex;
+  object-fit: cover;
+  height: auto;
 }
 
 .content figure {
