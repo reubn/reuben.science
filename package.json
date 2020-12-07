@@ -21,6 +21,7 @@
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "react-feather": "^2.0.9",
+    "react-intersection-observer": "^8.31.0",
     "reading-time": "^1.2.1",
     "refractor": "^3.2.0",
     "remark-captions": "^2.2.0",

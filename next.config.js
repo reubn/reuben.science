@@ -20,7 +20,7 @@ module.exports = withPlugins([[withMDX]], {
     config.resolve.extensions.push('.md', '.mdx', '.css', '.module.css', '.json')
 
     config.module.rules.push({
-        test: /\.(png|jpe?g|gif|svg|webp)$/i,
+        test: /\.(webp|webm|mov)$/i,
         loader: "file-loader",
         options: {
           outputPath: '../public/.assets/',
