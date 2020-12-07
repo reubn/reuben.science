@@ -44,3 +44,8 @@
 
   letter-spacing: 0.8px;
 }
+
+
+.body h2:not(:first-child) {
+  margin-top: 4rem;
+}

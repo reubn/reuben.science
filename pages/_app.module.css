@@ -190,6 +190,7 @@
 .content blockquote {
     background: linear-gradient(135deg, var(--colours-dark-2) 0%, var(--colours-dark-1) 100%);
     padding: 1rem 2rem;
+    margin: 4rem auto;
     border-radius: 4px;
     vertical-align: middle;
 
@@ -229,7 +230,7 @@
   padding: 0.75rem 0;
 }
 
-.content img {
+.content img, .content video {
   max-width: 100%;
   background: transparent;
   border-radius: 5px;
@@ -241,7 +242,7 @@
   display: block;
   width: max-content;
   max-width: 100%;
-  margin: 3rem auto;
+  margin: 4rem auto;
 }
 
 .content figure:global(.code){
