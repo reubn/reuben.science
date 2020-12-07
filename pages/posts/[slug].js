@@ -6,7 +6,7 @@ import postList from '../../content/posts/.list'
 
 import getPostSlugs from '../../src/getPostSlugs'
 
-const dynamicImports = postList.reduce((map, slug) => ({...map, [slug]: dynamic(() => import(`../../content/posts/${slug}`))}), {})
+const dynamicImports = postList.reduce((map, slug) => ({...map, [slug]: dynamic(() => import(`../../content/posts/${slug}/index.mdx`))}), {})
 
 export const processPost = ({metadata, content}) => {
   const readingTime = require('reading-time')
@@ -36,7 +36,7 @@ export default function PostWrapper({slug, metadata}) {
 
 export const getStaticProps = async ctx => {
   const slug = ctx.params?.slug
-  const post = await import(`../../content/posts/${slug}`)
+  const post = await import(`../../content/posts/${slug}/index.mdx`)
   const metadata = processPost({metadata: post.metadata, content: renderToString(post)})
 
   return {
