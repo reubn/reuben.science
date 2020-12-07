@@ -18,8 +18,7 @@ export const processPost = ({metadata, content}) => {
   }
 }
 
-const renderToString = slug => {
-  const Component = require(`../../content/posts/${slug}`).default
+const renderToString = ({default: Component}) => {
   const ReactDOMServer = require("react-dom/server")
 
   return ReactDOMServer.renderToString(<Component />)
@@ -35,9 +34,10 @@ export default function PostWrapper({slug, metadata}) {
   )
 }
 
-export const getStaticProps = ctx => {
+export const getStaticProps = async ctx => {
   const slug = ctx.params?.slug
-  const metadata = processPost({metadata: require(`../../content/posts/${slug}`).metadata, content: renderToString(slug)})
+  const post = await import(`../../content/posts/${slug}`)
+  const metadata = processPost({metadata: post.metadata, content: renderToString(post)})
 
   return {
     props: {

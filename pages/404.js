@@ -29,6 +29,6 @@ export default function Home({posts}) {
 
 export const getStaticProps = async () => ({
   props: {
-    posts: (await posts.getStaticPaths()).paths.map(posts.getStaticProps).slice(0, 4)
+    posts: await Promise.all((await posts.getStaticPaths()).paths.map(posts.getStaticProps).slice(0, 4))
   }
 })

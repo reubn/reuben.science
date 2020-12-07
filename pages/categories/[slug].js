@@ -59,7 +59,7 @@ export const getStaticProps = async ctx => {
   return {
     props: {
       slug,
-      posts: (await posts.getStaticPaths()).paths.map(posts.getStaticProps).filter(({props: {metadata: {category}}}) => category.includes(slug))
+      posts: (await Promise.all((await posts.getStaticPaths()).paths.map(posts.getStaticProps))).filter(({props: {metadata: {category}}}) => category.includes(slug))
     }
   }
 }

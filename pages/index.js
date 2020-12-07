@@ -61,7 +61,7 @@ export default function Home({posts, images, imageSize}) {
 
 export const getStaticProps = async () => ({
   props: {
-    posts: (await posts.getStaticPaths()).paths.map(posts.getStaticProps).slice(0, 4),
+    posts: await Promise.all((await posts.getStaticPaths()).paths.map(posts.getStaticProps).slice(0, 4)),
     images: (await photos()).slice(0, 8),
     imageSize: process.env.UNSPLASH_SIZE
   }
