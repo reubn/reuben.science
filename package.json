@@ -6,7 +6,7 @@
     "dev": "node ./buildScripts/before && next dev",
     "build": "node ./buildScripts/before && next build",
     "export": "npm run build && next export && node ./buildScripts/after",
-    "dev-export": "npm run export && python3 -m http.server -d ./out"
+    "dev-export": "npm run export && http-server ./out -p 8000"
   },
   "dependencies": {
     "@mapbox/rehype-prism": "^0.5.0",
