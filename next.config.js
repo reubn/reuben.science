@@ -31,7 +31,7 @@ module.exports = withPlugins([[withMDX]], {
     })
 
     config.module.rules.push({
-        test: /\.(webm|mov)$/i,
+        test: /\.(webm|mp4)$/i,
         loader: 'file-loader',
         options: fileOptions
     })
