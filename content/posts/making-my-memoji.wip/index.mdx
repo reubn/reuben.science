@@ -282,13 +282,19 @@ After running this, and cooking an egg on my CPU, I was left with a total size o
 
 There are some avenues to explore to try and reduce the total file size some more. `.webp` supports animation, but I don't think the ability to seek through animated images is exposed in the web environment, and it may well suffer from the same issues as `VP8`/`VP9`. Maybe serving the frames as an animated `.webp` file and then decoding them to canvas is an option - but I am yet to explore the possibility.
 
-A simpler option might be to combine the frames into sprite sheet, but I haven't tested if the compression benefits would outweigh the parallel downloads we achieve by serving frames separately.
+A simpler option might be to combine the frames into a sprite sheet. I've had a play with this, and I've only been able to reduce the total size to about `715KB`. I still need to test if this meagre compression benefit outweighs the speed benefits that we achieve by serving individual frames concurrently.
+
+import sprites from './images/sprites.webp'
+
+<Image image={sprites} alt="Sprites" />
 
 ## Are we nearly there yet?
 
-While what we have works, it still has a number of caveats, chiefly the `868KB` file size burden, and the limited axises the Memoji is able to move in. I'd still like to reduce the former, and to summarise, the avenues I'm currently thinking of exploring are:
+While what we have works, it still has a number of caveats, chiefly the `868KB` file size burden, and the limited axises the Memoji is able to move in. I'd still like to reduce the former, and to summarise, the avenues I'm currently exploring are:
 - Animated `.webp` frames decoded to `canvas`
 - Sprite sheets
+- Load reduced quality frames for movement, and download higher quality once movement has stopped
+- Only load frames that surround cursor's starting position
 - `.avif` once support is good enough
 
 The latter is more difficult, and would require a completely new approach. While the `AvatarKit` framework isn't officially exposed, people have managed to use it on side loaded apps[^avatarkit]. The 3D models are also stored at a known location[^avatarkit_location], extracting them shouldn't be difficult, but I have very little knowledge of how to composite the features into 'me', nor do I know how animating them would work. If this were to be possible, then it would solve the current limitations on movement - *and* - via `WebGL` the issues with file size.
