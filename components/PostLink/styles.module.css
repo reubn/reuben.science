@@ -55,7 +55,7 @@
 .readingTime {
   font-weight: 500;
   font-size: 0.8rem;
-  color: var(--colours-blue);
+  color: var(--colours-accent);
   vertical-align: middle;
 
   overflow: hidden;

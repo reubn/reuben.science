@@ -1,5 +1,5 @@
 :root{
-  --font-family: 'Rubik', 'PT Sans', 'Arial Rounded', sans-serif;
+  --font-family: 'Rubik', 'SF Pro Text', -apple-system, 'Futura', 'Arial', sans-serif;
 
   font-family: var(--font-family);
   font-size: 18px;

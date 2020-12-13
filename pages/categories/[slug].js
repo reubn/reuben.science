@@ -10,7 +10,7 @@ import sortPosts from '../../src/sortPosts'
 import * as posts from '../posts/[slug].js'
 
 import {main, posts as postsStyle, postLink} from '../styles'
-import {category} from './styles'
+import {category, empty} from './styles'
 
 export default function Category({slug, posts}) {
   return (
@@ -45,9 +45,15 @@ export default function Category({slug, posts}) {
 
       <main className={main}>
         <CategoryLink category={slug} className={category} />
-        <section className={postsStyle}>
-          {sortPosts(posts).map(props => <PostLink key={props.slug} {...props} className={postLink}/>)}
-        </section>
+        {
+          posts.length
+            ? (
+              <section className={postsStyle}>
+                {sortPosts(posts).map(props => <PostLink key={props.slug} {...props} className={postLink}/>)}
+              </section>
+            )
+            : <h2 className={empty}>no posts here mate</h2>
+        }
       </main>
     </>
   )
@@ -59,7 +65,7 @@ export const getStaticProps = async ctx => {
   return {
     props: {
       slug,
-      posts: (await posts.getStaticPaths()).paths.map(posts.getStaticProps).filter(({props: {metadata: {category}}}) => category.includes(slug))
+      posts: (await Promise.all((await posts.getStaticPaths()).paths.map(posts.getStaticProps))).filter(({props: {metadata: {category}}}) => category.includes(slug))
     }
   }
 }

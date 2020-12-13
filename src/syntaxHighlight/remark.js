@@ -2,7 +2,7 @@
 
 const visit = require('unist-util-visit')
 
-const regex = /^\:\{(.+?)\}\s?/ // `{:js} console.log('this is js')`
+const regex = /^\{\:(.+?)\}\s?/ // `{:js} console.log('this is js')`
 
 function withInlineCodeLanguage(node) {
   const match = node.value.match(regex)

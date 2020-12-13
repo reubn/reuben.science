@@ -12,15 +12,25 @@
   color: var(--colours-light);
 
   -webkit-font-smoothing: antialiased;
+  text-rendering: optimizelegibility;
 }
 
 .content {
   overflow: visible;
 
-  line-height: 1.6;
+  line-height: 1.75;
   font-size: 1rem;
 
   min-height: calc(100% - var(--header-height));
+}
+
+.content h2 {
+  font-weight: 500;
+}
+
+.content abbr {
+  cursor: help;
+  text-decoration-color: var(--colours-accent);
 }
 
 .content *:not(strong) > em {
@@ -37,6 +47,8 @@
   font-weight: 600;
   font-style: normal;
   color: var(--colours-yellow);
+  white-space: nowrap;
+
 
   margin: 0 -2px 0 0;
 }
@@ -52,8 +64,7 @@
 
 .content strong > em::selection {
   color: var(--colours-black);
-  -webkit-text-fill-color: initial;
-  background-color: var(--colours-yellow);
+  background: var(--colours-yellow);
 }
 
 .content del {
@@ -79,6 +90,7 @@
 
 .content pre[metastring]{
   position: relative;
+  overflow-x: hidden;
 }
 .content pre[metastring]:before {
   content: attr(metastring);
@@ -94,8 +106,18 @@
   padding: 3px 6px;
   font-size: 0.8rem;
   border-radius: 2px;
+  transition: all 0.5s cubic-bezier(.47,0,0,1.2);
+
 
   z-index: 1;
+}
+
+.content pre[metastring]:hover:before {
+
+  transform: translateX(calc((1.5rem - 3px) + 100%));
+  pointer-events: none;
+
+  transition: all 0.5s cubic-bezier(.47,0,0,1.8);
 }
 
 @media (max-width: 650px) {
@@ -127,7 +149,7 @@
 
 
 .content *:not(pre) > code::selection, .content pre::selection {
-  background-color: var(--colours-blue);
+  background-color: var(--colours-accent);
 }
 
 .content *:not(pre) > code {
@@ -148,6 +170,10 @@
 
 }
 
+.content h2 code {
+  font-size: 1.25rem;
+}
+
 .content pre[class^="language"], .content code[class^="language"] {
   font-weight: 500;
 }
@@ -157,13 +183,14 @@
 }
 
 .content a {
-  color: var(--colours-blue);
+  color: var(--colours-accent);
 }
 
 
 .content blockquote {
     background: linear-gradient(135deg, var(--colours-dark-2) 0%, var(--colours-dark-1) 100%);
     padding: 1rem 2rem;
+    margin: 4rem auto;
     border-radius: 4px;
     vertical-align: middle;
 
@@ -203,24 +230,30 @@
   padding: 0.75rem 0;
 }
 
-.content img {
-    max-width: 100%;
-    background: var(--colours-light);
-    border-radius: 5px;
-    margin: 0.5rem auto;
-    display: flex;
+.content img, .content video {
+  max-width: 100%;
+  background: transparent;
+  border-radius: 5px;
+  margin: 3rem auto;
+  display: flex;
+  object-fit: cover;
+  height: auto;
 }
 
 .content figure {
   display: block;
-  width: 100%;
+  width: max-content;
   max-width: 100%;
-  margin: 0 auto;
+  margin: 4rem auto;
 }
 
-.content figure img  {
+.content figure:global(.code){
+  display: inline;
+}
+
+.content figure img {
   width: 100%;
-  margin-bottom: 0;
+  margin: 0 auto;
   border-radius: 4px 4px 0 0;
 }
 
@@ -247,4 +280,16 @@
 
 .content figure figcaption p {
   margin: 0;
+}
+
+.content :global(.footnotes) li::marker {
+  content: attr(ref-number) ". ";
+}
+
+.content :global(.footnotes) li a {
+  word-break: keep-all;
+}
+.content :global(.footnotes) li:target::marker {
+  content: "➡️  ";
+  color: var(--colours-accent);
 }

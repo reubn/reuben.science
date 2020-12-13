@@ -1,0 +1,10 @@
+.memojiContainer {
+  width: 100%;
+  display: flex;
+}
+
+.memoji {
+  margin: auto;
+  max-height: 15rem;
+  max-width: 80vw;
+}

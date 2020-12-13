@@ -1,11 +1,3 @@
-export const metadata = {
-  title: 'Making My Interactive Memoji',
-  description: 'Interactive Memojis on the Web',
-  emoji: '👦🏻',
-  date: '2020-07-07',
-  category: ['dev']
-};
-
 take the video in messages - send to yourself
 copy video from messages on mac
 

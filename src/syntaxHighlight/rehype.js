@@ -17,6 +17,7 @@ function getLanguage(node) {
 }
 
 function visitor(node, index, parent) {
+  if(node.tagName === 'pre' && parent && parent.tagName === 'figure') return parent.properties.className = (parent.properties.className || []).concat('code')
   if (!(node.tagName === 'inlineCode' || (node.tagName === 'code' && parent && parent.tagName === 'pre'))) return
 
   const lang = getLanguage(node)

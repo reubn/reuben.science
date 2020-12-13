@@ -1,13 +1,10 @@
 const fs = require('fs')
 const path = require('path')
 
-module.exports = async () => {
-  const posts = await fs.promises.readdir(path.join(process.cwd(), 'content/posts'))
+const getPostSlugs = require('../src/getPostSlugs')
 
-  const slugs = posts
-    .filter(path => !path.startsWith('.'))
-    .filter(path => process.env.SHOW_WIP === 'SHOW_WIP' || !path.includes('.wip.'))
-    .map(path => path.replace(/\.[^\.]+$/, ''))
+module.exports = async () => {
+    const slugs = await getPostSlugs()
 
     await fs.promises.writeFile(path.join(process.cwd(), 'content/posts/.list.json'), JSON.stringify(slugs));
 

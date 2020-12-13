@@ -4,7 +4,9 @@ import Post from "../../components/Post"
 
 import postList from '../../content/posts/.list'
 
-const dynamicImports = postList.reduce((map, slug) => ({...map, [slug]: dynamic(() => import(`../../content/posts/${slug}`))}), {})
+import getPostSlugs from '../../src/getPostSlugs'
+
+const dynamicImports = postList.reduce((map, slug) => ({...map, [slug]: dynamic(() => import(`../../content/posts/${slug}/index.mdx`))}), {})
 
 export const processPost = ({metadata, content}) => {
   const readingTime = require('reading-time')
@@ -16,20 +18,7 @@ export const processPost = ({metadata, content}) => {
   }
 }
 
-const getPostSlugs = async () => {
-  const fs = require('fs')
-  const path = require('path')
-
-  const posts = await fs.promises.readdir(path.join(process.cwd(), "content/posts"))
-
-  return posts
-    .filter(path => !path.startsWith('.'))
-    .filter(path => process.env.SHOW_WIP === 'SHOW_WIP' || !path.includes('.wip.'))
-    .map(path => path.replace(/\.[^\.]+$/, ''))
-}
-
-const renderToString = slug => {
-  const Component = require(`../../content/posts/${slug}`).default
+const renderToString = ({default: Component}) => {
   const ReactDOMServer = require("react-dom/server")
 
   return ReactDOMServer.renderToString(<Component />)
@@ -45,9 +34,10 @@ export default function PostWrapper({slug, metadata}) {
   )
 }
 
-export const getStaticProps = ctx => {
+export const getStaticProps = async ctx => {
   const slug = ctx.params?.slug
-  const metadata = processPost({metadata: require(`../../content/posts/${slug}`).metadata, content: renderToString(slug)})
+  const post = await import(`../../content/posts/${slug}/index.mdx`)
+  const metadata = processPost({metadata: post.metadata, content: renderToString(post)})
 
   return {
     props: {
