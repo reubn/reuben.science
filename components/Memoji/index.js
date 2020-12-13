@@ -11,22 +11,37 @@ const Memoji = ({frameCount, getFrameURL, defaultFrameNumber=Math.floor(frameCou
   const [framesLoading, setFramesLoading] = useState(false)
   const [singleFrameReady, setSingleFrameReady] = useState(false)
 
-  const loadImages = async () => {
-    setFramesLoading(true)
-    createFrame(defaultFrameNumber).then(() => setSingleFrameReady(true))
-
-    const promises = Array.from({length: frameCount}, async (_, frameNumber) => memojiFrames[frameNumber] = await createFrame(frameNumber))
-
-    return Promise.all(promises)
-  }
-
-  const createFrame = async frameNumber => {
+  const loadFrame = frameNumber => {
     if(memojiFrames[frameNumber]) return memojiFrames[frameNumber]
 
     const frame = new Image()
     frame.src = getFrameURL(frameNumber)
 
-    await frame.decode()
+    return frame
+  }
+
+  const loadFrames = async () => {
+    setFramesLoading(true)
+    createFrame(loadFrame(defaultFrameNumber)).then(() => setSingleFrameReady(true))
+
+    let loading = Array.from({length: frameCount}, (_, frameNumber) => loadFrame(frameNumber))
+
+    console.log('timeout start')
+    const timeout = setTimeout(() => {
+      alert('timeout')
+      loading.forEach((frame, frameNumber) => (frameNumber !== defaultFrameNumber) && (frame.src = ''))
+
+      loading = null
+    }, 1000 * 5) // 5sec
+
+    const loaded = Promise.all(loading.map(async (frame, frameNumber) => memojiFrames[frameNumber] = await createFrame(frame)))
+      .then(frames => (clearTimeout(timeout), frames))
+
+    return loading ? loaded : null
+  }
+
+  const createFrame = async frame => {
+    await(await frame).decode()
 
     return frame
   }
@@ -95,9 +110,9 @@ const Memoji = ({frameCount, getFrameURL, defaultFrameNumber=Math.floor(frameCou
 
     const {mx, my} = getMemojiPosition()
 
-    if(!framesLoading) loadImages()
+    if(!framesLoading) loadFrames()
       .then(() => setReady(true))
-      .then(async () => drawFrame(await createFrame(defaultFrameNumber)))
+      .then(async () => drawFrame(await createFrame(loadFrame(defaultFrameNumber))))
 
     if(singleFrameReady) drawFrame(memojiFrames[defaultFrameNumber])
 
