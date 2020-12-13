@@ -26,11 +26,8 @@ const Memoji = ({frameCount, getFrameURL, defaultFrameNumber=Math.floor(frameCou
 
     let loading = Array.from({length: frameCount}, (_, frameNumber) => loadFrame(frameNumber))
 
-    console.log('timeout start')
     const timeout = setTimeout(() => {
-      alert('timeout')
       loading.forEach((frame, frameNumber) => (frameNumber !== defaultFrameNumber) && (frame.src = ''))
-
       loading = null
     }, 1000 * 5) // 5sec
 
