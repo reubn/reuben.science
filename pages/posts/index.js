@@ -5,7 +5,7 @@ import PostLink from '../../components/PostLink'
 import sortPosts from '../../src/sortPosts'
 
 import {main} from '../styles'
-import {postLink} from './styles'
+import {postLink, empty} from './styles'
 
 import * as posts from './[slug].js'
 
@@ -36,7 +36,15 @@ export default function Posts({posts}) {
       />
 
       <main className={main}>
-        {sortPosts(posts).map(props => <PostLink key={props.slug} {...props} className={postLink}/>)}
+        {
+          posts.length
+            ? (
+              <section className={postsStyle}>
+                {sortPosts(posts).map(props => <PostLink key={props.slug} {...props} className={postLink}/>)}
+              </section>
+            )
+            : <h2 className={empty}>no posts here mate</h2>
+        }
       </main>
     </>
   )

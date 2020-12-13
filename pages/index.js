@@ -41,19 +41,30 @@ export default function Home({posts, images, imageSize}) {
             <p>No idea what's gonna end up on here, inevitably just some random shit</p>
           </div>
         </section>
-        <p className={heading}>Recent Posts</p>
-        <section className={postsStyle}>
-          {sortPosts(posts).map(props => <PostLink key={props.slug} {...props} className={postLink}/>)}
-        </section>
-
-        <p className={heading}>Recent Photos</p>
-        <section className={photosStyle} style={{'--columns': Math.min(images.length, 4), '--image-size': `${imageSize}px`}}>
-          {images.map(({src, id}) => (
-            <a href={`https://unsplash.com/photos/${id}`} className={photo} aria-label={`Unsplash Photo ${id}`} key={id}>
-              <img src={src} alt={`Unsplash Photo ${id}`} />
-            </a>)
-          )}
-        </section>
+        {
+          posts.length && (
+              <>
+                <p className={heading}>Recent Posts</p>
+                <section className={postsStyle}>
+                  {sortPosts(posts).map(props => <PostLink key={props.slug} {...props} className={postLink}/>)}
+                </section>
+              </>
+            )
+        }
+        {
+          images.length && (
+              <>
+                <p className={heading}>Recent Photos</p>
+                <section className={photosStyle} style={{'--columns': Math.min(images.length, 4), '--image-size': `${imageSize}px`}}>
+                  {images.map(({src, id}) => (
+                    <a href={`https://unsplash.com/photos/${id}`} className={photo} aria-label={`Unsplash Photo ${id}`} key={id}>
+                      <img src={src} alt={`Unsplash Photo ${id}`} />
+                    </a>)
+                  )}
+                </section>
+              </>
+            )
+        }
       </main>
     </>
   )
