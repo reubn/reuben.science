@@ -101,23 +101,27 @@ const Memoji = ({frameCount, getFrameURL, defaultFrameNumber=Math.floor(frameCou
     }
   }
 
+
   useEffect(() => {
     console.log({singleFrameReady, ready, framesLoading})
-    const canvas = canvasRef.current
+  }, [singleFrameReady, ready, framesLoading])
 
-    const {mx, my} = getMemojiPosition()
-
+  useEffect(() => {
     if(!framesLoading) loadFrames()
       .then(() => setReady(true))
       .then(async () => drawFrame(await createFrame(loadFrame(defaultFrameNumber))))
+  }, [framesLoading])
 
+  useEffect(() => {
     if(singleFrameReady) drawFrame(memojiFrames[defaultFrameNumber])
+  }, [singleFrameReady])
 
+  useEffect(() => {
     if(ready) try {
       animateHead({fr: defaultFrameNumber, to: interactionToFrameNumber({...getMemojiPosition(), ...savedMousePosition})})
     } catch(_){}
 
-    const handler = event => {
+    const mouseHandler = event => {
       const {clientX: cx, clientY: cy} = event
 
       if(!ready) {
@@ -127,11 +131,11 @@ const Memoji = ({frameCount, getFrameURL, defaultFrameNumber=Math.floor(frameCou
         return
       }
 
-      tiltHead({...getMemojiPosition(), cx, cy})
+      if(canvasRef.current) tiltHead({...getMemojiPosition(), cx, cy})
     }
 
-    let touched = false
-    if("ontouchstart" in window && !touched) {
+    let memojiHasBeenTouched = false
+    if("ontouchstart" in window && !memojiHasBeenTouched) {
       // crude animate head before touch interaction
       let f = 0
       let direction = +1
@@ -141,35 +145,34 @@ const Memoji = ({frameCount, getFrameURL, defaultFrameNumber=Math.floor(frameCou
       const touchHandler = event => {
         const {clientX: cx, clientY: cy} = event.changedTouches[0]
 
-        touched = true
+        memojiHasBeenTouched = true
         clearInterval(intervalA)
         clearInterval(intervalB)
 
-        handler({clientX: cx, clientY: cy})
+        mouseHandler({clientX: cx, clientY: cy})
 
         event.preventDefault()
       }
 
-      canvasRef.current.addEventListener('touchstart', touchHandler, false)
-      canvasRef.current.addEventListener('touchmove', touchHandler, false)
+      canvasRef.current.addEventListener('touchstart', touchHandler)
+      canvasRef.current.addEventListener('touchmove', touchHandler)
 
       return () => {
         clearInterval(intervalA)
         clearInterval(intervalB)
 
         if(canvasRef.current){
-          canvasRef.current.removeEventListener('touchstart', touchHandler, false)
-          canvasRef.current.removeEventListener('touchmove', touchHandler, false)
+          canvasRef.current.removeEventListener('touchstart', touchHandler)
+          canvasRef.current.removeEventListener('touchmove', touchHandler)
         }
       }
     }
     else {
-      window.addEventListener('mousemove', handler)
+      window.addEventListener('mousemove', mouseHandler)
 
-      return () => window.removeEventListener('mousemove', handler)
+      return () => window.removeEventListener('mousemove', mouseHandler)
     }
-
-  }, [ready, singleFrameReady, framesLoading])
+  }, [ready])
 
 
   return  (
