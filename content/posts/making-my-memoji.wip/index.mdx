@@ -36,7 +36,7 @@ They're not without their flaws though; tightly integrated into Apple's own ecos
 **So, this is what we'll be creating:**
 
 <section className={memojiContainer}>
-  <Memoji className={memoji} frameCount={frameCount} getFrameURL={getFrameURL} width={Math.floor(459 * 1.5)} height={Math.floor(350 * 1.5)} />
+  <Memoji className={memoji} frameTimeout={null} frameCount={frameCount} getFrameURL={getFrameURL} width={Math.floor(459 * 1.5)} height={Math.floor(350 * 1.5)} />
 </section>
 
 ## The Plan of Attack
@@ -227,10 +227,10 @@ As an analogy, most video compression works a bit like a zip (no pun intended):
  - 👎 You can't unzip your coat in reverse - or skip bits out - leaving them zipped together.
  - 🤐 Picking a random point on the zip, all preceding zip must be undone in order to reach it.
 
-Keeping it simple - in video you have `I frames`, and `P frames`[^vcpt].`I frames` are like the frames that we extracted using `uPVC` - whole images in their own right. `P frames` are not bona fide images. Instead they contain references to previous `I` and `P frames`, specifying elements they have in common to save space, and how they differ. 
+Keeping it simple - in video you have `I frames`, and `P frames`[^vcpt].`I frames` are like the frames that we extracted using `uPVC` - whole images in their own right. `P frames` are not bona fide images. Instead they contain references to previous `I` and `P frames`, specifying elements they have in common to save space, and how they differ.
 
 - To decode an `I frame` you just need that frame 👌.
-- To decode a `P frame` however you also need all preceding frames that it references, and all preceding frames that all those frames reference … all the way back to the closest `I frame`[^exo]. 
+- To decode a `P frame` however you also need all preceding frames that it references, and all preceding frames that all those frames reference … all the way back to the closest `I frame`[^exo].
 
 Scrubbing through the video (seeking in response to mouse movements) would require the decoder to jump around 'the zip' and necessitate 'unzipping' a lot of previous (which is **ahead** if playing in reverse) frames / footage. Perhaps this aspect of video encoding is where some of the issues arose.
 
@@ -288,7 +288,14 @@ After running this, and cooking an egg on my CPU 🍳, I was left with a total s
 
 There are some avenues to explore to try and reduce the total file size some more. `.webp` supports animation, but I don't think the ability to scrub through animated images is exposed in the web environment at the present time, and it may well suffer from the same issues as `VP8`/`VP9`. Maybe serving the frames as an animated `.webp` file and then decoding them to canvas is an option - but I am yet to explore the possibility.
 
-A simpler option might be to combine the frames into a sprite sheet. I've had a play with this, and I've only been able to reduce the total size to about `715KB`. I still need to test if this meagre compression benefit outweighs the speed benefits that we achieve by serving individual frames concurrently over `HTTP2`.
+A simpler option might be to combine the frames into a sprite sheet.
+```bash ZSH
+montage ./*.webp -define webp:lossless=true -geometry '1x1+0+0<' -tile 10x -background none ./output.webp
+
+cwebp -q 80 ./output.webp -o ./compressed.webp
+```
+
+I've had a play using `ImageMagick`'s `montage`, and I've only been able to reduce the total size to about `715KB` after `lossy` compression. I still need to test if this meagre compression benefit outweighs the speed benefits that we achieve by serving individual frames concurrently over `HTTP2`.
 
 import sprites from './images/sprites.webp'
 
