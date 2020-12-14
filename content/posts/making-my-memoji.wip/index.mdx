@@ -25,7 +25,7 @@ import header from './images/header.webp'
 
 Memoji's good looks haven't gone unrecognised, and many people use static, immobile Memoji as profile pictures, or as avatars on their website. I wanted to follow suit, but by opting for the static image, you really lose their sense of personality and liveliness. I didn't want to settle for this, and chose to explore the possibility of embedding **dynamic** and **interactive** Memoji instead.
 
-The fact that they're fully rigged, and tightly integrated with iOS devices' built-in face tracking technology makes them really ease to create, and perfect for the majority who don't possess the artistic aptitude to use Blender for such tasks. This can look really great[^josh] however, and should be the default first choice for anyone who's able to.
+The fact that they're fully rigged, and tightly integrated with iOS devices' built-in face tracking technology makes them really easy to create, and perfect for the majority who don't possess the artistic aptitude to use Blender for such tasks. This can look really great[^josh] however, and should be the default first choice for anyone who's able to.
 
 [^josh]: https://www.joshwcomeau.com/
 
@@ -284,7 +284,7 @@ for file in *.png; do cwebp -q 80 -mt -crop 100 26 459 350 "./$file" -o "./${fil
 
 After running this, and cooking an egg on my CPU 🍳, I was left with a total size of `868KB`. Pretty fucking good 👌. A combined saving of just under `99%`!
 
-`.webp` itself is based on the `VP8` video codec that we wanted to use initially. Given this, I guess the saving's aren't that surprising, and basically means that we've come full circle, just without the caveats of video compression.
+`.webp` itself is based on the `VP8` video codec that we wanted to use initially. Given this, I guess the savings aren't that surprising, and basically means that we've come full circle, just without the limitations of video compression.
 
 There are some avenues to explore to try and reduce the total file size some more. `.webp` supports animation, but I don't think the ability to scrub through animated images is exposed in the web environment at the present time, and it may well suffer from the same issues as `VP8`/`VP9`. Maybe serving the frames as an animated `.webp` file and then decoding them to canvas is an option - but I am yet to explore the possibility.
 
