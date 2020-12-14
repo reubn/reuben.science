@@ -2,14 +2,14 @@ import {useEffect, useRef, useState} from 'react'
 
 import {memoji as memojiStyle, ready as readyStyle, notReady as notReadyStyle} from './styles'
 
-const Memoji = ({frameCount, getFrameURL, defaultFrameNumber=Math.floor(frameCount / 2), width, height, className, ...props}) => {
+const Memoji = ({frameTimeout=5*1000, frameCount, getFrameURL, defaultFrameNumber=Math.floor(frameCount / 2), width, height, className, ...props}) => {
   const canvasRef = useRef(null)
   const {current: memojiFrames} = useRef([])
   const {current: savedMousePosition} = useRef({})
 
   const [ready, setReady] = useState(false)
-  const [framesLoading, setFramesLoading] = useState(false)
-  const [singleFrameReady, setSingleFrameReady] = useState(false)
+  const [framesStartedToLoad, setFramesStartedToLoad] = useState(false)
+  const [defaultFrameReady, setDefaultFrameReady] = useState(false)
 
   const loadFrame = frameNumber => {
     if(memojiFrames[frameNumber]) return memojiFrames[frameNumber]
@@ -21,24 +21,28 @@ const Memoji = ({frameCount, getFrameURL, defaultFrameNumber=Math.floor(frameCou
   }
 
   const loadFrames = async () => {
-    setFramesLoading(true)
-    createFrame(loadFrame(defaultFrameNumber)).then(() => setSingleFrameReady(true))
+    setFramesStartedToLoad(true)
+    createFrame(loadFrame(defaultFrameNumber)).then(() => setDefaultFrameReady(true))
 
-    let loading = Array.from({length: frameCount}, (_, frameNumber) => loadFrame(frameNumber))
+    let loaded = false
 
-    const timeout = setTimeout(() => {
-      loading.forEach((frame, frameNumber) => (frameNumber !== defaultFrameNumber) && (frame.src = ''))
-      loading = null
-    }, 1000 * 5) // 5sec
+    let loadingFrames = Array.from({length: frameCount}, (_, frameNumber) => loadFrame(frameNumber))
 
-    const loaded = Promise.all(loading.map(async (frame, frameNumber) => memojiFrames[frameNumber] = await createFrame(frame)))
-      .then(frames => (clearTimeout(timeout), frames))
+    const timeout = new Promise((res, rej) => setTimeout(() => {
+      if(!loaded) {
+        loadingFrames.forEach((frame, frameNumber) => (frameNumber !== defaultFrameNumber) && frame.removeAttribute('src'))
+        rej()
+      } // else console.log('timeout called but already finished')
+    }, frameTimeout))
 
-    return loading ? loaded : null
+    const loadedFrames = Promise.all(loadingFrames.map(async (frame, frameNumber) => memojiFrames[frameNumber] = await createFrame(frame)))
+      .then(frames => (loaded = true, frames))
+
+    return Promise.race([timeout, loadedFrames])
   }
 
   const createFrame = async frame => {
-    await(await frame).decode()
+    await frame.decode()
 
     return frame
   }
@@ -103,18 +107,19 @@ const Memoji = ({frameCount, getFrameURL, defaultFrameNumber=Math.floor(frameCou
 
 
   useEffect(() => {
-    console.log({singleFrameReady, ready, framesLoading})
-  }, [singleFrameReady, ready, framesLoading])
+    console.log({defaultFrameReady, ready, framesStartedToLoad})
+  }, [defaultFrameReady, ready, framesStartedToLoad])
 
   useEffect(() => {
-    if(!framesLoading) loadFrames()
+    if(!framesStartedToLoad) loadFrames()
       .then(() => setReady(true))
-      .then(async () => drawFrame(await createFrame(loadFrame(defaultFrameNumber))))
-  }, [framesLoading])
+      .catch(() => null)
+      .finally(async () => drawFrame(await createFrame(loadFrame(defaultFrameNumber))))
+  }, [framesStartedToLoad])
 
   useEffect(() => {
-    if(singleFrameReady) drawFrame(memojiFrames[defaultFrameNumber])
-  }, [singleFrameReady])
+    if(defaultFrameReady) drawFrame(memojiFrames[defaultFrameNumber])
+  }, [defaultFrameReady])
 
   useEffect(() => {
     if(ready) try {
@@ -176,7 +181,7 @@ const Memoji = ({frameCount, getFrameURL, defaultFrameNumber=Math.floor(frameCou
 
 
   return  (
-    <canvas {...props} className={[memojiStyle, className || '', (ready || singleFrameReady) ? readyStyle : notReadyStyle].join(' ')} ref={canvasRef} width={width} height={height} />
+    <canvas {...props} className={[memojiStyle, className || '', (ready || defaultFrameReady) ? readyStyle : notReadyStyle].join(' ')} ref={canvasRef} width={width} height={height} />
   )
 }
 
