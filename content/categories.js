@@ -1,8 +1,8 @@
 import gradient from '../src/gradient.js'
 
 export default {
-  hardware: gradient('pink'),
-  medicine: gradient('blue'),
+  hardware: gradient('purple'),
+  medicine: gradient('pink'),
   dev: gradient('blue'),
   food: gradient('orange'),
   automation: gradient('green')
