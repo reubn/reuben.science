@@ -28,7 +28,7 @@ const Memoji = ({frameTimeout=5*1000, frameCount, getFrameURL, defaultFrameNumbe
 
     let loadingFrames = Array.from({length: frameCount}, (_, frameNumber) => loadFrame(frameNumber))
 
-    const timeout = new Promise((res, rej) => setTimeout(() => {
+    const timeout = new Promise((res, rej) => frameTimeout && setTimeout(() => {
       if(!loaded) {
         loadingFrames.forEach((frame, frameNumber) => (frameNumber !== defaultFrameNumber) && frame.removeAttribute('src'))
         rej()
