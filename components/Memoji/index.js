@@ -2,14 +2,14 @@ import {useEffect, useRef, useState} from 'react'
 
 import {memoji as memojiStyle, ready as readyStyle, notReady as notReadyStyle} from './styles'
 
-const Memoji = ({frameCount, getFrameURL, defaultFrameNumber=Math.floor(frameCount / 2), width, height, className, ...props}) => {
+const Memoji = ({frameTimeout=5*1000, frameCount, getFrameURL, defaultFrameNumber=Math.floor(frameCount / 2), width, height, className, ...props}) => {
   const canvasRef = useRef(null)
   const {current: memojiFrames} = useRef([])
   const {current: savedMousePosition} = useRef({})
 
   const [ready, setReady] = useState(false)
-  const [framesLoading, setFramesLoading] = useState(false)
-  const [singleFrameReady, setSingleFrameReady] = useState(false)
+  const [framesStartedToLoad, setFramesStartedToLoad] = useState(false)
+  const [defaultFrameReady, setDefaultFrameReady] = useState(false)
 
   const loadFrame = frameNumber => {
     if(memojiFrames[frameNumber]) return memojiFrames[frameNumber]
@@ -21,24 +21,28 @@ const Memoji = ({frameCount, getFrameURL, defaultFrameNumber=Math.floor(frameCou
   }
 
   const loadFrames = async () => {
-    setFramesLoading(true)
-    createFrame(loadFrame(defaultFrameNumber)).then(() => setSingleFrameReady(true))
+    setFramesStartedToLoad(true)
+    createFrame(loadFrame(defaultFrameNumber)).then(() => setDefaultFrameReady(true))
 
-    let loading = Array.from({length: frameCount}, (_, frameNumber) => loadFrame(frameNumber))
+    let loaded = false
 
-    const timeout = setTimeout(() => {
-      loading.forEach((frame, frameNumber) => (frameNumber !== defaultFrameNumber) && (frame.src = ''))
-      loading = null
-    }, 1000 * 5) // 5sec
+    let loadingFrames = Array.from({length: frameCount}, (_, frameNumber) => loadFrame(frameNumber))
 
-    const loaded = Promise.all(loading.map(async (frame, frameNumber) => memojiFrames[frameNumber] = await createFrame(frame)))
-      .then(frames => (clearTimeout(timeout), frames))
+    const timeout = new Promise((res, rej) => setTimeout(() => {
+      if(!loaded) {
+        loadingFrames.forEach((frame, frameNumber) => (frameNumber !== defaultFrameNumber) && frame.removeAttribute('src'))
+        rej()
+      } // else console.log('timeout called but already finished')
+    }, frameTimeout))
 
-    return loading ? loaded : null
+    const loadedFrames = Promise.all(loadingFrames.map(async (frame, frameNumber) => memojiFrames[frameNumber] = await createFrame(frame)))
+      .then(frames => (loaded = true, frames))
+
+    return Promise.race([timeout, loadedFrames])
   }
 
   const createFrame = async frame => {
-    await(await frame).decode()
+    await frame.decode()
 
     return frame
   }
@@ -101,23 +105,28 @@ const Memoji = ({frameCount, getFrameURL, defaultFrameNumber=Math.floor(frameCou
     }
   }
 
+
   useEffect(() => {
-    console.log({singleFrameReady, ready, framesLoading})
-    const canvas = canvasRef.current
+    console.log({defaultFrameReady, ready, framesStartedToLoad})
+  }, [defaultFrameReady, ready, framesStartedToLoad])
 
-    const {mx, my} = getMemojiPosition()
-
-    if(!framesLoading) loadFrames()
+  useEffect(() => {
+    if(!framesStartedToLoad) loadFrames()
       .then(() => setReady(true))
-      .then(async () => drawFrame(await createFrame(loadFrame(defaultFrameNumber))))
+      .catch(() => null)
+      .finally(async () => drawFrame(await createFrame(loadFrame(defaultFrameNumber))))
+  }, [framesStartedToLoad])
 
-    if(singleFrameReady) drawFrame(memojiFrames[defaultFrameNumber])
+  useEffect(() => {
+    if(defaultFrameReady) drawFrame(memojiFrames[defaultFrameNumber])
+  }, [defaultFrameReady])
 
+  useEffect(() => {
     if(ready) try {
       animateHead({fr: defaultFrameNumber, to: interactionToFrameNumber({...getMemojiPosition(), ...savedMousePosition})})
     } catch(_){}
 
-    const handler = event => {
+    const mouseHandler = event => {
       const {clientX: cx, clientY: cy} = event
 
       if(!ready) {
@@ -127,11 +136,11 @@ const Memoji = ({frameCount, getFrameURL, defaultFrameNumber=Math.floor(frameCou
         return
       }
 
-      tiltHead({...getMemojiPosition(), cx, cy})
+      if(canvasRef.current) tiltHead({...getMemojiPosition(), cx, cy})
     }
 
-    let touched = false
-    if("ontouchstart" in window && !touched) {
+    let memojiHasBeenTouched = false
+    if("ontouchstart" in window && !memojiHasBeenTouched) {
       // crude animate head before touch interaction
       let f = 0
       let direction = +1
@@ -141,39 +150,38 @@ const Memoji = ({frameCount, getFrameURL, defaultFrameNumber=Math.floor(frameCou
       const touchHandler = event => {
         const {clientX: cx, clientY: cy} = event.changedTouches[0]
 
-        touched = true
+        memojiHasBeenTouched = true
         clearInterval(intervalA)
         clearInterval(intervalB)
 
-        handler({clientX: cx, clientY: cy})
+        mouseHandler({clientX: cx, clientY: cy})
 
         event.preventDefault()
       }
 
-      canvasRef.current.addEventListener('touchstart', touchHandler, false)
-      canvasRef.current.addEventListener('touchmove', touchHandler, false)
+      canvasRef.current.addEventListener('touchstart', touchHandler)
+      canvasRef.current.addEventListener('touchmove', touchHandler)
 
       return () => {
         clearInterval(intervalA)
         clearInterval(intervalB)
 
         if(canvasRef.current){
-          canvasRef.current.removeEventListener('touchstart', touchHandler, false)
-          canvasRef.current.removeEventListener('touchmove', touchHandler, false)
+          canvasRef.current.removeEventListener('touchstart', touchHandler)
+          canvasRef.current.removeEventListener('touchmove', touchHandler)
         }
       }
     }
     else {
-      window.addEventListener('mousemove', handler)
+      window.addEventListener('mousemove', mouseHandler)
 
-      return () => window.removeEventListener('mousemove', handler)
+      return () => window.removeEventListener('mousemove', mouseHandler)
     }
-
-  }, [ready, singleFrameReady, framesLoading])
+  }, [ready])
 
 
   return  (
-    <canvas {...props} className={[memojiStyle, className || '', (ready || singleFrameReady) ? readyStyle : notReadyStyle].join(' ')} ref={canvasRef} width={width} height={height} />
+    <canvas {...props} className={[memojiStyle, className || '', (ready || defaultFrameReady) ? readyStyle : notReadyStyle].join(' ')} ref={canvasRef} width={width} height={height} />
   )
 }
 
