@@ -21,7 +21,13 @@ export default function Post({slug, metadata, children}){
             publishedTime: date.toISOString(),
             authors: ['Reuben'],
             tags: metadata.category,
-          }
+          },
+          images: metadata.image ? [{
+              url: `https://${process.env.NEXT_PUBLIC_DOMAIN}${metadata.image.src}`,
+              width: metadata.image.size.width,
+              height: metadata.image.size.height,
+              alt: metadata.title,
+            }] : undefined
         }}
       />
 

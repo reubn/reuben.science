@@ -4,6 +4,8 @@ import Video from '../../../components/Post/Video'
 
 import {memojiContainer, memoji} from './styles'
 
+import header from './images/header.webp'
+
 export const frameCount = Math.floor(315 / 3);
 export const getFrameURL = frame => `/me-360t/frame-${frame * 3}.webp`
 
@@ -12,14 +14,13 @@ export const metadata = {
   description: 'Interactive Memoji for the Web',
   emoji: '👦🏻',
   date: '2020-12-16',
-  category: ['dev']
+  category: ['dev'],
+  image: header
 }
 
 ## Memoji?
 
 Introduced with iOS 12, Memoji is Apple's progression of the ubiquitous emoji. Set apart from its ancestors, Memoji are personalised caricatures, offering near infinite options for customisation.
-
-import header from './images/header.webp'
 
 <Image image={header} alt="Memoji" />
 
