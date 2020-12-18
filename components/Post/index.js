@@ -4,7 +4,7 @@ import CategoryLink from '../CategoryLink'
 
 import {title, description, categories, date as dateStyle, post, body} from './styles'
 
-export default function Post({slug, metadata, children}){
+export default function Post({slug, metadata, children, __HACK_ID}){
   const date = new Date(metadata.date)
 
   return (
@@ -64,7 +64,7 @@ export default function Post({slug, metadata, children}){
         <h1 className={title}>{metadata.title}</h1>
         {metadata.description && <h2 className={description}>{metadata.description}</h2>}
         <span className={dateStyle}>{date.toLocaleDateString()}</span>
-        <span className={body}>
+        <span className={body} id={__HACK_ID}>
           {children}
         </span>
       </article>

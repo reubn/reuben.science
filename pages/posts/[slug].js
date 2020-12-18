@@ -6,7 +6,15 @@ import postList from '../../content/posts/.list'
 
 import getPostSlugs from '../../src/getPostSlugs'
 
-const dynamicImports = postList.reduce((map, slug) => ({...map, [slug]: dynamic(() => import(`../../content/posts/${slug}/index.mdx`))}), {})
+const dynamicImports = postList.reduce(
+  (map, slug) => ({
+    ...map,
+    [slug]: dynamic(() => import(`../../content/posts/${slug}/index.mdx`), {
+      loading: () => process.browser && window.__HACK_GLOBAL
+        ? <span dangerouslySetInnerHTML={{__html: window.__HACK_GLOBAL[slug] || ''}} />
+        : null
+    })
+  }), {})
 
 export const processPost = ({metadata, content}) => {
   const readingTime = require('reading-time')
@@ -26,11 +34,23 @@ const renderToString = ({default: Component}) => {
 
 export default function PostWrapper({slug, metadata}) {
   const Mdx = dynamicImports[slug]
+  const __HACK_ID = 'POST'
 
   return (
-    <Post slug={slug} metadata={metadata}>
-      <Mdx />
-    </Post>
+    <>
+      <Post slug={slug} metadata={metadata} __HACK_ID={__HACK_ID}>
+        <Mdx />
+      </Post>
+      {
+        process.browser
+          ? null
+          : <script
+              dangerouslySetInnerHTML={{
+                __html: `window.__HACK_GLOBAL = {...(window.__HACK_GLOBAL || {}), [${JSON.stringify(slug)}]: document.getElementById('${__HACK_ID}').innerHTML}`
+              }}
+            />
+        }
+    </>
   )
 }
 
