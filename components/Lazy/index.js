@@ -1,13 +1,14 @@
+import {useEffect, useState} from 'react'
+
 import {useInView} from 'react-intersection-observer'
 
-const Lazy = ({children, config}) => {
-  const {Client=children, Server} = children
+const Lazy = ({children: Child, config}) => {
 
-  if(!process.browser) return (
-    <noscript>
-      {Server ? <Server /> : <Client _ref={null} inView={true} />}
-    </noscript>
-  )
+  const [hydrated, setHydrated] = useState(false)
+
+  useEffect(() => {
+    if(!hydrated) setHydrated(true)
+  }, [])
 
   const [_ref, inView] = useInView({
     triggerOnce: true,
@@ -15,7 +16,17 @@ const Lazy = ({children, config}) => {
     ...config
   })
 
-  return <Client _ref={_ref} inView={inView}/>
+  if(hydrated) return <Child _ref={_ref} inView={inView} data-noscript="no" />
+
+  return (
+    <>
+      <noscript>
+        <style dangerouslySetInnerHTML={{__html: '[data-noscript="no"]{display: none!important}'}} />
+        <Child _ref={_ref} inView={true} data-noscript="yes" />
+      </noscript>
+      <Child _ref={_ref} inView={inView} data-noscript="no" />
+    </>
+  )
 }
 
 export default Lazy
