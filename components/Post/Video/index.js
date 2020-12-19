@@ -6,11 +6,11 @@ import {loading} from './styles'
 const Video = ({video, className, ...props}) => {
   const {sources, size: {width=1000, height=0}={}} = video
 
-  const [loaded, setLoaded] = useState(!process.browser)
+  const [loaded, setLoaded] = useState(false)
 
   return (
     <Lazy>
-      {({_ref, inView}) => (
+      {({_ref, inView, ...lazyProps}) => (
         <video
           ref={_ref}
           key={inView ? 1 : 0}
@@ -22,7 +22,9 @@ const Video = ({video, className, ...props}) => {
 
           className={loaded ? className : [loading, className].join(' ')}
 
-          {...props}>
+          {...props}
+          {...lazyProps}
+        >
           {sources.map(({src, ...sourceProps}) => <source key={src} src={inView ? src : null} {...sourceProps} />)}
         </video>
       )}
