@@ -88,20 +88,20 @@ You want to try and maintain a constant distance from the camera, as you want th
 
 Apple doesn't expose the Memoji in any sort of 'raw' or 3D format. Instead, all we've got is a video. A `.mov`. Straight out of my iPhone 11, across iMessage, and into trusty `FFmpeg`, we can see some quite detailed information about the file.
 
-```
-Input #0, mov,mp4,m4a,3gp,3g2,mj2, from './me-360t.mov':
+``` txt
+Input #0, ​mov​,mp4,m4a,3gp,3g2,mj2, from './me-360t.mov':
   Metadata:
     major_brand     : qt
     minor_version   : 0
     compatible_brands: qt
     creation_time   : 2020-11-24T18:30:38.000000Z
-    com.apple.quicktime.description: Memoji video, skin tone: Fairest Skin Tone 1; hairstyle: Maple, Short and straight updo with side parting; eyes: Blue;, facial hair: Flaxen, Shadow moustache and beard;
+    ​com.apple.quicktime.description: Memoji video, skin tone: Fairest Skin Tone 1; hairstyle: Maple, Short and straight updo with side parting; eyes: Blue;, facial hair: Flaxen, Shadow moustache and beard;​
   Duration: 00:00:05.25, start: 0.000000, bitrate: 1992 kb/s
     Stream #0:0(und): Audio: aac (LC) (mp4a / 0x6134706D), 44100 Hz, mono, fltp, 63 kb/s (default)
     Metadata:
       creation_time   : 2020-11-24T18:30:38.000000Z
       handler_name    : Core Media Audio
-    Stream #0:1(und): Video: hevc (Main) (hvc1 / 0x31637668), yuv420p(tv, bt709), 640x480, 1753 kb/s, 57.56 fps, 60 tbr, 600 tbn, 600 tbc (default)
+    Stream #0:1(und): Video: ​hevc​ (Main) (hvc1 / 0x31637668), ​yuv420p​(tv, bt709), 640x480, 1753 kb/s, 57.56 fps, 60 tbr, 600 tbn, 600 tbc (default)
     Metadata:
       creation_time   : 2020-11-24T18:30:38.000000Z
       handler_name    : Core Media Video
@@ -111,7 +111,7 @@ Input #0, mov,mp4,m4a,3gp,3g2,mj2, from './me-360t.mov':
 
 Firstly we can see that we're dealing with a `.mov` container holding `HEVC` aka `H.265` encoded data. This is good news: a modern-ish format that supports alpha channels. Interestingly Apple also embeds plenty of metadata about the Memoji in the file. Useful for an accessibility description maybe 😯!
 
-```
+``` txt
 com.apple.quicktime.description:
 	Memoji video,
 		skin tone: Fairest Skin Tone 1;
