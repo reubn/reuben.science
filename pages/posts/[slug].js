@@ -34,7 +34,7 @@ const renderToString = ({default: Component}) => {
 
 export default function PostWrapper({slug, metadata}) {
   const Mdx = dynamicImports[slug]
-  const __HACK_ID = 'POST'
+  const __HACK_ID = `HACK-${slug}`
 
   return (
     <>
