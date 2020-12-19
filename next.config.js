@@ -9,7 +9,12 @@ const withMDX = require('@next/mdx')({
         image: 'caption:',
       }
     }], require('./src/syntaxHighlight/remark')],
-    rehypePlugins: [require('./src/refs/rehype'), require('./src/syntaxHighlight/rehype')],
+    rehypePlugins: [
+      require('./src/refs/rehype'),
+      require('./src/syntaxHighlight/rehype'),
+      require('rehype-slug'),
+      [require('rehype-autolink-headings'), {behavior: 'wrap'}]
+    ],
   },
   extension: /\.mdx?$/
 })

@@ -24,8 +24,22 @@
   min-height: calc(100% - var(--header-height));
 }
 
+.content a {
+  color: var(--colours-accent);
+}
+
 .content h2 {
   font-weight: 500;
+}
+
+.content h1 > a, .content h2 > a, .content h3 > a, .content h4 > a, .content h5 > a, .content h6 > a {
+  color: inherit;
+}
+
+.content h1 > a:hover:after, .content h2 > a:hover:after, .content h3 > a:hover:after, .content h4 > a:hover:after, .content h5 > a:hover:after, .content h6 > a:hover:after {
+  content: " 🔗";
+  font-size: 0.9rem;
+  vertical-align: middle;
 }
 
 .content abbr {
@@ -181,11 +195,6 @@
 .content figure > pre + figcaption {
   margin-top: -1rem;
 }
-
-.content a {
-  color: var(--colours-accent);
-}
-
 
 .content blockquote {
     background: linear-gradient(135deg, var(--colours-dark-2) 0%, var(--colours-dark-1) 100%);
