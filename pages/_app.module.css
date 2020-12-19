@@ -36,7 +36,8 @@
   color: inherit;
 }
 
-.content h1 > a:hover:after, .content h2 > a:hover:after, .content h3 > a:hover:after, .content h4 > a:hover:after, .content h5 > a:hover:after, .content h6 > a:hover:after {
+.content h1 > a:hover:after, .content h2 > a:hover:after, .content h3 > a:hover:after, .content h4 > a:hover:after, .content h5 > a:hover:after, .content h6 > a:hover:after,
+.content h1:target > a:after, .content h2:target > a:after, .content h3:target > a:after, .content h4:target > a:after, .content h5:target > a:after, .content h6:target > a:after {
   content: " 🔗";
   font-size: 0.9rem;
   vertical-align: middle;
