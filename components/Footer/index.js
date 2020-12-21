@@ -31,7 +31,7 @@ const Footer = () => (
       <a href="mailto:click.to.reveal@email.com" onClick={e => (window.location.href = `mailto:${localPart}@${process.env.NEXT_PUBLIC_DOMAIN}`, e.preventDefault())} className={mail} aria-label="email">
         <Mail className={icon} />
       </a>
-      <a href="//twitter.com/_reubn" className={twitter} aria-label="twitter">
+      <a href="//twitter.com/reubn_" className={twitter} aria-label="twitter">
         <Twitter className={icon} />
       </a>
       <a href="//instagram.com/reubn" className={instagram} aria-label="instagram">
