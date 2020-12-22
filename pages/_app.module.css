@@ -297,8 +297,14 @@
 }
 
 .content :global(.footnotes) li a {
+  color: var(--colours-mid-2);
   word-break: keep-all;
 }
+
+.content :global(.footnotes) li:target a {
+  color: var(--colours-accent);
+}
+
 .content :global(.footnotes) li:target::marker {
   content: "➡️  ";
   color: var(--colours-accent);
