@@ -5,5 +5,6 @@ export default {
   medicine: gradient('pink'),
   dev: gradient('blue'),
   food: gradient('orange'),
-  automation: gradient('green')
+  automation: gradient('yellow'),
+  outdoors: gradient('green')
 }
