@@ -1,0 +1,16 @@
+.handle {
+  --width: 4px;
+  width: calc(var(--width) * 2);
+  height: 100%;
+}
+
+
+.handle:after {
+  content: "";
+  display: block;
+  width: var(--width);
+  height: 100%;
+  background: var(--colours-accent);
+  transform: translateX(var(--width));
+  border-radius: var(--width);
+}
