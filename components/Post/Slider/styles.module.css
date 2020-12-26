@@ -1,9 +1,15 @@
 .handle {
   --width: 4px;
-  width: calc(var(--width) * 2);
+  width: calc(3rem);
   height: 100%;
+
 }
 
+@media (pointer: coarse) {
+    .handle {
+      cursor: pointer;
+    }
+}
 
 .handle:after {
   content: "";
@@ -11,6 +17,6 @@
   width: var(--width);
   height: 100%;
   background: var(--colours-accent);
-  transform: translateX(var(--width));
+  transform: translateX(1.5rem);
   border-radius: var(--width);
 }

@@ -11,6 +11,7 @@ const Slider = props => {
     <ReactCompareSlider
     	className={slider}
     	handle={<Handle />}
+      onlyHandleDraggable={process.browser && "ontouchstart" in window}
       {...props}
     />
   )
