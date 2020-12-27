@@ -197,7 +197,7 @@
   margin-top: -1rem;
 }
 
-.content blockquote {
+.content blockquote, .content .key {
     background: linear-gradient(135deg, var(--colours-dark-2) 0%, var(--colours-dark-1) 100%);
     padding: 1rem 2rem;
     margin: 4rem auto;
@@ -208,10 +208,15 @@
 }
 
 @media (max-width: 650px) {
-  .content blockquote {
+  .content blockquote, .content .key  {
     padding: 0 1rem;
     margin: 1rem auto;
   }
+}
+
+.content .key {
+  margin: 1rem auto 1rem 0;
+  width: fit-content;
 }
 
 .content hr {
