@@ -301,9 +301,13 @@
   content: attr(ref-number) ". ";
 }
 
-.content :global(.footnotes) li a {
+.content :global(.footnotes) li {
   color: var(--colours-mid-2);
   word-break: keep-all;
+}
+
+.content :global(.footnotes) li a {
+  color: var(--colours-mid-1);
 }
 
 .content :global(.footnotes) li:target a {
@@ -313,4 +317,8 @@
 .content :global(.footnotes) li:target::marker {
   content: "➡️  ";
   color: var(--colours-accent);
+}
+
+.content sup[id^=fnref-]:target a {
+    color: var(--colours-pink);
 }
