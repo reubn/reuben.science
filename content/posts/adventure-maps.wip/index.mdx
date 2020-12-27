@@ -1,0 +1,128 @@
+import Image from '../../../components/Post/Image'
+import Video from '../../../components/Post/Video'
+import Slider from '../../../components/Post/Slider'
+
+import {key} from '../../../pages/_app.module.css'
+import {colourIndicator} from './styles'
+
+import header from './images/header.webp'
+
+export const metadata = {
+  title: 'The Ultimate Adventure Maps',
+  description: 'Enhanced OS Maps for Navigation',
+  emoji: '🗺',
+  date: '2020-12-30',
+  category: ['outdoors'],
+  image: header
+}
+
+## Ordnance Survey
+If you're heading into the mountains, moors, or anywhere you can't get Deliveroo, I have no doubts in saying that the de facto maps for most people in the UK[^ni] will be the iconic tangerine-covered `1:25000` OS Explorer Maps, published by the Ordnance Survey - the United Kingdom's quasi-quango mapping agency. With a track record of over 200 years' on-the-ground surveys, OS Maps, with their expert cartography, and complete, uninterrupted coverage of Great Britain[^ni], are probably the best paper maps you can buy anywhere in the world. 
+
+[^ni]: Ordnance Survey only covers Great Britain. Northern Ireland has its own counterpart: Ordnance Survey of Northern Ireland. Their maps are not the same.
+
+Backed by the biggest geographical database on earth[^bbc], no other maps include such continuous and consistently rich detail over such a wide area. In most other maps, woods and forests would sometimes be drawn as such; on OS maps, not only are the types of trees included, but also their actual geographic distribution within the woodland. This is just one example of the almost pedantic level of detail these maps include as standard. 
+
+In terms of navigation, the maps also deliver vital information such as contour lines. They are the only complete source of Public Rights of Way, and differentiate between path types and access rights. Important features such as trig points and other coordinate-confirming structures such as cairns and manmade structures are also shown - even at a high scale. 
+
+[^bbc]: https://www.bbc.co.uk/programmes/b06b36q3
+
+import os from './images/os.webp'
+import osm from './images/osm.webp'
+
+<Slider
+  itemOne={<Image image={os} alt="OS Explorer" />}
+  itemTwo={<Image image={osm} alt="OpenStreetMap" />}
+/>
+
+The OS Explorer Maps' recognisable cartography serves more purposes that just looking pretty ✨. Details such as the tree types mentioned above, terrain data, grasslands + rock formation, and accurate widths of rivers, brooks, and streams impart additional information (perhaps subconsciously), allowing you to intuitively relate and transform the `2D` map  in your hands to the `3D` surroundings before you.
+
+As with other detailed maps, you may be inclined to think of these as the antiquated one-off remains of some monster mapping movement of yesteryear; however the maps receive up to `10 000` updates per **day**[^bbc] and so continue to accurately reflect changes to the current day landscape.
+
+## What the issue then?
+
+While I'm sure you've got the message that I'm a big fan of OS Maps, I have plenty of issues with them too. The main issue isn't anything specific to OS Maps, it's a problem that plagues pretty much every map, digital or physical: people don't walk where paths are designated, they walk where it's easiest. You probably witness this issue on a daily basis, in the form of desire paths: paths that people create themselves when planners and architects - or even the landscape itself - fail to cater to the needs of their users. 
+
+***INSERT PHOTO OF DESIRE PATH***
+
+In terms of maps, this divide between designated, and real-world usage manifests itself in a number of ways.
+
+- Firstly, the location of paths on the ground sometimes differs from the printed route
+- Newer, or simply non official routes often fail to appear on maps
+- Designation does not mean that path is still there: false paths that don't exist
+- Official status misleads and suggests suitability or superiority (e.g surface, directness) 
+- Recent changes that render paths unsuitable are not reflected
+
+While these issues can simply be the obsession of the perfectionist, they can also have problematic ramifications: e.g. safe routes off mountains, or occasions where the planned route is the only one out of a location in unfamiliar territory.
+
+As previously mentioned, these problems are inherent to pretty much any offline medium - and affect the majority of digital sources equally. This is due to the fact that maps are effectively **static snapshots**, only reflecting the reality as discrete points in time. What we really need is some **dynamic data** 😯.
+
+## Strava
+
+In order to remedy this issue we're going to integrate data from Strava. Strava is one of the largest fitness social networks and receives millions of `GPS` tracks per day, from users' running, cycling, and other activities. The data from the past `2 years` is exposed via their 'Metro' and 'Heatmap'[^strava] services as aggregated and anonymised `XYZ` tiles, which we're going to use. Strava only exposes these tiles via their website, which requires a free account if you want the highest resolution data. 
+
+import stravaHeat from './images/stravaHeat.webp'
+
+<Image image={stravaHeat} alt="Strava Heatmap" />
+
+It's not especially useful stuck in `MapboxGL`, so I just wrote a script in `Proxyman`[^proxyman] to include the required auth cookie on all tile requests, allowing its use in any `GIS`. Would share it, but it's very simple and would probably be breaking some `TOC`s and `EULA`s somewhere. Given Strava's liberal stance on their data be used for OSM[^stravaOSM], and our obvious personal, not-for-profit intent, I don't think there are any copyright issues with us using the data in this way, as it clearly falls under fair use.
+
+[^strava]: https://www.strava.com/heatmap#5.98/-6.57074/54.52126/hot/all
+[^proxyman]: https://proxyman.io/
+[^stravaOSM]: https://wiki.openstreetmap.org/wiki/Strava
+
+## QGIS
+
+In this post I'm using QGIS[^qgis], as it's the only really cross platform, Open Source, and cost-accessible `GIS` package.
+
+[^qgis]: https://www.qgis.org/
+
+import qgisA from './images/qgisA.webp'
+
+<Image image={qgisA} alt="QGIS Layers" />
+
+Layering up the Strava Heatmap, and OS Explorer basemap we get the following:
+
+import os2 from './images/os2.webp'
+import stravaOS2 from './images/stravaOS2.webp'
+
+<Slider
+  itemOne={<Image image={os2} alt="OS Explorer" />}
+  itemTwo={<Image image={stravaOS2} alt="OS Explorer + Strava" />}
+/>
+
+<section className={key}>
+	<ul>
+		<li data-marker="">
+			<div style={{color: "#3DFA89"}} className={colourIndicator} />
+			not shown on the OS Explorer
+		</li>
+		<li data-marker="">
+			<div style={{color: "#0CE9E9"}} className={colourIndicator} />
+			where the designated path isn't the most trafficked
+		</li>
+		<li data-marker="">
+			<div style={{color: "#5252FF"}} className={colourIndicator} />
+			not seen in use on Strava
+		</li>
+	</ul>
+</section>
+
+Already we can start to see how powerful this technique is, and how much more relevant and useful information the map contains. Whole paths were missing off the original OS Map, and some minor paths are actually the main ones. There are also a few examples (one of which is highlighted in purple), where drawn paths aren't used by the millions of people on Strava over a full 2 years. Sus 😑.
+
+Using this map to plan routes, we're now much more informed about which paths are a safe bet, and which should be avoided. Combining this with aerial imagery can also give good results.
+
+(We do cover some map information but we don't care about designation - only what's on the ground)
+
+## The Other Problems with Paper OS Maps
+
+
+> ⚖️
+> 
+> [OS Maps](https://www.ordnancesurvey.co.uk/) © Crown copyright and database rights <span dangerouslySetInnerHTML={{__html: new Date().getFullYear()}}></span> Ordnance Survey (100025252)
+> 
+> [Bing Maps](https://www.bing.com/maps) Microsoft product screen shot(s) reprinted with permission from Microsoft Corporation
+> 
+> [OpenStreetMap](https://www.openstreetmap.org/copyright) © OpenStreetMap contributors
+> 
+> [Strava Heatmap](https://www.strava.com/heatmap) © 2018 Strava
