@@ -1,4 +1,4 @@
-import gradient from '../../src/gradient.js'
+import gradient from '@/src/gradient.js'
 
 import Logo from '../Logo'
 import ActiveLink from '../ActiveLink'

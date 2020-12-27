@@ -1,4 +1,4 @@
-import gradient from '../src/gradient.js'
+import gradient from '@/src/gradient.js'
 
 export default {
   hardware: gradient('purple'),

@@ -2,11 +2,11 @@ import Head from 'next/head'
 
 import {DefaultSeo} from 'next-seo'
 
-import '../styles/globals.css'
-import '../styles/prism-theme.css'
+import '@/styles/globals.css'
+import '@/styles/prism-theme.css'
 
-import Header from '../components/Header'
-import Footer from '../components/Footer'
+import Header from '@/components/Header'
+import Footer from '@/components/Footer'
 
 import {app, content} from './_app.module.css'
 

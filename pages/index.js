@@ -1,10 +1,10 @@
 import {NextSeo, BreadcrumbJsonLd} from 'next-seo'
 
-import Memoji from '../components/Memoji'
-import PostLink from '../components/PostLink'
+import Memoji from '@/components/Memoji'
+import PostLink from '@/components/PostLink'
 
-import photos from '../src/photos'
-import sortPosts from '../src/sortPosts'
+import photos from '@/src/photos'
+import sortPosts from '@/src/sortPosts'
 
 import {main, me, memoji, heading, posts as postsStyle, photos as photosStyle, photo, postLink} from './styles'
 

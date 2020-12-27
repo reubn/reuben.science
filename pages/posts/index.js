@@ -1,10 +1,10 @@
 import {NextSeo, BreadcrumbJsonLd} from 'next-seo'
 
-import PostLink from '../../components/PostLink'
+import PostLink from '@/components/PostLink'
 
-import sortPosts from '../../src/sortPosts'
+import sortPosts from '@/src/sortPosts'
 
-import {main, posts as postsStyle} from '../styles'
+import {main, posts as postsStyle} from '@/styles'
 import {postLink, empty} from './styles'
 
 import * as posts from './[slug].js'
