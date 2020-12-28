@@ -4,7 +4,7 @@ import CategoryLink from '@/components/CategoryLink'
 
 import * as categories from './[slug].js'
 
-import {main} from '@/styles'
+import {main} from '../styles'
 import {category, categories as categoriesStyle} from './styles'
 
 export default function Categories({categories}) {
