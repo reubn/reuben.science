@@ -221,6 +221,12 @@
   }
 }
 
+.content h1 + blockquote,
+.content h2 + blockquote,
+.content h3 + blockquote {
+  margin-top: 0;
+}
+
 .content .key {
   margin: 1rem auto 1rem 0;
   width: fit-content;
