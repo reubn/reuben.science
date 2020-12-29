@@ -1,6 +1,6 @@
 import ActiveLink from '../ActiveLink'
 
-import categories from '../../content/categories'
+import categories from '@/content/categories'
 
 import {category as categoryStyles} from './styles'
 

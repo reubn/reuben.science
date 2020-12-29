@@ -1,9 +1,9 @@
-import PostLink from '../components/PostLink'
+import PostLink from '@/components/PostLink'
 
 import {main, heading, posts as postsStyle, postLink} from './styles'
 import {errorCode, errorMessage} from './404.module.css'
 
-import sortPosts from '../src/sortPosts'
+import sortPosts from '@/src/sortPosts'
 
 import * as posts from './posts/[slug].js'
 

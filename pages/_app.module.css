@@ -32,12 +32,19 @@
   font-weight: 500;
 }
 
-.content h1 > a, .content h2 > a, .content h3 > a, .content h4 > a, .content h5 > a, .content h6 > a {
+
+.content h1 > a,
+.content h2 > a,
+.content h3 > a {
   color: inherit;
 }
 
-.content h1 > a:hover:after, .content h2 > a:hover:after, .content h3 > a:hover:after, .content h4 > a:hover:after, .content h5 > a:hover:after, .content h6 > a:hover:after,
-.content h1:target > a:after, .content h2:target > a:after, .content h3:target > a:after, .content h4:target > a:after, .content h5:target > a:after, .content h6:target > a:after {
+.content h1 > a:hover:after,
+.content h2 > a:hover:after,
+.content h3 > a:hover:after,
+.content h1:target > a:after,
+.content h2:target > a:after,
+.content h3:target > a:after {
   content: " 🔗";
   font-size: 0.9rem;
   vertical-align: middle;
@@ -197,7 +204,7 @@
   margin-top: -1rem;
 }
 
-.content blockquote {
+.content blockquote, .content .key {
     background: linear-gradient(135deg, var(--colours-dark-2) 0%, var(--colours-dark-1) 100%);
     padding: 1rem 2rem;
     margin: 4rem auto;
@@ -208,10 +215,21 @@
 }
 
 @media (max-width: 650px) {
-  .content blockquote {
+  .content blockquote, .content .key  {
     padding: 0 1rem;
     margin: 1rem auto;
   }
+}
+
+.content h1 + blockquote,
+.content h2 + blockquote,
+.content h3 + blockquote {
+  margin-top: 0;
+}
+
+.content .key {
+  margin: 1rem auto 1rem 0;
+  width: fit-content;
 }
 
 .content hr {
@@ -296,9 +314,13 @@
   content: attr(ref-number) ". ";
 }
 
-.content :global(.footnotes) li a {
+.content :global(.footnotes) li {
   color: var(--colours-mid-2);
   word-break: keep-all;
+}
+
+.content :global(.footnotes) li a {
+  color: var(--colours-mid-1);
 }
 
 .content :global(.footnotes) li:target a {
@@ -308,4 +330,8 @@
 .content :global(.footnotes) li:target::marker {
   content: "➡️  ";
   color: var(--colours-accent);
+}
+
+.content sup[id^=fnref-]:target a {
+    color: var(--colours-pink);
 }

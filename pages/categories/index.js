@@ -1,6 +1,6 @@
 import {NextSeo, BreadcrumbJsonLd} from 'next-seo'
 
-import CategoryLink from '../../components/CategoryLink'
+import CategoryLink from '@/components/CategoryLink'
 
 import * as categories from './[slug].js'
 

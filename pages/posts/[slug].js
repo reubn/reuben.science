@@ -1,15 +1,15 @@
 import dynamic from "next/dynamic"
 
-import Post from "../../components/Post"
+import Post from "@/components/Post"
 
-import postList from '../../content/posts/.list'
+import postList from '@/content/posts/.list'
 
-import getPostSlugs from '../../src/getPostSlugs'
+import getPostSlugs from '@/src/getPostSlugs'
 
 const dynamicImports = postList.reduce(
   (map, slug) => ({
     ...map,
-    [slug]: dynamic(() => import(`../../content/posts/${slug}/index.mdx`), {
+    [slug]: dynamic(() => import(`@/content/posts/${slug}/index.mdx`), {
       loading: () => process.browser && window.__HACK_GLOBAL
         ? <span dangerouslySetInnerHTML={{__html: window.__HACK_GLOBAL[slug] || ''}} />
         : null
@@ -56,7 +56,7 @@ export default function PostWrapper({slug, metadata}) {
 
 export const getStaticProps = async ctx => {
   const slug = ctx.params?.slug
-  const post = await import(`../../content/posts/${slug}/index.mdx`)
+  const post = await import(`@/content/posts/${slug}/index.mdx`)
   const metadata = processPost({metadata: post.metadata, content: renderToString(post)})
 
   return {

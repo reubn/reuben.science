@@ -20,6 +20,7 @@
     "next-seo": "^4.17.0",
     "node-fetch": "^2.6.1",
     "react": "17.0.1",
+    "react-compare-slider": "^1.2.0",
     "react-dom": "17.0.1",
     "react-feather": "^2.0.9",
     "react-intersection-observer": "^8.31.0",

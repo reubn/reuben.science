@@ -1,5 +1,5 @@
 :root{
-  --font-family: 'Rubik', 'SF Pro Text', -apple-system, 'Futura', 'Arial', sans-serif;
+  --font-family: 'Rubik', -apple-system, 'Futura', 'Arial', sans-serif, 'Emoji';
 
   font-family: var(--font-family);
   font-size: 18px;
@@ -203,4 +203,13 @@
     font-weight: 400;
     font-style: normal;
     font-display: swap;
+}
+
+@font-face {
+  font-family: "Emoji";
+  src: local("Apple Color Emoji"),
+       local("Segoe UI Emoji"),
+       local("Segoe UI Symbol"),
+       local("Noto Color Emoji");
+  font-display: swap;
 }

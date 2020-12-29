@@ -1,11 +1,11 @@
 import {NextSeo, BreadcrumbJsonLd} from 'next-seo'
 
-import CategoryLink from '../../components/CategoryLink'
-import PostLink from '../../components/PostLink'
+import CategoryLink from '@/components/CategoryLink'
+import PostLink from '@/components/PostLink'
 
-import categories from '../../content/categories'
+import categories from '@/content/categories'
 
-import sortPosts from '../../src/sortPosts'
+import sortPosts from '@/src/sortPosts'
 
 import * as posts from '../posts/[slug].js'
 
