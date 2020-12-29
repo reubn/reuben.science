@@ -1,3 +1,7 @@
+.slider * {
+  overflow-x: visible!important;
+}
+
 .handle {
   --width: 4px;
   width: calc(3rem);
@@ -16,7 +20,20 @@
   display: block;
   width: var(--width);
   height: 100%;
-  background: var(--colours-accent);
+  background: var(--colours-dark-5);
   transform: translateX(1.5rem);
+  border-radius: var(--width);
+}
+
+.handle:before {
+  content: "";
+  display: block;
+  width: calc(var(--width) * 2);
+  height: 25%;
+  background: var(--colours-accent);
+  transform: translateX(calc(1.5rem - (var(--width) / 2)));
+  position: absolute;
+  top: 37.5%;
+  z-index: 1;
   border-radius: var(--width);
 }
