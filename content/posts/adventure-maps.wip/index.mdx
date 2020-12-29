@@ -10,7 +10,7 @@ export const metadata = {
   title: 'The Ultimate Adventure Maps',
   description: 'Enhanced OS Maps for Navigation',
   emoji: '🗺',
-  date: '2020-12-30',
+  date: '2020-12-29',
   category: ['outdoors'],
   image: header
 }
@@ -39,10 +39,7 @@ The OS Explorer maps' recognisable cartography serves more purposes than just lo
 As with other detailed maps, you may be inclined to think of these as the antiquated one-off remains of some monster mapping movement of yesteryear; however, the maps receive up to `10 000` updates per **day**[^bbc] and so continue to accurately reflect changes to the current day landscape.
 
 ## What the issue then?
-
 While I'm sure you've got the message that I'm a big fan of OS Maps, I have plenty of issues with them too. The main issue isn't anything specific to OS Maps, it's a problem that plagues pretty much every map, digital or physical: people don't walk where paths are designated, they walk where it's easiest. You probably witness this issue on a daily basis, in the form of desire paths: paths that people create themselves when planners and architects - or even the landscape itself - fail to cater to the needs of their users.
-
-***INSERT PHOTO OF DESIRE PATH***
 
 In terms of maps, this divide between designated, and real-world usage manifests itself in a number of ways.
 
@@ -57,7 +54,6 @@ While these issues can simply be the obsession of the perfectionist, they can al
 As previously mentioned, these problems are inherent to pretty much any offline medium - and affect the majority of digital sources equally. This is because maps are effectively **static snapshots**, only reflecting the reality as discrete points in time. What we really need is some **dynamic data** 😯.
 
 ## Strava
-
 In order to remedy this issue, we're going to integrate data from Strava. Strava is one of the largest fitness social networks and receives millions of `GPS` tracks per day, from users' running, cycling, and other activities. The data from the past `2 years` is exposed via their 'Metro' and 'Heatmap'[^strava] services as aggregated and anonymised `XYZ` tiles, which we're going to use. Strava only exposes these tiles via their website, which requires a free account if you want the highest resolution data.
 
 import stravaHeat from './images/stravaHeat.webp'
@@ -118,7 +114,6 @@ Using this map to plan routes, we're now much more informed about which paths ar
 (By overlaying the Strava information, we do cover up some map information it's mostly labels, which aren't that important)
 
 ## Paths Tick! What's Next?
-
 While we've remedied one of my main issues with the OS Explorer maps, there are a few other more practical issues with the maps.
 
 The OS Explorer maps are traditionally supplied as large, bulky, printed sheets at `8x240x134mm` folded, and `1270x945mm` spread out. This makes them perfect for throwing over the kitchen table to plan adventures, but doesn't make them all that practical when you're trying to flip the map over, in the wind, up top an arête. People have even resorted to cutting and all sorts of OTT solutions[^cutOS].
@@ -140,7 +135,6 @@ This also benefits us in a number of other ways:
 [^osSelector]: https://shop.ordnancesurvey.co.uk/map-selector/
 
 ## Pagination and Printing
-
 QGIS' `Layout` functionality makes it really easy to layout our map for printing, even over multiple pages. It's fairly self-explanatory although there are a few things I ran into, doing it for the first time.
 
 The first thing is that `layouts` contain multiple `pages`. `Pages` are not `layouts`. We'll create one `layout`, with a few pages to cover the route/area of interest.
@@ -171,7 +165,6 @@ import exportImg from './images/export.webp'
 <Image image={exportImg} alt="QGIS Export" />
 
 ## Extras
-
 ### Routes
 Often you want your maps to detail a preplanned route. Once you've got a `.gpx` file, it's really easy to import into `QGIS`.
 
@@ -210,7 +203,6 @@ to_int($id) || 'km'
 If you haven't saved the distance marker layer, the numbers will be indexed to `1` not `0`, and so will give erroneous values. Save the layer and the problem should resolve.
 
 ### PTO Lines
-
 **P**lease **T**urn **O**ver lines can also be really useful for knowing at what point along a route the next sheet should be used. Obviously you can just flip it over if you've printed it duplex, but if the next sheets are packed away in a bag then its useful to know when to turn over. Extra polish ✨.
 
 I like to add these manually in the layout section of QGIS, using a two point `polyline`.
@@ -218,24 +210,21 @@ I like to add these manually in the layout section of QGIS, using a two point `p
 The reason I don't just turn over once I reach the edge of the map is that I always include a decent margin of overlap between consecutive sheets. If the edges line up perfectly with no overlap, it's impossible to take bearings and things accurately. If you include some overlap, then there's never a region where the compass would need to straddle both sheets at the same time. Having an overlap also helps negate any detail being cut off when printing.
 
 ### Safety
-
 Considering we're going to these great lengths to customise the map, it only makes sense to include some important information too: like phone numbers, precalculated bearings or timings. There's not really any hard-fast rules here, just a head's up that might pay dividends someday 🦸‍♀️.
 
 ## Printing
-
 Printing from QGIS is easy, just be sure to fix the scale to ensure the print driver doesn't mess around with the map in any way. I tend to print a B&W copy of the first page to check everything's in order before committing.
 
 Another thing that caught me out is the fact that most laser printers can't print full bleed. This means that they'll always be a white border around the paper. Fixing the scale means that the edges of the map will be cut off - another reason to do a B&W proof.
 
 ## Weatherproofing
-
 Even if it's not raining, paper used outdoors doesn't last. The humidity quickly reduces its integrity to that of a `**insert E.D. joke**` - making it impossible to use in combination with a compass, or even just to hold properly. Laminating eliminates this problem, and also makes your map rainproof, +1 over plain OS Maps!
 
 I find that the best method is to whack the temperature of your laminator all the way up, and pass the laminate through a few times to ensure a good bond between the ply. I've never had one fail 👌.
 
-While lamination makes the maps rainproof, the added rigidity also converts them into the perfect windsail - ready to fly over the edge of a hill. Punching a hole in the map and passing some paracord through to tie to something solves this, but if done with a hole punch will introduce a point of ingress for moisture and lead to delamination in wet weather. 
+While lamination makes the maps rainproof, the added rigidity also converts them into the perfect windsail - ready to fly over the edge of a hill. Punching a hole in the map and passing some paracord through to tie to something solves this, but if done with a hole punch will introduce a point of ingress for moisture and lead to delamination in wet weather.
 
-Of course, I wouldn't be mentioning this unless I had a solution, and that's to use a leather punch - one with different sized holes. Punch a larger hole through the paper layer, and a `1-2mm` smaller one though the laminator pocket; when the stack is heated, the outer layers will still be able to seal and prevent infiltration.  
+Of course, I wouldn't be mentioning this unless I had a solution, and that's to use a leather punch - one with different sized holes. Punch a larger hole through the paper layer, and a `1-2mm` smaller one though the laminator pocket; when the stack is heated, the outer layers will still be able to seal and prevent infiltration.
 
 
 > ⚖️
