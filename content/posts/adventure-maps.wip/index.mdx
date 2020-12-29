@@ -1,8 +1,8 @@
-import Image from '../../../components/Post/Image'
-import Video from '../../../components/Post/Video'
-import Slider from '../../../components/Post/Slider'
+import Image from '@/components/Post/Image'
+import Video from '@/components/Post/Video'
+import Slider from '@/components/Post/Slider'
 
-import {key} from '../../../pages/_app.module.css'
+import {key} from '@/pages/_app.module.css'
 import {colourIndicator} from './styles'
 
 import header from './images/header.webp'
@@ -17,13 +17,13 @@ export const metadata = {
 }
 
 ## Ordnance Survey
-If you're heading into the mountains, moors, or anywhere you can't get Deliveroo, I have no doubts in saying that the de facto maps for most people in the UK[^ni] will be the iconic tangerine-covered `1:25000` OS Explorer Maps, published by the Ordnance Survey - the United Kingdom's quasi-quango mapping agency. With a track record of over 200 years' on-the-ground surveys, OS Maps, with their expert cartography, and complete, uninterrupted coverage of Great Britain[^ni], are probably the best paper maps you can buy anywhere in the world. 
+If you're heading into the mountains, moors, or anywhere you can't get Deliveroo, I have no doubts in saying that the de facto maps for most people in the UK[^ni] will be the iconic tangerine-covered `1:25000` OS Explorer maps, published by the Ordnance Survey - the United Kingdom's quasi-quango mapping agency. With a track record of over 200 years' on-the-ground surveys, OS Maps, with their expert cartography, and complete, uninterrupted coverage of Great Britain[^ni], are probably the best paper maps you can buy anywhere in the world.
 
 [^ni]: Ordnance Survey only covers Great Britain. Northern Ireland has its own counterpart: Ordnance Survey of Northern Ireland. Their maps are not the same.
 
-Backed by the biggest geographical database on earth[^bbc], no other maps include such continuous and consistently rich detail over such a wide area. In most other maps, woods and forests would sometimes be drawn as such; on OS maps, not only are the types of trees included, but also their actual geographic distribution within the woodland. This is just one example of the almost pedantic level of detail these maps include as standard. 
+Backed by the biggest geographical database on earth[^bbc], no other maps include such continuous and consistently rich detail over such a wide area. In most other maps, woods and forests would sometimes be drawn as such; on OS maps, not only are the types of trees included, but also their actual geographic distribution within the woodland. This is just one example of the almost pedantic level of detail these maps include as standard.
 
-In terms of navigation, the maps also deliver vital information such as contour lines. They are the only complete source of Public Rights of Way, and differentiate between path types and access rights. Important features such as trig points and other coordinate-confirming structures such as cairns and manmade structures are also shown - even at a high scale. 
+In terms of navigation, the maps also deliver vital information such as contour lines. They are the only complete source of Public Rights of Way, and differentiate between path types and access rights. Important features such as trig points and other coordinate-confirming structures such as cairns and manmade structures are also shown - even at a high scale.
 
 [^bbc]: https://www.bbc.co.uk/programmes/b06b36q3
 
@@ -35,45 +35,48 @@ import osm from './images/osm.webp'
   itemTwo={<Image image={osm} alt="OpenStreetMap" />}
 />
 
-The OS Explorer Maps' recognisable cartography serves more purposes that just looking pretty ✨. Details such as the tree types mentioned above, terrain data, grasslands + rock formation, and accurate widths of rivers, brooks, and streams impart additional information (perhaps subconsciously), allowing you to intuitively relate and transform the `2D` map  in your hands to the `3D` surroundings before you.
+The OS Explorer maps' recognisable cartography serves more purposes than just looking pretty ✨. Details such as the tree types mentioned above, terrain data, grasslands + rock formation, and accurate widths of rivers, brooks, and streams impart additional information (perhaps subconsciously), allowing you to intuitively relate and transform the `2D` map in your hands to the `3D` surroundings before you.
 
-As with other detailed maps, you may be inclined to think of these as the antiquated one-off remains of some monster mapping movement of yesteryear; however the maps receive up to `10 000` updates per **day**[^bbc] and so continue to accurately reflect changes to the current day landscape.
+As with other detailed maps, you may be inclined to think of these as the antiquated one-off remains of some monster mapping movement of yesteryear; however, the maps receive up to `10 000` updates per **day**[^bbc] and so continue to accurately reflect changes to the current day landscape.
 
 ## What the issue then?
 
-While I'm sure you've got the message that I'm a big fan of OS Maps, I have plenty of issues with them too. The main issue isn't anything specific to OS Maps, it's a problem that plagues pretty much every map, digital or physical: people don't walk where paths are designated, they walk where it's easiest. You probably witness this issue on a daily basis, in the form of desire paths: paths that people create themselves when planners and architects - or even the landscape itself - fail to cater to the needs of their users. 
+While I'm sure you've got the message that I'm a big fan of OS Maps, I have plenty of issues with them too. The main issue isn't anything specific to OS Maps, it's a problem that plagues pretty much every map, digital or physical: people don't walk where paths are designated, they walk where it's easiest. You probably witness this issue on a daily basis, in the form of desire paths: paths that people create themselves when planners and architects - or even the landscape itself - fail to cater to the needs of their users.
 
 ***INSERT PHOTO OF DESIRE PATH***
 
 In terms of maps, this divide between designated, and real-world usage manifests itself in a number of ways.
 
 - Firstly, the location of paths on the ground sometimes differs from the printed route
-- Newer, or simply non official routes often fail to appear on maps
-- Designation does not mean that path is still there: false paths that don't exist
-- Official status misleads and suggests suitability or superiority (e.g surface, directness) 
+- Newer or simply non-official routes often fail to appear on maps
+- Designation does not mean that the path is still there: i.e false paths that don't exist
+- Official status misleads and suggests suitability or superiority (e.g surface, directness)
 - Recent changes that render paths unsuitable are not reflected
 
 While these issues can simply be the obsession of the perfectionist, they can also have problematic ramifications: e.g. safe routes off mountains, or occasions where the planned route is the only one out of a location in unfamiliar territory.
 
-As previously mentioned, these problems are inherent to pretty much any offline medium - and affect the majority of digital sources equally. This is due to the fact that maps are effectively **static snapshots**, only reflecting the reality as discrete points in time. What we really need is some **dynamic data** 😯.
+As previously mentioned, these problems are inherent to pretty much any offline medium - and affect the majority of digital sources equally. This is because maps are effectively **static snapshots**, only reflecting the reality as discrete points in time. What we really need is some **dynamic data** 😯.
 
 ## Strava
 
-In order to remedy this issue we're going to integrate data from Strava. Strava is one of the largest fitness social networks and receives millions of `GPS` tracks per day, from users' running, cycling, and other activities. The data from the past `2 years` is exposed via their 'Metro' and 'Heatmap'[^strava] services as aggregated and anonymised `XYZ` tiles, which we're going to use. Strava only exposes these tiles via their website, which requires a free account if you want the highest resolution data. 
+In order to remedy this issue, we're going to integrate data from Strava. Strava is one of the largest fitness social networks and receives millions of `GPS` tracks per day, from users' running, cycling, and other activities. The data from the past `2 years` is exposed via their 'Metro' and 'Heatmap'[^strava] services as aggregated and anonymised `XYZ` tiles, which we're going to use. Strava only exposes these tiles via their website, which requires a free account if you want the highest resolution data.
 
 import stravaHeat from './images/stravaHeat.webp'
 
 <Image image={stravaHeat} alt="Strava Heatmap" />
 
-It's not especially useful stuck in `MapboxGL`, so I just wrote a script in `Proxyman`[^proxyman] to include the required auth cookie on all tile requests, allowing its use in any `GIS`. Would share it, but it's very simple and would probably be breaking some `TOC`s and `EULA`s somewhere. Given Strava's liberal stance on their data be used for OSM[^stravaOSM], and our obvious personal, not-for-profit intent, I don't think there are any copyright issues with us using the data in this way, as it clearly falls under fair use.
+It's not especially useful stuck in `MapboxGL`, so I just wrote a script in `Proxyman`[^proxyman] to include the required auth cookie on all tile requests, allowing its use in any `GIS`. Would share it, but it's very simple and would probably be breaking some `ToS`s and `EULA`s somewhere. Given Strava's liberal stance on their data be used for OSM[^stravaOSM], and our obvious personal, not-for-profit intent, I don't think there are any copyright issues with us using the data in this way, as it clearly falls under fair use.
 
 [^strava]: https://www.strava.com/heatmap#5.98/-6.57074/54.52126/hot/all
 [^proxyman]: https://proxyman.io/
 [^stravaOSM]: https://wiki.openstreetmap.org/wiki/Strava
 
 ## QGIS
+> ⚠️ Before we get into things, it's important to note that you **must**, have the appropriate licence to use the Ordnance Survey basemaps. The rights can be purchased from OS by buying a paper version of the desired area, or through other agencies such as Digimap if for educational purposes[^digimap]. How you get your OS Map into QGIS is dependant on your source.
 
-In this post I'm using QGIS[^qgis], as it's the only really cross platform, Open Source, and cost-accessible `GIS` package.
+[^digimap]: https://digimap.edina.ac.uk/
+
+In this post, I'm using QGIS[^qgis], as it's the only really cross platform, Open Source, and cost-accessible `GIS` package.
 
 [^qgis]: https://www.qgis.org/
 
@@ -81,7 +84,7 @@ import qgisA from './images/qgisA.webp'
 
 <Image image={qgisA} alt="QGIS Layers" />
 
-Layering up the Strava Heatmap, and OS Explorer basemap we get the following:
+Layering up the Strava Heatmap, and OS Explorer basemap is really easy in QGIS.  While the OS Maps use `EPSG:27700`, the slippy `XYZ` Strava tiles use a different `CRS`: `EPSG:3857`, this isn't a problem, as QGIS will project them both into the same coordinate space on the fly - giving us the following:
 
 import os2 from './images/os2.webp'
 import stravaOS2 from './images/stravaOS2.webp'
@@ -92,6 +95,7 @@ import stravaOS2 from './images/stravaOS2.webp'
 />
 
 <section className={key}>
+	I've marked up the map as follows:
 	<ul>
 		<li data-marker="">
 			<div style={{color: "#3DFA89"}} className={colourIndicator} />
@@ -112,17 +116,133 @@ Already we can start to see how powerful this technique is, and how much more re
 
 Using this map to plan routes, we're now much more informed about which paths are a safe bet, and which should be avoided. Combining this with aerial imagery can also give good results.
 
-(We do cover some map information but we don't care about designation - only what's on the ground)
+(By overlaying the Strava information, we do cover up some map information it's mostly labels, which aren't that important)
 
-## The Other Problems with Paper OS Maps
+## Paths Tick! What's Next?
+
+While we've remedied one of my main issues with the OS Explorer maps, there are a few other more practical issues with the maps.
+
+The OS Explorer maps are traditionally supplied as large, bulky, printed sheets at `8x240x134mm` folded, and `1270x945mm` spread out. This makes them perfect for throwing over the kitchen table to plan adventures, but doesn't make them all that practical when you're trying to flip the map over, in the wind, up top an arête. People have even resorted to cutting and all sorts of OTT solutions[^cutOS].
+
+[^cutOS]: https://www.ordnancesurvey.co.uk/blog/2012/02/how-do-you-look-after-your-paper-map/
+
+Rather than get the scissors out, I prefer to leave the OS sheets at home and instead print off exactly the area I need - with a buffer for the inevitable navigational mishaps. I'm yet to be convinced that anyone has ever needed the whole `1200km²` all at the same time.
+
+
+import osMapBoundaries from './images/osMapBoundaries.webp'
+
+This also benefits us in a number of other ways:
+- let's say you want to walk from Scafell Pike to Seatoller - a route that transects the boundary between two OS Explorer sheets. Carrying paper maps means you'd have to carry both `OL6`, and `OL4`[^osSelector]. Even though you only need a small area across the two.
+	<Image image={osMapBoundaries} alt="OS Explorer map Boundaries" />
+- you don't have to pay more for lamination, just buy the digital rights
+- you don't need to carry **gigantic** map cases and other shitty accessories
+- if you print on demand, you'll always have the latest version of the map
+
+[^osSelector]: https://shop.ordnancesurvey.co.uk/map-selector/
+
+## Pagination and Printing
+
+QGIS' `Layout` functionality makes it really easy to layout our map for printing, even over multiple pages. It's fairly self-explanatory although there are a few things I ran into, doing it for the first time.
+
+The first thing is that `layouts` contain multiple `pages`. `Pages` are not `layouts`. We'll create one `layout`, with a few pages to cover the route/area of interest.
+
+import ip from './images/ip.webp'
+
+<Image image={ip} alt="QGIS Insert Pages" />
+
+After adding the map to the page, its best to **fix** the map scale to the desired value. In the case of the `1:25k` OS Explorer map, we're going to fix the scale to `25000`.
+
+This is best done using an `expression`:
+
+import scaleA from './images/scaleA.webp'
+
+<Image image={scaleA} alt="QGIS Fix Scale" />
+
+
+Once we've fixed the scale, we can set the map's position interactively:
+
+import int from './images/int.webp'
+
+<Image image={int} alt="QGIS Position Map" />
+
+Once you've repeated this for the remaining pages, you can export the pages directly to `.pdf`, or if you want to further process or compress the files for digital use, you can export to `.png`:
+
+import exportImg from './images/export.webp'
+
+<Image image={exportImg} alt="QGIS Export" />
+
+## Extras
+
+### Routes
+Often you want your maps to detail a preplanned route. Once you've got a `.gpx` file, it's really easy to import into `QGIS`.
+
+### Styles
+Once it's in, I like to style it to blend into the surrounding map. In the case of OS Explorer maps the font used is `Gill Sans`, and the colours can be 'eyedropped' from the actual map.
+
+> ⚠️ One thing of note is that the scale for these added details will be off **until** you export the print layout from QGIS.
+
+### Distance Markers
+Distance markers are also very useful. In QGIS the process for creating them is somewhat convoluted.
+
+Firstly - if it is not already - reproject the imported `.gpx` to the projects' `CRS`, you can find this tool in the `processing` toolbox.
+
+import repro from './images/repro.webp'
+
+<Image image={repro} alt="QGIS Reproject" />
+
+Then you can use the 'points along geometry' tool - found in the same place - to generate the distance markers.
+
+import pag from './images/pag.webp'
+
+<Image image={pag} alt="QGIS Points along Geometry" />
+
+Styling these points leads to really nice distance markers.
+
+import full from './images/full.webp'
+
+<Image image={full} alt="Distance Markers on Map" />
+
+To get the labels to state the distance I'm using the following expression:
+
+```php QGIS
+to_int($id) || 'km'
+```
+
+If you haven't saved the distance marker layer, the numbers will be indexed to `1` not `0`, and so will give erroneous values. Save the layer and the problem should resolve.
+
+### PTO Lines
+
+**P**lease **T**urn **O**ver lines can also be really useful for knowing at what point along a route the next sheet should be used. Obviously you can just flip it over if you've printed it duplex, but if the next sheets are packed away in a bag then its useful to know when to turn over. Extra polish ✨.
+
+I like to add these manually in the layout section of QGIS, using a two point `polyline`.
+
+The reason I don't just turn over once I reach the edge of the map is that I always include a decent margin of overlap between consecutive sheets. If the edges line up perfectly with no overlap, it's impossible to take bearings and things accurately. If you include some overlap, then there's never a region where the compass would need to straddle both sheets at the same time. Having an overlap also helps negate any detail being cut off when printing.
+
+### Safety
+
+Considering we're going to these great lengths to customise the map, it only makes sense to include some important information too: like phone numbers, precalculated bearings or timings. There's not really any hard-fast rules here, just a head's up that might pay dividends someday 🦸‍♀️.
+
+## Printing
+
+Printing from QGIS is easy, just be sure to fix the scale to ensure the print driver doesn't mess around with the map in any way. I tend to print a B&W copy of the first page to check everything's in order before committing.
+
+Another thing that caught me out is the fact that most laser printers can't print full bleed. This means that they'll always be a white border around the paper. Fixing the scale means that the edges of the map will be cut off - another reason to do a B&W proof.
+
+## Weatherproofing
+
+Even if it's not raining, paper used outdoors doesn't last. The humidity quickly reduces its integrity to that of a `**insert E.D. joke**` - making it impossible to use in combination with a compass, or even just to hold properly. Laminating eliminates this problem, and also makes your map rainproof, +1 over plain OS Maps!
+
+I find that the best method is to whack the temperature of your laminator all the way up, and pass the laminate through a few times to ensure a good bond between the ply. I've never had one fail 👌.
+
+While lamination makes the maps rainproof, the added rigidity also converts them into the perfect windsail - ready to fly over the edge of a hill. Punching a hole in the map and passing some paracord through to tie to something solves this, but if done with a hole punch will introduce a point of ingress for moisture and lead to delamination in wet weather. 
+
+Of course, I wouldn't be mentioning this unless I had a solution, and that's to use a leather punch - one with different sized holes. Punch a larger hole through the paper layer, and a `1-2mm` smaller one though the laminator pocket; when the stack is heated, the outer layers will still be able to seal and prevent infiltration.  
 
 
 > ⚖️
-> 
+>
 > [OS Maps](https://www.ordnancesurvey.co.uk/) © Crown copyright and database rights <span dangerouslySetInnerHTML={{__html: new Date().getFullYear()}}></span> Ordnance Survey (100025252)
-> 
-> [Bing Maps](https://www.bing.com/maps) Microsoft product screen shot(s) reprinted with permission from Microsoft Corporation
-> 
+>
 > [OpenStreetMap](https://www.openstreetmap.org/copyright) © OpenStreetMap contributors
-> 
+>
 > [Strava Heatmap](https://www.strava.com/heatmap) © 2018 Strava
