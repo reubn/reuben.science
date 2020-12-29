@@ -6,5 +6,6 @@ export default {
   dev: gradient('blue'),
   food: gradient('orange'),
   automation: gradient('yellow'),
-  outdoors: gradient('green')
+  outdoors: gradient('green'),
+  craft: gradient('pink-red')
 }
