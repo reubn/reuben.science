@@ -19,7 +19,7 @@ function App({Component, pageProps}){
   const router = useRouter();
 
   useEffect(() => {
-    const routeChange = url => ping()
+    const routeChange = ping
 
     router.events.on('routeChangeComplete', routeChange)
     routeChange(window.location.pathname) // capture initial load
