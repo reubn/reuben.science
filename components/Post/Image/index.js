@@ -27,29 +27,26 @@ const Image = ({image, className, ...props}) => {
 
   return (
     <Lazy>
-      {({_ref, inView, ...lazyProps}) => {
+      {({_ref, inView, ...lazyProps}) => (
+        <img
+          ref={_ref}
+          id={imageId.current}
 
-        return (
-          <img
-            ref={_ref}
-            id={imageId.current}
+          onLoad={() => setLoaded(true)}
+          onError={() => inView && onError()}
 
-            onLoad={() => setLoaded(true)}
-            onError={() => inView && onError()}
+          src={inView ? useSrc : ''}
+          srcSet={inView ? useSrc === src ? srcSet : undefined : ''}
 
-            src={inView ? useSrc : ''}
-            srcSet={inView ? useSrc === src ? srcSet : undefined : ''}
+          width={width}
+          height={height}
+          className={loaded ? className : [loading, className].join(' ')}
+          loading="lazy"
 
-            width={width}
-            height={height}
-            className={loaded ? className : [loading, className].join(' ')}
-            loading="lazy"
-
-            {...props}
-            {...lazyProps}
-          />
-        )
-      }}
+          {...props}
+          {...lazyProps}
+        />
+      )}
     </Lazy>
   )
 }
