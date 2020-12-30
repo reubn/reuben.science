@@ -15,6 +15,8 @@ module.exports = async () => {
     const modifiedAnalyticsText = analyticsText
       // turn into module
       .replace(/^!function/, `module.exports = () => !function`)
+      // correct startTime for SPA loads
+      .replace(/startTime:(.+?)\.timeOrigin/, `startTime:window.__analyticsStartTime||$1.timeOrigin`)
       // inject correct path into timings
       .replace(/JSON\.stringify/g, `(_ =>{const __=_;return JSON.stringify((__&&typeof __=== 'object'&&__.hasOwnProperty('timingsV2') ? (__.timingsV2.name = window.location.href, __) : _))})`)
       // inject config
