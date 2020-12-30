@@ -36,4 +36,5 @@ yarn-error.log*
 
 *private*
 .list*
+.analytics*
 .assets
