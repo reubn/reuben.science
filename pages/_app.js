@@ -19,13 +19,23 @@ function App({Component, pageProps}){
   const router = useRouter();
 
   useEffect(() => {
-    const routeChange = ping
+    const routeChangeStart = () => {
+      const timeOrigin = performance.timeOrigin || (performance.timing ? performance.timing.navigationStart : 0)
+      const now = timeOrigin + performance.now()
+      console.log('A', now)
 
-    router.events.on('routeChangeComplete', routeChange)
-    routeChange(window.location.pathname) // capture initial load
+      window.__analyticsStartTime = now
+    }
+    const routeChangeComplete = ping
+
+    router.events.on('routeChangeStart', routeChangeStart)
+
+    router.events.on('routeChangeComplete', routeChangeComplete)
+    routeChangeComplete(window.location.pathname) // capture initial load
 
     return () => {
-      router.events.off('routeChangeComplete', routeChange)
+      router.events.off('routeChangeStart', routeChangeStart)
+      router.events.off('routeChangeComplete', routeChangeComplete)
     }
   }, [])
 
