@@ -36,6 +36,10 @@
 
 }
 
+.logo.flipped {
+  transform: rotate(180deg);
+}
+
 @media (max-width: 400px) {
   .logo {
     height: 4rem;
@@ -56,7 +60,7 @@
   font-weight:500;
   margin: auto 0.75rem;
 
-  min-height: 3rem;
+  min-height: var(--header-height);
 
   display: inline-flex;
   justify-content: center;

@@ -1,7 +1,14 @@
-.category {
-  margin-bottom: 3rem;
-}
+.categories {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
 
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
 
 .empty {
   font-weight: 400;
