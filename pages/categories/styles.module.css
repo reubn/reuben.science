@@ -1,5 +1,5 @@
 .categories {
-  margin: var(--header-height) auto;
+  margin: calc(var(--header-height) / 2) auto;
 }
 
 
