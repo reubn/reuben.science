@@ -1,7 +1,13 @@
 .categories {
-  margin: calc(var(--header-height) / 2) auto;
-}
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
 
 .empty {
   font-weight: 400;
