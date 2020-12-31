@@ -36,6 +36,10 @@
 
 }
 
+.logo.flipped {
+  transform: rotate(180deg);
+}
+
 @media (max-width: 400px) {
   .logo {
     height: 4rem;
