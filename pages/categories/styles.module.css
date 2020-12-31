@@ -1,5 +1,5 @@
-.category {
-  margin-bottom: 3rem;
+.categories {
+  margin: var(--header-height) auto;
 }
 
 
