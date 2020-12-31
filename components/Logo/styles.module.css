@@ -1,6 +1,7 @@
 .svg {
   --colours-cloud: hsl(0, 0%, 98%);
   --colours-peat: hsl(205, 15%, 20%);
+  cursor: pointer;
 
   transition: transform 0.25s cubic-bezier(.51,-0.33,0,1.8);
 }
