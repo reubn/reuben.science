@@ -1,28 +1,38 @@
 import {WebpMachine} from 'webp-hero'
-import {loadBinaryData} from 'webp-hero/dist-cjs/load-binary-data'
 
-if(!window._webpMachine) window._webpMachine = new WebpMachine()
+import loadWebp from './loadWebp'
 
-const decode = async function(src){
-  if (await window._webpMachine.webpSupport) return
-    if (window._webpMachine.cache[src]) return window._webpMachine.cache[src]
+const webpMachine = new WebpMachine()
+
+const process = async function(srcOrData){
+  const decode = async data => {
     try {
-      const webpData = await loadBinaryData(src)
-      const pngData = await window._webpMachine.decode(webpData)
-      return  window._webpMachine.cache[src] = pngData
+      return webpMachine.decode(data)
     }
     catch (error) {
       error.name = 'WebpMachineError'
       error.message = `failed to polyfill image "${src}": ${error.message}`
       throw error
     }
+  }
+
+  if(!(typeof srcOrData === 'string')) return decode(srcOrData)
+  if (await webpMachine.webpSupport) return
+  if (webpMachine.cache[srcOrData]) return webpMachine.cache[srcOrData]
+  const webpData = await loadWebp(srcOrData)
+
+  const pngData = await decode(webpData)
+
+  webpMachine.cache[srcOrData] = pngData
+
+  return pngData
 }
 
 
 
 export default async (...args) => {
   let failures = 0
-  const wrapper = (...args) => decode(...args).catch(() => ++failures <= 5 && new Promise(resolve => setTimeout(resolve, 10)).then(() => wrapper(...args)))
+  const wrapper = (...args) => process(...args).catch(error => ++failures <= 10 ? (new Promise(resolve => setTimeout(resolve, failures * 200)).then(() => wrapper(...args))) : console.log('max tries', error))
 
   return wrapper(...args)
 }

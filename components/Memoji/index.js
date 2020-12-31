@@ -51,16 +51,19 @@ const Memoji = ({frameTimeout=5*1000, frameCount, getFrameURL, defaultFrameNumbe
     const webpStatus = await supportsWebp()
     if(webpStatus) return frame
 
+    const {default: loadWebp} = await import('@/src/loadWebp')
     const {default: decodeWebp} = await import('@/src/decodeWebp')
 
     const polyfilledFrame = new Image()
-    polyfilledFrame.src = await decodeWebp(frame.src)
+    polyfilledFrame.webpData = await loadWebp(frame.src)
+    polyfilledFrame.getPollyfilledSrc = async function(){this.src = await decodeWebp(this.webpData)}
 
     return polyfilledFrame
   }
 
   const drawFrame = image => {
     if(!image || !canvasRef.current) return
+    if(!image.src) return image.getPollyfilledSrc()
     const context = canvasRef.current.getContext("2d")
 
     // center image
