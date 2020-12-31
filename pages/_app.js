@@ -1,4 +1,7 @@
+import {useEffect} from 'react'
+
 import Head from 'next/head'
+import {useRouter} from 'next/router'
 
 import {DefaultSeo} from 'next-seo'
 
@@ -10,8 +13,32 @@ import Footer from '@/components/Footer'
 
 import {app, content} from './_app.module.css'
 
+import ping from '@/src/.analytics'
+
 function App({Component, pageProps}){
-  // console.log(pageProps)
+  const router = useRouter();
+
+  useEffect(() => {
+    const routeChangeStart = () => {
+      const timeOrigin = performance.timeOrigin || (performance.timing ? performance.timing.navigationStart : 0)
+      const now = timeOrigin + performance.now()
+      console.log('A', now)
+
+      window.__analyticsStartTime = now
+    }
+    const routeChangeComplete = ping
+
+    router.events.on('routeChangeStart', routeChangeStart)
+
+    router.events.on('routeChangeComplete', routeChangeComplete)
+    routeChangeComplete(window.location.pathname) // capture initial load
+
+    return () => {
+      router.events.off('routeChangeStart', routeChangeStart)
+      router.events.off('routeChangeComplete', routeChangeComplete)
+    }
+  }, [])
+
   return (
     <>
       <Head>

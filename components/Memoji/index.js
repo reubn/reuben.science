@@ -1,5 +1,7 @@
 import {useEffect, useRef, useState} from 'react'
 
+import supportsWebp from '@/src/supportsWebp'
+
 import {memoji as memojiStyle, ready as readyStyle, notReady as notReadyStyle} from './styles'
 
 const Memoji = ({frameTimeout=5*1000, frameCount, getFrameURL, defaultFrameNumber=Math.floor(frameCount / 2), width, height, className, ...props}) => {
@@ -42,13 +44,26 @@ const Memoji = ({frameTimeout=5*1000, frameCount, getFrameURL, defaultFrameNumbe
   }
 
   const createFrame = async frame => {
-    await frame.decode()
+    const decoded = await frame.decode().catch(() => null)
 
-    return frame
+    if(decoded) return frame
+
+    const webpStatus = await supportsWebp()
+    if(webpStatus) return frame
+
+    const {default: loadWebp} = await import('@/src/loadWebp')
+    const {default: decodeWebp} = await import('@/src/decodeWebp')
+
+    const polyfilledFrame = new Image()
+    polyfilledFrame.webpData = await loadWebp(frame.src)
+    polyfilledFrame.getPollyfilledSrc = async function(){this.src = await decodeWebp(this.webpData)}
+
+    return polyfilledFrame
   }
 
   const drawFrame = image => {
     if(!image || !canvasRef.current) return
+    if(!image.src) return image.getPollyfilledSrc()
     const context = canvasRef.current.getContext("2d")
 
     // center image
