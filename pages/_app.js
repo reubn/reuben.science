@@ -15,14 +15,23 @@ import {app, content} from './_app.module.css'
 
 import ping from '@/src/.analytics'
 
+const APP_ID = 'app'
+
 function App({Component, pageProps}){
-  const router = useRouter();
+  const router = useRouter()
+
+  useEffect(() => {
+    const handler = url => !url.includes('#') && document.getElementById(APP_ID).scrollTo(0, 0)
+
+    router.events.on('routeChangeComplete', handler)
+
+    return () => router.events.off('routerChangeComplete', handler)
+  })
 
   useEffect(() => {
     const routeChangeStart = () => {
       const timeOrigin = performance.timeOrigin || (performance.timing ? performance.timing.navigationStart : 0)
       const now = timeOrigin + performance.now()
-      console.log('A', now)
 
       window.__analyticsStartTime = now
     }
@@ -89,7 +98,7 @@ function App({Component, pageProps}){
           cardType: 'summary_large_image',
         }}
       />
-      <section className={app}>
+      <section className={app} id={APP_ID}>
         <Header />
         <main className={content}>
           <Component {...pageProps} />
