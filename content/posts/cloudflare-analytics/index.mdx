@@ -16,7 +16,7 @@ The script Cloudflare loads is heavily minified, and while not intentionally obf
 
 [^n2p]: http://www.nice2predict.org/
 
-Once inside, the code showed a number of options that are documented (or that I could find). 
+Once inside, the code showed a number of options that are documented (or that I could find).
 
 There's the option to include custom tags in the beacon requests
 ```js JS
@@ -37,8 +37,8 @@ Here we find what we've been looking for, an option to configure the `URL` the b
 ...
 
 var initial = params.token
-	? params.send && params.send.to 
-			? params.send.to 
+	? params.send && params.send.to
+			? params.send.to
 			: "https://cloudflareinsights.com/cdn-cgi/rum"
 	: null;
 
@@ -63,14 +63,14 @@ var paramJson = t.getAttribute("data-cf-beacon");
 	    params = JSON.parse(paramJson)
 	}
 ...
-              
+
 ```
 
 So, we can pick our own `URL` using `{:js} window.__cfBeacon = {token: ANALYTICS_TOKEN, send: {to: ENDPOINT_URL}}`
 
 ## cdn-cgi
 
-My first thought was to change this to a Cloudflare Worker proxy, sitting on the same origin. It turnouts however, that this isn't even necessary.
+My first thought was to change this to a Cloudflare Worker proxy, sitting on the same origin. However, this isn't even necessary...
 
 Cloudflare's `CDN` network includes a 'secret' `/cdn-cgi` directory on sites it proxies. The best-known use of this is the `/cdn-cgi/trace` document, that details information about the user's interaction with the Cloudflare network.
 
@@ -95,19 +95,19 @@ It turns out that a lot of Cloudflare's services make use of this path, includin
 
 [^ggl]: https://www.google.com/search?q="/cdn-cgi/"
 
-More pertinent to our needs, as seen in the default `URL`, `/cdn-cgi/rum` exists, and it's live on all Cloudflare-proxied sites - same origin 👌. 
+More pertinent to our needs, as seen in the default `URL`, `/cdn-cgi/rum` exists, and it's live on all Cloudflare-proxied sites - same origin 👌.
 
 > ✨ Take Home Message
-> 
+>
 > `{:js} window.__cfBeacon = {token: ANALYTICS_TOKEN, send: {to: '/cdn-cgi/rum'}}`
-> 
+>
 > will provide us with a same-origin destination for our requests
 
 To solve the initial request being 3^rd^ Party, I suggest just serving the `beacon.min.js`, file yourself, as I haven't found it exposed in the same way.
 
 ## Worth it?
 
-I'm in two minds about solving this. On one hand its somewhat futile as it only defeats `DNS` based blocking, `uBlock` or other `HTTP`-level blockers could quite easily write a rule to block this, on the other hand, Cloudflare Web Analytics is the only free limitless offering I've found that doesn't track users (not even using their IP address)[^cfp], and doesn't require cookies - so maybe it is worth trying. 
+I'm in two minds about solving this. On one hand its somewhat futile as it only defeats `DNS` based blocking, `uBlock` or other `HTTP`-level blockers could quite easily write a rule to block this, on the other hand, Cloudflare Web Analytics is the only free limitless offering I've found that doesn't track users (not even using their IP address)[^cfp], and doesn't require cookies - so maybe it is worth trying.
 
 There are many ways to solve the issues of simple pattern blocking, using 'Cloudflare Workers', or literally any other proxy service - but I want a simple stack and don't want to be bounded by usage limits more than necessary - optimistic, I know!
 
