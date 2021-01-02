@@ -1,5 +1,6 @@
 .app {
   --header-height: 6rem;
+  --footer-height: 7rem;
 
   width: 100vw;
   height: 100vh;
@@ -21,7 +22,13 @@
   line-height: 1.75;
   font-size: 1rem;
 
-  min-height: calc(100% - (var(--header-height) / 2));
+  min-height: calc(100vh);
+}
+
+@media (max-width: 1400px) {
+  .content {
+    min-height: calc(100vh - var(--header-height));
+  }
 }
 
 .content a {
