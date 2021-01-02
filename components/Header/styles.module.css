@@ -1,7 +1,6 @@
 .header {
   position: sticky;
   z-index: 3;
-  background: rgba(68 68 68, 0.75);
   width: 100%;
   height: var(--header-height);
   padding: 0 2rem;
