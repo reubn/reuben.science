@@ -33,14 +33,14 @@
   max-width: 80vw;
 }
 
-.me div {
+.profile {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
 
-.me div h1 {
+.name {
   font-weight: 500;
   line-height: 1;
   font-size: 1.5rem;
@@ -49,17 +49,31 @@
   margin: 0;
 }
 
-.me div p {
+.description {
   text-align: center;
   width: 66%;
 
   color: var(--colours-mid);
 }
 
+.emoji {
+  display: flex;
+  justify-content: space-evenly;
+  width: 10rem;
+  margin: 0 auto 0.5rem auto;
+  font-size: 1.25rem;
+  user-select: none;
+}
+
+.sectionWrapper {
+  margin-top: 2rem;
+  width: 100%;
+}
+
 .heading {
   text-align: left;
   width: 100%;
-  margin-left: 0.5rem;
+  display: inline-block;
   font-weight: 500;
   font-size: 1rem;
   line-height: 1;
@@ -76,6 +90,35 @@
   grid-template-rows: auto;
 
   width: 100%;
+}
+
+.more {
+  width: 1.4rem;
+  height: 1.4rem;
+  vertical-align: middle;
+  margin-left: -5px;
+  margin-bottom: 3px;
+  display: inline-block;
+  color: var(--colours-dark-4);
+
+  transform: translateX(-100%);
+
+  opacity: 0;
+
+  transition: all 0.5s cubic-bezier(.47,0,0,1.54) 0s;
+  overflow: visible;
+}
+
+.sectionWrapper:hover .more {
+  transition: all 0.35s cubic-bezier(.47,0,0,1.54) 0s,
+              opacity 0.75s cubic-bezier(.47,0,0,1.54) 0.25s,
+              transform 0.75s cubic-bezier(.47,0,0,1.05) 0.25s;
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.heading:hover .more {
+  color: inherit;
 }
 
 @media (max-width: 875px) {
@@ -134,6 +177,7 @@
   align-self: center;
 
   width: 100%;
+  margin-top: 1rem;
   padding: 0 0.5rem;
   overflow: visible;
 }

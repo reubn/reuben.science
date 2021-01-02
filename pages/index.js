@@ -1,12 +1,15 @@
 import {NextSeo, BreadcrumbJsonLd} from 'next-seo'
 
+import {ChevronRight} from 'react-feather'
+
 import Memoji from '@/components/Memoji'
 import PostLink from '@/components/PostLink'
+import ActiveLink from '@/components/ActiveLink'
 
 import photos from '@/src/photos'
 import sortPosts from '@/src/sortPosts'
 
-import {main, me, memoji, heading, posts as postsStyle, photos as photosStyle, photo, postLink} from './styles'
+import {main, me, profile, name, description, emoji, memoji, heading, posts as postsStyle, photos as photosStyle, photo, postLink, sectionWrapper, more} from './styles'
 
 import * as posts from './posts/[slug].js'
 
@@ -36,28 +39,39 @@ export default function Home({posts, images, imageSize}) {
       <main className={main}>
         <section className={me}>
           <Memoji className={memoji} frameCount={frameCount} getFrameURL={getFrameURL} width={Math.floor(459 * 1.5)} height={Math.floor(350 * 1.5)} />
-          <div>
-            <h1>Reuben</h1>
-            <p>No idea what's gonna end up on here, inevitably just some random shit</p>
+          <div className={profile}>
+            <h1 className={name}>Reuben</h1>
+            <p className={description}>
+              <span className={emoji}>{['🏥', '🌵', '🛠', '⛰', '📸'].map(em => <span>{em}</span>)}</span>
+              No idea what's gonna end up on here, inevitably just some random shit. Limited competance.
+            </p>
           </div>
         </section>
         {
           posts.length
             ? (
-                <>
-                  <p className={heading}>Recent Posts</p>
+                <span className={sectionWrapper}>
+                  <ActiveLink href="/posts">
+                    <a className={heading}>
+                      Recent Posts <ChevronRight className={more} aria-label="More Posts" />
+                    </a>
+                  </ActiveLink>
                   <section className={postsStyle}>
                     {sortPosts(posts).map(props => <PostLink key={props.slug} {...props} className={postLink}/>)}
                   </section>
-                </>
+                </span>
               )
             : null
         }
         {
           images.length
             ? (
-                <>
-                  <p className={heading}>Recent Photos</p>
+                <span className={sectionWrapper}>
+                  <ActiveLink href="https://unsplash.com/re">
+                    <a className={heading}>
+                      Recent Photos <ChevronRight className={more} aria-label="More Photos" />
+                    </a>
+                  </ActiveLink>
                   <section className={photosStyle} style={{'--columns': Math.min(images.length, 4), '--image-size': `${imageSize}px`}}>
                     {images.map(({src, id}) => (
                       <a href={`https://unsplash.com/photos/${id}`} className={photo} aria-label={`Unsplash Photo ${id}`} key={id}>
@@ -65,7 +79,7 @@ export default function Home({posts, images, imageSize}) {
                       </a>)
                     )}
                   </section>
-                </>
+                </span>
               )
             : null
         }
