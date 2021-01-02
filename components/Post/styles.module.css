@@ -2,7 +2,7 @@
   max-width: 1000px;
   width: calc((100vw - 3.5rem));
 
-  margin: calc(var(--header-height) / 2) auto 3rem auto;
+  margin: 3rem auto;
 }
 
 .post *:not(li):not(figure) {

@@ -2,7 +2,7 @@
   max-width: 1000px;
   width: calc((100vw - 3.5rem));
 
-  margin: var(--header-height) auto 3rem auto;
+  margin: 3rem auto 6rem auto;
 
   display: flex;
   flex-direction: column;
