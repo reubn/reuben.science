@@ -1,0 +1,116 @@
+import header from './images/header.webp'
+
+export const metadata = {
+  title: 'Same Origin Cloudflare Analytics',
+  description: 'Reverse Engineering Cloudflare Web Analytics',
+  emoji: '⛅️',
+  date: '2020-12-31',
+  category: ['dev'],
+  image: header
+}
+
+Cloudflare's new analytics offering 'Cloudflare Web Analytics' promises a solution to the dichotomy of information vs privacy. Their free tier operates using a traditional `JS` beacon script loaded from Cloudflare's own domain `static.cloudflareinsights.com`, that reports back to `cloudflareinsights.com`. Cloudflare promises their solution to be 'privacy-first', and while I have very little doubt about it being the case, it won't be long before ad-blockers and other privacy-conscious tools block it - as a 3^rd^ party resource.
+
+## Reverse Engineering the Beacon
+The script Cloudflare loads is heavily minified, and while not intentionally obfuscated, is almost impossible to read. I tried looking for stray source maps and the like, but didn't find any. Instead I used [`de4js`](https://lelinhtinh.github.io/de4js/) with the [`unreadable`](https://github.com/lelinhtinh/de4js/blob/master/userscript/de4js_helper.user.js) add-on, and then ran it through [Prettier](https://prettier.io/). The `unreadable` extension uses data from [JSNice](http://jsnice.org/), and tries to rename variables back to their likely name using a statistical model[^n2p]. This works pretty well, but isn't infallible, so you have to have your whits about you and not blindly trust that a variable named `url`, is even a `URL`, for example.
+
+[^n2p]: http://www.nice2predict.org/
+
+Once inside, the code showed a number of options that are documented (or that I could find).
+
+There's the option to include custom tags in the beacon requests
+```js JS
+...
+
+if (window.__cfBeaconCustomTag) {
+    if ("object" != typeof window.__cfBeaconCustomTag || Array.isArray(window.__cfBeaconCustomTag)) console.warn('Invalid custom tag format. Please use the following format: { "first_key": "first_value", "second_key": "second_value" }');
+    state.ct = applyChange(window.__cfBeaconCustomTag)
+}
+
+...
+```
+
+This is cool but let's keep digging.
+
+Here we find what we've been looking for, an option to configure the `URL` the beacon will pass the **R**eal **U**ser **M**etrics to.
+```js JS
+...
+
+var initial = params.token
+	? params.send && params.send.to
+			? params.send.to
+			: "https://cloudflareinsights.com/cdn-cgi/rum"
+	: null;
+
+...
+```
+
+Looking further up in the script, we can see that the `params` can be taken from the `script` tag or, interestingly for us, from `window.__cfBeacon`.
+
+```js JS
+
+...
+var t = document.currentScript || ("function" == typeof document.querySelector ? document.querySelector("script[data-cf-beacon]") : void 0);
+
+...
+
+var params = window.__cfBeacon;
+
+...
+
+var paramJson = t.getAttribute("data-cf-beacon");
+	if (paramJson) try {
+	    params = JSON.parse(paramJson)
+	}
+...
+
+```
+
+So, we can pick our own `URL` using `{:js} window.__cfBeacon = {token: ANALYTICS_TOKEN, send: {to: ENDPOINT_URL}}`
+
+## cdn-cgi
+
+My first thought was to change this to a Cloudflare Worker proxy, sitting on the same origin. However, this isn't even necessary...
+
+Cloudflare's `CDN` network includes a 'secret' `/cdn-cgi` directory on sites it proxies. The best-known use of this is the `/cdn-cgi/trace` document, that details information about the user's interaction with the Cloudflare network.
+
+```ini /cdn-cgi/trace
+fl=21f439
+h=cloudflare.com
+ip=2b00:24e3:6444:5301:fcf9:4321:29f7:abcd
+ts=1609427929.302
+visit_scheme=https
+uag=Mozilla/5.0 (Macintosh; Intel Mac OS X 11_1_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4356.6 Safari/537.36
+colo=LHR
+http=http/2
+loc=GB
+tls=TLSv1.3
+sni=plaintext
+warp=off
+gateway=off
+gateway_account_id=nil
+```
+
+It turns out that a lot of Cloudflare's services make use of this path, including their email protection, and their `rocket loader` scripts, as well as many other things[^ggl].
+
+[^ggl]: https://www.google.com/search?q="/cdn-cgi/"
+
+More pertinent to our needs, as seen in the default `URL`, `/cdn-cgi/rum` exists, and it's live on all Cloudflare-proxied sites - same origin 👌.
+
+> ✨ Take Home Message
+>
+> `{:js} window.__cfBeacon = {token: ANALYTICS_TOKEN, send: {to: '/cdn-cgi/rum'}}`
+>
+> will provide us with a same-origin destination for our requests
+
+To solve the initial request being 3^rd^ Party, I suggest just serving the `beacon.min.js`, file yourself, as I haven't found it exposed in the same way.
+
+## Worth it?
+
+I'm in two minds about solving this. On one hand its somewhat futile as it only defeats `DNS` based blocking, `uBlock` or other `HTTP`-level blockers could quite easily write a rule to block this, on the other hand, Cloudflare Web Analytics is the only free limitless offering I've found that doesn't track users (not even using their IP address)[^cfp], and doesn't require cookies - so maybe it is worth trying.
+
+There are many ways to solve the issues of simple pattern blocking, using 'Cloudflare Workers', or literally any other proxy service - but I want a simple stack and don't want to be bounded by usage limits more than necessary - optimistic, I know!
+
+[^cfp]: https://www.cloudflare.com/en-gb/web-analytics/
+
+Cloudflare Web Analytics is still in beta, so it's quite possible these features will be documented or removed 😢 in the future.

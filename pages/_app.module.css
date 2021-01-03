@@ -1,5 +1,6 @@
 .app {
   --header-height: 6rem;
+  --footer-height: 7rem;
 
   width: 100vw;
   height: 100vh;
@@ -7,6 +8,7 @@
   padding: 0;
 
   overflow: scroll;
+  overflow-x: hidden;
 
   background-color: var(--colours-dark);
   color: var(--colours-light);
@@ -15,13 +17,23 @@
   text-rendering: optimizelegibility;
 }
 
+.app.loadGlitchFix *, .app.loadGlitchFix *:before, .app.loadGlitchFix *:after {
+  transition: none!important;
+}
+
 .content {
   overflow: visible;
 
   line-height: 1.75;
   font-size: 1rem;
 
-  min-height: calc(100% - var(--header-height));
+  min-height: calc(100vh);
+}
+
+@media (max-width: 1400px) {
+  .content {
+    min-height: calc(100vh - var(--header-height));
+  }
 }
 
 .content a {
@@ -128,7 +140,7 @@
   padding: 3px 6px;
   font-size: 0.8rem;
   border-radius: 2px;
-  transition: all 0.5s cubic-bezier(.47,0,0,1.2);
+  transition: transform 0.5s cubic-bezier(.47,0,0,1.2);
 
 
   z-index: 1;
@@ -139,7 +151,7 @@
   transform: translateX(calc((1.5rem - 3px) + 100%));
   pointer-events: none;
 
-  transition: all 0.5s cubic-bezier(.47,0,0,1.8);
+  transition: transform 0.5s cubic-bezier(.47,0,0,1.8);
 }
 
 @media (max-width: 650px) {

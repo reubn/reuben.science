@@ -1,10 +1,24 @@
-import {svg, re, ex, red, orange, yellow, green, blue, purple, dim} from './styles'
+import {useState} from 'react'
+
+import {svg, re, ex, red, orange, yellow, green, blue, purple, dim, locked} from './styles'
 
 const rx = '20px'
 
 export default ({className='', easterEggCallback, easterEggPass, ...props}) => {
-  let easterEggString = ''
-  const easterEgg = num => () => ((easterEggString += ('' + num)).endsWith(easterEggPass)) && (easterEggCallback(), easterEggString = '')
+  let [easterEggString, setEasterEggString] = useState('')
+  const easterEgg = num => e => {
+    e.stopPropagation()
+    
+    const newAttempt = easterEggString + ('' + num)
+    if(!easterEggPass.startsWith(newAttempt)) return setEasterEggString('')
+    setEasterEggString(newAttempt)
+
+    if(newAttempt === easterEggPass) {
+      easterEggCallback()
+      setEasterEggString('')
+    }
+  }
+
 
   return (
     <svg {...props} className={`${className} ${svg}`} viewBox="0 0 994 994">
@@ -44,18 +58,18 @@ export default ({className='', easterEggCallback, easterEggPass, ...props}) => {
                           <rect className={`${ex} ${dim}`} x="2.84217094e-14" y="149.93" rx={rx}></rect>
                           <rect className={`${ex} ${dim}`} x="150" y="149.93" rx={rx}></rect>
 
-                          <rect className={`${ex} ${red}`} onClick={easterEgg(0)} fill="url(#red)" x="0.066017178" y="0" rx={rx}></rect>
-                          <rect className={`${ex} ${orange}`} onClick={easterEgg(1)} fill="url(#orange)" x="2.84217094e-14" y="149.93" rx={rx}></rect>
-                          <rect className={`${ex} ${yellow}`} onClick={easterEgg(2)} fill="url(#yellow)" x="150" y="149.93" rx={rx}></rect>
+                          <rect className={`${ex} ${red} ${easterEggPass.startsWith(easterEggString) && easterEggString.includes(0) ? locked : ''}`} onClick={easterEgg(0)} fill="url(#red)" x="0.066017178" y="0" rx={rx}></rect>
+                          <rect className={`${ex} ${orange} ${easterEggPass.startsWith(easterEggString) && easterEggString.includes(1) ? locked : ''}`} onClick={easterEgg(1)} fill="url(#orange)" x="2.84217094e-14" y="149.93" rx={rx}></rect>
+                          <rect className={`${ex} ${yellow} ${easterEggPass.startsWith(easterEggString) && easterEggString.includes(2) ? locked : ''}`} onClick={easterEgg(2)} fill="url(#yellow)" x="150" y="149.93" rx={rx}></rect>
                       </g>
                       <g transform="translate(0.000000, 452.933983)">
                           <rect className={`${ex} ${dim}`} x="5.68434189e-14" y="0.066017178" rx={rx}></rect>
                           <rect className={`${ex} ${dim}`} x="150.066017" y="1.13686838e-13" rx={rx}></rect>
                           <rect className={`${ex} ${dim}`} x="149.933983" y="149.996017" rx={rx}></rect>
 
-                          <rect className={`${ex} ${green}`} onClick={easterEgg(3)} fill="url(#green)" x="5.68434189e-14" y="0.066017178" rx={rx}></rect>
-                          <rect className={`${ex} ${blue}`} onClick={easterEgg(4)} fill="url(#blue)" x="150.066017" y="1.13686838e-13" rx={rx}></rect>
-                          <rect className={`${ex} ${purple}`} onClick={easterEgg(5)} fill="url(#purple)" x="149.933983" y="149.996017" rx={rx}></rect>
+                          <rect className={`${ex} ${green} ${easterEggPass.startsWith(easterEggString) && easterEggString.includes(3) ? locked : ''}`} onClick={easterEgg(3)} fill="url(#green)" x="5.68434189e-14" y="0.066017178" rx={rx}></rect>
+                          <rect className={`${ex} ${blue} ${easterEggPass.startsWith(easterEggString) && easterEggString.includes(4) ? locked : ''}`} onClick={easterEgg(4)} fill="url(#blue)" x="150.066017" y="1.13686838e-13" rx={rx}></rect>
+                          <rect className={`${ex} ${purple} ${easterEggPass.startsWith(easterEggString) && easterEggString.includes(5) ? locked : ''}`} onClick={easterEgg(5)} fill="url(#purple)" x="149.933983" y="149.996017" rx={rx}></rect>
                       </g>
                   </g>
               </g>

@@ -1,0 +1,48 @@
+.section {
+  margin-top: 2rem;
+  width: 100%;
+}
+
+.heading {
+  text-align: left;
+  width: 100%;
+  display: inline-block;
+  font-weight: 500;
+  font-size: 1rem;
+  line-height: 1;
+  text-transform: uppercase;
+
+  user-select: none;
+
+  color: var(--colours-accent);
+}
+
+.more {
+  height: 100%;
+  vertical-align: middle;
+  margin-left: -5px;
+  margin-bottom: 3px;
+  display: inline-block;
+  color: var(--colours-dark-4);
+
+  transform: translateX(-100%);
+
+  opacity: 0;
+
+  transition: color 0.5s cubic-bezier(.47,0,0,1.54) 0s,
+              opacity 0.5s cubic-bezier(.47,0,0,1.54) 0s,
+              transform 0.5s cubic-bezier(.47,0,0,1.54) 0s;
+  overflow: visible;
+}
+
+.section:hover .more {
+  transition: color 0.35s cubic-bezier(.47,0,0,1.54) 0s,
+              opacity 0.75s cubic-bezier(.47,0,0,1.54) 0.25s,
+              transform 0.75s cubic-bezier(.47,0,0,1.05) 0.25s;
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.heading:hover .more {
+  color: inherit;
+}

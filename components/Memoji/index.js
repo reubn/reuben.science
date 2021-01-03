@@ -2,7 +2,9 @@ import {useEffect, useRef, useState} from 'react'
 
 import supportsWebp from '@/src/supportsWebp'
 
-import {memoji as memojiStyle, ready as readyStyle, notReady as notReadyStyle} from './styles'
+import CTA from './CTA'
+
+import {memoji as memojiStyle, ready as readyStyle, notReady as notReadyStyle, memojiWrapper, cta as ctaStyle, active} from './styles'
 
 const Memoji = ({frameTimeout=5*1000, frameCount, getFrameURL, defaultFrameNumber=Math.floor(frameCount / 2), width, height, className, ...props}) => {
   const canvasRef = useRef(null)
@@ -12,6 +14,7 @@ const Memoji = ({frameTimeout=5*1000, frameCount, getFrameURL, defaultFrameNumbe
   const [ready, setReady] = useState(false)
   const [framesStartedToLoad, setFramesStartedToLoad] = useState(false)
   const [defaultFrameReady, setDefaultFrameReady] = useState(false)
+  const [cta, setCTA] = useState(false)
 
   const loadFrame = frameNumber => {
     if(memojiFrames[frameNumber]) return memojiFrames[frameNumber]
@@ -63,7 +66,7 @@ const Memoji = ({frameTimeout=5*1000, frameCount, getFrameURL, defaultFrameNumbe
 
   const drawFrame = image => {
     if(!image || !canvasRef.current) return
-    if(!image.src) return image.getPollyfilledSrc()
+    if(!image.src && image.getPollyfilledSrc) return image.getPollyfilledSrc()
     const context = canvasRef.current.getContext("2d")
 
     // center image
@@ -156,22 +159,33 @@ const Memoji = ({frameTimeout=5*1000, frameCount, getFrameURL, defaultFrameNumbe
 
     let memojiHasBeenTouched = false
     if("ontouchstart" in window && !memojiHasBeenTouched) {
+      setCTA(ready && localStorage.getItem('memojiKnowsIsInteractive') !== 'true')
       // crude animate head before touch interaction
       let f = 0
       let direction = +1
-      const intervalA = setInterval(() => tiltHead({fraction: (f = (f + 1 + (direction * 0.01 * Math.random())) % 1)}), 10)
+      const intervalA = setInterval(() => tiltHead({fraction: (f = (f + 1 + (direction * 0.005 * Math.random())) % 1)}), 10)
       const intervalB = setInterval(() => direction *= Math.random() > 0.5 ? -1 : +1, 10 * 200)
 
+
+      let sxa = []
+      let sya = []
       const touchHandler = event => {
         const {clientX: cx, clientY: cy} = event.changedTouches[0]
 
+        if(sxa.push(cx) > 3) sxa.shift()
+        if(sya.push(cy) > 3) sya.shift()
+
+        let sx = sxa.reduce((acc, n) => acc + n, 0) / sxa.length
+        let sy = sya.reduce((acc, n) => acc + n, 0) / sya.length
+        if(Math.abs(cy - sy) < Math.abs(cx - sx)) event.preventDefault()
+
         memojiHasBeenTouched = true
+        localStorage.setItem('memojiKnowsIsInteractive', 'true')
         clearInterval(intervalA)
         clearInterval(intervalB)
+        setCTA(false)
 
         mouseHandler({clientX: cx, clientY: cy})
-
-        event.preventDefault()
       }
 
       canvasRef.current.addEventListener('touchstart', touchHandler)
@@ -195,9 +209,10 @@ const Memoji = ({frameTimeout=5*1000, frameCount, getFrameURL, defaultFrameNumbe
   }, [ready])
 
 
-  return  (
+  return  (<span className={memojiWrapper}>
+    <CTA className={`${ctaStyle} ${cta ? active : ''}`} />
     <canvas {...props} className={[memojiStyle, className || '', (ready || defaultFrameReady) ? readyStyle : notReadyStyle].join(' ')} ref={canvasRef} width={width} height={height} />
-  )
+  </span>)
 }
 
 export default Memoji

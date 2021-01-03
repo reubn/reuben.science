@@ -1,15 +1,16 @@
 import {NextSeo, BreadcrumbJsonLd} from 'next-seo'
 
+import PostList from '@/components/PostList'
 import CategoryLink from '@/components/CategoryLink'
-import PostLink from '@/components/PostLink'
 
 import categories from '@/content/categories'
 
-import sortPosts from '@/src/sortPosts'
+import getPosts from '@/src/getPosts'
 
-import * as posts from '../posts/[slug].js'
+import dehydratePost from '@/src/dehydratePost'
+import hydratePost from '@/src/hydratePost'
 
-import {main, posts as postsStyle, postLink} from '../styles'
+import {main} from '../styles'
 import {category, empty} from './styles'
 
 export default function Category({slug, posts}) {
@@ -45,15 +46,7 @@ export default function Category({slug, posts}) {
 
       <main className={main}>
         <CategoryLink category={slug} className={category} />
-        {
-          posts.length
-            ? (
-              <section className={postsStyle}>
-                {sortPosts(posts).map(props => <PostLink key={props.slug} {...props} className={postLink}/>)}
-              </section>
-            )
-            : <h2 className={empty}>no posts here mate</h2>
-        }
+        <PostList posts={posts.map(hydratePost)} heading={false} fallback={<h2 className={empty}>no posts here mate</h2>}/>
       </main>
     </>
   )
@@ -65,13 +58,14 @@ export const getStaticProps = async ctx => {
   return {
     props: {
       slug,
-      posts: (await Promise.all((await posts.getStaticPaths()).paths.map(posts.getStaticProps))).filter(({props: {metadata: {category}}}) => category.includes(slug))
+      posts: (await getPosts())
+        .filter(({metadata: {category}}) => category.includes(slug))
+        .map(dehydratePost)
     }
   }
 }
 
 export function getStaticPaths() {
-
   return {
     paths: Object.keys(categories).map(slug => ({params: {slug}})),
     fallback: false // In a static-only build, we don't need fallback rendering.

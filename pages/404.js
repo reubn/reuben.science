@@ -1,13 +1,16 @@
-import PostLink from '@/components/PostLink'
+import PostList from '@/components/PostList'
+import PhotoList from '@/components/PhotoList'
 
 import {main, heading, posts as postsStyle, postLink} from './styles'
 import {errorCode, errorMessage} from './404.module.css'
 
-import sortPosts from '@/src/sortPosts'
+import getPosts from '@/src/getPosts'
+import getPhotos from '@/src/getPhotos'
 
-import * as posts from './posts/[slug].js'
+import dehydratePost from '@/src/dehydratePost'
+import hydratePost from '@/src/hydratePost'
 
-export default function Home({posts}) {
+export default function Home({posts, photos}) {
   return (
     <>
       <main className={main}>
@@ -18,10 +21,8 @@ export default function Home({posts}) {
         </h1>
         <h2 className={errorMessage}>ngl idk where this page is</h2>
 
-        <p className={heading}>Recent Posts</p>
-        <section className={postsStyle}>
-          {sortPosts(posts).map(props => <PostLink key={props.slug} {...props} className={postLink}/>)}
-        </section>
+        <PostList posts={posts.map(hydratePost)} heading="Trash Reads" />
+        <PhotoList photos={photos} heading="Pretty Pictures" />
       </main>
     </>
   )
@@ -29,6 +30,7 @@ export default function Home({posts}) {
 
 export const getStaticProps = async () => ({
   props: {
-    posts: await Promise.all((await posts.getStaticPaths()).paths.map(posts.getStaticProps).slice(0, 4))
+    posts: (await getPosts(4)).map(dehydratePost),
+    photos: await getPhotos(8)
   }
 })

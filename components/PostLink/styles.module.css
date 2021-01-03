@@ -2,7 +2,9 @@
   display: block;
   padding: 0.5rem 1.5rem;
   border-radius: 5px;
-  transition: all 0.15s ease-out;
+  transition: transform 0.15s ease-out,
+              background 0.15s ease-out,
+              box-shadow 0.15s ease-out;
   width: max-content;
 }
 
@@ -11,7 +13,9 @@
   background: linear-gradient(135deg, var(--colours-dark-2) 0%, var(--colours-dark-1) 100%);
   box-shadow: 0 0 2rem 1rem var(--colours-dark-shadow);
 
-  transition: all 0.2s cubic-bezier(.47,0,0,1.54);
+  transition: transform 0.2s cubic-bezier(.47,0,0,1.54),
+              background 0.2s cubic-bezier(.47,0,0,1.54),
+              box-shadow 0.2s cubic-bezier(.47,0,0,1.54);
 }
 
 @media (max-width: 650px) {

@@ -4,7 +4,7 @@
 
 .handle {
   --width: 4px;
-  width: calc(3rem);
+  width: 3rem;
   height: 100%
 }
 
@@ -22,23 +22,36 @@
   background: var(--colours-dark-5);
   transform: translateX(1.5rem);
   border-radius: var(--width);
-  box-shadow: 0 0 30px 5px var(--colours-dark-shadow);
+  box-shadow: 0 0 20px 1px var(--colours-dark-shadow);
+  transition: box-shadow 0.25s ease-out;
 }
 
 .handle:before {
+  --height: 25%;
   content: "";
   display: block;
   width: calc(var(--width) * 2);
-  height: 25%;
+  height: var(--height);
   background: var(--colours-light);
   transform: translateX(calc(1.5rem - (var(--width) / 2)));
   position: absolute;
-  top: 37.5%;
+  top: calc(50% - (var(--height) / 2));
   z-index: 1;
   border-radius: var(--width);
-  transition: box-shadow 0.25s ease-in-out;
+  transition: width 0.1s ease-out,
+              transform 0.1s ease-out,
+              border-radius 0.1s ease-out;
 }
 
-.handle:active:before {
+.handle:active:after {
+  transition: box-shadow 0.25s ease-in;
   box-shadow: 0 0 40px 3px var(--colours-dark-shadow);
+}
+.handle:active:before {
+  transition: width 0.1s ease-in,
+              transform 0.1s ease-in,
+              border-radius 0.1s ease-in;
+  width: calc((var(--width) * 2) + 2px);
+  transform: translateX(calc(1.5rem - (var(--width) / 2) - 1px));
+  border-radius: calc(var(--width) + 2px);
 }
