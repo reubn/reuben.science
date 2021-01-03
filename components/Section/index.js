@@ -2,15 +2,15 @@ import {ChevronRight} from 'react-feather'
 
 import ActiveLink from '../ActiveLink'
 
-import {section, heading, more} from './styles'
+import {section, heading as headingStyle, more} from './styles'
 
-const Section = ({headingText, moreHref, moreAria, children, ...props}) => (
+const Section = ({heading, moreHref, moreAria, children, ...props}) => (
   <span className={section} {...props}>
-    {headingText
+    {heading
       ? (
         <ActiveLink href={moreHref}>
-          <a className={heading}>
-            {headingText} <ChevronRight className={more} aria-label={moreAria} />
+          <a className={headingStyle}>
+            {heading} <ChevronRight className={more} aria-label={moreAria} />
           </a>
         </ActiveLink>
       )

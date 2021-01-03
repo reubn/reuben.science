@@ -6,7 +6,7 @@ import {posts as postsStyle} from './styles'
 const PostList = ({posts, fallback=null, ...props}) => (
   posts.length
     ? (
-      <Section headingText="Recent Posts" moreHref="/posts" moreAria="More Posts" {...props}>
+      <Section heading="Recent Posts" moreHref="/posts" moreAria="More Posts" {...props}>
         <section className={postsStyle}>
           {posts.map(props => <PostLink key={props.slug} {...props} />)}
         </section>

@@ -36,7 +36,7 @@ export default function Posts({posts}) {
       />
 
       <main className={main}>
-        <PostList posts={sortPosts(posts)} headingText={false} fallback={<h2 className={empty}>no posts here mate</h2>}/>
+        <PostList posts={sortPosts(posts)} heading={false} fallback={<h2 className={empty}>no posts here mate</h2>}/>
       </main>
     </>
   )

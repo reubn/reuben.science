@@ -45,7 +45,7 @@ export default function Category({slug, posts}) {
 
       <main className={main}>
         <CategoryLink category={slug} className={category} />
-        <PostList posts={sortPosts(posts)} headingText={false} fallback={<h2 className={empty}>no posts here mate</h2>}/>
+        <PostList posts={sortPosts(posts)} heading={false} fallback={<h2 className={empty}>no posts here mate</h2>}/>
       </main>
     </>
   )
