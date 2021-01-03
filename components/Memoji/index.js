@@ -166,8 +166,18 @@ const Memoji = ({frameTimeout=5*1000, frameCount, getFrameURL, defaultFrameNumbe
       const intervalA = setInterval(() => tiltHead({fraction: (f = (f + 1 + (direction * 0.01 * Math.random())) % 1)}), 10)
       const intervalB = setInterval(() => direction *= Math.random() > 0.5 ? -1 : +1, 10 * 200)
 
+
+      let sxa = []
+      let sya = []
       const touchHandler = event => {
         const {clientX: cx, clientY: cy} = event.changedTouches[0]
+
+        if(sxa.push(cx) > 3) sxa.shift()
+        if(sya.push(cy) > 3) sya.shift()
+
+        let sx = sxa.reduce((acc, n) => acc + n, 0) / sxa.length
+        let sy = sya.reduce((acc, n) => acc + n, 0) / sya.length
+        if(Math.abs(cy - sy) < Math.abs(cx - sx)) event.preventDefault()
 
         memojiHasBeenTouched = true
         localStorage.setItem('memojiKnowsIsInteractive', 'true')
@@ -176,8 +186,6 @@ const Memoji = ({frameTimeout=5*1000, frameCount, getFrameURL, defaultFrameNumbe
         setCTA(false)
 
         mouseHandler({clientX: cx, clientY: cy})
-
-        event.preventDefault()
       }
 
       canvasRef.current.addEventListener('touchstart', touchHandler)
