@@ -5,9 +5,10 @@ import CategoryLink from '@/components/CategoryLink'
 
 import categories from '@/content/categories'
 
-import sortPosts from '@/src/sortPosts'
+import getPosts from '@/src/getPosts'
 
-import * as postsFns from '../posts/[slug].js'
+import dehydratePost from '@/src/dehydratePost'
+import hydratePost from '@/src/hydratePost'
 
 import {main} from '../styles'
 import {category, empty} from './styles'
@@ -45,7 +46,7 @@ export default function Category({slug, posts}) {
 
       <main className={main}>
         <CategoryLink category={slug} className={category} />
-        <PostList posts={sortPosts(posts)} heading={false} fallback={<h2 className={empty}>no posts here mate</h2>}/>
+        <PostList posts={posts.map(hydratePost)} heading={false} fallback={<h2 className={empty}>no posts here mate</h2>}/>
       </main>
     </>
   )
@@ -57,7 +58,9 @@ export const getStaticProps = async ctx => {
   return {
     props: {
       slug,
-      posts: (await Promise.all((await postsFns.getStaticPaths()).paths.map(postsFns.getStaticProps))).filter(({props: {metadata: {category}}}) => category.includes(slug))
+      posts: (await getPosts())
+        .filter(({metadata: {category}}) => category.includes(slug))
+        .map(dehydratePost)
     }
   }
 }

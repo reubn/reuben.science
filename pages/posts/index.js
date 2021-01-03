@@ -2,12 +2,13 @@ import {NextSeo, BreadcrumbJsonLd} from 'next-seo'
 
 import PostList from '@/components/PostList'
 
-import sortPosts from '@/src/sortPosts'
+import getPosts from '@/src/getPosts'
+
+import dehydratePost from '@/src/dehydratePost'
+import hydratePost from '@/src/hydratePost'
 
 import {main} from '../styles'
 import {empty} from './styles'
-
-import * as postsFns from './[slug].js'
 
 export default function Posts({posts}) {
   return (
@@ -36,7 +37,7 @@ export default function Posts({posts}) {
       />
 
       <main className={main}>
-        <PostList posts={sortPosts(posts)} heading={false} fallback={<h2 className={empty}>no posts here mate</h2>}/>
+        <PostList posts={posts.map(hydratePost)} heading={false} fallback={<h2 className={empty}>no posts here mate</h2>}/>
       </main>
     </>
   )
@@ -44,6 +45,6 @@ export default function Posts({posts}) {
 
 export const getStaticProps = async () => ({
   props: {
-    posts: await Promise.all((await postsFns.getStaticPaths()).paths.map(postsFns.getStaticProps)),
+    posts: (await getPosts(4)).map(dehydratePost)
   }
 })

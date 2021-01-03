@@ -4,12 +4,13 @@ import Memoji from '@/components/Memoji'
 import PostList from '@/components/PostList'
 import PhotoList from '@/components/PhotoList'
 
-import photos from '@/src/photos'
-import sortPosts from '@/src/sortPosts'
+import getPosts from '@/src/getPosts'
+import getPhotos from '@/src/getPhotos'
+
+import dehydratePost from '@/src/dehydratePost'
+import hydratePost from '@/src/hydratePost'
 
 import {main, me, profile, name, description, emoji, memoji} from './styles'
-
-import * as postsFns from './posts/[slug].js'
 
 const frameCount = Math.floor(315 / 3);
 const getFrameURL = frame => `/me-360t/frame-${frame * 3}.webp`
@@ -46,7 +47,7 @@ export default function Home({posts, photos, photoSize}) {
           </div>
         </section>
 
-        <PostList posts={sortPosts(posts)} />
+        <PostList posts={posts.map(hydratePost)} />
         <PhotoList photos={photos} photoSize={photoSize} />
       </main>
     </>
@@ -55,8 +56,7 @@ export default function Home({posts, photos, photoSize}) {
 
 export const getStaticProps = async () => ({
   props: {
-    posts: await Promise.all((await postsFns.getStaticPaths()).paths.map(postsFns.getStaticProps).slice(0, 4)),
-    photos: (await photos()).slice(0, 8),
-    photoSize: process.env.UNSPLASH_SIZE
+    posts: (await getPosts(4)).map(dehydratePost),
+    photos: await getPhotos(8)
   }
 })
