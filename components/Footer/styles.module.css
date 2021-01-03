@@ -23,7 +23,8 @@
   height: 1.1rem;
   margin: 0.75rem;
 
-  transition: all 0.15s ease-in-out;
+  transition: fill 0.15s ease-in-out,
+              stroke 0.15s ease-in-out;
 
   overflow: visible;
 
@@ -49,7 +50,7 @@
   transform: rotate(-90deg);
 }
 .instagram stop {
-  transition: all 0.2s ease-in-out;
+  transition: stop-color 0.2s ease-in-out;
 }
 .instagram:not(:hover) stop {
   stop-color: currentColor!important;

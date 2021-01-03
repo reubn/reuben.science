@@ -17,6 +17,10 @@
   text-rendering: optimizelegibility;
 }
 
+.app.loadGlitchFix *, .app.loadGlitchFix *:before, .app.loadGlitchFix *:after {
+  transition: none!important;
+}
+
 .content {
   overflow: visible;
 
@@ -136,7 +140,7 @@
   padding: 3px 6px;
   font-size: 0.8rem;
   border-radius: 2px;
-  transition: all 0.5s cubic-bezier(.47,0,0,1.2);
+  transition: transform 0.5s cubic-bezier(.47,0,0,1.2);
 
 
   z-index: 1;
@@ -147,7 +151,7 @@
   transform: translateX(calc((1.5rem - 3px) + 100%));
   pointer-events: none;
 
-  transition: all 0.5s cubic-bezier(.47,0,0,1.8);
+  transition: transform 0.5s cubic-bezier(.47,0,0,1.8);
 }
 
 @media (max-width: 650px) {

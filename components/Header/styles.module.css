@@ -77,23 +77,23 @@
   border-radius: 6px;
   background: var(--link-underline);
 
-  transition: all 0.2s cubic-bezier(.47,0,.89,.16);
+  transition: width 0.2s cubic-bezier(.47,0,.89,.16);
 }
 
 .link:hover:after {
   width: 100%;
 
-  transition: all 0.2s cubic-bezier(.47,0,0,1.8);
+  transition: width 0.2s cubic-bezier(.47,0,0,1.8);
 }
 
 .link:active:after, .link.active:after {
   width: 120%;
 
-  transition: all 0.2s cubic-bezier(.47,0,0,1.8);
+  transition: width 0.2s cubic-bezier(.47,0,0,1.8);
 }
 
 .link.active:hover:after {
   width: 100%;
 
-  transition: all 0.2s cubic-bezier(.47,0,0,1.8);
+  transition: width 0.2s cubic-bezier(.47,0,0,1.8);
 }

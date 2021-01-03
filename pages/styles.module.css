@@ -105,12 +105,14 @@
 
   opacity: 0;
 
-  transition: all 0.5s cubic-bezier(.47,0,0,1.54) 0s;
+  transition: color 0.5s cubic-bezier(.47,0,0,1.54) 0s,
+              opacity 0.5s cubic-bezier(.47,0,0,1.54) 0s,
+              transform 0.5s cubic-bezier(.47,0,0,1.54) 0s;
   overflow: visible;
 }
 
 .sectionWrapper:hover .more {
-  transition: all 0.35s cubic-bezier(.47,0,0,1.54) 0s,
+  transition: color 0.35s cubic-bezier(.47,0,0,1.54) 0s,
               opacity 0.75s cubic-bezier(.47,0,0,1.54) 0.25s,
               transform 0.75s cubic-bezier(.47,0,0,1.05) 0.25s;
   opacity: 1;
@@ -153,14 +155,16 @@
 
   background: transparent;
 
-  transition: all 0.15s ease-out;
+  transition: transform 0.15s ease-out,
+              box-shadow 0.15s ease-out;
 }
 
 .photo:hover img {
   transform: scale(1.05);
   box-shadow: 0 0 2rem 1rem var(--colours-dark-shadow);
 
-  transition: all 0.2s cubic-bezier(.47,0,0,1.54);
+  transition: transform 0.2s cubic-bezier(.47,0,0,1.54),
+              box-shadow 0.2s cubic-bezier(.47,0,0,1.54);
 }
 
 @media (max-width: 650px) {
