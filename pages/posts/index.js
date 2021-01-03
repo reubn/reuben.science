@@ -7,7 +7,7 @@ import sortPosts from '@/src/sortPosts'
 import {main, posts as postsStyle} from '../styles'
 import {postLink, empty} from './styles'
 
-import * as posts from './[slug].js'
+import * as postsFns from './[slug].js'
 
 export default function Posts({posts}) {
   return (
@@ -52,6 +52,6 @@ export default function Posts({posts}) {
 
 export const getStaticProps = async () => ({
   props: {
-    posts: await Promise.all((await posts.getStaticPaths()).paths.map(posts.getStaticProps)),
+    posts: await Promise.all((await postsFns.getStaticPaths()).paths.map(postsFns.getStaticProps)),
   }
 })

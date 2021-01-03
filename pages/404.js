@@ -5,7 +5,7 @@ import {errorCode, errorMessage} from './404.module.css'
 
 import sortPosts from '@/src/sortPosts'
 
-import * as posts from './posts/[slug].js'
+import * as postsFns from './posts/[slug].js'
 
 export default function Home({posts}) {
   return (
@@ -29,6 +29,6 @@ export default function Home({posts}) {
 
 export const getStaticProps = async () => ({
   props: {
-    posts: await Promise.all((await posts.getStaticPaths()).paths.map(posts.getStaticProps).slice(0, 4))
+    posts: await Promise.all((await postsFns.getStaticPaths()).paths.map(postsFns.getStaticProps).slice(0, 4))
   }
 })

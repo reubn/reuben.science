@@ -7,7 +7,7 @@ import categories from '@/content/categories'
 
 import sortPosts from '@/src/sortPosts'
 
-import * as posts from '../posts/[slug].js'
+import * as postsFns from '../posts/[slug].js'
 
 import {main, posts as postsStyle, postLink} from '../styles'
 import {category, empty} from './styles'
@@ -65,7 +65,7 @@ export const getStaticProps = async ctx => {
   return {
     props: {
       slug,
-      posts: (await Promise.all((await posts.getStaticPaths()).paths.map(posts.getStaticProps))).filter(({props: {metadata: {category}}}) => category.includes(slug))
+      posts: (await Promise.all((await postsFns.getStaticPaths()).paths.map(postsFns.getStaticProps))).filter(({props: {metadata: {category}}}) => category.includes(slug))
     }
   }
 }

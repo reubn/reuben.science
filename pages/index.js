@@ -11,7 +11,7 @@ import sortPosts from '@/src/sortPosts'
 
 import {main, me, profile, name, description, emoji, memoji, heading, posts as postsStyle, photos as photosStyle, photo, postLink, sectionWrapper, more} from './styles'
 
-import * as posts from './posts/[slug].js'
+import * as postsFns from './posts/[slug].js'
 
 const frameCount = Math.floor(315 / 3);
 const getFrameURL = frame => `/me-360t/frame-${frame * 3}.webp`
@@ -90,8 +90,8 @@ export default function Home({posts, images, imageSize}) {
 
 export const getStaticProps = async () => ({
   props: {
-    posts: await Promise.all((await posts.getStaticPaths()).paths.map(posts.getStaticProps).slice(0, 4)),
     images: (await photos()).slice(0, 8),
     imageSize: process.env.UNSPLASH_SIZE
+    posts: await Promise.all((await postsFns.getStaticPaths()).paths.map(postsFns.getStaticProps).slice(0, 4)),
   }
 })
