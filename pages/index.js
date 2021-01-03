@@ -43,7 +43,7 @@ export default function Home({posts, images, imageSize}) {
             <h1 className={name}>Reuben</h1>
             <p className={description}>
               <span className={emoji}>{['🏥', '🌵', '🛠', '⛰', '📸'].map(em => <span>{em}</span>)}</span>
-              No idea what's gonna end up on here, inevitably just some random shit. Limited competance.
+              No idea what's gonna end up on here, inevitably just some random shit I find interesting.
             </p>
           </div>
         </section>
