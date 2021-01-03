@@ -163,7 +163,7 @@ const Memoji = ({frameTimeout=5*1000, frameCount, getFrameURL, defaultFrameNumbe
       // crude animate head before touch interaction
       let f = 0
       let direction = +1
-      const intervalA = setInterval(() => tiltHead({fraction: (f = (f + 1 + (direction * 0.01 * Math.random())) % 1)}), 10)
+      const intervalA = setInterval(() => tiltHead({fraction: (f = (f + 1 + (direction * 0.005 * Math.random())) % 1)}), 10)
       const intervalB = setInterval(() => direction *= Math.random() > 0.5 ? -1 : +1, 10 * 200)
 
 
