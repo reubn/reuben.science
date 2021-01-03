@@ -1,4 +1,4 @@
-import PostLink from '@/components/PostLink'
+import PostList from '@/components/PostList'
 
 import {main, heading, posts as postsStyle, postLink} from './styles'
 import {errorCode, errorMessage} from './404.module.css'
@@ -18,10 +18,7 @@ export default function Home({posts}) {
         </h1>
         <h2 className={errorMessage}>ngl idk where this page is</h2>
 
-        <p className={heading}>Recent Posts</p>
-        <section className={postsStyle}>
-          {sortPosts(posts).map(props => <PostLink key={props.slug} {...props} className={postLink}/>)}
-        </section>
+        <PostList posts={sortPosts(posts)} />
       </main>
     </>
   )

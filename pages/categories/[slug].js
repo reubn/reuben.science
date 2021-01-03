@@ -1,7 +1,7 @@
 import {NextSeo, BreadcrumbJsonLd} from 'next-seo'
 
+import PostList from '@/components/PostList'
 import CategoryLink from '@/components/CategoryLink'
-import PostLink from '@/components/PostLink'
 
 import categories from '@/content/categories'
 
@@ -9,7 +9,7 @@ import sortPosts from '@/src/sortPosts'
 
 import * as postsFns from '../posts/[slug].js'
 
-import {main, posts as postsStyle, postLink} from '../styles'
+import {main} from '../styles'
 import {category, empty} from './styles'
 
 export default function Category({slug, posts}) {
@@ -45,15 +45,7 @@ export default function Category({slug, posts}) {
 
       <main className={main}>
         <CategoryLink category={slug} className={category} />
-        {
-          posts.length
-            ? (
-              <section className={postsStyle}>
-                {sortPosts(posts).map(props => <PostLink key={props.slug} {...props} className={postLink}/>)}
-              </section>
-            )
-            : <h2 className={empty}>no posts here mate</h2>
-        }
+        <PostList posts={sortPosts(posts)} headingText={false} fallback={<h2 className={empty}>no posts here mate</h2>}/>
       </main>
     </>
   )
@@ -71,7 +63,6 @@ export const getStaticProps = async ctx => {
 }
 
 export function getStaticPaths() {
-
   return {
     paths: Object.keys(categories).map(slug => ({params: {slug}})),
     fallback: false // In a static-only build, we don't need fallback rendering.

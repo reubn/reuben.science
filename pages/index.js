@@ -1,22 +1,20 @@
 import {NextSeo, BreadcrumbJsonLd} from 'next-seo'
 
-import {ChevronRight} from 'react-feather'
-
 import Memoji from '@/components/Memoji'
-import PostLink from '@/components/PostLink'
-import ActiveLink from '@/components/ActiveLink'
+import PostList from '@/components/PostList'
+import PhotoList from '@/components/PhotoList'
 
 import photos from '@/src/photos'
 import sortPosts from '@/src/sortPosts'
 
-import {main, me, profile, name, description, emoji, memoji, heading, posts as postsStyle, photos as photosStyle, photo, postLink, sectionWrapper, more} from './styles'
+import {main, me, profile, name, description, emoji, memoji} from './styles'
 
 import * as postsFns from './posts/[slug].js'
 
 const frameCount = Math.floor(315 / 3);
 const getFrameURL = frame => `/me-360t/frame-${frame * 3}.webp`
 
-export default function Home({posts, images, imageSize}) {
+export default function Home({posts, photos, photoSize}) {
   return (
     <>
     <NextSeo
@@ -47,42 +45,9 @@ export default function Home({posts, images, imageSize}) {
             </p>
           </div>
         </section>
-        {
-          posts.length
-            ? (
-                <span className={sectionWrapper}>
-                  <ActiveLink href="/posts">
-                    <a className={heading}>
-                      Recent Posts <ChevronRight className={more} aria-label="More Posts" />
-                    </a>
-                  </ActiveLink>
-                  <section className={postsStyle}>
-                    {sortPosts(posts).map(props => <PostLink key={props.slug} {...props} className={postLink}/>)}
-                  </section>
-                </span>
-              )
-            : null
-        }
-        {
-          images.length
-            ? (
-                <span className={sectionWrapper}>
-                  <ActiveLink href="https://unsplash.com/re">
-                    <a className={heading}>
-                      Recent Photos <ChevronRight className={more} aria-label="More Photos" />
-                    </a>
-                  </ActiveLink>
-                  <section className={photosStyle} style={{'--columns': Math.min(images.length, 4), '--image-size': `${imageSize}px`}}>
-                    {images.map(({src, id}) => (
-                      <a href={`https://unsplash.com/photos/${id}`} className={photo} aria-label={`Unsplash Photo ${id}`} key={id}>
-                        <img src={src} alt={`Unsplash Photo ${id}`} />
-                      </a>)
-                    )}
-                  </section>
-                </span>
-              )
-            : null
-        }
+
+        <PostList posts={sortPosts(posts)} />
+        <PhotoList photos={photos} photoSize={photoSize} />
       </main>
     </>
   )
@@ -90,8 +55,8 @@ export default function Home({posts, images, imageSize}) {
 
 export const getStaticProps = async () => ({
   props: {
-    images: (await photos()).slice(0, 8),
-    imageSize: process.env.UNSPLASH_SIZE
     posts: await Promise.all((await postsFns.getStaticPaths()).paths.map(postsFns.getStaticProps).slice(0, 4)),
+    photos: (await photos()).slice(0, 8),
+    photoSize: process.env.UNSPLASH_SIZE
   }
 })
