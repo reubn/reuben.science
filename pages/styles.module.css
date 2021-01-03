@@ -93,8 +93,7 @@
 }
 
 .more {
-  width: 1.4rem;
-  height: 1.4rem;
+  height: 100%;
   vertical-align: middle;
   margin-left: -5px;
   margin-bottom: 3px;
