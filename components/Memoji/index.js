@@ -66,7 +66,7 @@ const Memoji = ({frameTimeout=5*1000, frameCount, getFrameURL, defaultFrameNumbe
 
   const drawFrame = image => {
     if(!image || !canvasRef.current) return
-    if(!image.src) return image.getPollyfilledSrc()
+    if(!image.src && image.getPollyfilledSrc) return image.getPollyfilledSrc()
     const context = canvasRef.current.getContext("2d")
 
     // center image
