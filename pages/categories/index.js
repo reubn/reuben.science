@@ -2,7 +2,7 @@ import {NextSeo, BreadcrumbJsonLd} from 'next-seo'
 
 import CategoryLink from '@/components/CategoryLink'
 
-import * as categories from './[slug].js'
+import {getStaticPaths} from './[slug].js'
 
 import {main} from '../styles'
 import {category, categories as categoriesStyle} from './styles'
@@ -47,7 +47,7 @@ export const getStaticProps = ctx => {
 
   return {
     props: {
-      categories: categories.getStaticPaths().paths.map(({params: {slug}}) => slug)
+      categories: getStaticPaths().paths.map(({params: {slug}}) => slug)
     }
   }
 }

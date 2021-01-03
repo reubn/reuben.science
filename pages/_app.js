@@ -1,4 +1,4 @@
-import {useEffect} from 'react'
+import {useState, useEffect} from 'react'
 
 import Head from 'next/head'
 import {useRouter} from 'next/router'
@@ -11,7 +11,7 @@ import '@/styles/prism-theme.css'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 
-import {app, content} from './_app.module.css'
+import {app, loadGlitchFix as loadGlitchFixStyle, content} from './_app.module.css'
 
 import ping from '@/src/.analytics'
 
@@ -19,6 +19,14 @@ const APP_ID = 'app'
 
 function App({Component, pageProps}){
   const router = useRouter()
+  const [loadGlitchFix, setLoadGlitchFix] = useState(loadGlitchFixStyle)
+
+  // prevents flashing on elements with transition-delays on page load
+  useEffect(() => {
+    const timer = setTimeout(() => setLoadGlitchFix(''), 20)
+
+    return () => clearTimer(timer)
+  }, [])
 
   useEffect(() => {
     const handler = url => !url.includes('#') && document.getElementById(APP_ID).scrollTo(0, 0)
@@ -98,7 +106,7 @@ function App({Component, pageProps}){
           cardType: 'summary_large_image',
         }}
       />
-      <section className={app} id={APP_ID}>
+    <section className={`${app} ${loadGlitchFix}`} id={APP_ID}>
         <Header />
         <main className={content}>
           <Component {...pageProps} />
