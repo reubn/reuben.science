@@ -6,13 +6,7 @@
   width: 100%;
 }
 
-@media (max-width: 875px) {
-  .posts {
-    grid-template-columns: repeat(2, 50%);
-  }
-}
-
-@media (max-width: 800px) {
+@media (max-width: 760px) {
   .posts {
     grid-template-columns: minmax(auto, 100%);
   }
