@@ -59,6 +59,7 @@
   font-weight: 400;
   line-height: 1;
   font-size: 0.9rem;
+  white-space: nowrap;
 }
 
 @media (max-width: 900px) and (min-width: 760px) {
@@ -85,4 +86,10 @@
 
 .post:hover .readingTime {
   opacity: 1;
+}
+
+.post img {
+  max-width: 100%;
+  height: auto;
+  margin: 1rem 0 0.5rem 0;
 }
