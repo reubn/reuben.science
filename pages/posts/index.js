@@ -45,6 +45,6 @@ export default function Posts({posts}) {
 
 export const getStaticProps = async () => ({
   props: {
-    posts: (await getPosts(4)).map(dehydratePost)
+    posts: (await getPosts()).map(dehydratePost)
   }
 })
