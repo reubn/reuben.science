@@ -286,7 +286,6 @@
 .body img, .body video {
   max-width: 100%;
   background: transparent;
-  border-radius: 5px;
   margin: 3rem auto;
   display: flex;
   object-fit: cover;
