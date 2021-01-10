@@ -1,6 +1,6 @@
 import {useState} from 'react'
 
-import Lazy from '../../Lazy'
+import Lazy from '../Lazy'
 
 import {video as videoStyle, loading} from './styles'
 
