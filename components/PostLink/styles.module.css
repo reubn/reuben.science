@@ -88,6 +88,13 @@
   opacity: 1;
 }
 
+@media (max-width: 760px) {
+  .readingTime {
+    opacity: 0!important;
+    pointer-events: none;
+  }
+}
+
 .post img {
   max-width: 100%;
   height: auto;
