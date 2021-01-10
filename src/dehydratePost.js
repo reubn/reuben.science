@@ -1,4 +1,7 @@
-export default post => {
-  post.metadata.date = post.metadata.date.toJSON()
-  return post
-}
+export default ({metadata: {date, ...metadata}, ...post}) => ({
+  ...post,
+  metadata: {
+    ...metadata,
+    date: date.toJSON()
+  }
+})
