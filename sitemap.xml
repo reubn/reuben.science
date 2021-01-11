@@ -1,5 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url>
+  <loc>https://reuben.science/categories</loc>
+</url>
+<url>
+  <loc>https://reuben.science/posts/adventure-maps</loc>
+</url>
+<url>
+  <loc>https://reuben.science/posts/cloudflare-analytics</loc>
+</url>
+<url>
+  <loc>https://reuben.science/posts/making-my-memoji</loc>
+</url>
+<url>
   <loc>https://reuben.science/404</loc>
 </url>
 <url>
@@ -21,19 +33,7 @@
   <loc>https://reuben.science/categories/outdoors</loc>
 </url>
 <url>
-  <loc>https://reuben.science/categories</loc>
-</url>
-<url>
   <loc>https://reuben.science/</loc>
-</url>
-<url>
-  <loc>https://reuben.science/posts/adventure-maps</loc>
-</url>
-<url>
-  <loc>https://reuben.science/posts/cloudflare-analytics</loc>
-</url>
-<url>
-  <loc>https://reuben.science/posts/making-my-memoji</loc>
 </url>
 <url>
   <loc>https://reuben.science/posts</loc>
