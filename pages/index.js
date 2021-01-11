@@ -41,7 +41,7 @@ export default function Home({posts, photos, photoSize}) {
           <div className={profile}>
             <h1 className={name}>Reuben</h1>
             <p className={description}>
-              <span className={emoji}>{['🏥', '🌵', '🛠', '⛰', '📸'].map(em => <span>{em}</span>)}</span>
+              <span className={emoji}>{['🏥', '🌵', '🛠', '⛰', '📸'].map(em => <span key={em}>{em}</span>)}</span>
               No idea what's gonna end up on here, inevitably just some random shit I find interesting.
             </p>
           </div>

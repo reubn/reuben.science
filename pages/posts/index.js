@@ -37,7 +37,7 @@ export default function Posts({posts}) {
       />
 
       <main className={main}>
-        <PostList posts={posts.map(hydratePost)} heading={false} fallback={<h2 className={empty}>no posts here mate</h2>}/>
+        <PostList posts={posts.map(hydratePost)} heading={false} fallback={<h2 className={empty}>no posts here mate</h2>} displayImage={true} />
       </main>
     </>
   )
@@ -45,6 +45,6 @@ export default function Posts({posts}) {
 
 export const getStaticProps = async () => ({
   props: {
-    posts: (await getPosts(4)).map(dehydratePost)
+    posts: (await getPosts()).map(dehydratePost)
   }
 })

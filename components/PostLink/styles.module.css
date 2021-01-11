@@ -18,9 +18,14 @@
               box-shadow 0.2s cubic-bezier(.47,0,0,1.54);
 }
 
-@media (max-width: 650px) {
+@media (max-width: 900px) and (min-width: 760px) {
   .post {
     padding: 0.5rem 1rem;
+  }
+}
+
+@media (max-width: 760px) {
+  .post {
     width: unset;
   }
 }
@@ -43,7 +48,7 @@
   line-height: normal;
 }
 
-@media (max-width: 650px) {
+@media (max-width: 900px) and (min-width: 760px) {
   .emoji {
     font-size: 1rem;
   }
@@ -54,6 +59,13 @@
   font-weight: 400;
   line-height: 1;
   font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+@media (max-width: 900px) and (min-width: 760px) {
+  .description {
+    font-size: 0.8rem;
+  }
 }
 
 .readingTime {
@@ -74,4 +86,17 @@
 
 .post:hover .readingTime {
   opacity: 1;
+}
+
+@media (max-width: 760px) {
+  .readingTime {
+    opacity: 0!important;
+    pointer-events: none;
+  }
+}
+
+.post img {
+  max-width: 100%;
+  height: auto;
+  margin: 1rem 0 0.5rem 0;
 }

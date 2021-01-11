@@ -25,7 +25,7 @@ function App({Component, pageProps}){
   useEffect(() => {
     const timer = setTimeout(() => setLoadGlitchFix(''), 20)
 
-    return () => clearTimer(timer)
+    return () => clearTimeout(timer)
   }, [])
 
   useEffect(() => {

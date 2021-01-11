@@ -2,49 +2,49 @@
   /* TODO --colours-red: hsl(0, 100%, 66%); */
   /* TODO --colours-red-hint: hsl(355, 100%, 66%); */
 
-  /* DONE */ --colours-yellow: hsl(53, 100%, 69%);
-  /* DONE */ --colours-yellow-hint: hsl(55, 100%, 67%);
+  --colours-yellow: hsl(53, 100%, 69%);
+  --colours-yellow-hint: hsl(55, 100%, 67%);
 
-  /* DONE */ --colours-orange: hsl(42, 100%, 60%);
-  /* DONE */ --colours-orange-hint: hsl(44, 100%, 58%);
+  --colours-orange: hsl(42, 100%, 60%);
+  --colours-orange-hint: hsl(44, 100%, 58%);
 
-  /* DONE */ --colours-green: hsl(140, 95%, 61%);
-  /* DONE */ --colours-green-hint: hsl(144, 95%, 61%);
+  --colours-green: hsl(140, 95%, 61%);
+  --colours-green-hint: hsl(144, 95%, 61%);
 
   /* TODO --colours-aqua: hsl(165, 80%, 64%); */
   /* TODO --colours-aqua-hint: hsl(162, 80%, 60%); */
 
-  /* DONE */ --colours-blue: hsl(196, 100%, 65%);
-  /* DONE */ --colours-blue-hint: hsl(180, 90%, 48%);
+  --colours-blue: hsl(196, 100%, 65%);
+  --colours-blue-hint: hsl(180, 90%, 48%);
 
-  /* DONE */ --colours-pink: hsl(327, 100%, 66%);
-  /* DONE */ --colours-pink-hint: hsl(336, 97%, 57%);
+  --colours-pink: hsl(327, 100%, 66%);
+  --colours-pink-hint: hsl(336, 97%, 57%);
 
-  /* DONE */ --colours-pink-red: hsl(340, 100%, 50%);
-  /* DONE */ --colours-pink-red-hint: hsl(352, 100%, 55%);
+  --colours-pink-red: hsl(340, 100%, 50%);
+  --colours-pink-red-hint: hsl(352, 100%, 55%);
 
-  /* DONE */ --colours-purple: hsl(281, 93%, 64%);
-  /* DONE */ --colours-purple-hint: hsl(271, 91%, 57%);
+  --colours-purple: hsl(281, 93%, 64%);
+  --colours-purple-hint: hsl(271, 91%, 57%);
 
-  /* DONE */ --colours-indigo: hsl(240, 100%, 66%);
-  /* DONE */ --colours-indigo-hint: hsl(245, 67%, 59%);
+  --colours-indigo: hsl(240, 100%, 66%);
+  --colours-indigo-hint: hsl(245, 67%, 59%);
 
 
-  /* DONE */ --colours-dark: hsl(205, 31%, 8%);
-  /* DONE */ --colours-dark-1: hsl(205, 30%, 11%);
-  /* DONE */ --colours-dark-2: hsl(205, 30%, 13%);
-  /* DONE */ --colours-dark-3: hsl(205, 20%, 20%);
-  /* DONE */ --colours-dark-4: hsl(205, 16%, 25%);
-  /* DONE */ --colours-dark-5: hsl(205, 14%, 30%);
-  /* DONE */ --colours-dark-6: hsl(205, 13%, 35%);
-  /* DONE */ --colours-dark-7: hsl(205, 12%, 40%);
+  --colours-dark: hsl(205, 31%, 8%);
+  --colours-dark-1: hsl(205, 30%, 11%);
+  --colours-dark-2: hsl(205, 30%, 13%);
+  --colours-dark-3: hsl(205, 20%, 20%);
+  --colours-dark-4: hsl(205, 16%, 25%);
+  --colours-dark-5: hsl(205, 14%, 30%);
+  --colours-dark-6: hsl(205, 13%, 35%);
+  --colours-dark-7: hsl(205, 12%, 40%);
 
-  /* DONE */ --colours-dark-shadow: hsla(205, 30%, 5%, 0.5);
+  --colours-dark-shadow: hsla(205, 30%, 5%, 0.5);
 
-  /* DONE */ --colours-mid: hsl(205, 10%, 80%);
-  /* DONE */ --colours-mid-1: hsl(205, 7%, 70%);
-  /* DONE */ --colours-mid-2: hsl(205, 5%, 60%);
+  --colours-mid: hsl(205, 10%, 80%);
+  --colours-mid-1: hsl(205, 7%, 70%);
+  --colours-mid-2: hsl(205, 5%, 60%);
 
-  /* DONE */ --colours-light: hsl(0, 0%, 100%);
-  /* DONE */ --colours-light-1: hsl(0, 0%, 93%);
+  --colours-light: hsl(0, 0%, 100%);
+  --colours-light-1: hsl(0, 0%, 93%);
 }

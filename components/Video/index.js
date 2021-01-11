@@ -1,7 +1,8 @@
 import {useState} from 'react'
-import Lazy from '../../Lazy'
 
-import {loading} from './styles'
+import Lazy from '../Lazy'
+
+import {video as videoStyle, loading} from './styles'
 
 const Video = ({video, className, ...props}) => {
   const {sources, size: {width=1000, height=0}={}} = video
@@ -20,7 +21,7 @@ const Video = ({video, className, ...props}) => {
           width={width}
           height={height}
 
-          className={loaded ? className : [loading, className].join(' ')}
+          className={[videoStyle, className, loaded ? '' : loading].join(' ')}
 
           {...props}
           {...lazyProps}

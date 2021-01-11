@@ -1,1 +1,1 @@
-export default posts => ({metadata: {date: a}}, {metadata: {date: b}}) => a - b
+export default ({metadata: {date: a}}, {metadata: {date: b}}) => b - a
