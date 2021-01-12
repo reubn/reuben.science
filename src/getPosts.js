@@ -4,12 +4,12 @@ import hydratePost from './hydratePost'
 
 import sortPosts from './sortPosts'
 
-export default async number => {
+export default async (...slice) => {
   const promises = (await getStaticPaths()).paths
     .map(getStaticProps)
 
   return (await Promise.all(promises))
     .map(({props}) => hydratePost(props))
     .sort(sortPosts)
-    .slice(0, number)
+    .slice(...slice)
 }
