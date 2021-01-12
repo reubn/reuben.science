@@ -15,7 +15,7 @@ import {main, me, profile, name, description, emoji, memoji} from './styles'
 const frameCount = Math.floor(315 / 3);
 const getFrameURL = frame => `/me-360t/frame-${frame * 3}.webp`
 
-export default function Home({posts, photos, photoSize}) {
+export default function Home({posts, photos}) {
   return (
     <>
     <NextSeo
@@ -48,7 +48,7 @@ export default function Home({posts, photos, photoSize}) {
         </section>
 
         <PostList posts={posts.map(hydratePost)} />
-        <PhotoList photos={photos} photoSize={photoSize} />
+        <PhotoList photos={photos} />
       </main>
     </>
   )
@@ -56,7 +56,7 @@ export default function Home({posts, photos, photoSize}) {
 
 export const getStaticProps = async () => ({
   props: {
-    posts: (await getPosts(4)).map(dehydratePost),
-    photos: await getPhotos(8)
+    posts: (await getPosts(0, 4)).map(dehydratePost),
+    photos: await getPhotos(0, 8)
   }
 })

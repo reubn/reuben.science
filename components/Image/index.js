@@ -6,10 +6,8 @@ import Lazy from '../Lazy'
 
 import {image as imageStyle, loading} from './styles'
 
-const Image = ({image, className, lazy=true, ...props}) => {
-  const {src, srcSet='', size: {width, height}={}} = image
-
-  const imageId = useRef(Math.random())
+const Image = ({image={}, className, lazy=true, ...props}) => {
+  const {src='', srcSet='', size: {width, height}={}, id} = image
 
   const [loaded, setLoaded] = useState(false)
   const [useSrc, setUseSrc] = useState(src)
@@ -17,7 +15,7 @@ const Image = ({image, className, lazy=true, ...props}) => {
   const onError = async () => {
     if(await supportsWebp()) return
 
-    const polyfillSrc = document.getElementById(imageId.current).currentSrc
+    const polyfillSrc = document.getElementById(id).currentSrc
     if(!polyfillSrc.endsWith('.webp')) return
 
     const {default: decodeWebp} = await import('@/src/decodeWebp')
@@ -28,7 +26,7 @@ const Image = ({image, className, lazy=true, ...props}) => {
   const imageFn = ({_ref, inView, ...lazyProps}) => (
     <img
       ref={_ref}
-      id={imageId.current}
+      id={id}
 
       onLoad={() => setLoaded(true)}
       onError={() => inView && onError()}
