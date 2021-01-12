@@ -15,7 +15,7 @@ import {main, me, profile, name, description, emoji, memoji} from './styles'
 const frameCount = Math.floor(315 / 3);
 const getFrameURL = frame => `/me-360t/frame-${frame * 3}.webp`
 
-export default function Home({posts, photos, photoSize}) {
+export default function Home({posts, photos}) {
   return (
     <>
     <NextSeo
@@ -48,7 +48,7 @@ export default function Home({posts, photos, photoSize}) {
         </section>
 
         <PostList posts={posts.map(hydratePost)} />
-        <PhotoList photos={photos} photoSize={photoSize} />
+        <PhotoList photos={photos} />
       </main>
     </>
   )

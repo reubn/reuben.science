@@ -34,6 +34,7 @@ module.exports = async function (content) {
 
 
   const result = {
+    id: Math.random(),
     size: {width, height},
     src: srcSet[0].src,
     srcSet: srcSet.filter(s => s).map(({src, density}) => `${src} ${density}x`).join(', ')
