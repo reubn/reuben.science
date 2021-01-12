@@ -9,7 +9,10 @@ const PostLink = ({slug, displayImage, metadata: {title, description, emoji, rea
     <a {...props}>
       <div className={postStyle}>
         {displayImage && image ? <Image image={image} /> : null}
-        <p className={titleStyle}><span className={emojiStyle}>{emoji}</span>{title}</p>
+        <div>
+          <p className={emojiStyle}>{emoji}</p>
+          <p className={titleStyle}>{title}</p>
+        </div>
         <p className={descriptionStyle}>{description || ''} <span className={readingTimeStyle}> • {readingTime}</span></p>
       </div>
     </a>
