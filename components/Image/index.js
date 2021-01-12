@@ -6,8 +6,8 @@ import Lazy from '../Lazy'
 
 import {image as imageStyle, loading} from './styles'
 
-const Image = ({image, className, lazy=true, ...props}) => {
-  const {src, srcSet='', size: {width, height}={}} = image
+const Image = ({image={}, className, lazy=true, ...props}) => {
+  const {src='', srcSet='', size: {width, height}={}} = image
 
   const imageId = useRef(Math.random())
 
