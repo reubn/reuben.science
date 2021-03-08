@@ -283,13 +283,18 @@
   padding: 0.75rem 0;
 }
 
-.body img, .body video {
+.body img:not(.inline), .body video {
   max-width: 100%;
   background: transparent;
   margin: 3rem auto;
   display: flex;
   object-fit: cover;
   height: auto;
+}
+
+.body img.inline {
+  display: inline;
+  vertical-align: sub;
 }
 
 .body figure {
@@ -303,7 +308,7 @@
   display: inline;
 }
 
-.body figure img {
+.body figure img:not(.inline) {
   width: 100%;
   margin: 0 auto;
   border-radius: 4px 4px 0 0;
