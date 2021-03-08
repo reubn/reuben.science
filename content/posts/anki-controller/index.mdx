@@ -1,0 +1,94 @@
+import Image from '@/components/Image'
+
+import {inline} from '@/components/Post/styles'
+
+import header from './images/header.webp'
+
+export const metadata = {
+  title: 'Anki with a PS3 Controller',
+  description: 'Level up your flashcards with a PS3 controller',
+  emoji: '🎮',
+  date: '2021-03-08',
+  category: ['medicine', 'dev'],
+  image: header
+}
+
+If you're current studying, you've probably come across [Anki](https://apps.ankiweb.net/). It's a flashcards app that centres around spaced repetition, and powerful flexibility. The main premise of Anki is the idea that you remember better - and for longer - if you have to retrieve the knowledge frequently. Obviously, once you've amassed a sizeable collection it's not feasible to review every card, everyday, and therefore Anki tries to solve this by asking you questions you repeatedly get correct less and less frequently. New cards, and cards you get wrong are moved to the top of the pile, and you review them sooner and more frequently.
+
+Anki works, but while its algorithm offers a major improvement over manual scheduling, it doesn't reduce the time needed to study `X` amount of cards.
+
+Anki's default input methods are mouse and keyboard. There's nothing wrong with these but I don't really find them very ergonomic. With this in mind, I decided to repurpose an old PS3 Controller into the perfect Anki companion.
+
+# Bluetooth
+
+While waiting for the controller to wake up after years asleep, I started looking online for resources about connecting PS3 controllers to macOS. Looking at what others had already done[^gist] there seemed to be a general theme of insane complexity, and shaky fixes that worked for some but didn't for others. I didn't have high hopes after reading these, and so I was surprised when the controller - after holding the `PS3 button` for a few seconds appeared in the bluetooth section of `System Preferences`, and connected without a hitch.
+
+[^gist]: https://gist.github.com/hlung/8385683
+
+import bluetooth from './images/bluetooth.webp'
+
+<Image image={bluetooth} alt="macOS Bluetooth Dialog Showing PS3 Controller" />
+
+Just for clarity, I conducted this all on `macOS 11.2.2` without problem.
+
+> ⚠️ Sometimes macOS says the connection has failed, or that the controller isn't connected
+> Right Click, if you see the option to `Disconnect`, then the controller's connected successfully
+
+# It Doesn't Work
+
+While the controller *is* connected to the MacBook, and appears correctly as a `HID` device, on the surface, it doesn't actually do anything. This is because by default, the controller's interpreted as a pointer device - aka a mouse. Moving the joysticks, the mouse does move, albeit strangely.
+
+I already use [Karabiner Elements](https://github.com/pqrs-org/Karabiner-Elements) to remap my keyboard, and so I initially tried this. After enabling the controller in Karabiner, it works perfectly, mapping the various controller buttons to keys of my choosing.
+
+The only problem with this is that Karabiner doesn't really support manipulating cursor movements - or at least I didn't manage to find a way. The erratic mouse movement from the controller basically make the computer unusable, as they're sent even when the joysticks are stationary.
+
+# Enjoyable
+
+The solution I found was [Enjoyable](https://yukkurigames.com/enjoyable/), an open-source app specifically designed for our use case. The program is quite old, and so many forks have emerged, bringing support for newer versions of macOS. These work great, however they don't support key modifiers (`‌⌘`, `⌥`, `⌃`, `⇧`).
+
+import enjoyable from './images/enjoyable.webp'
+
+<Image image={enjoyable} alt="enjoyable dialog" />
+
+To solve this I forked the most up-to-date repo, and after teaching myself a bit of `Objective-C` 😭, managed to implement the modifiers. At the moment, they don't show up in the `GUI`, and can only be input from an `.enjoyable` config file.
+
+The modified version is [here](https://github.com/reubn/enjoyable). It satisfies my needs, so I probably won't update it any further.
+
+# Anki
+import x from './images/X.svg'
+import s from './images/S.svg'
+import t from './images/T.svg'
+import o from './images/O.svg'
+
+Bringing it back to Anki, I've designed a mapping that works for me. The <img className={inline} src={x} /> <img className={inline} src={s} /> <img className={inline} src={t} /> <img className={inline} src={o} />, buttons map to the card difficulty options, with <img className={inline} src={x} /> also flipping the card over. I'll include a detailed mapping below, along with the config file
+
+```ini KEYMAP
+SQUARE = Again (1)
+TRIANGLE = Hard (2)
+CROSS = Good / Next Card (⎵)
+CIRCLE = Easy (4)
+
+L1 = Add (A)
+L2 = Browse (B)
+
+R1 = Sync (Y)
+R2 = Stats (T)
+
+↑ = Flag (⌘-1)
+↓ = Suspend (⇧-2)
+← = Undo (⌘-Z)
+→ = Mark (⇧-8)
+
+SELECT = Edit (E)
+PS = Decks (D)
+START =  Explicit 3rd Difficulty (3)
+```
+
+import file from './postFiles/anki.enjoyable'
+
+And <a href={file}>here</a>'s the `.enjoyable`, ready to import into Enjoyable.
+
+> ⚠️ If it doesn't seem to be working, click the arrow in the top right corner of Enjoyable.
+> I don't know if different controllers have different IDs, so you may have to swap the IDs over too
+
+At this point everything should be working!

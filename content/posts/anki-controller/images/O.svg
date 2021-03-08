@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>O</title>
+    <g id="O" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Group" fill="#FF6666" fill-rule="nonzero">
+            <g id="Triangle">
+                <path d="M10,0 C4.4771525,0 0,4.4771525 0,10 C0,15.5228475 4.4771525,20 10,20 C15.5228475,20 20,15.5228475 20,10 C20,4.4771525 15.5228475,0 10,0 Z M10,2.75862069 C13.9993034,2.75862069 17.2413793,6.00069664 17.2413793,10 C17.2413793,13.9993034 13.9993034,17.2413793 10,17.2413793 C6.00069664,17.2413793 2.75862069,13.9993034 2.75862069,10 C2.75862069,6.00069664 6.00069664,2.75862069 10,2.75862069 Z" id="Oval"></path>
+            </g>
+        </g>
+    </g>
+</svg>
