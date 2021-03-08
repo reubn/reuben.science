@@ -1,5 +1,7 @@
 import Image from '@/components/Image'
 
+import {inline} from '@/components/Post/styles'
+
 import header from './images/header.webp'
 
 export const metadata = {
@@ -29,11 +31,14 @@ import bluetooth from './images/bluetooth.webp'
 
 Just for clarity, I conducted this all on `macOS 11.2.2` without problem.
 
+> ⚠️ Sometimes macOS says the connection has failed, or that the controller isn't connected
+> Right Click, if you see the option to `Disconnect`, then the controller's connected successfully
+
 # It Doesn't Work
 
 While the controller *is* connected to the MacBook, and appears correctly as a `HID` device, on the surface, it doesn't actually do anything. This is because by default, the controller's interpreted as a pointer device - aka a mouse. Moving the joysticks, we the mouse does move, albeit strangely.
 
-I already use [Karabiner Elements]() to remap my keyboard, and so I initially tried this. After enabling the controller in Karabiner, it works perfectly, mapping the various controller buttons to keys of my choosing.
+I already use [Karabiner Elements](https://github.com/pqrs-org/Karabiner-Elements) to remap my keyboard, and so I initially tried this. After enabling the controller in Karabiner, it works perfectly, mapping the various controller buttons to keys of my choosing.
 
 The only problem with this is that Karabiner doesn't really support manipulating cursor movements - or at least I didn't manage to find a way. The erratic mouse movement from the controller basically make the computer unusable, as they're sent even when the joysticks are stationary.
 
@@ -41,15 +46,49 @@ The only problem with this is that Karabiner doesn't really support manipulating
 
 The solution I found was [Enjoyable](https://yukkurigames.com/enjoyable/), and open-source app specifically designed for our use case. The program is quite old, and so many forks have emerged, bringing support for newer versions of macOS. These work great, however they don't support key modifiers (`‌⌘`, `⌥`, `⌃`, `⇧`).
 
-***INSERT IMAGE OF ENJOYABLE***
+import enjoyable from './images/enjoyable.webp'
 
+<Image image={enjoyable} alt="enjoyable dialog" />
 
 To solve this I forked the most up-to-date repo, and after teaching myself a bit of `Objective-C` 😭, managed to implement the modifiers. At the moment, they don't show up in the `GUI`, and can only be input from an `.enjoyable` config file.
 
-The modified version is [here](https://github.com/reubn/enjoyable). It works for me, so I probably won't update it any more.
+The modified version is [here](https://github.com/reubn/enjoyable). It satisfies my needs, so I probably won't update it any further.
 
 # Anki
+import x from './images/X.svg'
+import s from './images/S.svg'
+import t from './images/T.svg'
+import o from './images/O.svg'
 
-Bringing it back to Anki, I've designed a mapping that works for me. The ***MAKING LITTLE SVG SYMBOLS***`X`, `🔺`, `◻️`, and `⭕️`, buttons map to the card difficulty options, with `X` also flipping the card over. I'll include a detailed mapping below, along with the config file
+Bringing it back to Anki, I've designed a mapping that works for me. The <img className={inline} src={x} /> <img className={inline} src={s} /> <img className={inline} src={t} /> <img className={inline} src={o} />, buttons map to the card difficulty options, with <img className={inline} src={x} /> also flipping the card over. I'll include a detailed mapping below, along with the config file
 
-***INSERT CONFIG SOURCE AND KEY MAPPING***
+```ini KEYMAP
+SQUARE = Again (1)
+TRIANGLE = Hard (2)
+CROSS = Good / Next Card (⎵)
+CIRCLE = Easy (4)
+
+L1 = Add (A)
+L2 = Browse (B)
+
+R1 = Sync (Y)
+R2 = Stats (T)
+
+↑ = Flag (⌘-1)
+↓ = Suspend (⇧-2)
+← = Undo (⌘-Z)
+→ = Mark (⇧-8)
+
+SELECT = Edit (E)
+PS = Decks (D)
+START =  Explicit 3rd Difficulty (3)
+```
+
+import file from './postFiles/anki.enjoyable'
+
+And <a href={file}>here</a>'s the `.enjoyable`, ready to import into Enjoyable.
+
+> ⚠️ If it doesn't seem to be working, click the arrow in the top right corner of Enjoyable.
+> I don't know if different controllers have different IDs, so you may have to swap the IDs over too
+
+At this point everything should be working!

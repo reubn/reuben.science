@@ -1,0 +1,136 @@
+{
+  "name" : "Anki",
+  "entries" : {
+    "1356:616:1~Button 11" : {
+      "type" : "key press",
+      "key" : 0,
+      "modifier" : 0
+    },
+    "1356:616:1~Button 12" : {
+      "type" : "key press",
+      "key" : 16,
+      "modifier" : 0
+    },
+    "1356:616:1~Axis 2~Low" : {
+      "axis" : 2,
+      "set" : false,
+      "speed" : 15,
+      "type" : "mouse move"
+    },
+    "1356:616:1~Button 13" : {
+      "type" : "key press",
+      "key" : 19,
+      "modifier" : 0
+    },
+    "1356:616:1~Button 5" : {
+      "type" : "key press",
+      "key" : 18,
+      "modifier" : 55
+    },
+    "1356:616:1~Button 14" : {
+      "type" : "key press",
+      "key" : 21,
+      "modifier" : 0
+    },
+    "1356:616:1~Button 3" : {
+      "type" : "mouse button",
+      "button" : 1
+    },
+    "1356:616:1~Button 15" : {
+      "type" : "key press",
+      "key" : 49,
+      "modifier" : 0
+    },
+    "1356:616:1~Button 7" : {
+      "type" : "key press",
+      "key" : 19,
+      "modifier" : 56
+    },
+    "1356:616:1~Button 16" : {
+      "type" : "key press",
+      "key" : 18,
+      "modifier" : 0
+    },
+    "1356:616:1~Button 9" : {
+      "type" : "key press",
+      "key" : 11,
+      "modifier" : 0
+    },
+    "1356:616:1~Axis 1~High" : {
+      "axis" : 1,
+      "set" : false,
+      "speed" : 16,
+      "type" : "mouse move"
+    },
+    "1356:616:1~Button 17" : {
+      "type" : "key press",
+      "key" : 2,
+      "modifier" : 0
+    },
+    "1356:616:1~Axis 3~Low" : {
+      "speed" : 15,
+      "type" : "mouse scroll",
+      "smooth" : true,
+      "direction" : -2
+    },
+    "1356:616:1~Button 2" : {
+      "type" : "mouse button",
+      "button" : 0
+    },
+    "1356:616:1~Button 4" : {
+      "type" : "key press",
+      "key" : 20,
+      "modifier" : 0
+    },
+    "1356:616:1~Axis 4~Low" : {
+      "speed" : 15,
+      "type" : "mouse scroll",
+      "smooth" : true,
+      "direction" : -1
+    },
+    "1356:616:1~Button 6" : {
+      "type" : "key press",
+      "key" : 28,
+      "modifier" : 56
+    },
+    "1356:616:1~Axis 3~High" : {
+      "speed" : 15,
+      "type" : "mouse scroll",
+      "smooth" : true,
+      "direction" : 2
+    },
+    "1356:616:1~Axis 2~High" : {
+      "axis" : 3,
+      "set" : false,
+      "speed" : 16,
+      "type" : "mouse move"
+    },
+    "1356:616:1~Button 8" : {
+      "type" : "key press",
+      "key" : 6,
+      "modifier" : 55
+    },
+    "1356:616:1~Axis 1~Low" : {
+      "axis" : 0,
+      "set" : false,
+      "speed" : 16,
+      "type" : "mouse move"
+    },
+    "1356:616:1~Button 10" : {
+      "type" : "key press",
+      "key" : 17,
+      "modifier" : 0
+    },
+    "1356:616:1~Button 1" : {
+      "type" : "key press",
+      "key" : 14,
+      "modifier" : 0
+    },
+    "1356:616:1~Axis 4~High" : {
+      "speed" : 15,
+      "type" : "mouse scroll",
+      "smooth" : true,
+      "direction" : 1
+    }
+  }
+}
