@@ -27,6 +27,7 @@ module.exports = withPlugins([[withMDX]], {
     const fileOptions = {
       outputPath: '../public/.assets/',
       publicPath: '/.assets/',
+      name: '[contenthash]/[name].[ext]'
     }
 
     config.module.rules.push({
@@ -36,7 +37,7 @@ module.exports = withPlugins([[withMDX]], {
     })
 
     config.module.rules.push({
-        test: /\.(webm|mp4)$/i,
+        test: /(\.(webm|mp4|svg)$)|(\/postFiles\/)/i,
         loader: 'file-loader',
         options: fileOptions
     })
