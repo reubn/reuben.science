@@ -92,3 +92,7 @@
   height: auto;
   margin: 0 auto;
 }
+
+.post img + div {
+  margin-top: 0.5rem;
+}
