@@ -1,6 +1,6 @@
 .post {
   display: block;
-  padding: 0.5rem 1.5rem;
+  padding: 1.15rem;
   border-radius: 5px;
   transition: transform 0.15s ease-out,
               background 0.15s ease-out,
@@ -20,7 +20,7 @@
 
 @media (max-width: 900px) and (min-width: 760px) {
   .post {
-    padding: 0.5rem 1rem;
+    padding: 0.75rem;
   }
 }
 
@@ -31,7 +31,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
 
-  margin: 0.5rem auto;
+  margin: 0 auto;
 }
 
 .emoji {
@@ -58,6 +58,13 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  margin: 1rem auto 0 auto;
+}
+
+@media (max-width: 900px) and (min-width: 760px) {
+  .description {
+    margin:0.75rem auto 0 auto;
+  }
 }
 
 .readingTime {
@@ -83,5 +90,5 @@
 .post img {
   width: 100%;
   height: auto;
-  margin: 1rem 0 0.5rem 0;
+  margin: 0 auto;
 }
