@@ -18,11 +18,12 @@ const dynamicImports = postList.reduce(
 
 export const processPost = ({metadata, content}) => {
   const readingTime = require('reading-time')
+  const stripTags = require('striptags')
 
   return {
     ...metadata,
     date: new Date(metadata.date).toISOString(),
-    readingTime: content ? readingTime(content).text.replace(' read', '') : undefined
+    readingTime: content ? readingTime(stripTags(content)).text.replace(' read', '') : undefined
   }
 }
 
