@@ -1,0 +1,62 @@
+.contours, .print {
+  width: 50%;
+  margin-left: 25%;
+}
+.contours > * {
+  stroke: currentColor;
+  fill: transparent;
+  stroke-width: 15px;
+  color: var(--colours-light);
+  opacity: 0.75;
+}
+
+.print g {
+  color: var(--colours-light);
+}
+
+.print g path {
+  stroke: currentColor;
+  fill: transparent;
+  stroke-width: 1.5px;
+
+  opacity: 0.8;
+}
+
+
+.print text {
+  fill: currentColor;
+  user-select: none;
+  font-size: 14px
+}
+
+.contours > *:hover{
+  stroke-width: 20px;
+  opacity: 1;
+}
+
+.print g:hover{
+  opacity: 1;
+}
+
+.print g:hover path {
+  stroke-width: 2px;
+}
+
+.print g:hover text {
+  font-weight: 500;
+}
+
+.contours > *:nth-child(4n+1):hover,
+.contours > *:nth-child(4n+2):hover,
+.print > g:nth-child(4n+1):hover,
+.print > g:nth-child(4n+2):hover {
+  color: var(--colours-light);
+}
+.contours > *:nth-child(4n+3):hover,
+.print > g:nth-child(4n+3):hover {
+  color: var(--colours-yellow);
+}
+.contours > *:nth-child(4n+4):hover,
+.print > g:nth-child(4n+4):hover {
+  color: var(--colours-purple);
+}
