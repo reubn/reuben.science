@@ -362,5 +362,8 @@
 }
 
 .body sup[id^=fnref-]:target a {
-    color: var(--colours-pink);
+  color: var(--colours-light);
+  background: var(--colours-pink);
+  padding: 0px 2px 0px 1px;
+  border-radius: 2px;
 }
