@@ -15,11 +15,15 @@ export const metadata = {
 
 In this post, I'm going to outline my workflow for creating 3D paper relief models, that I use for cards and the like. I'll be using [`OS Terrain® 50`](https://osdatahub.os.uk/downloads/open/Terrain50) for the actual topology, but this technique can easily be used for other sources - as long as you can wrangle the data.
 
+import card from './images/card.webp'
+
+<Image image={card} alt="Finished Card" />
+
 The first step is picking a geographical area. One of the most important considerations is how big an area to model. This depends on how big you're going to be printing and constructing later. As a rough guide, my finished paper model measured about `55mm x 85mm`, depicting a geographical area of `1.7km x 2.9km`: so roughly a `1:34k` scale.
 
 My preference is to also pick a landform with enough prominence[^prominence] to be interesting. Subjects with enough isolation[^prominence] to avoid the need to 'clip' the contours often work better too. i.e if you wanted to model a really long ridge, unless you've got the space to show its entirety there'll become a point where you have to 'clip' it, creating a hard edge. Depending on how *true* you want your reproduction to be, you can always remove features etc. to optimise for these qualities.
 
-In this example, I'll use [Ysgyryd Fawr](https://en.wikipedia.org/wiki/Ysgyryd_Fawr), the easterly bookend of the [Black Mountains](https://en.wikipedia.org/wiki/Black_Mountains,_Wales). It's an outlier which makes it work quite well.
+In this example, I'll use [Ysgyryd Fawr](https://en.wikipedia.org/wiki/Ysgyryd_Fawr), the eastern bookend of the [Black Mountains](https://en.wikipedia.org/wiki/Black_Mountains,_Wales). It's an outlier which makes it work quite well.
 
 import skirrid from './images/skirrid.webp'
 
@@ -94,7 +98,9 @@ Most printers can't handle thick card. You'll get away with `150gsm`, but the `3
 
 Lightly glue, compressing using something heavy between layers, and that's it!
 
-**PHOTO of FINISHED**
+import model from './images/model.webp'
+
+<Image image={model} alt="Model" />
 
 [^prominence]: [https://en.wikipedia.org/wiki/Topographic_prominence](https://en.wikipedia.org/wiki/Topographic_prominence)
 [^bng]: [https://en.wikipedia.org/wiki/Ordnance_Survey_National_Grid](https://en.wikipedia.org/wiki/Ordnance_Survey_National_Grid)
