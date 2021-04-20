@@ -367,3 +367,10 @@
   padding: 0px 2px 0px 1px;
   border-radius: 2px;
 }
+
+.body .spill {
+  position: relative;
+  left: -25%;
+  max-width: initial!important;
+  width: 150%;
+}
