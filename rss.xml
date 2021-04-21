@@ -5,7 +5,7 @@
    <description>RSS</description>
    <language>en</language>
    <link>https://reuben.science</link>
-   <lastBuildDate>Tue, 16 Mar 2021 20:05:24 GMT</lastBuildDate>
+   <lastBuildDate>Wed, 21 Apr 2021 13:06:45 GMT</lastBuildDate>
    <atom:link href="https://reuben.science/rss.xml" rel="self" type="application/rss+xml" />
    <item>
   <title>The Ultimate Adventure Maps</title>
@@ -24,6 +24,12 @@
   <description>Reverse Engineering Cloudflare Web Analytics</description>
   <link>https://reuben.science/posts/cloudflare-analytics</link>
   <pubDate>Thu, 31 Dec 2020 00:00:00 GMT</pubDate>
+</item>
+<item>
+  <title>Making Paper Terrain Models</title>
+  <description>Three Dimensional Contour Maps from Card</description>
+  <link>https://reuben.science/posts/contour-card</link>
+  <pubDate>Wed, 21 Apr 2021 00:00:00 GMT</pubDate>
 </item>
 <item>
   <title>Making My Interactive Memoji</title>
