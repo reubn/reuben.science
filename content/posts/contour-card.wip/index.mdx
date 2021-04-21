@@ -5,15 +5,15 @@ import header from './images/header.webp'
 import {contours, print} from './styles'
 
 export const metadata = {
-  title: 'Making Topographical Cards',
-  description: 'How to create accurate 3D paper landforms',
+  title: 'Making Paper Terrain Maps',
+  description: 'Three Dimensional Contour Models from Card',
   emoji: '🏔',
-  date: '2021-04-19',
-  category: ['outdoors', 'dev'],
+  date: '2021-04-20',
+  category: ['outdoors', 'make'],
   image: header
 }
 
-In this post, I'm going to outline my workflow for creating 3D paper relief models, that I use for cards and the like. I'll be using [`OS Terrain® 50`](https://osdatahub.os.uk/downloads/open/Terrain50) for the actual topology, but this technique can easily be used for other sources - as long as you can wrangle the data.
+In this post, I'm going to outline my workflow for creating 3D paper relief models, that I use for cards and the like. I'll be using [`OS Terrain® 50`](https://osdatahub.os.uk/downloads/open/Terrain50) for the actual topography, but this technique can easily be used for other sources - as long as you can wrangle the data.
 
 import card from './images/card.webp'
 
@@ -65,11 +65,15 @@ Now open the `.gml` files you've extracted. When QGIS prompts you to `Select Vec
 **image showing contour lines on basemap**
 
 Now we have the data in QGIS, but if you start selecting things, data that spans multiple files is disconnected. We can fix that by running
-1. `Combine Vector Layers`
+1. `Merge Vector Layers`
 2. `Dissolve` (using `propertyValue` as the field)
 3. `Multipart to Singleparts`
 
 These tools can be found in the `Processing Toolbox`. Now we should be able to select individual contours.
+
+import qgis from './images/qgis.webp'
+
+<Image image={qgis} alt="QGIS Dialogs" />
 
 Now we need to decide the contours we're going to use. The more layers, the more `Z` the structure will have, but bear in mind that it'll also grow in the `X, Y` directions too. This is where the prominence comes in. You'll have to experiment.
 
