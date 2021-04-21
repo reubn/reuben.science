@@ -368,9 +368,11 @@
   border-radius: 2px;
 }
 
-.body .spill {
-  position: relative;
-  left: -25%;
-  max-width: initial!important;
-  width: 150%;
+@media (min-width: 1500px) {
+  .body .spill {
+    position: relative;
+    left: -25%;
+    max-width: initial!important;
+    width: 150%;
+  }
 }
