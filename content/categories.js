@@ -1,9 +1,10 @@
 import gradient from '@/src/gradient.js'
 
 const categories = {
+  dev: gradient('blue'),
+  make: gradient('indigo'),
   hardware: gradient('purple'),
   medicine: gradient('pink'),
-  dev: gradient('blue'),
   food: gradient('orange'),
   automation: gradient('yellow'),
   outdoors: gradient('green')
