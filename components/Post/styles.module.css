@@ -2,7 +2,7 @@
   max-width: 1000px;
   width: calc((100vw - 3.5rem));
 
-  margin: 3rem auto;
+  margin: 0rem auto 3rem auto;
 }
 
 .post *:not(li):not(figure) {
@@ -31,7 +31,7 @@
 
 .headerImage {
   margin-top: 2rem;
-  margin-bottom: 1rem;
+  margin-bottom: 0.25rem;
   height: auto;
 }
 
@@ -52,6 +52,8 @@
 
   letter-spacing: 0.8px;
 
+  margin-bottom: 2rem;
+}
 
 .body h2:not(:first-child) {
   margin-top: 4rem;
