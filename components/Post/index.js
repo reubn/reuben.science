@@ -64,7 +64,7 @@ export default function Post({slug, metadata, children, __HACK_ID}){
         <section className={categories}>{metadata.category.map(category => <CategoryLink category={category} key={category} />)}</section>
         <h1 className={title}>{metadata.title}</h1>
         {metadata.description && <h2 className={description}>{metadata.description}</h2>}
-        <Image image={metadata.image} className={headerImage} />
+        <Image image={metadata.image} className={headerImage} alt="Header Image" />
         <span className={infoStyle}>
           <span>{date.toLocaleDateString()}</span>
           <span>{metadata.readingTime.text || '???'}</span>
