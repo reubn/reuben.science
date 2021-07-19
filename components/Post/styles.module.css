@@ -29,6 +29,12 @@
   margin-top: -1rem;
 }
 
+.headerImage {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  height: auto;
+}
+
 .categories {
   text-align: center;
 }
