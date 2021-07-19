@@ -3,6 +3,7 @@ import dynamic from "next/dynamic"
 import Post from "@/components/Post"
 
 import postList from '@/content/posts/.list'
+import {sort as categorySort} from '@/content/categories'
 
 import getPostSlugs from '@/src/getPostSlugs'
 
@@ -18,11 +19,13 @@ const dynamicImports = postList.reduce(
 
 export const processPost = ({metadata, content}) => {
   const readingTime = require('reading-time')
+  const stripTags = require('striptags')
 
   return {
     ...metadata,
+    category: metadata.category.sort(categorySort),
     date: new Date(metadata.date).toISOString(),
-    readingTime: content ? readingTime(content).text.replace(' read', '') : undefined
+    readingTime: content ? readingTime(stripTags(content)).text.replace(' read', '') : undefined
   }
 }
 
