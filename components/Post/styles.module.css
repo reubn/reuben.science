@@ -170,7 +170,6 @@
 }
 
 .body pre[metastring]:hover:before {
-
   transform: translateX(calc((1.5rem - 3px) + 100%));
   pointer-events: none;
 
@@ -186,14 +185,14 @@
 
 
 .body code {
-    background: linear-gradient(135deg, var(--colours-dark-2) 0%, var(--colours-dark-1) 100%);
-    padding: 1.5rem 2rem;
-    border-radius: 4px;
-    vertical-align: middle;
+  background: linear-gradient(135deg, var(--colours-dark-2) 0%, var(--colours-dark-1) 100%);
+  padding: 1.5rem 2rem;
+  border-radius: 4px;
+  vertical-align: middle;
 
-    overflow: scroll;
+  overflow: scroll;
 
-    position: relative;
+  position: relative;
 }
 
 
