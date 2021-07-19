@@ -21,11 +21,16 @@ export const processPost = ({metadata, content}) => {
   const readingTime = require('reading-time')
   const stripTags = require('striptags')
 
+  const readingTimeResult = content ? readingTime(stripTags(content)) : {}
+
   return {
     ...metadata,
     category: metadata.category.sort(categorySort),
     date: new Date(metadata.date).toISOString(),
-    readingTime: content ? readingTime(stripTags(content)).text.replace(' read', '') : undefined
+    readingTime: {
+      text: readingTimeResult.text.replace(' read', ''),
+      words: readingTimeResult.words
+    }
   }
 }
 

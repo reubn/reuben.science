@@ -39,16 +39,18 @@
   text-align: center;
 }
 
-.date {
+.info {
   display: inline-block;
   font-weight: 500;
   font-size: 0.9rem;
-  text-align: right;
   width: 100%;
   color: var(--colours-dark-3);
 
+  display: inline-flex;
+  justify-content: space-between;
+  flex-direction: row-reverse;
+
   letter-spacing: 0.8px;
-}
 
 
 .body h2:not(:first-child) {

@@ -13,7 +13,7 @@ const PostLink = ({slug, displayImage, metadata: {title, description, emoji, rea
           <p className={emojiStyle}>{emoji}</p>
           <p className={titleStyle}>{title}</p>
         </div>
-        <p className={descriptionStyle}>{description || ''} <span className={readingTimeStyle}> • {readingTime}</span></p>
+        <p className={descriptionStyle}>{description || ''} <span className={readingTimeStyle}> • {readingTime.text || '?? mins'}</span></p>
       </div>
     </a>
   )
