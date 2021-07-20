@@ -25,13 +25,13 @@ I decided to make Gaia `/ˈɡaɪə/` *`guy-ah`* as there wasn't really an unopin
 
 As I have written about <ActiveLink href="/posts/adventure-maps">before</ActiveLink>, one of the things I find most useful when off grid is confirming and correlating details from multiple sources. Sometimes details are ambiguous or missing on drawn maps, but visible on their aerial equivalents, or vice versa. It's also really useful to be able to have all the different maps I use in the same place, with the same controls and features, without having to switch between loads of apps. Layering data like Strava Heatmaps is also invaluable on the ground - in fact, the ability to do this was the main impetus behind Gaia.
 
-<Image image={a} />
+<Image image={a} alt="Gaia Screenshots" />
 
 I also wanted to learn more Swift (which - as an aside - is probably the most enjoyable programming language I've found so far).
 
 I wanted Gaia superficially to be easy to use, and visually pleasing, whilst underneath be very powerful, configurable, and extensible. I also wanted an app optimised for low power draw, and Gaia offers some really aggressive power saving features. I've managed to use Gaia for real world navigation on an iPhone 11 without charging for ~36 hours.
 
-<Image image={b} />
+<Image image={b} alt="Gaia Screenshots" />
 
 # Mapbox
 
@@ -90,11 +90,11 @@ Gaia extends this with a higher-level concept of individual `layers`, which can 
 
 'Visual' editing is supported for a wide range of options, but the `JSON` backing schemas are still exposed, if needed.
 
-<Image image={d} />
+<Image image={d} alt="Gaia Screenshots" />
 
 Although Gaia is using the Mapbox `SDK`, it's not based around Mapbox services, and doesn't *by default* interact with Mapbox at all. You **can** use them, but just as you can use any supplied `raster`/`vector`/`geojson` source.
 
-<Image image={c} />
+<Image image={c} alt="Gaia Screenshots" />
 
 Currently, Gaia uses `v6.3.0` of the Mapbox SDK, but I plan to upgrade to the maturing `v10` over the summer. I also want to document the `Layer Definition` structure, and other 'power features' that Gaia uses, but the motivation isn't really there, as the app is for me, calibrated is against my own needs, and I'm not currently distributing it. It's also not idiot proof: you need some basic familiarity with the concepts that underpin digital maps, but you can import directly from `XYZ tile`/`geojson`/`gpx` `URL`s, which is fairly user friendly. It does however, warn on many common error conditions/counter intuitive states, and can ✨automagically✨ fix them.
 
