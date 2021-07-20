@@ -1,0 +1,125 @@
+import ActiveLink from '@/components/ActiveLink'
+import Image from '@/components/Image'
+
+import header from './images/header.webp'
+
+import a from './images/screenshots/1.webp'
+import b from './images/screenshots/2.webp'
+import c from './images/screenshots/3.webp'
+import d from './images/screenshots/4.webp'
+
+export const metadata = {
+  title: 'Making an iOS App',
+  description: 'The Development of my Mapping Tool: Gaia',
+  emoji: '📱',
+  date: '2021-07-20',
+  category: ['dev', 'outdoors'],
+  image: header
+}
+
+Over the past 6 months, I've been getting back into iOS development by creating [Gaia](https://github.com/reubn/gaia), my generalist map consumption/navigation/outdoors app.
+
+# Why?
+
+I decided to make Gaia `/ˈɡaɪə/` *`guy-ah`* as there wasn't really an unopinionated app that allowed the consumption of `XYZ` tiles and offered some important features like offline caching, layering, and had the right mix of intuitive design and 'power features'. I wanted such an app to use while outdoors; in this scenario, Google/Apple Maps don't have nearly enough detail, and aren't very useful: I only really use them for transit and navigation, Street View, and discovering businesses.
+
+As I have written about <ActiveLink href="/posts/adventure-maps">before</ActiveLink>, one of the things I find most useful when off grid is confirming and correlating details from multiple sources. Sometimes details are ambiguous or missing on drawn maps, but visible on their aerial equivalents, or vice versa. It's also really useful to be able to have all the different maps I use in the same place, with the same controls and features, without having to switch between loads of apps. Layering data like Strava Heatmaps is also invaluable on the ground - in fact, the ability to do this was the main impetus behind Gaia.
+
+<Image image={a} />
+
+I also wanted to learn more Swift (which - as an aside - is probably the most enjoyable programming language I've found so far).
+
+I wanted Gaia superficially to be easy to use, and visually pleasing, whilst underneath be very powerful, configurable, and extensible. I also wanted an app optimised for low power draw, and Gaia offers some really aggressive power saving features. I've managed to use Gaia for real world navigation on an iPhone 11 without charging for ~36 hours.
+
+<Image image={b} />
+
+# Mapbox
+
+Under the hood, Gaia uses the [Mapbox Maps SDK for iOS](https://docs.mapbox.com/ios/maps/guides/). Initially, I tried the builtin `Mapkit` library, but high resolution `raster` support was shit. Moving to Mapbox's offering provided much better support for complexities such as this, via the battle tested [Mapbox Style Specification](https://docs.mapbox.com/mapbox-gl-js/style-spec/), and also means we don't have to recreate the wheel by creating another subpar rendering engine. Defined in `JSON`, it's a convenient way to define complex maps with both `raster`, and `vector` components, supporting `geojson`, embedded media - and in `v10` - support for 3D terrain. Using the Style Specification, also provides portability, meaning the maps can be consumed cross platform outside Gaia, currently powering a skeleton [desktop version](https://github.com/reubn/gaia/web).
+
+``` json Mapbox Style
+{
+  "version": 8,
+  "sources": {
+    "demo_osm": {
+      "maxzoom": 20,
+      "tileSize": 128,
+      "tiles": [
+        "https://tile.openstreetmap.org/{z}/{x}/{y}.png"
+      ],
+      "minzoom": 10,
+      "bounds": [
+        -8.82,
+        49.79,
+        1.92,
+        60.94
+      ],
+      "type": "raster"
+    }
+  },
+  "layers": [
+    {
+      "type": "raster",
+      "id": "demo_osm",
+      "source": "demo_osm"
+    }
+  ]
+}
+```
+
+Gaia extends this with a higher-level concept of individual `layers`, which can be composed together by the user to create incredibly complex but consumable cartography.
+
+``` json Gaia Layer Definition
+{
+  "metadata": {
+    "id": "demo_osm",
+    "name": "OpenStreetMap Demo",
+    "group": "base",
+    "overrideUIMode": "dark"
+    "attribution": "© OpenStreetMap contributors"
+  },
+  "user": {
+    "groupIndex": 0,
+    "pinned": false,
+    "enabled": true,
+    "quickToggle": false
+  },
+  "style": {...}
+}
+```
+
+'Visual' editing is supported for a wide range of options, but the `JSON` backing schemas are still exposed, if needed.
+
+<Image image={d} />
+
+Although Gaia is using the Mapbox `SDK`, it's not based around Mapbox services, and doesn't *by default* interact with Mapbox at all. You **can** use them, but just as you can use any supplied `raster`/`vector`/`geojson` source.
+
+<Image image={c} />
+
+Currently, Gaia uses `v6.3.0` of the Mapbox SDK, but I plan to upgrade to the maturing `v10` over the summer. I also want to document the `Layer Definition` structure, and other 'power features' that Gaia uses, but the motivation isn't really there, as the app is for me, calibrated is against my own needs, and I'm not currently distributing it. It's also not idiot proof: you need some basic familiarity with the concepts that underpin digital maps, but you can import directly from `XYZ tile`/`geojson`/`gpx` `URL`s, which is fairly user friendly. It does however, warn on many common error conditions/counter intuitive states, and can ✨automagically✨ fix them.
+
+Gaia is open source, available on [GitHub](https://github.com/reubn/gaia), and can be compiled for your own devices, but isn't available in the App Store or anything.
+
+# Features
+```
+- Full Mapbox Style Specification Support
+- Multi-Layer Support
+    - raster
+    - vector
+    - geojson
+    - gpx
+- Transparency Support
+- On Device Editing
+    - Visual
+    - JSON
+- Offline Maps
+- Aggressive Low Power Mode
+- Gesture Shortcuts
+- Right/Left Hand Modes
+- BNG Grid Reference Support
+- Heading/Bearing Info
+- Altitude Data
+- Location Querying
+- Adaptive Light/Dark Modes
+- ...numerous others that I can't remember
+```
