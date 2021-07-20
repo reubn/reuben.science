@@ -30,7 +30,7 @@
     "rehype-slug": "^4.0.1",
     "remark-captions": "^2.2.0",
     "remark-sub-super": "^1.0.19",
-    "striptags": "^3.1.1",
+    "striptags": "^3.2.0",
     "unist-util-visit": "^2.0.3",
     "webp-hero": "0.0.0-dev.27"
   }
