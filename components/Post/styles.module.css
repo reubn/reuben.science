@@ -30,9 +30,14 @@
 }
 
 .headerImage {
+  max-width: 100%;
+  background: transparent;
+  display: flex;
+  object-fit: cover;
+  height: auto;
+
   margin-top: 2rem;
   margin-bottom: 0.25rem;
-  height: auto;
 }
 
 .categories {
