@@ -109,8 +109,14 @@
 .language-json .token.property {
   color: var(--colours-light);
 }
+.language-json .token.property .quote {
+  color: var(--colours-dark-7);
+}
 .language-json .token.string {
   color: var(--colours-purple);
+}
+.language-json .token.string .quote {
+  color: var(--colours-dark-7);
 }
 
 .language-txt .highlightA {

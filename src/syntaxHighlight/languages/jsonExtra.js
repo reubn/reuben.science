@@ -9,6 +9,22 @@ function jsonExtra(Prism) {
 
   Prism.languages.json = {
     ...original,
+    property: {
+      pattern: /(^|[^\\])"(?:\\.|[^\\"\r\n])*"(?=\s*:)/,
+      lookbehind: true,
+      greedy: true,
+      inside: {
+        quote: /(^")|("$)/
+      }
+    },
+    string: {
+      pattern: /(^|[^\\])"(?:\\.|[^\\"\r\n])*"(?!\s*:)/,
+      lookbehind: true,
+      greedy: true,
+      inside: {
+        quote: /(^")|("$)/
+      }
+    },
     boolean: {
       pattern: /\b(?:true|false)\b/,
       inside: {
