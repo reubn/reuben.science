@@ -1,8 +1,9 @@
 import {NextSeo, BreadcrumbJsonLd, ArticleJsonLd} from 'next-seo'
 
 import CategoryLink from '../CategoryLink'
+import Image from '../Image'
 
-import {title, description, categories, date as dateStyle, post, body} from './styles'
+import {title, description, categories, headerImage, info as infoStyle, words as wordsStyle, date as dateStyle, post, body} from './styles'
 
 export default function Post({slug, metadata, children, __HACK_ID}){
   const date = new Date(metadata.date)
@@ -63,7 +64,11 @@ export default function Post({slug, metadata, children, __HACK_ID}){
         <section className={categories}>{metadata.category.map(category => <CategoryLink category={category} key={category} />)}</section>
         <h1 className={title}>{metadata.title}</h1>
         {metadata.description && <h2 className={description}>{metadata.description}</h2>}
-        <span className={dateStyle}>{date.toLocaleDateString()}</span>
+        <Image image={metadata.image} className={headerImage} alt="Header Image" />
+        <span className={infoStyle}>
+          <span>{date.toLocaleDateString()}</span>
+          <span>{metadata.readingTime.text || '???'}</span>
+        </span>
         <span className={body} id={__HACK_ID}>
           {children}
         </span>

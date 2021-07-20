@@ -94,6 +94,25 @@
   color: var(--colours-orange);
 }
 
+.language-json .token.number {
+  color: var(--colours-blue);
+}
+.language-json .token.boolean .booleanTrue {
+  color: var(--colours-green);
+}
+.language-json .token.boolean .booleanFalse {
+  color: var(--colours-red);
+}
+.language-json .token.operator {
+  color: var(--colours-dark-7);
+}
+.language-json .token.property {
+  color: var(--colours-light);
+}
+.language-json .token.string {
+  color: var(--colours-purple);
+}
+
 .language-txt .highlightA {
   color: var(--colours-pink);
 }
