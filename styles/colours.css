@@ -1,6 +1,6 @@
 :root {
-  /* TODO --colours-red: hsl(0, 100%, 66%); */
-  /* TODO --colours-red-hint: hsl(355, 100%, 66%); */
+  --colours-red: hsl(350, 99%, 62%);
+  --colours-red-hint: hsl(355, 100%, 66%);
 
   --colours-yellow: hsl(53, 100%, 69%);
   --colours-yellow-hint: hsl(55, 100%, 67%);
