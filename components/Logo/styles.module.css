@@ -1,19 +1,103 @@
+.lodSolid {
+  --logo-colours-type: #FBFBFB;
+  --logo-colours-t1: var(--logo-colours-type);
+  --logo-colours-t2: var(--logo-colours-type);
+  --logo-colours-t3: var(--logo-colours-type);
+  --logo-colours-b1: var(--logo-colours-type);
+  --logo-colours-b2: var(--logo-colours-type);
+  --logo-colours-b3: var(--logo-colours-type);
+}
+
+.lodFlat {
+  --logo-colours-type: #FBFBFB;
+
+  --logo-colours-squares: #2B343B;
+  --logo-colours-t1: var(--logo-colours-squares);
+  --logo-colours-t2: var(--logo-colours-squares);
+  --logo-colours-t3: var(--logo-colours-squares);
+  --logo-colours-b1: var(--logo-colours-squares);
+  --logo-colours-b2: var(--logo-colours-squares);
+  --logo-colours-b3: var(--logo-colours-squares);
+}
+
+.lodRainbowSolid {
+  --logo-colours-type: #FBFBFB;
+
+  --logo-colours-t1: #FC2727;
+  --logo-colours-t2: #FC9A27;
+  --logo-colours-t3: #FFE238;
+  --logo-colours-b1: #61FD6D;
+  --logo-colours-b2: #2BD1F4;
+  --logo-colours-b3: #8D47FF;
+}
+
+.lodRainbowGradient {
+  --logo-colours-type: #FBFBFB;
+
+  --logo-colours-t1: url(#red);
+  --logo-colours-t2: url(#orange);
+  --logo-colours-t3: url(#yellow);
+  --logo-colours-b1: url(#green);
+  --logo-colours-b2: url(#blue);
+  --logo-colours-b3: url(#purple);
+}
+
+.dolSolid {
+  --logo-colours-type: #111A22;
+  --logo-colours-t1: var(--logo-colours-type);
+  --logo-colours-t2: var(--logo-colours-type);
+  --logo-colours-t3: var(--logo-colours-type);
+  --logo-colours-b1: var(--logo-colours-type);
+  --logo-colours-b2: var(--logo-colours-type);
+  --logo-colours-b3: var(--logo-colours-type);
+}
+
+.dolFlat {
+  --logo-colours-type: #111A22;
+
+  --logo-colours-squares: #7A8085;
+  --logo-colours-t1: var(--logo-colours-squares);
+  --logo-colours-t2: var(--logo-colours-squares);
+  --logo-colours-t3: var(--logo-colours-squares);
+  --logo-colours-b1: var(--logo-colours-squares);
+  --logo-colours-b2: var(--logo-colours-squares);
+  --logo-colours-b3: var(--logo-colours-squares);
+}
+
+.dolRainbowSolid {
+  --logo-colours-type: #111A22;
+
+  --logo-colours-t1: #FC2727;
+  --logo-colours-t2: #FC9A27;
+  --logo-colours-t3: #FFE238;
+  --logo-colours-b1: #61FD6D;
+  --logo-colours-b2: #2BD1F4;
+  --logo-colours-b3: #8D47FF;
+}
+
+.dolRainbowGradient {
+  --logo-colours-type: #111A22;
+
+  --logo-colours-t1: url(#red);
+  --logo-colours-t2: url(#orange);
+  --logo-colours-t3: url(#yellow);
+  --logo-colours-b1: url(#green);
+  --logo-colours-b2: url(#blue);
+  --logo-colours-b3: url(#purple);
+}
+
 .svg {
-  --colours-cloud: hsl(0, 0%, 98%);
-  --colours-peat: hsl(205, 15%, 20%);
   cursor: pointer;
 
   transition: transform 0.25s cubic-bezier(.51,-0.33,0,1.8);
 }
 
-.re {
-  fill: var(--colours-cloud);
+.type {
+  fill: var(--logo-colours-type);
   transition: fill 0.25s cubic-bezier(0.47, 0, 0.75, 0.72);
 }
 
-.svg:hover .re {}
-
-.ex {
+.square {
   width: 100px;
   height: 100px;
 
@@ -21,31 +105,48 @@
   transition: opacity 0.25s cubic-bezier(0.47, 0, 0.75, 0.72);
 }
 
-.ex.red {transition-delay: 0.2s;}
-.ex.orange {transition-delay: 0.5s;}
-.ex.yellow {transition-delay: 0.1s;}
-.ex.green {transition-delay: 0.4s;}
-.ex.blue {transition-delay: 0.3s;}
-.ex.purple {transition-delay: 0.6s;}
-
-.ex.dim {
-  opacity: 1;
-  fill: var(--colours-peat);
+.square.t1 {
+  fill: var(--logo-colours-t1);
+  transition-delay: 0.2s;
+}
+.square.t2 {
+  fill: var(--logo-colours-t2);
+  transition-delay: 0.5s;
+}
+.square.t3 {
+  fill: var(--logo-colours-t3);
+  transition-delay: 0.1s;
+}
+.square.b1 {
+  fill: var(--logo-colours-b1);
+  transition-delay: 0.4s;
+}
+.square.b2 {
+  fill: var(--logo-colours-b2);
+  transition-delay: 0.3s;
+}
+.square.b3 {
+  fill: var(--logo-colours-b3);
+  transition-delay: 0.6s;
 }
 
-.ex:active{
+.square.dim {
+  opacity: 1;
+}
+
+.square:active{
   transform: translate(-2.5px, -2.5px);
   width: 105px;
   height: 105px;
 }
 
-.svg:hover .ex.red {transition-delay: 0.1s;}
-.svg:hover .ex.orange {transition-delay: 0.5s;}
-.svg:hover .ex.yellow {transition-delay: 0.3s;}
-.svg:hover .ex.green {transition-delay: 0.4s;}
-.svg:hover .ex.blue {transition-delay: 0.6s;}
-.svg:hover .ex.purple {transition-delay: 0.2s;}
+.svg:hover .square.t1 {transition-delay: 0.1s;}
+.svg:hover .square.t2 {transition-delay: 0.5s;}
+.svg:hover .square.t3 {transition-delay: 0.3s;}
+.svg:hover .square.b1 {transition-delay: 0.4s;}
+.svg:hover .square.b2 {transition-delay: 0.6s;}
+.svg:hover .square.b3 {transition-delay: 0.2s;}
 
-.svg:hover .ex, .ex.locked {
+.svg:hover .square.interactive, .square.locked.interactive {
   opacity: 1;
 }
