@@ -17,7 +17,7 @@ const Header = () => {
       <nav className={nav}>
         <ActiveLink href="/" passHref>{active => <a className={`${link} ${active ? activeStyle : ''}`} style={{'--link-underline': gradient('pink-red')}}>Home</a>}</ActiveLink>
         <ActiveLink href="/posts" passHref>{active => <a className={`${link} ${active ? activeStyle : ''}`} style={{'--link-underline': gradient('blue')}}>Posts</a>}</ActiveLink>
-        {/*<ActiveLink href="/me" passHref>{active => <a className={`${link} ${active ? activeStyle : ''}`} style={{'--link-underline': gradient('indigo', 'purple-hint')}}>Me</a>}</ActiveLink>*/}
+        <ActiveLink href="/snippets" passHref>{active => <a className={`${link} ${active ? activeStyle : ''}`} style={{'--link-underline': gradient('indigo')}}>Snippets</a>}</ActiveLink>
       </nav>
     </header>
   )

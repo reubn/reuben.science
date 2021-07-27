@@ -1,0 +1,26 @@
+.pre code {
+  background: var(--colours-dark-1);
+  padding: 1.5rem 2rem;
+  border-radius: 4px;
+  vertical-align: middle;
+
+  overflow: hidden;
+
+  position: relative;
+  border-right: 2rem solid var(--colours-dark-1);
+}
+
+.pre::selection {
+  background-color: var(--colours-accent);
+}
+
+.pre > code {
+  display: block;
+  font-size: 0.75rem;
+}
+
+.pre, .pre code {
+  font-weight: 400;
+  font-family: SF Mono, monospace;
+  -webkit-font-smoothing: subpixel-antialiased;
+}
