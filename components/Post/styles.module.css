@@ -314,9 +314,12 @@
 
 .body figure {
   display: block;
-  width: max-content;
   max-width: 100%;
-  margin: 4rem auto;
+  margin: 2rem auto;
+}
+
+.body figure.contentFit {
+  width: max-content;
 }
 
 .body figure:global(.code){
