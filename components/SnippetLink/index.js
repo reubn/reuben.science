@@ -8,7 +8,9 @@ const SnippetLink = ({slug, metadata: {title, description, emoji, linesOfCode, p
     <a {...props}>
       <div className={postStyle}>
         <pre className={`${pre} language-${language}`}>
-          <code dangerouslySetInnerHTML={{__html: html}}/>
+          <div>
+            <code dangerouslySetInnerHTML={{__html: html}}/>
+          </div>
         </pre>
         <div>
           <p className={emojiStyle}>{emoji}</p>
