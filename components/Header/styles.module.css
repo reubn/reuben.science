@@ -80,19 +80,19 @@
   transition: width 0.2s cubic-bezier(.47,0,.89,.16);
 }
 
-.link:hover:after {
+.link:hover:after, .link:active:after, .link.active:after {
   width: 100%;
 
   transition: width 0.2s cubic-bezier(.47,0,0,1.8);
 }
 
-.link:active:after, .link.active:after {
+.link.active:hover:after, .link:active:hover:after {
   width: 120%;
 
   transition: width 0.2s cubic-bezier(.47,0,0,1.8);
 }
 
-.link.active:hover:after {
+.link.active:active:after {
   width: 100%;
 
   transition: width 0.2s cubic-bezier(.47,0,0,1.8);
