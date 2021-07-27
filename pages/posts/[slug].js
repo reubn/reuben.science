@@ -28,8 +28,8 @@ export const processPost = ({metadata, content}) => {
     category: metadata.category.sort(categorySort),
     date: new Date(metadata.date).toISOString(),
     readingTime: {
-      text: readingTimeResult.text.replace(' read', ''),
-      words: readingTimeResult.words
+      mins: +readingTimeResult.text.replace('min read', ''),
+      // words: +readingTimeResult.words
     }
   }
 }
@@ -42,7 +42,7 @@ const renderToString = ({default: Component}) => {
 
 export default function PostWrapper({slug, metadata}) {
   const Mdx = dynamicImports[slug]
-  const __HACK_ID = `HACK-${slug}`
+  const __HACK_ID = `HACK-POST-${slug}`
 
   return (
     <>

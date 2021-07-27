@@ -67,7 +67,7 @@ export default function Post({slug, metadata, children, __HACK_ID}){
         <Image image={metadata.image} className={headerImage} alt="Header Image" />
         <span className={infoStyle}>
           <span>{date.toLocaleDateString()}</span>
-          <span>{metadata.readingTime.text || '???'}</span>
+          <span>{metadata.readingTime.mins || '???'} min{metadata.readingTime.mins != 1 && 's'}</span>
         </span>
         <span className={body} id={__HACK_ID}>
           {children}
