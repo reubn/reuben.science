@@ -1,7 +1,7 @@
 const fs = require('fs')
 const path = require('path')
 
-const getPostSlugs = require(path.join(process.cwd(), 'src/getPostSlugs'))
+const getPostSlugs = require(path.join(process.cwd(), 'src/posts/slugs'))
 
 module.exports = async () => {
     const slugs = await getPostSlugs()

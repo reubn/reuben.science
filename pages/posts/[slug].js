@@ -5,7 +5,7 @@ import Post from "@/components/Post"
 import postList from '@/content/posts/.list'
 import {sort as categorySort} from '@/content/categories'
 
-import getPostSlugs from '@/src/getPostSlugs'
+import getPostSlugs from '@/src/posts/slugs'
 
 const dynamicImports = postList.reduce(
   (map, slug) => ({

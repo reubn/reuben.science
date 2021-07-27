@@ -2,10 +2,10 @@ import {NextSeo, BreadcrumbJsonLd} from 'next-seo'
 
 import PostList from '@/components/PostList'
 
-import getPosts from '@/src/getPosts'
+import listPosts from '@/src/posts/list'
 
-import dehydratePost from '@/src/dehydratePost'
-import hydratePost from '@/src/hydratePost'
+import dehydratePost from '@/src/posts/dehydrate'
+import hydratePost from '@/src/posts/hydrate'
 
 import {main} from '../styles'
 import {empty} from './styles'
@@ -45,6 +45,6 @@ export default function Posts({posts}) {
 
 export const getStaticProps = async () => ({
   props: {
-    posts: (await getPosts()).map(dehydratePost)
+    posts: (await listPosts()).map(dehydratePost)
   }
 })

@@ -5,10 +5,10 @@ import CategoryLink from '@/components/CategoryLink'
 
 import categories from '@/content/categories'
 
-import getPosts from '@/src/getPosts'
+import listPosts from '@/src/posts/list'
 
-import dehydratePost from '@/src/dehydratePost'
-import hydratePost from '@/src/hydratePost'
+import dehydratePost from '@/src/posts/dehydrate'
+import hydratePost from '@/src/posts/hydrate'
 
 import {main} from '../styles'
 import {category, empty} from './styles'
@@ -58,7 +58,7 @@ export const getStaticProps = async ctx => {
   return {
     props: {
       slug,
-      posts: (await getPosts())
+      posts: (await listPosts())
         .filter(({metadata: {category}}) => category.includes(slug))
         .map(dehydratePost)
     }

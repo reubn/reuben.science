@@ -4,11 +4,11 @@ import Memoji from '@/components/Memoji'
 import PostList from '@/components/PostList'
 import PhotoList from '@/components/PhotoList'
 
-import getPosts from '@/src/getPosts'
+import listPosts from '@/src/posts/list'
 import getPhotos from '@/src/getPhotos'
 
-import dehydratePost from '@/src/dehydratePost'
-import hydratePost from '@/src/hydratePost'
+import dehydratePost from '@/src/posts/dehydrate'
+import hydratePost from '@/src/posts/hydrate'
 
 import {main, me, profile, name, description, emoji, memoji} from './styles'
 
@@ -56,7 +56,7 @@ export default function Home({posts, photos}) {
 
 export const getStaticProps = async () => ({
   props: {
-    posts: (await getPosts(0, 4)).map(dehydratePost),
+    posts: (await listPosts(0, 4)).map(dehydratePost),
     photos: await getPhotos(0, 8)
   }
 })
