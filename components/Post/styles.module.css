@@ -168,17 +168,15 @@
   padding: 3px 6px;
   font-size: 0.8rem;
   border-radius: 2px;
-  transition: transform 0.5s cubic-bezier(.47,0,0,1.2);
-
+  transition: opacity 0.5s cubic-bezier(.47,0,0,1.2);
 
   z-index: 1;
 }
 
 .body pre[metastring]:hover:before {
-  transform: translateX(calc((1.5rem - 3px) + 100%));
-  pointer-events: none;
+  opacity: 0.25;
 
-  transition: transform 0.5s cubic-bezier(.47,0,0,1.8);
+  transition: opacity 0.5s cubic-bezier(.47,0,0,1);
 }
 
 @media (max-width: 650px) {
