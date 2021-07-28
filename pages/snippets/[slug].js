@@ -22,8 +22,6 @@ export const processPost = ({slug, metadata, content}) => {
 
   require('@/src/syntaxHighlight/languages')(refractor)
 
-  console.log(content)
-
   return {
     ...metadata,
     date: new Date(metadata.date).toISOString(),
@@ -41,7 +39,7 @@ const renderToString = ({default: Component}) => {
   return ReactDOMServer.renderToString(<Component />)
 }
 
-export default function PostWrapper({slug, metadata}) {
+export default function SnippetWrapper({slug, metadata}) {
   const Mdx = dynamicImports[slug]
   const __HACK_ID = `HACK-SNIPPET-${slug}`
 
