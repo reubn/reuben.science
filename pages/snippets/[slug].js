@@ -27,7 +27,7 @@ export const processPost = ({slug, metadata, content}) => {
   return {
     ...metadata,
     date: new Date(metadata.date).toISOString(),
-    linesOfCode: content.match(/<pre[^]*?<\/pre>/gm).join('').split('\n').length,
+    linesOfCode: Math.max(0, (content.match(/<pre[^]*?<\/pre>/gm) || []).join('').split('\n').length - 1) || null,
     preview: {
       language: metadata.preview.language,
       html: toHTML(refractor.highlight(metadata.preview.content, metadata.preview.language))
