@@ -5,9 +5,69 @@
    <description>RSS</description>
    <language>en</language>
    <link>https://reuben.science</link>
-   <lastBuildDate>Tue, 27 Jul 2021 07:46:58 GMT</lastBuildDate>
+   <lastBuildDate>Wed, 28 Jul 2021 11:49:35 GMT</lastBuildDate>
    <atom:link href="https://reuben.science/rss.xml" rel="self" type="application/rss+xml" />
    <item>
+  <title>Cloudflare Dynamic DNS</title>
+  <description>Bash Script to Update Cloudflare DNS Records</description>
+  <link>https://reuben.science/snippets/cloudflare-ddns</link>
+  <pubDate>Wed, 28 Jul 2021 00:00:00 GMT</pubDate>
+</item>
+<item>
+  <title>Docker Build with Host Networking</title>
+  <description>Build Docker Containers with Host Networking</description>
+  <link>https://reuben.science/snippets/docker-host</link>
+  <pubDate>Wed, 28 Jul 2021 00:00:00 GMT</pubDate>
+</item>
+<item>
+  <title>Coloured Reversed Output for Systemd Services</title>
+  <description>Preserve Colours in journalctl</description>
+  <link>https://reuben.science/snippets/journalctl-coloured</link>
+  <pubDate>Wed, 28 Jul 2021 00:00:00 GMT</pubDate>
+</item>
+<item>
+  <title>Find MAC Address of Default Gateway</title>
+  <description>Linux. IPv4, IPv6</description>
+  <link>https://reuben.science/snippets/mac-addr-default-gateway</link>
+  <pubDate>Wed, 28 Jul 2021 00:00:00 GMT</pubDate>
+</item>
+<item>
+  <title>Fix Damaged macOS Applications</title>
+  <description>Fix Damaged macOS Applications</description>
+  <link>https://reuben.science/snippets/macos-damaged</link>
+  <pubDate>Wed, 28 Jul 2021 00:00:00 GMT</pubDate>
+</item>
+<item>
+  <title>Image SD Card on macOS</title>
+  <description>From https://blog.jaimyn.dev/</description>
+  <link>https://reuben.science/snippets/macos-image-sd</link>
+  <pubDate>Wed, 28 Jul 2021 00:00:00 GMT</pubDate>
+</item>
+<item>
+  <title>Install Trusted Root Certificate</title>
+  <description>Install Trusted Root Cert into macOS Keychain</description>
+  <link>https://reuben.science/snippets/macos-install-trusted-cert</link>
+  <pubDate>Wed, 28 Jul 2021 00:00:00 GMT</pubDate>
+</item>
+<item>
+  <title>Copy Files over SSH</title>
+  <description>Using rsync</description>
+  <link>https://reuben.science/snippets/macos-mdns</link>
+  <pubDate>Wed, 28 Jul 2021 00:00:00 GMT</pubDate>
+</item>
+<item>
+  <title>macOS mDNS Utilities</title>
+  <description>IP to Hostname + Hostname to IP</description>
+  <link>https://reuben.science/snippets/ssh-copy-files</link>
+  <pubDate>Wed, 28 Jul 2021 00:00:00 GMT</pubDate>
+</item>
+<item>
+  <title>TCX Laps to GeoJSON Markers</title>
+  <description>TCX -> GeoJSON</description>
+  <link>https://reuben.science/snippets/tcx-laps-to-geojson</link>
+  <pubDate>Wed, 28 Jul 2021 00:00:00 GMT</pubDate>
+</item>
+<item>
   <title>The Ultimate Adventure Maps</title>
   <description>Enhanced OS Maps for Navigation</description>
   <link>https://reuben.science/posts/adventure-maps</link>
