@@ -1,0 +1,26 @@
+export const metadata = {
+  title: 'Install Trusted Root Certificate',
+  description: 'Install Trusted Root Cert into macOS Keychain',
+  emoji: '🔐',
+  date: '2021-07-28',
+  preview: {
+    language: 'bash',
+    content: 'sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain $CERT_PATH'
+  }
+}
+
+<figure>
+
+```bash Bash
+KEYCHAIN_SYSTEM_PATH="/Library/Keychains/System.keychain"
+KEYCHAIN_LOGIN_PATH="~/Library/Keychains/login.keychain"
+
+sudo security add-trusted-cert -d -r trustRoot -k $KEYCHAIN_PATH $CERT_PATH
+```
+
+<figcaption>
+
+From [https://apple.stackexchange.com/a/80625](https://apple.stackexchange.com/a/80625)
+
+</figcaption>
+</figure>
