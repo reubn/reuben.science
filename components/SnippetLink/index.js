@@ -1,12 +1,12 @@
 import ActiveLink from '../ActiveLink'
 
 import {post as postStyle, title as titleStyle, description as descriptionStyle, emoji as emojiStyle, readingTime as readingTimeStyle} from '../PostLink/styles'
-import {pre} from './styles'
+import {post as snippetPostStyle, pre} from './styles'
 
 const SnippetLink = ({slug, metadata: {title, description, emoji, linesOfCode, preview: {language, html}}, ...props}) => {
   const post = active => (
     <a {...props}>
-      <div className={postStyle}>
+      <div className={`${postStyle} ${snippetPostStyle}`}>
         <pre className={`${pre} language-${language}`}>
           <div>
             <code dangerouslySetInnerHTML={{__html: html}}/>

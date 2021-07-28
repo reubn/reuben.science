@@ -1,3 +1,7 @@
+.post {
+  max-width: unset;
+}
+
 .pre {
   aspect-ratio: 10/4;
 
