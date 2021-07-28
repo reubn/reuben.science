@@ -1,0 +1,18 @@
+export const metadata = {
+  title: 'Fix Damaged macOS Applications',
+  description: 'Fix Damaged macOS Applications',
+  emoji: '💀',
+  date: '2021-07-28',
+  preview: {
+    language: 'bash',
+    content: 'xattr -c /Path/To/Application\nsudo codesign --force --deep --sign - /Path/To/Application'
+  }
+}
+
+```bash Bash
+xattr -c /Path/To/Application
+```
+
+```bash Bash
+sudo codesign --force --deep --sign - /Path/To/Application
+```

@@ -1,0 +1,22 @@
+export const metadata = {
+  title: 'Find MAC Address of Default Gateway',
+  description: 'Linux. IPv4, IPv6',
+  emoji: '🚪',
+  date: '2021-07-28',
+  preview: {
+    language: 'bash',
+    content: 'ip neigh show | grep -P "$(ip -4 route | grep -Po "(?<=default via )(.+?)\s" | head -n 1)" | grep -Po "([a-fA-F0-9]{2}:){5}[a-fA-F0-9]{2}"\nip neigh show | grep -P "$(ip -6 route | grep -Po "(?<=default via )(.+?)\s" | head -n 1)" | grep -Po "([a-fA-F0-9]{2}:){5}[a-fA-F0-9]{2}"'
+  }
+}
+
+```bash IPv4
+ip neigh show
+| grep -P "$(ip -4 route | grep -Po "(?<=default via )(.+?)\s" | head -n 1)"
+| grep -Po "([a-fA-F0-9]{2}:){5}[a-fA-F0-9]{2}"
+```
+
+```bash IPv6
+ip neigh show
+| grep -P "$(ip -6 route | grep -Po "(?<=default via )(.+?)\s" | head -n 1)"
+| grep -Po "([a-fA-F0-9]{2}:){5}[a-fA-F0-9]{2}"
+```

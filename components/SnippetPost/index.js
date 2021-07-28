@@ -1,11 +1,8 @@
 import {NextSeo, BreadcrumbJsonLd, ArticleJsonLd} from 'next-seo'
 
-import CategoryLink from '../CategoryLink'
-import Image from '../Image'
+import {title, description, categories, info as infoStyle, date as dateStyle, post, body} from '../Post/styles'
 
-import {title, description, categories, headerImage, info as infoStyle, words as wordsStyle, date as dateStyle, post, body} from './styles'
-
-export default function Post({slug, metadata, children, __HACK_ID}){
+export default function SnippetPost({slug, metadata, children, __HACK_ID}){
   const date = new Date(metadata.date)
 
   return (
@@ -21,14 +18,7 @@ export default function Post({slug, metadata, children, __HACK_ID}){
           article: {
             publishedTime: date.toISOString(),
             authors: ['Reuben'],
-            tags: metadata.category,
-          },
-          images: metadata.image ? [{
-              url: `https://${process.env.NEXT_PUBLIC_DOMAIN}${metadata.image.src}`,
-              width: metadata.image.size.width,
-              height: metadata.image.size.height,
-              alt: metadata.title,
-            }] : undefined
+          }
         }}
       />
 
@@ -41,13 +31,13 @@ export default function Post({slug, metadata, children, __HACK_ID}){
           },
           {
             position: 2,
-            name: 'Posts',
-            item: `https://${process.env.NEXT_PUBLIC_DOMAIN}/posts`,
+            name: 'Snippets',
+            item: `https://${process.env.NEXT_PUBLIC_DOMAIN}/snippets`,
           },
           {
             position: 3,
             name: metadata.title,
-            item: `https://${process.env.NEXT_PUBLIC_DOMAIN}/posts/${slug}`,
+            item: `https://${process.env.NEXT_PUBLIC_DOMAIN}/snippets/${slug}`,
           }
         ]}
       />
@@ -61,13 +51,10 @@ export default function Post({slug, metadata, children, __HACK_ID}){
       />
 
       <article className={post}>
-        <section className={categories}>{metadata.category.map(category => <CategoryLink category={category} key={category} />)}</section>
         <h1 className={title}>{metadata.title}</h1>
-        {metadata.description && <h2 className={description}>{metadata.description}</h2>}
-        <Image image={metadata.image} className={headerImage} alt="Header Image" />
         <span className={infoStyle}>
           <span>{date.toLocaleDateString()}</span>
-          <span>{metadata.readingTime.mins || '???'} min{metadata.readingTime.mins != 1 && 's'}</span>
+          <span>{metadata.linesOfCode || '???'} line{metadata.linesOfCode != 1 && 's'}</span>
         </span>
         <span className={body} id={__HACK_ID}>
           {children}

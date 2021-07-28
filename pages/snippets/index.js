@@ -1,22 +1,22 @@
 import {NextSeo, BreadcrumbJsonLd} from 'next-seo'
 
-import PostList from '@/components/PostList'
+import SnippetList from '@/components/SnippetList'
 
-import listPosts from '@/src/posts/list'
+import listPosts from '@/src/snippets/list'
 
-import dehydratePost from '@/src/posts/dehydrate'
-import hydratePost from '@/src/posts/hydrate'
+import dehydratePost from '@/src/snippets/dehydrate'
+import hydratePost from '@/src/snippets/hydrate'
 
 import {main} from '../styles'
-import {empty} from './styles'
+import {empty} from '../posts/styles'
 
-export default function Posts({posts}) {
+export default function Snippets({posts}) {
   return (
     <>
       <NextSeo
-        title="Posts"
+        title="Snippets"
         openGraph={{
-          title: 'Posts',
+          title: 'Snippets',
           site_name: process.env.NEXT_PUBLIC_DOMAIN,
         }}
       />
@@ -30,14 +30,14 @@ export default function Posts({posts}) {
           },
           {
             position: 2,
-            name: 'Posts',
-            item: `https://${process.env.NEXT_PUBLIC_DOMAIN}/posts`,
+            name: 'Snippets',
+            item: `https://${process.env.NEXT_PUBLIC_DOMAIN}/snippets`,
           }
         ]}
       />
 
       <main className={main}>
-        <PostList posts={posts.map(hydratePost)} heading={false} fallback={<h2 className={empty}>no posts here mate</h2>} displayImage={true} />
+        <SnippetList posts={posts.map(hydratePost)} heading={false} fallback={<h2 className={empty}>no posts here mate</h2>} />
       </main>
     </>
   )

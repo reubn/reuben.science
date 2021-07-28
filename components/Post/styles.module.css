@@ -168,17 +168,15 @@
   padding: 3px 6px;
   font-size: 0.8rem;
   border-radius: 2px;
-  transition: transform 0.5s cubic-bezier(.47,0,0,1.2);
-
+  transition: opacity 0.5s cubic-bezier(.47,0,0,1.2);
 
   z-index: 1;
 }
 
 .body pre[metastring]:hover:before {
-  transform: translateX(calc((1.5rem - 3px) + 100%));
-  pointer-events: none;
+  opacity: 0.25;
 
-  transition: transform 0.5s cubic-bezier(.47,0,0,1.8);
+  transition: opacity 0.5s cubic-bezier(.47,0,0,1);
 }
 
 @media (max-width: 650px) {
@@ -217,18 +215,20 @@
   background: var(--colours-dark-2);
   white-space: nowrap;
   padding: 1px 5px;
+
+  font-size: 0.9rem;
 }
 
 .body pre > code {
   display: block;
+
+  font-size: 0.75rem;
 }
 
 .body pre, .body code {
   font-weight: 400;
-  font-size: 0.9rem;
   font-family: SF Mono, monospace;
   -webkit-font-smoothing: subpixel-antialiased;
-
 }
 
 .body h2 code {
@@ -313,9 +313,12 @@
 
 .body figure {
   display: block;
-  width: max-content;
   max-width: 100%;
-  margin: 4rem auto;
+  margin: 2rem auto;
+}
+
+.body figure.contentFit {
+  width: max-content;
 }
 
 .body figure:global(.code){

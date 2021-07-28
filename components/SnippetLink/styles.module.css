@@ -1,0 +1,37 @@
+.post {
+  max-width: unset;
+}
+
+.pre {
+  aspect-ratio: 10/4;
+
+  background: var(--colours-dark-1);
+  border-right: 2rem solid var(--colours-dark-1);
+  padding: 1.5rem 2rem;
+  margin: 0 auto;
+  border-radius: 4px;
+  vertical-align: middle;
+
+  overflow: hidden;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+  .pre code {
+  font-weight: 400;
+  font-family: SF Mono, monospace;
+  -webkit-font-smoothing: subpixel-antialiased;
+
+  display: block;
+  font-size: 0.75rem;
+}
+
+.pre::selection {
+  background-color: var(--colours-accent);
+}
+
+.pre + div {
+  margin-top: 1rem;
+}

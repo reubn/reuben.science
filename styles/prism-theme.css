@@ -87,7 +87,13 @@
 }
 
 .language-bash .token.variable {
+  color: var(--colours-light);
+}
+.language-bash .token.variable.assign-left, .language-bash .token.variable .variable-symbols, .language-bash .token.variable.simple {
   color: var(--colours-indigo);
+}
+.language-bash .token.function {
+  color: var(--colours-green);
 }
 
 .language-swift .token.builtin {

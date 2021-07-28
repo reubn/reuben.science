@@ -1,0 +1,13 @@
+.posts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(auto, 50%));
+  grid-template-rows: auto;
+
+  width: 100%;
+}
+
+@media (max-width: 760px) {
+  .posts {
+    grid-template-columns: minmax(auto, 100%);
+  }
+}

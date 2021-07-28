@@ -1,8 +1,8 @@
-import {getStaticPaths, getStaticProps} from '@/pages/posts/[slug].js'
+import {getStaticPaths, getStaticProps} from '@/pages/snippets/[slug].js'
 
-import hydratePost from './hydratePost'
+import hydratePost from './hydrate'
 
-import sortPosts from './sortPosts'
+import sortPosts from './sort'
 
 export default async (...slice) => {
   const promises = (await getStaticPaths()).paths

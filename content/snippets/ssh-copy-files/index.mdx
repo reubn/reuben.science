@@ -1,0 +1,18 @@
+export const metadata = {
+  title: 'macOS mDNS Utilities',
+  description: 'IP to Hostname + Hostname to IP',
+  emoji: '🔗',
+  date: '2021-07-28',
+  preview: {
+    language: 'bash',
+    content: 'dns-sd -Gv4v6 $HOST_NAME\ndig -x $IP_ADDR -p 5353 @224.0.0.251'
+  }
+}
+
+```bash Host -> IP
+dns-sd -Gv4v6 $HOST_NAME
+```
+
+```bash IP -> Host
+dig -x $IP_ADDR -p 5353 @224.0.0.251
+```
