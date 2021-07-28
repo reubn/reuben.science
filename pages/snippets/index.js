@@ -10,13 +10,13 @@ import hydratePost from '@/src/snippets/hydrate'
 import {main} from '../styles'
 import {empty} from '../posts/styles'
 
-export default function Code({posts}) {
+export default function Snippets({posts}) {
   return (
     <>
       <NextSeo
-        title="Code"
+        title="Snippets"
         openGraph={{
-          title: 'Code',
+          title: 'Snippets',
           site_name: process.env.NEXT_PUBLIC_DOMAIN,
         }}
       />
