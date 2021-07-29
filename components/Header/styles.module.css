@@ -17,13 +17,13 @@
   pointer-events: none;
 }
 
-@media (max-width: 1400px) {
+@media (max-width: 1560px) {
   .header {
     position: relative;
   }
 }
 
-@media (max-width: 350px) {
+@media (max-width: 375px) {
   .header {
     padding: 0 1rem;
   }
@@ -39,9 +39,15 @@
   transform: rotate(180deg);
 }
 
-@media (max-width: 400px) {
+@media (max-width: 500px) {
   .logo {
     height: 4rem;
+  }
+}
+
+@media (max-width: 450px) {
+  .logo {
+    height: 3rem;
   }
 }
 
@@ -51,7 +57,19 @@
 
   pointer-events: initial;
   vertical-align: middle;
-  flex:1;
+  flex: 1;
+}
+
+@media (max-width: 400px) {
+  .nav {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 350px) {
+  .nav {
+    font-size: 0.8rem;
+  }
 }
 
 .link {
