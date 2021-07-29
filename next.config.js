@@ -21,6 +21,9 @@ const withMDX = require('@next/mdx')({
 
 module.exports = withPlugins([[withMDX]], {
   pageExtensions: ['js', 'jsx', 'md', 'mdx'],
+  images: {
+    disableStaticImages: true,
+  },
   webpack: (config, {isServer}) => {
     config.resolve.extensions.push('.md', '.mdx', '.css', '.module.css', '.json')
 
