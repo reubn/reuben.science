@@ -7,9 +7,9 @@ const SnippetList = ({posts, fallback=null, ...props}) => (
   posts.length
     ? (
       <Section heading="Recent Snippets" moreHref="/posts" moreAria="More Snippets" {...props}>
-        <section className={postsStyle}>
+        <div className={postsStyle} role="feed">
           {posts.map(props => <SnippetLink key={props.slug} {...props} />)}
-        </section>
+        </div>
       </Section>
     )
     : fallback

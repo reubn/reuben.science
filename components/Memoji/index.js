@@ -209,7 +209,7 @@ const Memoji = ({frameTimeout=5*1000, frameCount, getFrameURL, defaultFrameNumbe
   }, [ready])
 
 
-  return  (<span className={memojiWrapper}>
+  return  (<span className={memojiWrapper} role="img" aria-label="Animated Memoji of Me">
     <CTA className={`${ctaStyle} ${cta ? active : ''}`} />
     <canvas {...props} className={[memojiStyle, className || '', (ready || defaultFrameReady) ? readyStyle : notReadyStyle].join(' ')} ref={canvasRef} width={width} height={height} />
   </span>)

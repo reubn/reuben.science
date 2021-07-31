@@ -7,6 +7,6 @@ export default async (...slice) => ({
 	photos: (
 		(Array.isArray(await response) ? await response : [])
 		.slice(...slice)
-		.map(({id, urls: {raw}}) => ({id, src: `${raw}&q=${process.env.UNSPLASH_QUALITY}&fm=auto&w=${process.env.UNSPLASH_SIZE}&fit=max`}))
+		.map(({id, description: desc, urls: {raw}}) => ({id, desc, src: `${raw}&q=${process.env.UNSPLASH_QUALITY}&fm=auto&w=${process.env.UNSPLASH_SIZE}&fit=max`}))
 	)
 })

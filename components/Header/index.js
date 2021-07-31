@@ -12,7 +12,7 @@ const Header = () => {
   return (
     <header className={header}>
       <ActiveLink href="/">
-        <Logo className={`${logo} ${flip ? flipped : ''}`} type="lodFlat" easterEgg={{pass: '024135', callback: () => setFlip(!flip)}}/>
+        <Logo className={`${logo} ${flip ? flipped : ''}`} type="lodFlat" easterEgg={{pass: '024135', callback: () => setFlip(!flip)}} role="banner" />
       </ActiveLink>
       <nav className={nav}>
         <ActiveLink href="/" passHref>{active => <a className={`${link} ${active ? activeStyle : ''}`} style={{'--link-underline': gradient('pink-red')}}>Home</a>}</ActiveLink>

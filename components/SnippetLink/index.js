@@ -5,19 +5,19 @@ import {post as snippetPostStyle, pre} from './styles'
 
 const SnippetLink = ({slug, metadata: {title, description, emoji, linesOfCode, preview: {language, html}}, ...props}) => {
   const post = active => (
-    <a {...props}>
-      <div className={`${postStyle} ${snippetPostStyle}`}>
-        <pre className={`${pre} language-${language}`}>
+    <a title={title} {...props}>
+      <article className={`${postStyle} ${snippetPostStyle}`}>
+        <pre className={`${pre} language-${language}`} role="img" aria-label="Snippet Preview">
           <div>
             <code dangerouslySetInnerHTML={{__html: html}}/>
           </div>
         </pre>
-        <div>
+        <h1>
           <p className={emojiStyle}>{emoji}</p>
           <p className={titleStyle}>{title}</p>
-        </div>
+        </h1>
         <p className={descriptionStyle}>{description || ''} <span className={readingTimeStyle}> • {linesOfCode || '???'} line{linesOfCode != 1 && 's'}</span></p>
-      </div>
+      </article>
     </a>
   )
 
