@@ -12,10 +12,17 @@ module.exports.setUp = obj => {
   obj[copyFn] = event => {
     const selection = window.getSelection()
     const range = document.createRange()
+
     range.selectNodeContents(event.target.parentElement.parentElement)
     selection.removeAllRanges()
     selection.addRange(range)
-    document.execCommand('copy')
+
+    if(document.execCommand('copy')) {
+      const before = event.target.innerHTML
+      event.target.innerHTML = 'Done'
+      event.target.className += ' done'
+      event.target.addEventListener('mouseout', () => {event.target.innerHTML = before; event.target.className = event.target.className.replace(/\sdone\s|$/)}, {once: true})
+    }
   }
 
 
