@@ -6,6 +6,12 @@ const refractor = require('refractor')
 
 require('./languages')(refractor)
 
+const commentLookup = Object.entries({
+  '//': ['js', 'json', 'c', 'c++', 'swift', 'php'],
+  '#': ['bash'],
+  ';': ['ini']
+})
+
 function getLanguage(node) {
   const className = node.properties.className || node.className || []
 
@@ -25,10 +31,9 @@ function visitor(node, index, parent) {
 
   const properties = {
     className: (parent.properties.className || []).concat('language-' + lang),
-    metastring: node.properties.metastring
+    metastring: node.properties.metastring ? `${(lang && commentLookup.find(([k, v]) => v.includes(lang))[0]) || '//'} ${node.properties.metastring}` : undefined
   }
 
-  if(parent.tagName === 'pre') parent.properties = properties
   node.properties = properties
 
   let result
