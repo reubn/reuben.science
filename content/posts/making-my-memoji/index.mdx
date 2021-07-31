@@ -150,7 +150,7 @@ I don't really want to buy FCP X, and while it's only one click away on many-a-s
 
 Given that the `Core Media` framework is built in to macOS, I decided the path of least resistance was probably to just write a quick CLI tool to extract the frames using `AVFoundation` (which uses `Core Media` under the hood). And that's exactly what I did:
 
-``` swift Swift
+``` swift
 ...
 
 let trackReaderOutput = AVAssetReaderTrackOutput(track: videoTrack, outputSettings:[String(kCVPixelBufferPixelFormatTypeKey): NSNumber(value: kCVPixelFormatType_32BGRA)])
@@ -184,7 +184,7 @@ Written in `Swift`, it just iterates over the frames of a video file (which coul
 
 Armed with our sequence of image files, we're ready to merge them back into a video using `FFmpeg`.
 
-```bash ZSH
+```bash
 ffmpeg -framerate 60 -i ./frame-%0d.png -c:v libvpx-vp9 -pix_fmt yuva420p -speed 0 -crf 16 -an ./me.webm
 ```
 
@@ -269,7 +269,7 @@ I settled on `.webp`. Support is good[^webp], and I set about converting the `.p
 [^webp]: https://caniuse.com/webp
 [^cwebp]: https://developers.google.com/speed/webp/docs/cwebp
 
-```bash ZSH
+```bash
 for file in *.png; do cwebp -lossless -mt "./$file" -o "./${file//\.png/.webp}"; done
 ```
 
@@ -277,7 +277,7 @@ for file in *.png; do cwebp -lossless -mt "./$file" -o "./${file//\.png/.webp}";
 
  After going through many permutations, I settled on a `lossy` quality of `80`. Going lower reduced the image quality, but didn't justify the cost, giving only negligible improvements in file size. I also used `cwebp`'s builtin crop function to try and shave off every last byte.
 
- ```bash ZSH
+ ```bash
 for file in *.png; do cwebp -q 80 -mt -crop 100 26 459 350 "./$file" -o "./${file//\.png/.webp}"; done
 ```
 
@@ -288,7 +288,7 @@ After running this, and cooking an egg on my CPU 🍳, I was left with a total s
 There are some avenues to explore to try and reduce the total file size some more. `.webp` supports animation, but I don't think the ability to scrub through animated images is exposed in the web environment at the present time, and it may well suffer from the same issues as `VP8`/`VP9`. Maybe serving the frames as an animated `.webp` file and then decoding them to canvas is an option - but I am yet to explore the possibility.
 
 A simpler option might be to combine the frames into a sprite sheet.
-```bash ZSH
+```bash
 montage ./*.webp -define webp:lossless=true -geometry '1x1+0+0<' -tile 10x -background none ./output.webp
 
 cwebp -q 80 ./output.webp -o ./compressed.webp

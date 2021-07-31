@@ -4,7 +4,15 @@ const visit = require('unist-util-visit')
 const nodeToString = require('hast-util-to-string')
 const refractor = require('refractor')
 
+const {element: clickToCopy, ids: {copyFn, clearFn}} = require('./clickToCopy')
+
 require('./languages')(refractor)
+
+const commentLookup = Object.entries({
+  '//': ['js', 'json', 'c', 'c++', 'swift', 'php'],
+  '#': ['bash'],
+  ';': ['ini']
+})
 
 function getLanguage(node) {
   const className = node.properties.className || node.className || []
@@ -17,18 +25,18 @@ function getLanguage(node) {
 }
 
 function visitor(node, index, parent) {
+  if(node.tagName === 'pre') node.children.unshift(clickToCopy)
   if(node.tagName === 'pre' && parent && parent.tagName === 'figure') return parent.properties.className = (parent.properties.className || []).concat('code')
-  if (!(node.tagName === 'inlineCode' || (node.tagName === 'code' && parent && parent.tagName === 'pre'))) return
+  if(!(node.tagName === 'inlineCode' || (node.tagName === 'code' && parent && parent.tagName === 'pre'))) return
 
   const lang = getLanguage(node)
-  if (lang === null) return
+  if(lang === null) return
 
   const properties = {
     className: (parent.properties.className || []).concat('language-' + lang),
-    metastring: node.properties.metastring
+    metastring: node.properties.metastring ? `${(lang && commentLookup.find(([k, v]) => v.includes(lang))[0]) || '//'} ${node.properties.metastring}` : undefined
   }
 
-  if(parent.tagName === 'pre') parent.properties = properties
   node.properties = properties
 
   let result

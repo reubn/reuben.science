@@ -150,42 +150,16 @@
   color: var(--colours-dark-4);
 }
 
-.body pre[metastring]{
+.body pre {
   position: relative;
-  overflow-x: hidden;
 }
-.body pre[metastring]:before {
+
+.body code[metastring]:before {
   content: attr(metastring);
-
-  position: absolute;
-  right: calc(1.5rem - 3px);
-  top: calc(1.5rem - 3px);
-
-
-  font-family: var(--font-family);
-  font-weight: 500;
-  background: var(--colours-dark-3);
-  padding: 3px 6px;
-  font-size: 0.8rem;
-  border-radius: 2px;
-  transition: opacity 0.5s cubic-bezier(.47,0,0,1.2);
-
-  z-index: 1;
+  display: block;
+  margin-bottom: 1rem;
+  color: var(--colours-dark-5);
 }
-
-.body pre[metastring]:hover:before {
-  opacity: 0.25;
-
-  transition: opacity 0.5s cubic-bezier(.47,0,0,1);
-}
-
-@media (max-width: 650px) {
-  .body pre[metastring]:before {
-    right: calc(1rem - 3px);
-    top: calc(1rem - 3px);
-  }
-}
-
 
 .body code {
   background: linear-gradient(135deg, var(--colours-dark-2) 0%, var(--colours-dark-1) 100%);
@@ -204,8 +178,6 @@
     padding: 1rem 1rem;
   }
 }
-
-
 
 .body *:not(pre) > code::selection, .body pre::selection {
   background-color: var(--colours-accent);
@@ -237,6 +209,41 @@
 
 .body pre[class^="language"], .body code[class^="language"] {
   font-weight: 500;
+}
+
+.body pre :global(.clickToCopy), .body code :global(.clickToCopy) {
+  user-select: none;
+  appearance: none;
+  border: none;
+  position: absolute;
+  right: 1rem;
+  top: calc(1rem + 3px);
+  font-family: var(--font-family);
+  font-weight: 500;
+  background: var(--colours-dark-3);
+  font-size: 0.8rem;
+  border-radius: 2px;
+  z-index: 1;
+  padding: 0.5rem;
+  color: var(--colours-light);
+  cursor: pointer;
+
+  transition: opacity 0.5s cubic-bezier(.47,0,0,1.2), background 0.1s ease-in;
+  opacity: 0;
+}
+
+.body pre:hover :global(.clickToCopy), .body code:hover :global(.clickToCopy) {
+  opacity: 0.5;
+}
+
+.body pre :global(.clickToCopy):hover, .body code :global(.clickToCopy):hover {
+  background: var(--colours-dark-4);
+  opacity: 0.95;
+}
+
+.body pre :global(.clickToCopy):active, .body code :global(.clickToCopy):active {
+  background: var(--colours-dark-5);
+  opacity: 1;
 }
 
 .body figure > pre + figcaption {

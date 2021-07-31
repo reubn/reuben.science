@@ -1,10 +1,10 @@
 'use strict'
 
-module.exports = txt
-txt.displayName = 'txt'
-txt.aliases = []
+module.exports = txtExtra
+txtExtra.displayName = 'txtExtra'
+txtExtra.aliases = []
 
-function txt(Prism) {
+function txtExtra(Prism) {
   Prism.languages.txt = {
     highlightA: {
       pattern: /[\u200B\u00A0].+?[\u200B\u00A0]/g

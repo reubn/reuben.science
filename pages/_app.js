@@ -15,7 +15,10 @@ import {app, loadGlitchFix as loadGlitchFixStyle, content} from './_app.module.c
 
 import ping from '@/src/.analytics'
 
+import {setUp as setUpClickToCopy} from '@/src/syntaxHighlight/clickToCopy'
+
 const APP_ID = 'app'
+setUpClickToCopy((typeof window !== 'undefined') && window)
 
 function App({Component, pageProps}){
   const router = useRouter()

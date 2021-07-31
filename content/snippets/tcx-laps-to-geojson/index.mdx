@@ -9,7 +9,7 @@ export const metadata = {
   }
 }
 
-```js JS
+```js
 JSON.stringify({
   "type": "FeatureCollection",
   "features": [...tcx.matchAll(/<Lap[^]+?<Position>[^]*?<LatitudeDegrees>(.+)<\/[^]*?<LongitudeDegrees>(.+)<\//g)].map(([_, lat, lng]) => ({

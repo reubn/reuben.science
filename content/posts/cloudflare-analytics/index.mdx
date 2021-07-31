@@ -19,7 +19,7 @@ The script Cloudflare loads is heavily minified, and while not intentionally obf
 Once inside, the code showed a number of options that are documented (or that I could find).
 
 There's the option to include custom tags in the beacon requests
-```js JS
+```js
 ...
 
 if (window.__cfBeaconCustomTag) {
@@ -33,7 +33,7 @@ if (window.__cfBeaconCustomTag) {
 This is cool but let's keep digging.
 
 Here we find what we've been looking for, an option to configure the `URL` the beacon will pass the **R**eal **U**ser **M**etrics to.
-```js JS
+```js
 ...
 
 var initial = params.token
@@ -47,7 +47,7 @@ var initial = params.token
 
 Looking further up in the script, we can see that the `params` can be taken from the `script` tag or, interestingly for us, from `window.__cfBeacon`.
 
-```js JS
+```js
 
 ...
 var t = document.currentScript || ("function" == typeof document.querySelector ? document.querySelector("script[data-cf-beacon]") : void 0);
