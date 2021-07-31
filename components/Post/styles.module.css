@@ -246,6 +246,11 @@
   opacity: 1;
 }
 
+.body pre :global(.clickToCopy):global(.done), .body code :global(.clickToCopy):global(.done) {
+  background: var(--colours-accent);
+  opacity: 1;
+}
+
 .body figure > pre + figcaption {
   margin-top: -1rem;
 }
