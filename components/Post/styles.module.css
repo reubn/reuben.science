@@ -205,8 +205,6 @@
   }
 }
 
-
-
 .body *:not(pre) > code::selection, .body pre::selection {
   background-color: var(--colours-accent);
 }
