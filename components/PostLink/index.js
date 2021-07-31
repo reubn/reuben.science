@@ -6,15 +6,15 @@ import {post as postStyle, title as titleStyle, description as descriptionStyle,
 
 const PostLink = ({slug, displayImage, metadata: {title, description, emoji, readingTime, image}, ...props}) => {
   const post = active => (
-    <a {...props}>
-      <div className={postStyle}>
-        {displayImage && image ? <Image image={image} /> : null}
-        <div>
+    <a title={title} {...props}>
+      <article className={postStyle}>
+        {displayImage && image ? <Image image={image} alt="" /> : null}
+        <h1>
           <p className={emojiStyle}>{emoji}</p>
           <p className={titleStyle}>{title}</p>
-        </div>
-        <p className={descriptionStyle}>{description || ''} <span className={readingTimeStyle}> • {readingTime.mins || '???'} min{readingTime.mins != 1 && 's'}</span></p>
-      </div>
+        </h1>
+        <p className={descriptionStyle}>{description || ''} <time time={readingTime.mins && `PD0T0H${readingTime.mins}M`} className={readingTimeStyle} aria-label="Reading Time"> • {readingTime.mins || '???'} min{readingTime.mins != 1 && 's'}</time></p>
+      </article>
     </a>
   )
 

@@ -66,8 +66,8 @@ export default function Post({slug, metadata, children, __HACK_ID}){
         {metadata.description && <h2 className={description}>{metadata.description}</h2>}
         <Image image={metadata.image} className={headerImage} alt="Header Image" />
         <span className={infoStyle}>
-          <span>{date.toLocaleDateString()}</span>
-          <span>{metadata.readingTime.mins || '???'} min{metadata.readingTime.mins != 1 && 's'}</span>
+          <time datetime={date.toLocaleDateString()}>{date.toLocaleDateString()}</time>
+          <time time={metadata.readingTime.mins && `PD0T0H${metadata.readingTime.mins}M`} aria-label="Reading Time">{metadata.readingTime.mins || '???'} min{metadata.readingTime.mins != 1 && 's'}</time>
         </span>
         <span className={body} id={__HACK_ID}>
           {children}

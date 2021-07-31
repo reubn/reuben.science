@@ -19,7 +19,7 @@
   justify-content: center;
 }
 
-  .pre code {
+.pre code {
   font-weight: 400;
   font-family: SF Mono, monospace;
   -webkit-font-smoothing: subpixel-antialiased;
@@ -32,6 +32,6 @@
   background-color: var(--colours-accent);
 }
 
-.pre + div {
+.pre + h1 {
   margin-top: 1rem;
 }

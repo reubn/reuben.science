@@ -53,7 +53,7 @@ export default function SnippetPost({slug, metadata, children, __HACK_ID}){
       <article className={post}>
         <h1 className={title}>{metadata.title}</h1>
         <span className={infoStyle}>
-          <span>{date.toLocaleDateString()}</span>
+          <time datetime={date.toLocaleDateString()}>{date.toLocaleDateString()}</time>
           <span>{metadata.linesOfCode || '???'} line{metadata.linesOfCode != 1 && 's'}</span>
         </span>
         <span className={body} id={__HACK_ID}>

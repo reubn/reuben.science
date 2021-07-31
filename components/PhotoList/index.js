@@ -9,13 +9,13 @@ const PhotoList = ({photos: {photos, size}, fallback=null, ...props}) => (
   photos.length
     ? (
       <Section heading="Recent Photos" moreHref="https://unsplash.com/re" moreAria="More Photos" {...props}>
-        <section className={photosStyle} style={{'--columns': Math.min(photos.length, 4), '--photo-size': `${size}px`}}>
-          {photos.map(({src, id}) => (
-            <a href={`https://unsplash.com/photos/${id}`} className={photo} aria-label="Unsplash Photo" key={id}>
-              <Image image={{src, size: {width: size}}} alt="Unsplash Photo" lazy={false} />
+        <div className={photosStyle} style={{'--columns': Math.min(photos.length, 4), '--photo-size': `${size}px`}} role="grid">
+          {photos.map(({id, desc, src}) => (
+            <a href={`https://unsplash.com/photos/${id}`} className={photo} title={`Photo: ${desc}`} key={id}>
+              <Image image={{src, size: {width: size}}} alt={`Photo: ${desc}`} lazy={false} />
             </a>)
           )}
-        </section>
+        </div>
       </Section>
     )
     : fallback
