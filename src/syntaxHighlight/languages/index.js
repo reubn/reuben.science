@@ -1,6 +1,6 @@
 const languages = [
   require('./bashExtra'),
-  require('./txt'),
+  require('./txtExtra'),
   require('./jsonExtra'),
 ]
 

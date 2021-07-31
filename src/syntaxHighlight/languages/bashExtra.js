@@ -1,10 +1,10 @@
 'use strict'
 
-module.exports = bashExtras
-bashExtras.displayName = 'bashExtras'
-bashExtras.aliases = []
+module.exports = bashExtra
+bashExtra.displayName = 'bashExtra'
+bashExtra.aliases = []
 
-function bashExtras(Prism) {
+function bashExtra(Prism) {
   (function (Prism) {
 	// $ set | grep '^[A-Z][^[:space:]]*=' | cut -d= -f1 | tr '\n' '|'
 	// + LC_ALL, RANDOM, REPLY, SECONDS.
