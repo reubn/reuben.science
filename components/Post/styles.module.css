@@ -211,6 +211,41 @@
   font-weight: 500;
 }
 
+.body pre :global(.clickToCopy), .body code :global(.clickToCopy) {
+  user-select: none;
+  appearance: none;
+  border: none;
+  position: absolute;
+  right: 1rem;
+  top: calc(1rem + 3px);
+  font-family: var(--font-family);
+  font-weight: 500;
+  background: var(--colours-dark-3);
+  font-size: 0.8rem;
+  border-radius: 2px;
+  z-index: 1;
+  padding: 0.5rem;
+  color: var(--colours-light);
+  cursor: pointer;
+
+  transition: opacity 0.5s cubic-bezier(.47,0,0,1.2), background 0.1s ease-in;
+  opacity: 0;
+}
+
+.body pre:hover :global(.clickToCopy), .body code:hover :global(.clickToCopy) {
+  opacity: 0.5;
+}
+
+.body pre :global(.clickToCopy):hover, .body code :global(.clickToCopy):hover {
+  background: var(--colours-dark-4);
+  opacity: 0.95;
+}
+
+.body pre :global(.clickToCopy):active, .body code :global(.clickToCopy):active {
+  background: var(--colours-dark-5);
+  opacity: 1;
+}
+
 .body figure > pre + figcaption {
   margin-top: -1rem;
 }

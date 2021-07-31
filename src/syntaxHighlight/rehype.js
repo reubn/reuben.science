@@ -4,6 +4,8 @@ const visit = require('unist-util-visit')
 const nodeToString = require('hast-util-to-string')
 const refractor = require('refractor')
 
+const {element: clickToCopy, ids: {copyFn, clearFn}} = require('./clickToCopy')
+
 require('./languages')(refractor)
 
 const commentLookup = Object.entries({
@@ -23,6 +25,7 @@ function getLanguage(node) {
 }
 
 function visitor(node, index, parent) {
+  if(node.tagName === 'pre') node.children.unshift(clickToCopy)
   if(node.tagName === 'pre' && parent && parent.tagName === 'figure') return parent.properties.className = (parent.properties.className || []).concat('code')
   if(!(node.tagName === 'inlineCode' || (node.tagName === 'code' && parent && parent.tagName === 'pre'))) return
 
