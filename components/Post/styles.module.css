@@ -232,6 +232,13 @@
   opacity: 0;
 }
 
+@media (max-width: 650px) {
+  .body pre :global(.clickToCopy), .body code :global(.clickToCopy) {
+    right: 0.5rem;
+    top: calc(0.5rem + 1px);
+  }
+}
+
 .body pre:hover :global(.clickToCopy), .body code:hover :global(.clickToCopy) {
   opacity: 0.5;
 }
