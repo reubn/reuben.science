@@ -6,6 +6,12 @@ module.exports.ids = {
   clearFn
 }
 
+module.exports.strings = {
+  copy: 'Copy',
+  done: 'Done',
+  doneClass: 'done'
+}
+
 module.exports.setUp = obj => {
   if(!obj) return
 
@@ -18,13 +24,15 @@ module.exports.setUp = obj => {
     selection.addRange(range)
 
     if(document.execCommand('copy')) {
-      const before = event.target.innerHTML
-      event.target.innerHTML = 'Done'
-      event.target.className += ' done'
-      event.target.addEventListener('mouseout', () => {event.target.innerHTML = before; event.target.className = event.target.className.replace(/\sdone\s|$/)}, {once: true})
+      event.target.innerHTML = module.exports.strings.done
+      event.target.classList.add(module.exports.strings.doneClass)
+
+      event.target.addEventListener('mouseout', () => {
+        event.target.innerHTML = module.exports.strings.copy;
+        event.target.classList.remove(module.exports.strings.doneClass)
+      }, {once: true})
     }
   }
-
 
   obj[clearFn] = event => {
     const selection = window.getSelection()
@@ -36,7 +44,7 @@ module.exports.element = {
   type: 'element',
   tagName: 'span',
   properties: {
-    dangerouslySetInnerHTML: {__html: `<button class="clickToCopy" onmousedown="${copyFn}(event)" onmouseup="${clearFn}(event)">Copy</button>`}
+    dangerouslySetInnerHTML: {__html: `<button class="clickToCopy" onmousedown="${copyFn}(event)" onmouseup="${clearFn}(event)">${module.exports.strings.copy}</button>`}
   },
   children: []
 }
