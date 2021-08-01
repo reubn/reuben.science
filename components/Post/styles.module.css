@@ -179,7 +179,7 @@
   }
 }
 
-.body *:not(pre) > code::selection, .body pre::selection {
+.body code::selection, .body pre::selection,.body pre span::selection, .body code span::selection {
   background-color: var(--colours-accent);
 }
 
@@ -232,8 +232,21 @@
   opacity: 0;
 }
 
+@media (max-width: 650px) {
+  .body pre :global(.clickToCopy), .body code :global(.clickToCopy) {
+    right: 0.5rem;
+    top: calc(0.5rem + 1px);
+  }
+}
+
 .body pre:hover :global(.clickToCopy), .body code:hover :global(.clickToCopy) {
   opacity: 0.5;
+}
+
+@media (max-width: 650px) {
+  .body pre:hover :global(.clickToCopy), .body code:hover :global(.clickToCopy) {
+    opacity: 0.95;
+  }
 }
 
 .body pre :global(.clickToCopy):hover, .body code :global(.clickToCopy):hover {
@@ -248,7 +261,6 @@
 
 .body pre :global(.clickToCopy):global(.done), .body code :global(.clickToCopy):global(.done) {
   background: var(--colours-accent);
-  opacity: 1;
 }
 
 .body figure > pre + figcaption {

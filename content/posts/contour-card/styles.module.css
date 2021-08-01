@@ -60,3 +60,7 @@
 .print > g:nth-child(4n+4):hover {
   color: var(--colours-purple);
 }
+
+.canvas {
+  height: 75vh!important;
+}
