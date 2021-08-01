@@ -243,6 +243,12 @@
   opacity: 0.5;
 }
 
+@media (max-width: 650px) {
+  .body pre:hover :global(.clickToCopy), .body code:hover :global(.clickToCopy) {
+    opacity: 0.95;
+  }
+}
+
 .body pre :global(.clickToCopy):hover, .body code :global(.clickToCopy):hover {
   background: var(--colours-dark-4);
   opacity: 0.95;
@@ -255,7 +261,6 @@
 
 .body pre :global(.clickToCopy):global(.done), .body code :global(.clickToCopy):global(.done) {
   background: var(--colours-accent);
-  opacity: 1;
 }
 
 .body figure > pre + figcaption {
