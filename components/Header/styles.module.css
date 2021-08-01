@@ -55,7 +55,6 @@
   margin-left: auto;
   text-align: right;
 
-  pointer-events: initial;
   vertical-align: middle;
   flex: 1;
 }
@@ -83,6 +82,8 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
+
+  pointer-events: initial;
 }
 
 .link:after {
