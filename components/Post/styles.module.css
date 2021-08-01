@@ -179,7 +179,7 @@
   }
 }
 
-.body *:not(pre) > code::selection, .body pre::selection {
+.body code::selection, .body pre::selection,.body pre span::selection, .body code span::selection {
   background-color: var(--colours-accent);
 }
 
