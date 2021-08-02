@@ -23,34 +23,40 @@ const Image = ({image={}, className, lazy=true, alt, ...props}) => {
     setUseSrc(await decodeWebp(polyfillSrc))
   }
 
-  const imageFn = ({_ref, inView, ...lazyProps}) => (
-    <>
-      <img
-        ref={_ref}
-        id={id}
+  const imageFn = ({_ref, inView, ...lazyProps}) => {
+    let insideLoaded = lazyProps['data-noscript'] === 'yes' ? true : loaded
 
-        onLoad={event => setLoaded(event.target.complete)}
-        onError={() => inView && onError()}
+    return (
+      <>
+        <img
+          ref={_ref}
+          id={id}
 
-        src={(loaded || inView) ? useSrc : ''}
-        srcSet={(loaded || inView) ? useSrc === src ? srcSet : undefined : ''}
+          onLoad={event => setLoaded(event.target.complete)}
+          onError={() => inView && onError()}
 
-        width={width}
-        height={height}
-        className={[imageStyle, className, (loaded || lazyProps['data-noscript'] === 'yes') ? '' : imageLoading].join(' ')}
-        loading={lazy ? "eager" : "lazy" /* we're handling the lazy loading, dw*/}
+          src={(insideLoaded || inView) ? useSrc : ''}
+          srcSet={(insideLoaded || inView) ? useSrc === src ? srcSet : undefined : ''}
 
-        {...props}
-        {...lazyProps}
-      />
-      <span
-        key={id}
-        className={[className, (loaded || lazyProps['data-noscript'] === 'yes') ? notLoading : loading].join(' ')}
-        style={{aspectRatio: `${width}/${height}`}}>
-          {alt}
-      </span>
-    </>
-  )
+          width={width}
+          height={height}
+          className={[imageStyle, className, insideLoaded ? '' : imageLoading].join(' ')}
+          loading={lazy ? "eager" : "lazy" /* we're handling the lazy loading, dw*/}
+
+          {...props}
+          {...lazyProps}
+        />
+        <span
+          key={id}
+          className={[className, insideLoaded ? notLoading : loading].join(' ')}
+          style={{aspectRatio: `${width}/${height}`}}
+          {...lazyProps}
+          >
+            {alt}
+        </span>
+      </>
+    )
+  }
 
   return (
     lazy
