@@ -1,10 +1,13 @@
+import dynamic from 'next/dynamic'
+
 import Image from '@/components/Image'
 import {spill} from '@/components/Post/styles'
-import Lazy from '@/components/Lazy'
+import ThreeDimensional from '@/components/ThreeDimensional'
 
 import header from './images/header.webp'
-import ThreeD from './3D'
-import {contours, print, canvas} from './styles'
+import {contours, print} from './styles'
+
+export const Contours3D = dynamic(() => import('./Contours3D'))
 
 export const metadata = {
   title: 'Making Paper Terrain Models',
@@ -33,9 +36,9 @@ import skirrid from './images/skirrid.webp'
 
 The final thing to say about selecting a good location, is that often the character of the landscape is only fully apparent when looking at the contour lines, so it might be easier to think of some candidates, and settle once you've seen the data - which is what we'll get onto next.
 
-<div className={canvas}>
-  <Lazy config={{triggerOnce: false}}>{props => <ThreeD {...props}/>}</Lazy>
-</div>
+<ThreeDimensional alt="3D Contours">
+  <Contours3D />
+</ThreeDimensional>
 
 # Ingredients
 

@@ -1,0 +1,11 @@
+.intersectionHandle {
+  width: 1px;
+  height: 1px;
+  position: relative;
+  top: -200px;
+  display: block;
+  z-index: 100;
+  opacity: 0;
+  pointer-events: none;
+  float: right
+}

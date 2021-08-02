@@ -36,5 +36,8 @@
     "three": "^0.131.1",
     "unist-util-visit": "^2.0.3",
     "webp-hero": "0.0.0-dev.27"
+  },
+  "devDependencies": {
+    "http-server": "^0.12.3"
   }
 }
