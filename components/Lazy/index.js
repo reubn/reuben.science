@@ -33,7 +33,7 @@ const Lazy = ({children: Child, config={}}) => {
       <noscript>
         <Child inView={true} data-noscript="yes" />
       </noscript>
-      <span ref={topRef} className={`${intersectionHandle} ${config.handleClass || ''}`} />
+      <span ref={topRef} className={`${intersectionHandle} ${config.handleClass || ''}`} data-noscript="no"/>
       <Child _ref={_ref} inView={inView} data-noscript="no" />
     </>
   )
