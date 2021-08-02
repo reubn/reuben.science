@@ -335,6 +335,9 @@
   vertical-align: sub;
 }
 
+/* Import 3D classes to avoid waiting on bundle for loading state */
+@import "@/components/ThreeDimensional/styles.module.css";
+
 .body figure {
   display: block;
   max-width: 100%;
