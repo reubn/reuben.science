@@ -11,6 +11,8 @@ import '@/styles/prism-theme.css'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 
+import NoScriptCSS from '@/components/Lazy/NoScriptCSS'
+
 import {app, loadGlitchFix as loadGlitchFixStyle, content} from './_app.module.css'
 
 import ping from '@/src/.analytics'
@@ -86,6 +88,7 @@ function App({Component, pageProps}){
         <meta name="theme-color" content="#0E151B" />
 
         <link rel="alternate" type="application/rss+xml" href={`https://${process.env.NEXT_PUBLIC_DOMAIN}/${process.env.NEXT_PUBLIC_RSS_FILE}`} />
+        <NoScriptCSS />
       </Head>
       <DefaultSeo
         titleTemplate="%s | Reuben"
