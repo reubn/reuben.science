@@ -23,9 +23,10 @@ const Image = ({image={}, className, lazy=true, alt, ...props}) => {
     setUseSrc(await decodeWebp(polyfillSrc))
   }
 
-  const imageFn = ({inView, ...lazyProps}) => (
+  const imageFn = ({_ref, inView, ...lazyProps}) => (
     <>
       <img
+        ref={_ref}
         id={id}
 
         onLoad={event => setLoaded(event.target.complete)}
