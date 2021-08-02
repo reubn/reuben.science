@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import {useState, useRef, useEffect} from 'react'
 
 import supportsWebp from '@/src/supportsWebp'
 
@@ -6,43 +6,68 @@ import Lazy from '../Lazy'
 
 import {image as imageStyle, loading} from './styles'
 
-const Image = ({image={}, className, lazy=true, ...props}) => {
-  const {src='', srcSet='', size: {width, height}={}, id} = image
+const Image = ({image={}, className, lazy=true, alt, ...props}) => {
+  const {src: srcProp='', srcSet='', size: {width, height}={}} = image
+
+  const backingImage = useRef()
 
   const [loaded, setLoaded] = useState(!lazy)
-  const [useSrc, setUseSrc] = useState(src)
+  const [src, setSrc] = useState(srcProp)
+  const [polyfilled, setPolyfilled] = useState(false)
 
-  const onError = async () => {
+  const onLoad = img => {
+    console.log(alt, img.complete ? 'complete' : 'incomplete')
+    setLoaded(true)
+  }
+
+  const onError = async img => {
     if(await supportsWebp()) return
-
-    const polyfillSrc = document.getElementById(id).currentSrc
-    if(!polyfillSrc.endsWith('.webp')) return
+    if(!img.currentSrc.endsWith('.webp')) return
 
     const {default: decodeWebp} = await import('@/src/decodeWebp')
 
-    setUseSrc(await decodeWebp(polyfillSrc))
+    const result = await decodeWebp(polyfillSrc)
+    setSrc(result)
+    setPolyfilled(true)
   }
 
-  const imageFn = ({_ref, inView, ...lazyProps}) => (
-    <img
-      ref={_ref}
-      id={id}
+  const imageFn = ({_ref, inView, ...lazyProps}) => {
+    const noScript = lazyProps['data-noscript'] === 'yes'
+    const usingReal = loaded || noScript || polyfilled
+    const loadingMode = (lazy && !noScript) ? 'eager' : 'lazy' /* we're handling the lazy loading, dw*/
 
-      onLoad={() => setLoaded(true)}
-      onError={() => inView && onError()}
+    useEffect(() => {
+      if(
+        lazy && !polyfilled && (
+          !backingImage.current || backingImage.current.props.image !== image
+        )
+      ) backingImage.current = createBackingImage({alt, image, onLoad, onError})
+    }, [lazy, polyfilled, image, backingImage.current])
 
-      src={inView ? useSrc : ''}
-      srcSet={inView ? useSrc === src ? srcSet : undefined : ''}
+    useEffect(() => {
+      if(inView && !loaded && !backingImage.current.going) backingImage.current.go()
+    }, [inView, loaded, backingImage.current])
 
-      width={width}
-      height={height}
-      className={[imageStyle, className, loaded ? '' : loading].join(' ')}
-      loading={lazy ? "eager" : "lazy" /* we're handling the lazy loading, dw*/}
+    return (
+      <img
+        ref={_ref}
 
-      {...props}
-      {...lazyProps}
-    />
-  )
+        width={width}
+        height={height}
+
+        src={usingReal ? src : ''}
+        srcSet={usingReal ? (!polyfilled ? srcSet : undefined) : ''}
+
+        className={[imageStyle, className].join(' ')}
+        loading={loadingMode}
+
+        alt={alt}
+
+        {...props}
+        {...lazyProps}
+      />
+    )
+  }
 
   return (
     lazy
@@ -53,6 +78,35 @@ const Image = ({image={}, className, lazy=true, ...props}) => {
     )
     : imageFn({inView: true})
   )
+}
+
+const createBackingImage = props => {
+  if(typeof window === 'undefined') return
+
+  const {alt, image, onLoad, onError} = props
+  const {src='', srcSet='', size: {width, height}={}} = image
+
+  console.log(alt, 'creating')
+
+  const img = document.createElement('img')
+  img.width = width
+  img.height = height
+
+  img.props = props
+
+  img.go = () => {
+    console.log(alt, 'loading')
+
+    img.going = true
+
+    img.src = src
+    img.srcset = srcSet
+  }
+
+  img.onload = () => onLoad(img)
+  img.onerror = () => onError(img)
+
+  return img
 }
 
 export default Image
