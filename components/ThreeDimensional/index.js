@@ -20,7 +20,7 @@ function Helper({frameloop}){
   return null
 }
 
-const Inner = ({inView, _ref, children: child, alt, ...props}) => {
+const Inner = ({inView, _ref, children: child, alt, canvasProps={}, ...props}) => {
   const [display, setDisplay] = useState(false)
   const [frameloop, setFrameloop] = useState(false)
 
@@ -44,7 +44,7 @@ const Inner = ({inView, _ref, children: child, alt, ...props}) => {
       mode: "concurrent",
       dpr: window.devicePixelRatio,
       Helper: () => <Helper frameloop={frameloop} />,
-      ...props
+      ...canvasProps
     }
   )
 
@@ -54,7 +54,7 @@ const Inner = ({inView, _ref, children: child, alt, ...props}) => {
   )
 
   return (
-    <div className={threeDimensional} ref={_ref} aria-label={alt}>
+    <div className={threeDimensional} ref={_ref} aria-label={alt} {...props}>
       <Sus fallback={loading}>
         {!ready && loading}
         {display && canvas}

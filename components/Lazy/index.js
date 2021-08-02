@@ -31,10 +31,9 @@ const Lazy = ({children: Child, config={}}) => {
   return (
     <>
       <noscript>
-        <style dangerouslySetInnerHTML={{__html: '[data-noscript="no"]{display: none!important}'}} />
         <Child inView={true} data-noscript="yes" />
       </noscript>
-      <span ref={topRef} className={`${intersectionHandle} ${config.handleClass || ''}`} />
+      <span ref={topRef} className={`${intersectionHandle} ${config.handleClass || ''}`} data-noscript="no"/>
       <Child _ref={_ref} inView={inView} data-noscript="no" />
     </>
   )
