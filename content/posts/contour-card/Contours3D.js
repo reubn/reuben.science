@@ -7,7 +7,7 @@ import {OrbitControls} from '@react-three/drei'
 
 import Model from './Model'
 
-function Setup(){
+function Setup({frameloop}){
   const camera = useThree(state => state.camera)
 
   useEffect(() => {
@@ -27,8 +27,9 @@ const config = {
     fill: [-1, 0.5, -1.5],
   }
 
-const Contours3D = props => (
+const Contours3D = ({Helper, ...props}) => (
   <Canvas {...props}>
+    <Helper />
     <Setup />
     <Model position={[0, 0, 0]} />
 
