@@ -4,9 +4,9 @@ import supportsWebp from '@/src/supportsWebp'
 
 import Lazy from '../Lazy'
 
-import {image as imageStyle, loading, notLoading, imageLoading, intersectionHandle} from './styles'
+import {image as imageStyle, loading} from './styles'
 
-const Image = ({image={}, className, lazy=true, alt, ...props}) => {
+const Image = ({image={}, className, lazy=true, ...props}) => {
   const {src='', srcSet='', size: {width, height}={}, id} = image
 
   const [loaded, setLoaded] = useState(!lazy)
@@ -23,40 +23,26 @@ const Image = ({image={}, className, lazy=true, alt, ...props}) => {
     setUseSrc(await decodeWebp(polyfillSrc))
   }
 
-  const imageFn = ({_ref, inView, ...lazyProps}) => {
-    let insideLoaded = lazyProps['data-noscript'] === 'yes' ? true : loaded
+  const imageFn = ({_ref, inView, ...lazyProps}) => (
+    <img
+      ref={_ref}
+      id={id}
 
-    return (
-      <>
-        <img
-          ref={_ref}
-          id={id}
+      onLoad={() => setLoaded(true)}
+      onError={() => inView && onError()}
 
-          onLoad={event => setLoaded(event.target.complete)}
-          onError={() => inView && onError()}
+      src={inView ? useSrc : ''}
+      srcSet={inView ? useSrc === src ? srcSet : undefined : ''}
 
-          src={(insideLoaded || inView) ? useSrc : ''}
-          srcSet={(insideLoaded || inView) ? useSrc === src ? srcSet : undefined : ''}
+      width={width}
+      height={height}
+      className={[imageStyle, className, loaded ? '' : loading].join(' ')}
+      loading={lazy ? "eager" : "lazy" /* we're handling the lazy loading, dw*/}
 
-          width={width}
-          height={height}
-          className={[imageStyle, className, insideLoaded ? '' : imageLoading].join(' ')}
-          loading={lazy ? "eager" : "lazy" /* we're handling the lazy loading, dw*/}
-
-          {...props}
-          {...lazyProps}
-        />
-        <span
-          key={id}
-          className={[className, insideLoaded ? notLoading : loading].join(' ')}
-          style={{aspectRatio: `${width}/${height}`}}
-          {...lazyProps}
-          >
-            {alt}
-        </span>
-      </>
-    )
-  }
+      {...props}
+      {...lazyProps}
+    />
+  )
 
   return (
     lazy
