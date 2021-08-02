@@ -1,12 +1,9 @@
 .image {
   border-radius: 5px;
-}
-
-.loading {
   overflow: hidden;
 }
 
-.loading:before {
+.image:before {
   content: attr(alt);
   width: 100%;
   height: 100%;
