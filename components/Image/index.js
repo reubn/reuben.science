@@ -37,7 +37,7 @@ const Image = ({image={}, className, lazy=true, alt, ...props}) => {
 
         width={width}
         height={height}
-        className={[imageStyle, className, loaded ? '' : imageLoading].join(' ')}
+        className={[imageStyle, className, (loaded || lazyProps['data-noscript'] === 'yes') ? '' : imageLoading].join(' ')}
         loading={lazy ? "eager" : "lazy" /* we're handling the lazy loading, dw*/}
 
         {...props}
@@ -45,7 +45,7 @@ const Image = ({image={}, className, lazy=true, alt, ...props}) => {
       />
       <span
         key={id}
-        className={[className, loaded ? notLoading : loading].join(' ')}
+        className={[className, (loaded || lazyProps['data-noscript'] === 'yes') ? notLoading : loading].join(' ')}
         style={{aspectRatio: `${width}/${height}`}}>
           {alt}
       </span>
