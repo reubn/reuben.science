@@ -37,8 +37,6 @@ const Inner = ({inView, _ref, children: child, alt, canvasProps={}, ...props}) =
     setFrameloop(inView)
   }, [inView])
 
-  console.log({inView, display, frameloop, ready})
-
   const canvas = display && cloneElement(child, {
       frameloop: frameloop ? 'demand' : 'never',
       mode: "concurrent",
