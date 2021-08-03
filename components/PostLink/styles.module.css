@@ -10,8 +10,8 @@
 
 .post:hover {
   transform: scale(1.05);
-  background: linear-gradient(135deg, var(--colours-dark-2) 0%, var(--colours-dark-1) 100%);
-  box-shadow: 0 0 2rem 1rem var(--colours-dark-shadow);
+  background: linear-gradient(135deg, var(--colours-low-2) 0%, var(--colours-low-1) 100%);
+  box-shadow: 0 0 2rem 1rem var(--colours-low-shadow);
 
   transition: transform 0.2s cubic-bezier(.47,0,0,1.54),
               background 0.2s cubic-bezier(.47,0,0,1.54),
@@ -29,7 +29,7 @@
 }
 
 .title {
-  color: var(--colours-light);
+  color: var(--colours-high);
   font-weight: 500;
   line-height: normal;
   overflow: hidden;

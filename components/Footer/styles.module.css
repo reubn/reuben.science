@@ -1,7 +1,7 @@
 .footer {
   width: 100%;
   height: var(--footer-height);
-  background: linear-gradient(135deg, var(--colours-dark-2) 0%, var(--colours-dark-1) 100%);
+  background: linear-gradient(135deg, var(--colours-low-2) 0%, var(--colours-low-1) 100%);
 
   display: flex;
   justify-content: center;
@@ -71,7 +71,7 @@
 }
 
 .code svg {
-  stroke: var(--colours-dark-5);
+  stroke: var(--colours-low-5);
 }
 
 .code:hover svg {

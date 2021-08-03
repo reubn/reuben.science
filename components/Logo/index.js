@@ -8,7 +8,10 @@ const rx = '20px'
 
 export default ({className='', type: style, easterEgg, ...props}) => {
   const normalClass = classMap[style]
-  const gradientClass = classMap[(style.startsWith('dol') ? 'dol' : 'lod') + 'RainbowGradient']
+  console.log(classMap)
+
+  const prefix = style.match(/^(dol)|(lod)|(auto)/)[0]
+  const gradientClass = classMap[prefix + 'RainbowGradient']
 
   const {callback: easterEggCallback, pass: easterEggPass} = easterEgg || {}
 

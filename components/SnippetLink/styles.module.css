@@ -5,8 +5,8 @@
 .pre {
   aspect-ratio: 10/4;
 
-  background: var(--colours-dark-1);
-  border-right: 2rem solid var(--colours-dark-1);
+  background: var(--colours-low-1);
+  border-right: 2rem solid var(--colours-low-1);
   padding: 1.5rem 2rem;
   margin: 0 auto;
   border-radius: 4px;

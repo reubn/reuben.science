@@ -1,13 +1,13 @@
-import gradient from '@/src/gradient.js'
+import colour from '@/src/colour.js'
 
 const categories = {
-  dev: gradient('blue'),
-  make: gradient('indigo'),
-  hardware: gradient('purple'),
-  medicine: gradient('pink'),
-  food: gradient('orange'),
-  automation: gradient('yellow'),
-  outdoors: gradient('green')
+  dev: colour('blue'),
+  make: colour('indigo'),
+  hardware: colour('purple'),
+  medicine: colour('pink'),
+  food: colour('orange'),
+  automation: colour('yellow'),
+  outdoors: colour('green')
 }
 
 export default categories

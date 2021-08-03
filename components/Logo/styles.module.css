@@ -86,6 +86,70 @@
   --logo-colours-b3: url(#purple);
 }
 
+.autoSolid {
+  --logo-colours-type: #FBFBFB;
+  --logo-colours-t1: var(--logo-colours-type);
+  --logo-colours-t2: var(--logo-colours-type);
+  --logo-colours-t3: var(--logo-colours-type);
+  --logo-colours-b1: var(--logo-colours-type);
+  --logo-colours-b2: var(--logo-colours-type);
+  --logo-colours-b3: var(--logo-colours-type);
+}
+
+.autoFlat {
+  --logo-colours-type: #FBFBFB;
+
+  --logo-colours-squares: #2B343B;
+  --logo-colours-t1: var(--logo-colours-squares);
+  --logo-colours-t2: var(--logo-colours-squares);
+  --logo-colours-t3: var(--logo-colours-squares);
+  --logo-colours-b1: var(--logo-colours-squares);
+  --logo-colours-b2: var(--logo-colours-squares);
+  --logo-colours-b3: var(--logo-colours-squares);
+}
+
+.autoRainbowSolid {
+  --logo-colours-type: #FBFBFB;
+
+  --logo-colours-t1: #FC2727;
+  --logo-colours-t2: #FC9A27;
+  --logo-colours-t3: #FFE238;
+  --logo-colours-b1: #61FD6D;
+  --logo-colours-b2: #2BD1F4;
+  --logo-colours-b3: #8D47FF;
+}
+
+.autoRainbowGradient {
+  --logo-colours-type: #FBFBFB;
+
+  --logo-colours-t1: url(#red);
+  --logo-colours-t2: url(#orange);
+  --logo-colours-t3: url(#yellow);
+  --logo-colours-b1: url(#green);
+  --logo-colours-b2: url(#blue);
+  --logo-colours-b3: url(#purple);
+}
+
+@media (prefers-color-scheme: light) {
+  .autoSolid {
+    --logo-colours-type: #111A22;
+  }
+
+  .autoFlat {
+    --logo-colours-type: #111A22;
+
+    --logo-colours-squares: #7A8085;
+  }
+
+  .autoRainbowSolid {
+    --logo-colours-type: #111A22;
+  }
+
+  .autoRainbowGradient {
+    --logo-colours-type: #111A22;
+  }
+}
+
 .svg {
   cursor: pointer;
 

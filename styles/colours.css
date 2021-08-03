@@ -30,22 +30,48 @@
   --colours-indigo-hint: hsl(245, 67%, 59%);
 
 
-  --colours-dark: hsl(205, 31%, 8%);
-  --colours-dark-1: hsl(205, 30%, 11%);
-  --colours-dark-2: hsl(205, 30%, 13%);
-  --colours-dark-3: hsl(205, 20%, 20%);
-  --colours-dark-4: hsl(205, 16%, 25%);
-  --colours-dark-5: hsl(205, 14%, 30%);
-  --colours-dark-6: hsl(205, 13%, 35%);
-  --colours-dark-7: hsl(205, 12%, 40%);
+  --colours-low: hsl(205, 31%, 8%);
+  --colours-low-1: hsl(205, 30%, 11%);
+  --colours-low-2: hsl(205, 30%, 13%);
+  --colours-low-3: hsl(205, 20%, 20%);
+  --colours-low-4: hsl(205, 16%, 25%);
+  --colours-low-5: hsl(205, 14%, 30%);
+  --colours-low-6: hsl(205, 13%, 35%);
+  --colours-low-7: hsl(205, 12%, 40%);
 
-  --colours-dark-shadow: hsla(205, 30%, 5%, 0.5);
+  --colours-low-shadow: hsla(205, 30%, 5%, 0.5);
 
   --colours-mid: hsl(205, 10%, 80%);
   --colours-mid-1: hsl(205, 7%, 70%);
   --colours-mid-2: hsl(205, 5%, 60%);
   --colours-mid-3: hsl(205, 5%, 46%);
 
-  --colours-light: hsl(0, 0%, 100%);
-  --colours-light-1: hsl(0, 0%, 93%);
+  --colours-high: hsl(0, 0%, 100%);
+  --colours-high-1: hsl(0, 0%, 93%);
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --colours-yellow: hsl(53, 100%, 50%);
+    --colours-yellow-hint: hsl(55, 100%, 50%);
+
+    --colours-low: hsl(205, 0%, 100%);
+    --colours-low-1: hsl(205, 0%, 99%);
+    --colours-low-2: hsl(205, 2%, 98%);
+    --colours-low-3: hsl(205, 3%, 95%);
+    --colours-low-4: hsl(205, 4%, 92%);
+    --colours-low-5: hsl(205, 5%, 90%);
+    --colours-low-6: hsl(205, 10%, 88%);
+    --colours-low-7: hsl(205, 12%, 85%);
+
+    --colours-low-shadow: hsla(205, 1%, 50%, 0.1);
+
+    --colours-mid: hsl(205, 10%, 50%);
+    --colours-mid-1: hsl(205, 7%, 40%);
+    --colours-mid-2: hsl(205, 5%, 35%);
+    --colours-mid-3: hsl(205, 5%, 30%);
+
+    --colours-high: hsl(205, 20%, 13%);
+    --colours-high-1: hsl(205, 10%, 20%);
+  }
 }

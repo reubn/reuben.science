@@ -10,6 +10,6 @@
   align-items: center;
   justify-content: center;
   font-size:  2rem;
-  color: var(--colours-dark-3);
-  background: var(--colours-dark-1);
+  color: var(--colours-low-3);
+  background: var(--colours-low-1);
 }

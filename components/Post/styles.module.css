@@ -141,13 +141,13 @@
 .body ol li:not([data-marker])::marker  {
   content: initial ". ";
   font-weight: 500;
-  color: var(--colours-dark-4);
+  color: var(--colours-low-4);
 }
 
 .body li[data-marker]::marker {
   content: attr(data-marker) " ";
   font-weight: 500;
-  color: var(--colours-dark-4);
+  color: var(--colours-low-4);
 }
 
 .body pre {
@@ -158,11 +158,11 @@
   content: attr(metastring);
   display: block;
   margin-bottom: 1rem;
-  color: var(--colours-dark-5);
+  color: var(--colours-low-5);
 }
 
 .body code {
-  background: linear-gradient(135deg, var(--colours-dark-2) 0%, var(--colours-dark-1) 100%);
+  background: linear-gradient(135deg, var(--colours-low-2) 0%, var(--colours-low-1) 100%);
   padding: 1.5rem 2rem;
   border-radius: 4px;
   vertical-align: middle;
@@ -184,7 +184,7 @@
 }
 
 .body *:not(pre) > code {
-  background: var(--colours-dark-2);
+  background: var(--colours-low-2);
   white-space: nowrap;
   padding: 1px 5px;
 
@@ -220,12 +220,12 @@
   top: calc(1rem + 3px);
   font-family: var(--font-family);
   font-weight: 500;
-  background: var(--colours-dark-3);
+  background: var(--colours-low-3);
   font-size: 0.8rem;
   border-radius: 2px;
   z-index: 1;
   padding: 0.5rem;
-  color: var(--colours-light);
+  color: var(--colours-high);
   cursor: pointer;
 
   transition: opacity 0.5s cubic-bezier(.47,0,0,1.2), background 0.1s ease-in;
@@ -250,12 +250,12 @@
 }
 
 .body pre :global(.clickToCopy):hover, .body code :global(.clickToCopy):hover {
-  background: var(--colours-dark-4);
+  background: var(--colours-low-4);
   opacity: 0.95;
 }
 
 .body pre :global(.clickToCopy):active, .body code :global(.clickToCopy):active {
-  background: var(--colours-dark-5);
+  background: var(--colours-low-5);
   opacity: 1;
 }
 
@@ -268,7 +268,7 @@
 }
 
 .body blockquote, .body .key {
-    background: linear-gradient(135deg, var(--colours-dark-2) 0%, var(--colours-dark-1) 100%);
+    background: linear-gradient(135deg, var(--colours-low-2) 0%, var(--colours-low-1) 100%);
     padding: 1rem 2rem;
     margin: 4rem auto;
     border-radius: 4px;
@@ -296,7 +296,7 @@
 }
 
 .body hr {
-    border: 2px solid var(--colours-dark-2);
+    border: 2px solid var(--colours-low-2);
     border-radius: 2px;
     margin: 2rem;
 }
@@ -305,7 +305,7 @@
 .body table {
   table-layout: fixed;
   text-align: center;
-  background: linear-gradient(135deg, var(--colours-dark-2) 0%, var(--colours-dark-1) 100%);
+  background: linear-gradient(135deg, var(--colours-low-2) 0%, var(--colours-low-1) 100%);
   padding: 0.5rem;
   border-radius: 4px;
 }
@@ -365,7 +365,7 @@
   font-weight: 400;
   text-align: left;
 
-  background: var(--colours-dark-2);
+  background: var(--colours-low-2);
   width: 100%;
   padding: 1rem 2rem;
   margin: 0 auto;
@@ -406,7 +406,7 @@
 }
 
 .body sup[id^=fnref-]:target a {
-  color: var(--colours-light);
+  color: var(--colours-high);
   background: var(--colours-pink);
   padding: 0px 2px 0px 1px;
   border-radius: 2px;

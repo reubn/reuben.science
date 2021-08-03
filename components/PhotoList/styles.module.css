@@ -59,7 +59,7 @@
 
 .photo:hover img {
   transform: scale(1.05);
-  box-shadow: 0 0 2rem 1rem var(--colours-dark-shadow);
+  box-shadow: 0 0 2rem 1rem var(--colours-low-shadow);
 
   transition: transform 0.2s cubic-bezier(.47,0,0,1.54),
               box-shadow 0.2s cubic-bezier(.47,0,0,1.54);

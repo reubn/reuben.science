@@ -1,5 +1,5 @@
 .errorCode {
-  --colour-a: var(--colours-light);
+  --colour-a: var(--colours-high);
   --colour-b: var(--colours-pink-red);
 
   --duration: 1.5s;
@@ -38,5 +38,5 @@
 .errorMessage {
   font-weight: 400;
   margin-bottom: 4rem;
-  color: var(--colours-dark-5);
+  color: var(--colours-low-5);
 }

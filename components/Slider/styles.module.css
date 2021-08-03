@@ -19,10 +19,10 @@
   display: block;
   width: var(--width);
   height: 100%;
-  background: var(--colours-dark-5);
+  background: var(--colours-low-5);
   transform: translateX(1.5rem);
   border-radius: var(--width);
-  box-shadow: 0 0 20px 1px var(--colours-dark-shadow);
+  box-shadow: 0 0 20px 1px var(--colours-low-shadow);
   transition: box-shadow 0.25s ease-out;
 }
 
@@ -32,7 +32,7 @@
   display: block;
   width: calc(var(--width) * 2);
   height: var(--height);
-  background: var(--colours-light);
+  background: var(--colours-high);
   transform: translateX(calc(1.5rem - (var(--width) / 2)));
   position: absolute;
   top: calc(50% - (var(--height) / 2));
@@ -45,7 +45,7 @@
 
 .handle:active:after {
   transition: box-shadow 0.25s ease-in;
-  box-shadow: 0 0 40px 3px var(--colours-dark-shadow);
+  box-shadow: 0 0 40px 3px var(--colours-low-shadow);
 }
 .handle:active:before {
   transition: width 0.1s ease-in,

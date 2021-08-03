@@ -18,10 +18,10 @@
 .token.prolog,
 .token.doctype,
 .token.cdata {
-  color: var(--colours-dark-5);
+  color: var(--colours-low-5);
 }
 .token.punctuation {
-  color: var(--colours-dark-7)
+  color: var(--colours-low-7)
 }
 .token.property,
 .token.boolean,
@@ -61,7 +61,7 @@
 
 .token.string,
 .token.char {
-  color: var(--colours-light);
+  color: var(--colours-high);
 }
 .token.important,
 .token.bold {
@@ -83,11 +83,11 @@
 }
 
 .token.script.language-javascript {
-  color: var(--colours-light);
+  color: var(--colours-high);
 }
 
 .language-bash .token.variable {
-  color: var(--colours-light);
+  color: var(--colours-high);
 }
 .language-bash .token.variable.assign-left, .language-bash .token.variable .variable-symbols, .language-bash .token.variable.simple {
   color: var(--colours-indigo);
@@ -110,19 +110,19 @@
   color: var(--colours-red);
 }
 .language-json .token.operator {
-  color: var(--colours-dark-7);
+  color: var(--colours-low-7);
 }
 .language-json .token.property {
-  color: var(--colours-light);
+  color: var(--colours-high);
 }
 .language-json .token.property .quote {
-  color: var(--colours-dark-7);
+  color: var(--colours-low-7);
 }
 .language-json .token.string {
   color: var(--colours-purple);
 }
 .language-json .token.string .quote {
-  color: var(--colours-dark-7);
+  color: var(--colours-low-7);
 }
 
 .language-txt .highlightA {

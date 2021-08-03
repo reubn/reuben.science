@@ -1,6 +1,6 @@
 import {useState} from 'react'
 
-import gradient from '@/src/gradient.js'
+import colour from '@/src/colour.js'
 
 import Logo from '../Logo'
 import ActiveLink from '../ActiveLink'
@@ -12,12 +12,12 @@ const Header = () => {
   return (
     <header className={header}>
       <ActiveLink href="/">
-        <Logo className={`${logo} ${flip ? flipped : ''}`} type="lodFlat" easterEgg={{pass: '024135', callback: () => setFlip(!flip)}} role="banner" />
+        <Logo className={`${logo} ${flip ? flipped : ''}`} type="autoFlat" easterEgg={{pass: '024135', callback: () => setFlip(!flip)}} role="banner" />
       </ActiveLink>
       <nav className={nav}>
-        <ActiveLink href="/" passHref>{active => <a className={`${link} ${active ? activeStyle : ''}`} style={{'--link-underline': gradient('pink-red')}}>Home</a>}</ActiveLink>
-        <ActiveLink href="/posts" passHref>{active => <a className={`${link} ${active ? activeStyle : ''}`} style={{'--link-underline': gradient('blue')}}>Posts</a>}</ActiveLink>
-        <ActiveLink href="/snippets" passHref>{active => <a className={`${link} ${active ? activeStyle : ''}`} style={{'--link-underline': gradient('indigo')}}>Snippets</a>}</ActiveLink>
+        <ActiveLink href="/" passHref>{active => <a className={`${link} ${active ? activeStyle : ''}`} style={{'--link-underline': colour('pink-red').gradient}}>Home</a>}</ActiveLink>
+        <ActiveLink href="/posts" passHref>{active => <a className={`${link} ${active ? activeStyle : ''}`} style={{'--link-underline': colour('blue').gradient}}>Posts</a>}</ActiveLink>
+        <ActiveLink href="/snippets" passHref>{active => <a className={`${link} ${active ? activeStyle : ''}`} style={{'--link-underline': colour('indigo').gradient}}>Snippets</a>}</ActiveLink>
       </nav>
     </header>
   )
