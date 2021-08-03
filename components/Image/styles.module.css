@@ -1,6 +1,8 @@
 .image {
   border-radius: 5px;
   overflow: hidden;
+
+  display: flex;
 }
 
 .image:before {

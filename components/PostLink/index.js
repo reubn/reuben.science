@@ -8,7 +8,7 @@ const PostLink = ({slug, displayImage, metadata: {title, description, emoji, rea
   const post = active => (
     <a title={title} {...props}>
       <article className={postStyle}>
-        {displayImage && image ? <Image image={image} alt="" /> : null}
+        {displayImage && image ? <Image image={image} alt={emoji} /> : null}
         <h1>
           <p className={emojiStyle}>{emoji}</p>
           <p className={titleStyle}>{title}</p>
