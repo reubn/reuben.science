@@ -8,8 +8,9 @@ export default async (...slice) => {
   const promises = (await getStaticPaths()).paths
     .map(getStaticProps)
 
-  return (await Promise.all(promises))
+  const c = (await Promise.all(promises))
     .map(({props}) => hydratePost(props))
     .sort(sortPosts)
-    .slice(...slice)
+
+    return [...c, ...c, ...c, ...c, ...c, ...c, ...c, ...c, ...c, ...c, ...c, ...c, ...c, ...c].slice(...slice)
 }

@@ -3,3 +3,9 @@
   margin-bottom: 4rem;
   color: var(--colours-dark-5);
 }
+
+.page :global(.infinite-scroll-component__outerdiv),
+.page :global(.infinite-scroll-component) {
+  overflow: visible!important;
+  width: 100%;
+}
