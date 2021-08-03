@@ -1,4 +1,4 @@
-export default (props) => (
+const Print = props => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 595.28 841.89"
@@ -85,4 +85,6 @@ export default (props) => (
       <text transform="translate(433.598 623.756)">E</text>
     </g>
   </svg>
-);
+)
+
+export default Print

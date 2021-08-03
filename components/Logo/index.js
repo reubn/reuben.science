@@ -6,7 +6,7 @@ import * as classMap from './styles'
 
 const rx = '20px'
 
-export default ({className='', type: style, easterEgg, ...props}) => {
+const Logo = ({className='', type: style, easterEgg, ...props}) => {
   const normalClass = classMap[style]
   const gradientClass = classMap[(style.startsWith('dol') ? 'dol' : 'lod') + 'RainbowGradient']
 
@@ -87,4 +87,6 @@ export default ({className='', type: style, easterEgg, ...props}) => {
       </g>
     </svg>
   )
-}
+};
+
+export default Logo
