@@ -3,11 +3,11 @@ import ActiveLink from '../ActiveLink'
 import {post as postStyle, title as titleStyle, description as descriptionStyle, emoji as emojiStyle, readingTime as readingTimeStyle} from '../PostLink/styles'
 import {post as snippetPostStyle, pre} from './styles'
 
-const SnippetLink = ({slug, metadata: {title, description, emoji, linesOfCode, preview: {language, html}}, ...props}) => {
+const SnippetLink = ({slug, metadata: {title, description, emoji, linesOfCode, preview: {html}}, ...props}) => {
   const post = active => (
     <a title={title} {...props}>
       <article className={`${postStyle} ${snippetPostStyle}`}>
-        <pre className={`${pre} language-${language}`} role="img" aria-label="Snippet Preview">
+        <pre className={pre} role="img" aria-label="Snippet Preview">
           <div>
             <code dangerouslySetInnerHTML={{__html: html}}/>
           </div>

@@ -6,13 +6,9 @@ const refractor = require('refractor')
 
 const {element: clickToCopy, ids: {copyFn, clearFn}} = require('./clickToCopy')
 
-require('./languages')(refractor)
+const commentLookup = require('./commentLookup')
 
-const commentLookup = Object.entries({
-  '//': ['js', 'json', 'c', 'c++', 'swift', 'php'],
-  '#': ['bash'],
-  ';': ['ini']
-})
+require('./languages')(refractor)
 
 function getLanguage(node) {
   const className = node.properties.className || node.className || []
@@ -34,7 +30,7 @@ function visitor(node, index, parent) {
 
   const properties = {
     className: (parent.properties.className || []).concat('language-' + lang),
-    metastring: node.properties.metastring ? `${(lang && commentLookup.find(([k, v]) => v.includes(lang))[0]) || '//'} ${node.properties.metastring}` : undefined
+    metastring: node.properties.metastring ? `${(lang && commentLookup[lang]?.[0]) || '//'} ${node.properties.metastring}` : undefined
   }
 
   node.properties = properties
