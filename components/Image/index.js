@@ -59,6 +59,7 @@ const Image = ({image={}, className, lazy=true, alt, ...props}) => {
         srcSet={usingReal ? (!polyfilled ? srcSet : undefined) : ''}
 
         className={[imageStyle, className].join(' ')}
+        style={{aspectRatio: `${width}/${height}`}}
         loading={loadingMode}
 
         alt={alt}

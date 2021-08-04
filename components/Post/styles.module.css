@@ -7,7 +7,7 @@
 
 .post *:not(li):not(figure) {
   max-width: 100%;
-  overflow-x: scroll;
+  overflow-x: auto;
 }
 
 .title {
@@ -167,7 +167,7 @@
   border-radius: 4px;
   vertical-align: middle;
 
-  overflow: scroll;
+  overflow-x: auto;
 
   position: relative;
 }
@@ -274,7 +274,7 @@
     border-radius: 4px;
     vertical-align: middle;
 
-    overflow: scroll;
+    overflow-x: auto;
 }
 
 @media (max-width: 650px) {

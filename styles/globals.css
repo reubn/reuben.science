@@ -22,3 +22,7 @@ a {
   color: var(--colours-light);
   background-color: var(--colours-pink);
 }
+
+::-webkit-scrollbar {
+    display: none;
+}
