@@ -16,19 +16,86 @@ const dynamicImports = postList.reduce(
     })
   }), {})
 
-export const processPost = ({slug, metadata, content}) => {
+const previewLineCount = 5
+
+const wrapCode = (language, children) => ({
+  type: 'element',
+  tagName: 'span',
+  properties: {
+    className: `language-${language}`
+  },
+  children
+})
+
+const filterLines = (commentLookup, blacklistedLines) => language => line => {
+  const trimmed = line.trim()
+
+  if(!trimmed) return false
+  if(blacklistedLines.includes(trimmed)) return false
+
+  const comments = commentLookup[language]
+  const startsWithComment = comments?.some(comment => trimmed.startsWith(comment))
+
+  if(startsWithComment) return false
+
+  return true
+}
+
+const getPreview = (config, codeBlocks) => {
   const refractor = require('refractor')
+  require('@/src/syntaxHighlight/languages')(refractor)
+
+  const commentLookup = require('@/src/syntaxHighlight/commentLookup')
+  const blacklistedLines = require('@/src/syntaxHighlight/blacklistedLines')
+
+  const filterLinesWithOpts = filterLines(commentLookup, blacklistedLines)
+
+  if(config.code) return wrapCode(config.language, refractor.highlight(config.code, config.language))
+
+  const taggedLines = codeBlocks.flatMap(({language, lines}) => lines.filter(filterLinesWithOpts(language)).map(line => ({language, line}))).slice(config.lines.from, config.lines.to || config.lines.from + previewLineCount)
+
+  const maxCommonIndent = Math.min(...taggedLines.map(({line}) => (line.match(/^\s*/)?.[0].length) || 0))
+  const regex = new RegExp(`^\\s{${maxCommonIndent}}`)
+  const deintented = maxCommonIndent ? taggedLines.map(({language, line}) => ({language, line: line.replace(regex, '')})) : taggedLines
+
+  const chunked = deintented.reduce((chunks, taggedLine) => {
+    const previous = chunks[chunks.length - 1]
+
+    if(previous?.language === taggedLine.language) previous?.lines.push(taggedLine.line)
+    else chunks.push({language: taggedLine.language, lines: [taggedLine.line]})
+
+    return chunks
+  }, [])
+
+  return chunked.flatMap(({language, lines}, index, {length}) => {
+    const wrapped = wrapCode(language, refractor.highlight(lines.join('\n'), language))
+
+    if(index < length - 1) return [wrapped, {type: 'text', value: '\n'}]
+    return [wrapped]
+  })
+}
+
+export const processPost = ({slug, metadata, codeBlocks, content}) => {
   const toHTML = require('hast-util-to-html')
 
-  require('@/src/syntaxHighlight/languages')(refractor)
+  const config = {
+    lines: {
+      from: 0,
+      to: previewLineCount
+    },
+    ...metadata.preview
+  }
+
+  const highlighted = getPreview(config, codeBlocks)
+  const util = require('util')
+  // if(metadata.preview.lines) console.log(util.inspect(highlighted, false, null, true))
 
   return {
     ...metadata,
     date: new Date(metadata.date).toISOString(),
     linesOfCode: Math.max(0, (content.match(/<pre[^]*?<\/pre>/gm) || []).join('').split('\n').length - 1) || null,
     preview: {
-      language: metadata.preview.language,
-      html: toHTML(refractor.highlight(metadata.preview.content, metadata.preview.language))
+      html: toHTML(highlighted)
     }
   }
 }
@@ -64,7 +131,7 @@ export default function SnippetWrapper({slug, metadata}) {
 export const getStaticProps = async ctx => {
   const slug = ctx.params?.slug
   const post = await import(`@/content/snippets/${slug}/index.mdx`)
-  const metadata = processPost({metadata: post.metadata, content: renderToString(post)})
+  const metadata = processPost({metadata: post.metadata, codeBlocks: post.codeBlocks, content: renderToString(post)})
 
   return {
     props: {

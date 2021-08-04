@@ -4,8 +4,10 @@ export const metadata = {
   emoji: '🔐',
   date: '2021-07-28',
   preview: {
-    language: 'bash',
-    content: 'sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain $CERT_PATH'
+    lines: {
+      from: 2,
+      to: 3
+    }
   }
 }
 
