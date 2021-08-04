@@ -123,10 +123,9 @@ const Memoji = ({frameTimeout=5*1000, frameCount, getFrameURL, defaultFrameNumbe
     }
   }
 
-
-  useEffect(() => {
-    console.log({defaultFrameReady, ready, framesStartedToLoad})
-  }, [defaultFrameReady, ready, framesStartedToLoad])
+  // useEffect(() => {
+  //   console.log({defaultFrameReady, ready, framesStartedToLoad})
+  // }, [defaultFrameReady, ready, framesStartedToLoad])
 
   useEffect(() => {
     if(!framesStartedToLoad) loadFrames()

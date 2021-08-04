@@ -1,0 +1,36 @@
+export const metadata = {
+  title: `Next.js Custom 'localIdentName'`,
+  description: `Set webpack css-loader 'localIdentName' in Next.js`,
+  emoji: '🔼',
+  date: '2021-08-04',
+  preview: {
+    language: 'js',
+    content: 'config.module.rules.forEach(({oneOf}) => oneOf?.forEach(({use}) => {\n  oneOf?.forEach(({use}) => {\n    use?.forEach?.(({options: {modules}}) => {\n      modules.localIdentName = "[hash:base64:4]"'
+  }
+}
+
+Place this inside the `webpack` function in the `next.config.js` file to patch the `localIdentName` used by `css-loader` for CSS Modules by `Next.js`.
+
+```js
+webpack: (config, {buildId, dev, isServer, defaultLoaders, webpack}) => {
+
+  ...
+
+  config.module.rules.forEach(({oneOf}) => oneOf?.forEach(({use}) => {
+    use?.forEach?.(({options: {modules}}) => {
+      if(modules?.getLocalIdent) {
+        delete modules.getLocalIdent
+        modules.localIdentName = '[hash:base64:4]'
+      }
+    })
+  }))
+
+  ...
+
+  return config
+}
+```
+
+This can be scoped to **production** builds by testing for the `dev` argument.
+
+Tested `Next.js` `v11.0.1`, `webpack` `v5.47.0`
