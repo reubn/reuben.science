@@ -24,7 +24,16 @@ module.exports = withPlugins([[withMDX]], {
   images: {
     disableStaticImages: true,
   },
-  webpack: (config, {isServer}) => {
+  webpack: (config, {isServer, dev}) => {
+    if(!dev) config.module.rules.forEach(({oneOf}) => oneOf?.forEach(({use}) => {
+      use?.forEach?.(({options: {modules}}) => {
+        if(modules?.getLocalIdent) {
+          delete modules.getLocalIdent
+          modules.localIdentName = '[hash:base64:4]'
+        }
+      })
+    }))
+
     config.resolve.extensions.push('.md', '.mdx', '.css', '.module.css', '.json')
 
     const fileOptions = {
