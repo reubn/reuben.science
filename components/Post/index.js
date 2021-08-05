@@ -69,9 +69,9 @@ export default function Post({slug, metadata, children, __HACK_ID}){
           <time dateTime={date.toLocaleDateString()}>{date.toLocaleDateString()}</time>
           <time time={metadata.readingTime.mins && `PD0T0H${metadata.readingTime.mins}M`} aria-label="Reading Time">{metadata.readingTime.mins || '???'} min{metadata.readingTime.mins != 1 && 's'}</time>
         </span>
-        <span className={body} id={__HACK_ID}>
+        <div className={body} id={__HACK_ID}>
           {children}
-        </span>
+        </div>
       </article>
     </>
   )
