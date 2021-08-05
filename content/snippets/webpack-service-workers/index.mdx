@@ -7,7 +7,7 @@ export const metadata = {
 
 `Webpack` is very fussy when it comes to importing `Service Workers`. The format of the `{:js} navigator.serviceWorker.register(new URL('./serviceWorker.js', import.meta.url))` call is fixed.
 
-This **hack** works around that, patching the `URL.toString()` function so that the `URL` points to the chunk, emitted to the `public` folder - which is served at the server root.
+This **hack** works around that, patching the `URL.toString()` function so that the `URL` points to the chunk, emitted to the `public` folder - which is served at the server root, allowing full `Service Worker` `scope`.
 In other words this emulates `publicPath` inline.
 
 ```js wherever.js
