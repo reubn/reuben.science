@@ -1,0 +1,37 @@
+export const metadata = {
+  title: 'Import Service Workers in Next.js',
+  description: 'Emit Service Workers to the root directory',
+  emoji: '📦',
+  date: '2021-08-05'
+}
+
+`Webpack` is very fussy when it comes to importing `Service Workers`. The format of the `{:js} navigator.serviceWorker.register(new URL('./serviceWorker.js', import.meta.url))` call is fixed.
+
+This **hack** works around that, patching the `URL.toString()` function so that the `URL` points to the chunk, emitted to the `public` folder - which is served at the server root.
+In other words this emulates `publicPath` inline.
+
+```js wherever.js
+import {patch} from './serviceWorkerPatch'
+
+const serviceWorker = patch(() =>
+  navigator.serviceWorker.register(
+    new URL(/* webpackChunkName: "../../../public/_" */ './serviceWorker.js', import.meta.url)
+  )
+)
+```
+
+```js serviceWorkerPatch.js
+export const patch = fn => {
+  const originalToString = URL.prototype.toString
+
+  URL.prototype.toString = function(){
+   return originalToString.call(this).replace('public/', '')
+  }
+
+  const result = fn()
+
+  URL.prototype.toString = originalToString
+
+  return result
+}
+```
