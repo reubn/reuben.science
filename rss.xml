@@ -5,7 +5,7 @@
    <description>RSS</description>
    <language>en</language>
    <link>https://reuben.science</link>
-   <lastBuildDate>Wed, 04 Aug 2021 19:29:01 GMT</lastBuildDate>
+   <lastBuildDate>Thu, 05 Aug 2021 21:29:48 GMT</lastBuildDate>
    <atom:link href="https://reuben.science/rss.xml" rel="self" type="application/rss+xml" />
    <item>
   <title>Cloudflare Dynamic DNS</title>
@@ -72,6 +72,12 @@
   <description>TCX -> GeoJSON</description>
   <link>https://reuben.science/snippets/tcx-laps-to-geojson</link>
   <pubDate>Wed, 28 Jul 2021 00:00:00 GMT</pubDate>
+</item>
+<item>
+  <title>Import Service Workers in Next.js</title>
+  <description>Emit Service Workers to the root directory</description>
+  <link>https://reuben.science/snippets/webpack-service-workers</link>
+  <pubDate>Thu, 05 Aug 2021 00:00:00 GMT</pubDate>
 </item>
 <item>
   <title>The Ultimate Adventure Maps</title>
