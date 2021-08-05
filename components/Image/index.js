@@ -4,6 +4,8 @@ import supportsWebp from '@/src/supportsWebp'
 
 import Lazy from '../Lazy'
 
+import imageCacheList from './imageCacheList'
+
 import {image as imageStyle, loading} from './styles'
 
 const Image = ({image={}, className, lazy=true, alt, ...props}) => {
@@ -15,8 +17,11 @@ const Image = ({image={}, className, lazy=true, alt, ...props}) => {
   const [src, setSrc] = useState(srcProp)
   const [polyfilled, setPolyfilled] = useState(false)
 
+  const imageInCache = imageCacheList.has(src)
+
   const onLoad = img => {
     console.log(alt, img.complete ? 'complete' : 'incomplete')
+    imageCacheList.add(src)
     setLoaded(true)
   }
 
@@ -33,7 +38,7 @@ const Image = ({image={}, className, lazy=true, alt, ...props}) => {
 
   const imageFn = ({_ref, inView, ...lazyProps}) => {
     const noScript = lazyProps['data-noscript'] === 'yes'
-    const usingReal = loaded || noScript || polyfilled
+    const usingReal = imageInCache || loaded || noScript || polyfilled
     const loadingMode = (lazy && !noScript) ? 'eager' : 'lazy' /* we're handling the lazy loading, dw*/
 
     useEffect(() => {
@@ -45,8 +50,8 @@ const Image = ({image={}, className, lazy=true, alt, ...props}) => {
     }, [lazy, polyfilled, image, backingImage.current])
 
     useEffect(() => {
-      if(inView && !loaded && !backingImage.current.going) backingImage.current.go()
-    }, [inView, loaded, backingImage.current])
+      if(inView && !usingReal && !backingImage.current.going) backingImage.current.go()
+    }, [inView, usingReal, backingImage.current])
 
     return (
       <img
