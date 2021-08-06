@@ -254,13 +254,14 @@
   opacity: 0.95;
 }
 
-.body pre :global(.clickToCopy):active, .body code :global(.clickToCopy):active {
+.body pre :global(.clickToCopy):active, .body code :global(.clickToCopy):active, .body pre :global(.clickToCopy):focus, .body code :global(.clickToCopy):focus  {
   background: var(--colours-dark-5);
   opacity: 1;
 }
 
 .body pre :global(.clickToCopy):global(.done), .body code :global(.clickToCopy):global(.done) {
   background: var(--colours-accent);
+  opacity: 1;
 }
 
 .body figure > pre + figcaption {

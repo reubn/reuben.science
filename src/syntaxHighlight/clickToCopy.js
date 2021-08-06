@@ -27,7 +27,7 @@ module.exports.setUp = obj => {
       event.target.innerHTML = module.exports.strings.done
       event.target.classList.add(module.exports.strings.doneClass)
 
-      event.target.addEventListener('mouseout', () => {
+      event.target.parentElement.parentElement.addEventListener('mouseleave', () => {
         event.target.innerHTML = module.exports.strings.copy;
         event.target.classList.remove(module.exports.strings.doneClass)
       }, {once: true})
