@@ -10,7 +10,7 @@ import getPhotos from '@/src/getPhotos'
 import dehydratePost from '@/src/posts/dehydrate'
 import hydratePost from '@/src/posts/hydrate'
 
-export default function Home({posts, photos}) {
+export default function F0F({posts, photos}) {
   return (
     <>
       <main className={main}>
