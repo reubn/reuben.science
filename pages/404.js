@@ -2,7 +2,7 @@ import PostList from '@/components/PostList'
 import PhotoList from '@/components/PhotoList'
 
 import {main, heading, posts as postsStyle, postLink} from './styles'
-import {errorCode, errorMessage} from './404.module.css'
+import {errorCode, errorMessage} from './_error.module.css'
 
 import listPosts from '@/src/posts/list'
 import getPhotos from '@/src/getPhotos'
