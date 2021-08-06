@@ -2,7 +2,7 @@ import PostList from '@/components/PostList'
 import PhotoList from '@/components/PhotoList'
 
 import {main, heading, posts as postsStyle, postLink} from './styles'
-import {errorCode, errorMessage} from './404.module.css'
+import {errorCode, errorMessage} from './_error.module.css'
 
 import listPosts from '@/src/posts/list'
 import getPhotos from '@/src/getPhotos'
@@ -10,7 +10,7 @@ import getPhotos from '@/src/getPhotos'
 import dehydratePost from '@/src/posts/dehydrate'
 import hydratePost from '@/src/posts/hydrate'
 
-export default function Home({posts, photos}) {
+export default function F0F({posts, photos}) {
   return (
     <>
       <main className={main}>
