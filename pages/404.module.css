@@ -14,6 +14,7 @@
 }
 
 .errorCode:nth-child(2n) {
+  color: var(--colour-b);
   animation-delay: calc(var(--duration) / 2);
 }
 
