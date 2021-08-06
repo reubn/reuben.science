@@ -43,8 +43,8 @@
 
 .photo img {
   width: 100%;
-  max-width: var(--photo-size);
-  height: intrinsic;
+  max-width: var(--photo-width);
+  height: auto;
   margin: 0;
 
   background: transparent;
