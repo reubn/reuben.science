@@ -38,6 +38,6 @@
     "webp-hero": "0.0.0-dev.27"
   },
   "devDependencies": {
-    "http-server": "^0.12.3"
+    "http-server": "^13.0.0"
   }
 }
