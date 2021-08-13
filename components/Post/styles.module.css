@@ -135,7 +135,7 @@
 }
 
 .body ul > li {
-  list-style-image: url("data:image/svg+xml;charset=utf-8,%3Csvg%20width%3D%2212%22%20height%3D%2212%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Ccircle%20fill%3D%22hsla%28205%2C%2015%25%2C%2020%25%2C%201%29%22%20cx%3D%226%22%20cy%3D%226%22%20r%3D%226%22%2F%3E%3C%2Fsvg%3E");
+  list-style-image: url("data:image/svg+xml;charset=utf-8,%3Csvg%20width=%229%22%20height=%229%22%20xmlns=%22http://www.w3.org/2000/svg%22%3E%3Ccircle%20fill=%22hsla(205,%2015%25,%2020%25,%201)%22%20cx=%224.5%22%20cy=%224.5%22%20r=%224.5%22/%3E%3C/svg%3E");
 }
 
 .body ol li:not([data-marker])::marker  {
