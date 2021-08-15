@@ -19,6 +19,7 @@ export const ServingsControl = ({scale, servingsAsWritten, servingsChanged, scal
   const scaleRef = useRef()
 
   const servings = scale * servingsAsWritten
+  const name = servings !== 1 ? plural : singular
 
   const [localServings, _setLocalServings] = useState(makeServingsState(servings))
   const [localScale, _setLocalScale] = useState(makeScaleState(scale))
@@ -101,13 +102,16 @@ export const ServingsControl = ({scale, servingsAsWritten, servingsChanged, scal
           />
           <div
            className={servingsName}
-           style={{'--maxLetters': Math.max(plural.length, singular.length)}}
+           style={{
+             '--maxLetters': Math.max(plural.length, singular.length),
+             '--letters': name.length
+           }}
            onClick={() => {
             const position = servingsRef.current.value.length
             servingsRef.current.setSelectionRange(position, position);
             servingsRef.current.focus()
           }}>
-            {servings !== 1 ? plural : singular}
+            {name}
           </div>
           <div className={incDec}>
             <button
