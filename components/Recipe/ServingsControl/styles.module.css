@@ -30,7 +30,7 @@
 
 .control {
   display: inline-flex;
-  height: 1.75rem;
+  height: calc(var(--line-height) * 1.25rem);
   margin-right: 0.5rem;
   background: var(--colours-dark-3);
   --border-colour: var(--colours-dark-4);
@@ -67,6 +67,8 @@
   margin: 0;
   padding: 2px 4px 1px calc((var(--maxLetters) - var(--letters)) * (var(--perDigit) / 2));
   display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
   color: inherit;
   font-size: inherit;
   background: inherit;
@@ -85,7 +87,7 @@
 
 .incDec button {
   appearance: none;
-  height: calc(1.75rem / 2);
+  height: 50%;
   width: 100%;
   display: flex;
   justify-content: center;
