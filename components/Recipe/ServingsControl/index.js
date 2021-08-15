@@ -97,7 +97,12 @@ export const ServingsControl = ({scale, servingsAsWritten, servingsChanged, scal
             placeholder={servingsUsedInRecipe}
             onChange={event => setLocalServings(event.target.value)}
             onBlur={event => {
-              if(!localServings.number) _setLocalServings(makeServingsState(servings))
+              if(localServings.number) return
+
+              const numeric = localServings.string.replace(/[^\d\.]/g, '')
+
+              if(+numeric) _setLocalServings(makeServingsState(numeric))
+              else _setLocalServings(makeServingsState(servings))
             }}
           />
           <div
@@ -147,9 +152,12 @@ export const ServingsControl = ({scale, servingsAsWritten, servingsChanged, scal
           }}
           onClick={event => event.preventDefault()}
           onBlur={event => {
-            const value = event.target.value || event.target.placeholder
-            if(!value.endsWith('x')) setLocalScale(value + 'x')
-            else if(!localScale.number) _setLocalScale(makeScaleState(scale))
+            if(localScale.number && localScale.string.endsWith('x')) return
+
+            const numeric = localScale.string.replace(/[^\d\.]/g, '')
+
+            if(+numeric) setLocalScale(numeric + 'x')
+            else _setLocalScale(makeScaleState(scale))
           }}
         />
       </div>
