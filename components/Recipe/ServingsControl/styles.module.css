@@ -61,12 +61,6 @@
   border-radius: 0; /* iOS Bug */
 }
 
-.input::-webkit-inner-spin-button {
-  appearance: none;
-  display: none!important;
-  width: 0;
-}
-
 .servingsName {
   height: 100%;
   width: calc((var(--maxLetters) * 0.4rem) + 16px);

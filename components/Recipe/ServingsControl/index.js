@@ -87,7 +87,7 @@ export const ServingsControl = ({scale, servingsAsWritten, servingsChanged, scal
         <div className={control} style={{'--digits': (localServings.string || servingsUsedInRecipe).length ?? 1}}>
           <input
             ref={servingsRef}
-            type="number"
+            type="text"
             inputMode="decimal"
 
             className={input}
@@ -99,7 +99,16 @@ export const ServingsControl = ({scale, servingsAsWritten, servingsChanged, scal
               if(!localServings.number && servingsUsedInRecipe) setLocalServings(servingsUsedInRecipe)
             }}
           />
-          <div className={servingsName} style={{'--maxLetters': Math.max(plural.length, singular.length)}} onClick={() => servingsRef.current.focus()}>{servings !== 1 ? plural : singular}</div>
+          <div
+           className={servingsName}
+           style={{'--maxLetters': Math.max(plural.length, singular.length)}}
+           onClick={() => {
+            const position = servingsRef.current.value.length
+            servingsRef.current.setSelectionRange(position, position);
+            servingsRef.current.focus()
+          }}>
+            {servings !== 1 ? plural : singular}
+          </div>
           <div className={incDec}>
             <button
              onClick={() => setLocalServings(Math.floor(servingsRef.current.value || servingsRef.current.placeholder) + 1)}
