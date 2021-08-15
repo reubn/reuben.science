@@ -96,7 +96,7 @@ export const ServingsControl = ({scale, servingsAsWritten, servingsChanged, scal
             placeholder={servingsUsedInRecipe}
             onChange={event => setLocalServings(event.target.value)}
             onBlur={event => {
-              if(!localServings.number && servingsUsedInRecipe) setLocalServings(servingsUsedInRecipe)
+              if(!localServings.number) _setLocalServings(makeServingsState(servings))
             }}
           />
           <div
@@ -145,6 +145,7 @@ export const ServingsControl = ({scale, servingsAsWritten, servingsChanged, scal
           onBlur={event => {
             const value = event.target.value || event.target.placeholder
             if(!value.endsWith('x')) setLocalScale(value + 'x')
+            else if(!localScale.number) _setLocalScale(makeScaleState(scale))
           }}
         />
       </div>
