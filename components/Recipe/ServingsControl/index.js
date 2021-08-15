@@ -95,6 +95,9 @@ export const ServingsControl = ({scale, servingsAsWritten, servingsChanged, scal
             value={localServings.string}
             placeholder={servingsUsedInRecipe}
             onChange={event => setLocalServings(event.target.value)}
+            onBlur={event => {
+              if(!localServings.number && servingsUsedInRecipe) setLocalServings(servingsUsedInRecipe)
+            }}
           />
           <div className={servingsName} onClick={() => servingsRef.current.focus()}>{servings !== 1 ? plural : singular}</div>
           <div className={incDec}>
