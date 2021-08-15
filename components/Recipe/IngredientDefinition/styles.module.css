@@ -1,0 +1,20 @@
+.value {
+  font-weight: 500;
+}
+
+.unit {
+  margin-left: 1px;
+  color: var(--colours-mid-2);
+}
+
+.hasRotation .quantity {
+  cursor: pointer;
+}
+
+.hasRotation .quantity:hover .unit {
+  color: var(--unit-accent);
+}
+
+.name {
+  margin-left: 4px;
+}

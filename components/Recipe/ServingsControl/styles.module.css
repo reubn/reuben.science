@@ -1,0 +1,157 @@
+.container {
+  margin: 2rem auto;
+}
+
+.content {
+  background: linear-gradient(135deg, var(--colours-dark-2) 0%, var(--colours-dark-1) 100%);
+  padding: 1.75rem 2rem;
+
+  border-radius: 4px;
+  vertical-align: middle;
+  overflow-x: auto;
+  width: fit-content;
+}
+
+@media (max-width: 650px) {
+  .content {
+    width: 100%;
+  }
+}
+
+.title {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-weight: 500;
+}
+
+.icon {
+  margin-right: 0.25rem;
+}
+
+.stuff {
+  display: inline-flex;
+  height: 1.75rem;
+  margin-right: 0.5rem;
+  background: var(--colours-dark-3);
+  --border-colour: var(--colours-dark-4);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.input {
+  font-size: inherit;
+  appearance: none;
+  border: none;
+  width: calc((var(--digits) * 0.4rem) + 20px);
+  min-width: 1.25rem;
+  height: 100%;
+  padding: 2px 0px 2px 3px;
+  color: inherit;
+  background: var(--colours-dark-3);
+  text-align: center;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.input:focus, .input:focus ~ * {
+  outline: none!important;
+  background: var(--colours-dark-4);
+  --border-colour: var(--colours-dark-5);
+  cursor: unset;
+  border-radius: 0; /* iOS Bug */
+}
+
+.input::-webkit-inner-spin-button {
+  appearance: none;
+  display: none!important;
+  width: 0;
+}
+
+.servingsName {
+  height: 100%;
+  margin: 0;
+  padding: 1px 4px 1px 2px;
+  display: inline-flex;
+  color: inherit;
+  font-size: inherit;
+  background: inherit;
+  cursor: pointer;
+}
+
+.incDec {
+  display: inline-flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  vertical-align: bottom;
+  height: 100%;
+  background: inherit;
+}
+
+.incDec button {
+  appearance: none;
+  height: calc(1.75rem / 2);
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  padding: 0px 4px;
+  border: none;
+  color: var(--colours-mid);
+  background: inherit;
+  font-size: 1rem;
+  font-weight: 400;
+  border-left: 1px solid var(--border-colour);
+
+  cursor: pointer;
+}
+
+.incDec button:hover, .incDec button:focus-visible {
+  background: var(--colours-dark-4);
+}
+
+.incDec button:active {
+  background: var(--colours-dark-5);
+}
+
+.incDec button:disabled {
+  color: var(--colours-dark-5);
+  cursor: not-allowed;
+}
+
+.incDec button:not(:first-child) {
+  border-top: 1px solid var(--border-colour);
+  /* padding-top: 2px; */
+}
+
+.equals {
+  color: var(--colours-mid-2);
+  margin: 0 0.125rem;
+}
+
+.recipeScaleInput {
+  height: 1.75rem;
+  appearance: none;
+  border: none;
+  background: none;
+  color: var(--colours-mid-2);
+  font-size: inherit;
+  font-weight: 400;
+  border-radius: 3px;
+  padding: 2px 4px;
+
+  width: calc(var(--digits) * 0.7rem);
+  min-width: 1.75rem;
+  text-align: center;
+
+  cursor: pointer;
+}
+
+.recipeScaleInput:focus {
+  outline: none!important;
+  color: inherit;
+  background: var(--colours-dark-4);
+  --border-colour: var(--colours-dark-5);
+  cursor: unset;
+}

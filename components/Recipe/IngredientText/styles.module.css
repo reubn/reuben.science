@@ -1,0 +1,29 @@
+.value {
+  font-weight: 500;
+}
+
+.unit {
+  margin-left: 1px;
+  color: var(--colours-mid-3);
+}
+
+.unit.normalSpace {
+  margin-left: unset;
+}
+
+.interactive .quantity {
+  cursor: pointer;
+}
+
+.interactive .quantity:hover .unit, .interactive.hover .unit {
+  color: var(--unit-accent);
+}
+
+.name {
+  margin-left: 4px;
+}
+
+.conjunction, .alternative {
+  font-style: italic;
+  color: var(--colours-mid-3);
+}
