@@ -13,7 +13,7 @@ class Recipe {
     return this.config.scale || 1
   }
 
-  get scalingFn(){
+  get scaleFn(){
     return value => value * this.scale
   }
 

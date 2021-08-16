@@ -6,7 +6,8 @@ class Ingredient {
     if(Array.isArray(config)) this.config = {
       id: config[0],
       name: config[1],
-      quantity: config[2]
+      quantity: config[2],
+      scaleFn: config[3]
     }
     else this.config = config
 
@@ -32,7 +33,9 @@ class Ingredient {
   }
 
   get displayQuantity(){
-    return this.quantity.convert(this.displayUnit).transform(this.recipe.scalingFn)
+    const scaleFn = this.config.scaleFn?.bind(null, this.recipe.scale) || this.recipe.scaleFn
+
+    return this.quantity.convert(this.displayUnit).transform(scaleFn)
   }
 
   withScale(scale){
