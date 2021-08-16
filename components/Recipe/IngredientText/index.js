@@ -16,7 +16,7 @@ export const IngredientText = ({ingredient, alternative=false, name=true, intera
 
   const hover = ingredient.hover
 
-  const rotationUnits = interactive && ingredient.quantity.unit.sensibleUnitsWith(ingredient.quantity.value)
+  const rotationUnits = interactive && ingredient.quantity.sensibleUnits
   const onClick = interactive && (() => {
     if(rotationUnits.length <= 1) return
 
