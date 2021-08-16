@@ -21,14 +21,14 @@
 
 .name {
   margin-left: 4px;
-  
+
   text-decoration: underline;
   text-decoration-color: transparent;
   text-underline-offset: 2px;
   text-decoration-thickness: 3px;
 }
 
-.interactive.hover .name {
+.hover .name {
   text-decoration-color: var(--colours-accent);
   transition: text-decoration-color 0.2s ease-in;
 }
