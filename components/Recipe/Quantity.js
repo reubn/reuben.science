@@ -6,9 +6,18 @@ class Quantity {
   constructor(config){
     if(Array.isArray(config)) this.config = {
       value: config[0],
-      unit: config[1]
+      unit: config[1],
+      sensibleUnits: config[2]
     }
     else this.config = config
+
+    this.config.unit = Unit.from(this.config.unit)
+
+    if(this.config.sensibleUnits){
+      this.config.sensibleUnits = this.config.sensibleUnits.map(u => Unit.from(u))
+
+      if(!this.config.sensibleUnits.includes(this.config.unit)) this.config.sensibleUnits.unshift(this.config.unit)
+    }
   }
 
   get value(){
@@ -16,15 +25,20 @@ class Quantity {
   }
 
   get unit(){
-    return Unit.from(this.config.unit)
+    return this.config.unit
   }
 
   get comfort(){
-    return this.unit.comfortableWith(this.value)
+    const unitComfort = this.unit.comfortableWith(this.value)
+
+    const suggestedIsAllowed = this.config.sensibleUnits?.includes(unitComfort.suggested) ?? true
+    if(!suggestedIsAllowed) delete unitComfort.suggested
+
+    return unitComfort
   }
 
   get sensibleUnits(){
-    return this.unit.sensibleUnitsWith(this.value)
+    return this.config.sensibleUnits || this.unit.sensibleUnitsWith(this.value)
   }
 
   get betterUnitChoice(){
@@ -48,11 +62,11 @@ class Quantity {
 
     const value = transformation(this.value)
 
-    return new Quantity([value, unit])
+    return new Quantity({...this.config, value, unit})
   }
 
   transform(fn){
-    return new Quantity([fn(this.value), this.unit])
+    return new Quantity({...this.config, value: fn(this.value)})
   }
 
   formatted({displayedWithName=false}={}){
