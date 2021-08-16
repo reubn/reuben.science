@@ -52,7 +52,7 @@ export const ServingsControl = ({scale, servingsAsWritten, servingsChanged, scal
 
       if(event.key === 'ArrowDown' || event.key === '-' || event.key === '_'){
         event.preventDefault()
-        setLocalServings(Math.ceil(value) - 1)
+        if(value > 1) setLocalServings(Math.ceil(value) - 1)
       }
     }
 
