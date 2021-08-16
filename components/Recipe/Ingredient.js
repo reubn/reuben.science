@@ -60,7 +60,7 @@ class Ingredient {
 
     if(!comfort.comfortable){
       const changeTo = comfort.suggested
-        || this.quantity.unit.sensibleUnitsWith(this.quantity.value)
+        || this.quantity.sensibleUnits
            .find(unit => unit !== this.displayQuantity && this.displayQuantity.convert(unit).comfort.comfortable)
 
       if(changeTo) {

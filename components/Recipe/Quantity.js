@@ -23,6 +23,10 @@ class Quantity {
     return this.unit.comfortableWith(this.value)
   }
 
+  get sensibleUnits(){
+    return this.unit.sensibleUnitsWith(this.value)
+  }
+
   convert(unitOrString){
     const unit = Unit.from(unitOrString)
 
