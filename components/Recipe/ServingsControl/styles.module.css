@@ -121,7 +121,8 @@
   cursor: pointer;
 }
 
-.incDec button:hover, .incDec button:focus-visible {
+.incDec button:hover, .incDec button:focus {
+  outline: none!important;
   background: var(--colours-dark-4);
 }
 
