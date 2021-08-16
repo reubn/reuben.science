@@ -35,7 +35,7 @@ class Ingredient {
   get displayQuantity(){
     const scaleFn = this.config.scaleFn?.bind(null, this.recipe.scale) || this.recipe.scaleFn
 
-    return this.quantity.convert(this.displayUnit).transform(scaleFn)
+    return this.quantity.transform(scaleFn).convert(this.displayUnit)
   }
 
   withScale(scale){
