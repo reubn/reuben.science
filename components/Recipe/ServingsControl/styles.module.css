@@ -31,12 +31,17 @@
 }
 
 .control {
+  --controlHeight: 2.4rem;
+  --perDigit: 0.5rem;
+  font-size: 1.125rem;
+
   display: inline-flex;
-  height: calc(var(--line-height) * 1.25rem);
+  align-items: center;
+  justify-content: center;
+  height: var(--controlHeight);
   margin-right: 0.5rem;
   background: var(--colours-dark-3);
   --border-colour: var(--colours-dark-4);
-  --perDigit: 0.45rem;
   border-radius: 3px;
   overflow: hidden;
 }
@@ -45,7 +50,7 @@
   font-size: inherit;
   appearance: none;
   border: none;
-  width: calc((var(--digits) * var(--perDigit)) + (16px + (10px * ((var(--digits) - 1) / 6))));
+  width: calc((var(--digits) * var(--perDigit)) + (0.88rem + (0.55rem * ((var(--digits) - 1) / 6))));
   height: 100%;
   padding: 2px 0px 2px 4px;
   color: inherit;
@@ -65,16 +70,26 @@
 
 .servingsName {
   height: 100%;
-  width: calc((var(--maxLetters) * var(--perDigit)) + (5px + (6px * ((var(--maxLetters) - 1) / 6))));
+  width: calc((var(--maxLetters) * var(--perDigit)) + (0.27rem + (0.33rem * ((var(--maxLetters) - 1) / 6))));
   margin: 0;
-  padding: 2px 4px 1px calc((var(--maxLetters) - var(--letters)) * (var(--perDigit) / 2));
+  padding: 5px 4px 2px calc((var(--maxLetters) - var(--letters)) * (var(--perDigit) / 2));
   display: inline-flex;
-  align-items: center;
-  justify-content: flex-start;
+  align-items: flex-start;
+  justify-content: center;
+  flex-direction: column;
   color: inherit;
   font-size: inherit;
   background: inherit;
   cursor: pointer;
+}
+
+/* HACK SAFARI DESKTOP + iOS  */
+@media not all and (min-resolution:.001dpcm) {
+  @media {
+    .servingsName {
+      padding: 6px 4px 2px calc((var(--maxLetters) - var(--letters)) * (var(--perDigit) / 2));
+    }
+  }
 }
 
 .incDec {
@@ -95,9 +110,9 @@
   justify-content: center;
   align-items: center;
   margin: 0;
-  padding: 0px 4px;
+  padding: 3px 4px 0px 4px;
   border: none;
-  color: var(--colours-mid);
+  color: var(--colours-light-2);
   background: inherit;
   font-size: 1rem;
   font-weight: 400;
@@ -121,7 +136,16 @@
 
 .incDec button:not(:first-child) {
   border-top: 1px solid var(--border-colour);
-  /* padding-top: 2px; */
+}
+
+/* HACK SAFARI DESKTOP + iOS  */
+@media not all and (min-resolution:.001dpcm) {
+  @media {
+    .incDec button {
+      padding-top: unset;
+      padding-bottom: 3px;
+    }
+  }
 }
 
 .equals {
@@ -130,18 +154,20 @@
 }
 
 .recipeScaleInput {
+  --perDigit: 0.45rem;
+
   height: 1.75rem;
   appearance: none;
   border: none;
   background: none;
   color: var(--colours-mid-2);
-  font-size: inherit;
+  font-size: 1rem;
   font-weight: 400;
   border-radius: 3px;
   padding: 2px 4px;
 
-  width: calc(var(--digits) * 0.7rem);
-  min-width: 1.75rem;
+  width: calc((var(--digits) * var(--perDigit)) + (0.77rem + (0.55rem * ((var(--digits) - 1) / 6))));
+  min-width: 1.96rem;
   text-align: center;
 
   cursor: pointer;
