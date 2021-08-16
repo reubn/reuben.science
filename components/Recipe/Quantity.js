@@ -27,6 +27,18 @@ class Quantity {
     return this.unit.sensibleUnitsWith(this.value)
   }
 
+  get betterUnitChoice(){
+    const comfort = this.comfort
+
+    if(!comfort.comfortable){
+      const betterUnit = comfort.suggested || this.sensibleUnits.find(unit => (unit !== this.unit) && this.convert(unit).comfort.comfortable)
+
+      if(betterUnit) return betterUnit
+    }
+
+    return null
+  }
+
   convert(unitOrString){
     const unit = Unit.from(unitOrString)
 

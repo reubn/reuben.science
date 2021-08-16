@@ -55,19 +55,9 @@ class Ingredient {
   }
 
   recipeUpdated(){
-    const comfort = this.displayQuantity.comfort
-    // console.log(this.id, this.displayQuantity.unit.label, comfort.comfortable, {comfort})
+    const betterUnit = this.displayQuantity.betterUnitChoice
 
-    if(!comfort.comfortable){
-      const changeTo = comfort.suggested
-        || this.quantity.sensibleUnits
-           .find(unit => unit !== this.displayQuantity && this.displayQuantity.convert(unit).comfort.comfortable)
-
-      if(changeTo) {
-        // console.log(this.id, 'changing to', changeTo.label, 'as not comfortable with', this.displayQuantity.value, this.displayQuantity.unit.label)
-        this.setDisplayUnit(changeTo)
-      }
-    }
+    if(betterUnit) this.setDisplayUnit(betterUnit)
   }
 }
 
