@@ -15,6 +15,7 @@ const makeScaleState = scale => ({
 })
 
 export const ServingsControl = ({scale, servingsAsWritten, servingsChanged, scaleChanged, plural, singular=(plural.endsWith('s') ? plural.slice(0, -1) : plural)}) => {
+  const controlRef = useRef()
   const servingsRef = useRef()
   const scaleRef = useRef()
 
@@ -43,28 +44,31 @@ export const ServingsControl = ({scale, servingsAsWritten, servingsChanged, scal
 
   useEffect(() => {
     const listener = event => {
-      const value = event.target.value || event.target.placeholder
+      const value = servingsRef.current.value || servingsRef.current.placeholder
 
       if(event.key === 'ArrowUp' || event.key === '=' || event.key === '+'){
         event.preventDefault()
+        event.stopPropagation()
         setLocalServings(Math.floor(value) + 1)
       }
 
       if(event.key === 'ArrowDown' || event.key === '-' || event.key === '_'){
         event.preventDefault()
+        event.stopPropagation()
         if(value > 1) setLocalServings(Math.ceil(value) - 1)
       }
 
       if(event.key === 'Enter'){
         event.preventDefault()
-        event.target.blur()
+        event.stopPropagation()
+        servingsRef.current.blur()
       }
     }
 
-    servingsRef.current?.addEventListener('keydown', listener)
+    controlRef.current?.addEventListener('keydown', listener)
 
-    return () => servingsRef.current?.removeEventListener('keydown', listener)
-  }, [servingsRef.current])
+    return () => controlRef.current?.removeEventListener('keydown', listener)
+  }, [controlRef.current])
 
   useEffect(() => {
     const listener = event => {
@@ -95,7 +99,7 @@ export const ServingsControl = ({scale, servingsAsWritten, servingsChanged, scal
     <div className={container}>
       <div className={content}>
       <h3 className={title}><span className={icon}>🔢</span> Recipe Makes</h3>
-        <div className={control} style={{'--digits': (localServings.string || servingsUsedInRecipe).length ?? 1}}>
+        <div ref={controlRef} className={control} style={{'--digits': (localServings.string || servingsUsedInRecipe).length ?? 1}}>
           <input
             ref={servingsRef}
             type="text"
