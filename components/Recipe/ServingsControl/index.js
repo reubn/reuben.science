@@ -54,6 +54,11 @@ export const ServingsControl = ({scale, servingsAsWritten, servingsChanged, scal
         event.preventDefault()
         if(value > 1) setLocalServings(Math.ceil(value) - 1)
       }
+
+      if(event.key === 'Enter'){
+        event.preventDefault()
+        event.target.blur()
+      }
     }
 
     servingsRef.current?.addEventListener('keydown', listener)
@@ -73,6 +78,11 @@ export const ServingsControl = ({scale, servingsAsWritten, servingsChanged, scal
       if(event.key === 'ArrowDown' || event.key === '-' || event.key === '_'){
         event.preventDefault()
         if(value > 1) setLocalScale((Math.ceil(value) - 1) + 'x')
+      }
+
+      if(event.key === 'Enter'){
+        event.preventDefault()
+        event.target.blur()
       }
     }
 
