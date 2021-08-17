@@ -75,6 +75,7 @@ class Quantity {
 
   formatted({displayedWithName=false}={}){
     const key = displayedWithName ? '_formattedDisplayedWithName' : '_formattedDisplayedWithoutName'
+    if(this[key]) console.log(this[key])
     if(this[key]) return this[key]
 
     const fractions = Object.entries({
@@ -112,8 +113,10 @@ class Quantity {
     // const formattedNumber = fraction || toFixedIfNecessary(this.value, 2)
 
     if(this.unit.format) this[key] = this.unit.format({value: this.value, formattedNumber, displayedWithName})
-    if(this.unit.suffix) this[key] = [formattedNumber, this.unit.suffix]
-    if(this.unit.prefix) this[key] = [this.unit.prefix, formattedNumber]
+    if(this.unit.suffix) this[key] = [['value', formattedNumber], ['unit', this.unit.suffix]]
+    if(this.unit.prefix) this[key] = [['unit', this.unit.prefix], ['value', formattedNumber]]
+
+    if(!this[key]) throw `Unit '${this.unit.label}' Must Implement .format(), .suffix, or .prefix`
 
     return this[key]
   }

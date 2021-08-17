@@ -6,13 +6,13 @@ import {
   value as valueStyle,
   unit as unitStyle,
   name as nameStyle,
-  normalSpace as normalSpaceStyle,
+  noUnitSpacing as noUnitSpacingStyle,
   conjunction
 } from './styles'
 
 export const IngredientText = ({ingredient, alternative=false, name=true, interactive=false, highlightOnHover=undefined, className, ...props}) => {
-  const [value, unit, normalSpace] = ingredient.displayQuantity.formatted({displayedWithName: name})
-  const unitAccentColour = ingredient.displayQuantity.unit.colour
+  const components = ingredient.displayQuantity.formatted({displayedWithName: name})
+  const unit = ingredient.displayQuantity.unit
 
   const hover = ingredient.hover
 
@@ -33,13 +33,17 @@ export const IngredientText = ({ingredient, alternative=false, name=true, intera
       >
         {alternative && <span className={conjunction}>or </span>}
         <span
-         className={[quantityStyle, normalSpace && normalSpaceStyle].filter(nc => nc).join(' ')}
-         style={unit && {'--unit-accent': `var(--colours-${unitAccentColour})`}}
+         className={quantityStyle}
+         style={{'--unit-accent': `var(--colours-${unit.colour})`}}
          onClick={onClick}
          >
-          <span className={valueStyle}>{value}</span>
-          {normalSpace ? ' ' : ''}
-          {unit && <span className={unitStyle} title={ingredient.displayQuantity.unit.name}>{unit}</span>}
+         {
+           components.map(([type, content, noUnitSpacing, alt]) => ({
+             value: () => <span className={valueStyle}>{content}</span>,
+             unit: () => <span className={`${unitStyle} ${noUnitSpacing ? noUnitSpacingStyle : ''}`} title={alt}>{content}</span>,
+             raw: () => content
+           })[type]())
+         }
         </span>
         {name && <span className={nameStyle}>{ingredient.name}</span>}
       </span>

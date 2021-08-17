@@ -7,7 +7,7 @@
   color: var(--colours-mid-3);
 }
 
-.unit.normalSpace {
+.unit.noUnitSpacing {
   margin-left: unset;
 }
 
@@ -15,7 +15,7 @@
   cursor: pointer;
 }
 
-.interactive .quantity:hover .unit{
+.interactive .quantity:hover .unit {
   color: var(--unit-accent);
 }
 
