@@ -19,7 +19,7 @@ class Quantity {
       if(!this.config.sensibleUnits.includes(this.config.unit)) this.config.sensibleUnits.unshift(this.config.unit)
     }
 
-    if(typeof this.config.value === 'string' && this.config.unit.parse){
+    if(typeof this.config.value !== 'number' && this.config.unit.parse){
       this.config.value = this.config.unit.parse(this.config.value)
     }
   }
