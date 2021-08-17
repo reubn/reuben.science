@@ -1,21 +1,13 @@
+import QuantityText from '../QuantityText'
+
 import {
-  interactive as interactiveStyle,
   alternative as alternativeStyle,
   hover as hoverStyle,
-  quantity as quantityStyle,
-  value as valueStyle,
-  unit as unitStyle,
   name as nameStyle,
-  noUnitSpacing as noUnitSpacingStyle,
   conjunction
 } from './styles'
 
 export const IngredientText = ({ingredient, alternative=false, name=true, interactive=false, highlightOnHover=undefined, className, ...props}) => {
-  const components = ingredient.displayQuantity.formatted({displayedWithName: name})
-  const unit = ingredient.displayQuantity.unit
-
-  const hover = ingredient.hover
-
   const rotationUnits = interactive && ingredient.quantity.sensibleUnits
   const onClick = interactive && (() => {
     if(rotationUnits.length <= 1) return
@@ -25,26 +17,17 @@ export const IngredientText = ({ingredient, alternative=false, name=true, intera
 
     ingredient.setDisplayUnit(rotationUnits[nextIndex])
   })
+  
+  const isHovered = ingredient.hover === highlightOnHover
+  const isInteractive = rotationUnits && rotationUnits.length > 1
 
   return (
     <span
-      className={[className, alternative && alternativeStyle, rotationUnits.length > 1 && interactiveStyle, (hover === highlightOnHover) && hoverStyle].filter(cn => cn).join(' ')}
+      className={[className, alternative && alternativeStyle, isHovered && hoverStyle].filter(cn => cn).join(' ')}
       {...props}
       >
         {alternative && <span className={conjunction}>or </span>}
-        <span
-         className={quantityStyle}
-         style={{'--unit-accent': `var(--colours-${unit.colour})`}}
-         onClick={onClick}
-         >
-         {
-           components.map(([type, content, noUnitSpacing, alt]) => ({
-             value: () => <span className={valueStyle}>{content}</span>,
-             unit: () => <span className={`${unitStyle} ${noUnitSpacing ? noUnitSpacingStyle : ''}`} title={alt}>{content}</span>,
-             raw: () => content
-           })[type]())
-         }
-        </span>
+        <QuantityText quantity={ingredient.displayQuantity} isInteractive={isInteractive} isHovered={isHovered} displayedWithName={name} onClick={onClick} />
         {name && <span className={nameStyle}>{ingredient.name}</span>}
       </span>
   )
