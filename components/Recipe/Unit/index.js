@@ -25,6 +25,10 @@ class Unit {
     return this.config.format
   }
 
+  get parse(){
+    return this.config.parse
+  }
+
   get prefix(){
     if(typeof this.config.prefix === 'boolean' && this.config.prefix) return this.label
     return this.config.prefix
