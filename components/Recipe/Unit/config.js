@@ -1,7 +1,9 @@
+import time from './units/time'
 import mass from './units/mass'
 import volume from './units/volume'
 
 export const units = Unit => ({
+  ...time,
   ...mass,
   ...volume
 })
