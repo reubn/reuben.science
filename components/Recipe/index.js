@@ -6,6 +6,7 @@ import Unit from './Unit'
 import createIngredientDefinition from './IngredientDefinition'
 import createIngredientLink from './IngredientLink'
 import createServingsControl from './ServingsControl'
+import createInlineQuantity from './InlineQuantity'
 
 const createRecipe = config => {
   const recipe = new Recipe(config || {})
@@ -23,7 +24,8 @@ const createRecipe = config => {
     recipe,
     IngredientDefinition: createIngredientDefinition(recipe),
     IngredientLink: createIngredientLink(recipe),
-    ServingsControl: createServingsControl(recipe)
+    ServingsControl: createServingsControl(recipe),
+    InlineQuantity: createInlineQuantity(recipe)
   }
 }
 
