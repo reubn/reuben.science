@@ -10,6 +10,7 @@ export const IngredientLink = ({ingredient, children}) => {
   return (
     <span
      className={[link, (ingredient.hover === 'definition') && hover].filter(cn => cn).join(' ')}
+     style={{'--ingredient-accent': `var(--colours-${ingredient.colour})`}}
      onMouseEnter={() => ingredient.setHover('link')}
      onMouseLeave={() => ingredient.setHover(false)}
      >

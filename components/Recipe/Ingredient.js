@@ -23,6 +23,10 @@ class Ingredient {
     return this.config.name
   }
 
+  get colour(){
+    return this.config.colour || 'accent'
+  }
+
   get quantity(){
     return Quantity.from(this.config.quantity)
   }

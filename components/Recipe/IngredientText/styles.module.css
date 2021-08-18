@@ -7,8 +7,8 @@
   text-decoration-thickness: 3px;
 }
 
-.hover .name {
-  text-decoration-color: var(--colours-accent);
+.hover .name, .name:hover {
+  text-decoration-color: var(--ingredient-accent);
   transition: text-decoration-color 0.2s ease-in;
 }
 

@@ -28,7 +28,7 @@ export const IngredientText = ({ingredient, alternative=false, name=true, intera
       >
         {alternative && <span className={conjunction}>or </span>}
         <QuantityText quantity={ingredient.displayQuantity} isInteractive={isInteractive} isHovered={isHovered} displayedWithName={name} onClick={onClick} />
-        {name && <span className={nameStyle}>{ingredient.name}</span>}
+        {name && <span className={nameStyle} style={{'--ingredient-accent': `var(--colours-${ingredient.colour})`}}>{ingredient.name}</span>}
       </span>
   )
 }

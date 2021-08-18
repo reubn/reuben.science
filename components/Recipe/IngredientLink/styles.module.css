@@ -38,12 +38,8 @@
   transition: opacity 0.2s ease-out, height 0s ease-out 0.2s;
 }
 
-.link:hover {
-  text-decoration-color: var(--colours-dark-4);
-}
-
-.link.hover {
-  text-decoration-color: var(--colours-accent);
+.link:hover, .link.hover  {
+  text-decoration-color: var(--ingredient-accent);
 }
 
 .link:hover .quantity {
