@@ -17,7 +17,7 @@ export const IngredientText = ({ingredient, alternative=false, name=true, intera
 
     ingredient.setDisplayUnit(rotationUnits[nextIndex])
   })
-  
+
   const isHovered = ingredient.hover === highlightOnHover
   const isInteractive = rotationUnits && rotationUnits.length > 1
 
