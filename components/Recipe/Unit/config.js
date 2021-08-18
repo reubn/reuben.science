@@ -1,11 +1,13 @@
 import time from './units/time'
 import mass from './units/mass'
 import volume from './units/volume'
+import distance from './units/distance'
 
 export const units = Unit => ({
   ...time,
   ...mass,
-  ...volume
+  ...volume,
+  ...distance,
 })
 
 export const sensibleUnits = [
