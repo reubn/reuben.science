@@ -125,6 +125,7 @@ class Unit {
   static from = unknown => {
     if(unknown instanceof Unit) return unknown
     if(typeof unknown === 'string') return Unit.units[unknown]
+    if(typeof unknown === 'undefined') return Unit.units.abs
   }
 
   static convert = (from, to, value) => Unit.from(from).transformationTo(to)(value)

@@ -8,6 +8,12 @@ export const units = Unit => ({
   ...mass,
   ...volume,
   ...distance,
+  abs: {
+    name: 'abs',
+    format: ({formattedNumber, displayedWithName}) => [['value', formattedNumber]],
+    isBase: true,
+    isComfortable: value => true
+  }
 })
 
 export const sensibleUnits = [
