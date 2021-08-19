@@ -7,11 +7,11 @@ const hour = 60 * minute
 const day = 24 * hour
 
 const timeUnits = {
-  d: {value: day, identifier: 'd', padding: 1},
-  h: {value: hour, identifier: 'h', padding: 2},
-  m: {value: minute, identifier: 'm', padding: 2},
-  s: {value: second, identifier: 's', padding: 2},
-  ms: {value: milisecond, identifier: 'ms', padding: 3, floor: false}
+  d: {value: day, padding: 1},
+  h: {value: hour, padding: 2},
+  m: {value: minute, padding: 2},
+  s: {value: second, padding: 2},
+  ms: {value: milisecond, padding: 3, floor: false}
 }
 
 const {d, h, m, s, ms} = timeUnits
@@ -22,7 +22,7 @@ const base = (timeUnits, config) => ({
   type: 'time',
   isBase: true,
   base: Symbol(),
-  format: ({value: seconds}) => Object.entries(timeUnits).reduce(({seconds, components}, [key, {value, identifier, padding, floor=true}]) => {
+  format: ({value: seconds}) => Object.entries(timeUnits).reduce(({seconds, components}, [key, {value, padding, floor=true}]) => {
     const quantity = floor ? Math.floor(seconds / value) : seconds / value
     const newSeconds = seconds - (quantity * value)
 
@@ -31,7 +31,7 @@ const base = (timeUnits, config) => ({
       components: quantity ? [
         ...components,
         ['value', (floor ? quantity : toFixedOrInteger(quantity, 2)).toString().padStart(components.length ? padding : 0, '0')],
-        ['unit', identifier],
+        ['unit', key],
         ['raw', newSeconds ? ' ' : false]
       ] : components
     }
