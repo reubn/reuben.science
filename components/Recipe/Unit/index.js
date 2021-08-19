@@ -84,7 +84,7 @@ class Unit {
     }, null)
   }
 
-  conversionTo(unitOrString){
+  conversionFnTo(unitOrString){
     const unit = Unit.from(unitOrString)
 
     if(unit.base !== this.base) throw `Cannot Convert ${this.label} to Incombatible Unit ${unit.label}`
@@ -128,7 +128,7 @@ class Unit {
     if(typeof unknown === 'undefined') return Unit.units.abs
   }
 
-  static convert = (from, to, value) => Unit.from(from).conversionTo(to)(value)
+  static convert = (from, to, value) => Unit.from(from).conversionFnTo(to)(value)
 
   static resolveBase = ({unit, chain=[]}) => {
     if(unit.isBase) {
