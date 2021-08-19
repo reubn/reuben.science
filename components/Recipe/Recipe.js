@@ -14,7 +14,7 @@ class Recipe {
   }
 
   get scaleFn(){
-    return value => value * this.scale
+    return value => typeof value === 'number' ? value * this.scale : value
   }
 
   setScale(scale){
