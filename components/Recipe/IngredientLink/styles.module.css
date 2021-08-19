@@ -49,9 +49,3 @@
   pointer-events: unset;
   transition: opacity 0.1s ease-in, height 0s ease-out 0s;
 }
-
-.conjunction {
-  font-style: italic;
-  color: var(--colours-mid-3);
-  margin: 0 6px 0 4px;
-}
