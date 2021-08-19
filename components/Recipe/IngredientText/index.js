@@ -9,18 +9,18 @@ import {
 } from './styles'
 
 export const IngredientText = ({ingredient, alternative=false, name=true, interactive=false, highlightOnHover=undefined, className, ...props}) => {
-  const rotationUnits = interactive && ingredient.quantity.sensibleUnits
-  const onClick = interactive && (() => {
-    if(rotationUnits.length <= 1) return
+  const displayQuantity = ingredient.displayQuantity
+  const isHovered = ingredient.hover === highlightOnHover
 
-    const currentIndex = rotationUnits.indexOf(ingredient.displayQuantity.unit)
+  const rotationUnits = interactive && ingredient.quantity.sensibleUnits
+  const isInteractive = rotationUnits && rotationUnits.length > 1
+
+  const onClick = isInteractive && (() => {
+    const currentIndex = rotationUnits.indexOf(displayQuantity.unit)
     const nextIndex = (currentIndex + 1) % rotationUnits.length
 
     ingredient.setDisplayUnit(rotationUnits[nextIndex])
   })
-
-  const isHovered = ingredient.hover === highlightOnHover
-  const isInteractive = rotationUnits && rotationUnits.length > 1
 
   const nameComment = name && (
     <span style={{'--ingredient-accent': `var(--colours-${ingredient.colour})`}}>
@@ -35,7 +35,7 @@ export const IngredientText = ({ingredient, alternative=false, name=true, intera
       {...props}
       >
         {alternative && <span className={conjunction}>or </span>}
-        <QuantityText quantity={ingredient.displayQuantity} isInteractive={isInteractive} isHovered={isHovered} displayedWithName={name} onClick={onClick} />
+        <QuantityText quantity={displayQuantity} isInteractive={isInteractive} isHovered={isHovered} displayedWithName={name} onClick={onClick} />
         {nameComment}
       </span>
   )
