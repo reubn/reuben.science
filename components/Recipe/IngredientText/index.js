@@ -12,7 +12,7 @@ export const IngredientText = ({ingredient, alternative=false, name=true, intera
   const displayQuantity = ingredient.displayQuantity
   const isHovered = ingredient.hover === highlightOnHover
 
-  const rotationUnits = interactive && ingredient.quantity.sensibleUnits
+  const rotationUnits = interactive && displayQuantity.sensibleUnits
   const isInteractive = rotationUnits && rotationUnits.length > 1
 
   const onClick = isInteractive && (() => {
