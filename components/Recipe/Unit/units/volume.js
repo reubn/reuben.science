@@ -9,7 +9,7 @@ export default {
     isComfortable: value => {
       if(value < 1) return 'ml'
 
-      return true //value >= 0.5
+      return true
     },
     sensibleUnits: (value, units) => {
       if(value < 10) units.push('ml')
