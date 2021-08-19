@@ -2,8 +2,6 @@ import {useEffect, useState, useMemo} from 'react'
 
 import IngredientText from '../IngredientText'
 
-import {hasRotation, quantity as quantityStyle, value as valueStyle, unit as unitStyle, name as nameStyle} from './styles'
-
 export const IngredientDefinition = ({ingredient, alternative}) => {
   // console.log('RENDER DEFINITION', ingredient.name)
 
