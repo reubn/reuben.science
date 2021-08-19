@@ -25,7 +25,7 @@ export default {
     isComfortable: value => {
       const tbspValue = value / 15
       const tbspRemainder = tbspValue % 1
-      const tbspWouldBeBetter = tbspValue <= 100 && tbspRemainder <= 0.0000001 || Math.abs(tbspRemainder - 0.5) <= 0.0000001
+      const tbspWouldBeBetter = tbspValue <= 10 && (tbspRemainder <= 0.0000001 || Math.abs(tbspRemainder - 0.5) <= 0.0000001)
 
       if(tbspWouldBeBetter) return 'tbsp'
 
@@ -64,14 +64,15 @@ export default {
       const currentRemainder = value % 1
 
       if(currentRemainder >= 0.0000001 && Math.abs(currentRemainder - 0.5) >= 0.0000001) {
-        const tspRemainder = (value * 3) % 1
-        const tspWouldBeBetter = tspRemainder <= 0.0000001 || Math.abs(tspRemainder - 0.5) <= 0.0000001
+        const tspValue = value * 3
+        const tspRemainder = tspValue % 1
+        const tspWouldBeBetter = tspValue <= 10 && (tspRemainder <= 0.0000001 || Math.abs(tspRemainder - 0.5) <= 0.0000001)
 
         if(tspWouldBeBetter) return 'tsp'
       }
 
 
-      return value >= 0.5 && value <= 100
+      return value >= 0.5 && value <= 10
     },
     sensibleUnits: value => ['tsp', 'ml']
   },
@@ -85,7 +86,7 @@ export default {
     isComfortable: value => {
       const tbspValue = value / 3
       const tbspRemainder = tbspValue % 1
-      const tbspWouldBeBetter = tbspRemainder <= 0.0000001 || Math.abs(tbspRemainder - 0.5) <= 0.0000001
+      const tbspWouldBeBetter = tbspValue <= 10 && (tbspRemainder <= 0.0000001 || Math.abs(tbspRemainder - 0.5) <= 0.0000001)
 
       if(tbspWouldBeBetter) return 'tbsp'
 
