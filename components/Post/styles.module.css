@@ -7,7 +7,6 @@
 
 .post *:not(li):not(figure) {
   max-width: 100%;
-  overflow-x: auto;
 }
 
 .title {
