@@ -27,6 +27,10 @@ class Ingredient {
     return this.config.colour || 'accent'
   }
 
+  get comment(){
+    return this.config.comment
+  }
+
   get quantity(){
     return Quantity.from(this.config.quantity)
   }
