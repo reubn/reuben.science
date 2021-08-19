@@ -23,6 +23,8 @@ const base = (timeUnits, config) => ({
   isBase: true,
   base: Symbol(),
   format: ({value: seconds}) => Object.entries(timeUnits).reduce(({seconds, components}, [key, {value, padding, floor=true}]) => {
+    if(!seconds) return {seconds, components}
+
     const quantity = floor ? Math.floor(seconds / value) : seconds / value
     const newSeconds = seconds - (quantity * value)
 
