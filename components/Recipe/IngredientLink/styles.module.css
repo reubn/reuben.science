@@ -20,6 +20,7 @@
   width: max-content;
   max-width: unset;
   overflow: visible;
+  white-space: nowrap;
   z-index: 100;
   background: var(--colours-dark-2);
   /* color: var(--colours-dark); */
