@@ -5,15 +5,9 @@ export default {
     type: 'mass',
     suffix: true,
     isBase: true,
-    // sensibleUnits: value => {
-    //   const sensible = []
-    //
-    //   if(value <= 10) sensible.push('g')
-    //
-    //   // imperial + US units
-    //
-    //   return sensible
-    // }
+    sensibleUnits: (value, units) => {
+      if(value <= 10) units.push('g')
+    }
   },
   g: {
     name: 'gram',
@@ -22,14 +16,8 @@ export default {
     parent: 'kg',
     toParent: g => g / 1000,
     fromParent: kg => kg * 1000,
-    // sensibleUnits: value => {
-    //   const sensible = []
-    //
-    //   if(value >= 100) sensible.push('kg')
-    //
-    //   // imperial + US units
-    //
-    //   return sensible
-    // }
+    sensibleUnits: (value, units) => {
+      if(value >= 100) units.push('kg')
+    }
   }
 }

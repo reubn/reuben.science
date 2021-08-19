@@ -10,8 +10,10 @@ export default {
       if(value < 1) return 'ml'
 
       return true //value >= 0.5
+    },
+    sensibleUnits: (value, units) => {
+      if(value < 10) units.push('ml')
     }
-    // sensibleUnits: value => ['ml']
   },
   ml: {
     name: 'millilitre',
@@ -37,18 +39,12 @@ export default {
 
       return true //value >= 0.5
     },
-    // sensibleUnits: value => {
-    //   const sensible = []
-    //
-    //   if(value <= (6 * 5)) sensible.push('tsp')
-    //   if(value <= (6 * 15)) sensible.push('tbsp')
-    //   // if(value >= 10) sensible.push('cl')
-    //   if(value >= 100) sensible.push('l')
-    //
-    //   // imperial + US units
-    //
-    //   return sensible
-    // }
+    sensibleUnits: (value, units) => {
+      if(value <= (10 * 5)) units.push('tsp')
+      if(value <= (10 * 15)) units.push('tbsp')
+      // if(value >= 10) units.push('cl')
+      if(value >= 100) units.push('l')
+    }
   },
   // cl: {
   //   name: 'centilitre',
@@ -77,7 +73,7 @@ export default {
 
       return value >= 0.5 && value <= 100
     },
-    // sensibleUnits: value => ['tsp', 'ml']
+    sensibleUnits: value => ['tsp', 'ml']
   },
   tsp: {
     name: 'teaspoon',
@@ -95,7 +91,7 @@ export default {
 
       return (value >= 0.5 && value <= 10) || 'tbsp'
     },
-    // sensibleUnits: value => ['tbsp', 'ml']
+    sensibleUnits: value => ['tbsp', 'ml']
   },
   // impGal: {
   //   name: 'imperial gallon',

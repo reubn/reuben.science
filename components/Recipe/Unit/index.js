@@ -1,4 +1,4 @@
-import {units, sensibleUnits} from './config'
+import {units} from './config'
 
 class Unit {
   constructor(config){
@@ -98,12 +98,20 @@ class Unit {
   }
 
   sensibleUnitsWith(value){
-    // const other = this.config.sensibleUnits?.(value)?.map(Unit.from)
-    // if(other) other.push(this)
-    //
-    // return other ?? this.compatibleUnits
+    const usingConfigResults = typeof this.config.sensibleUnits !== 'undefined'
+    let configResults = null
 
-    return sensibleUnits.find(arr => arr.includes(this.label))?.map(Unit.from) ?? this.compatibleUnits
+    if(usingConfigResults) {
+      const configPassIn = []
+      const configReturnResults = this.config.sensibleUnits?.(value, configPassIn)
+
+      configResults = (configReturnResults || configPassIn).map(Unit.from)
+      configResults.push(this)
+
+      console.log('using config results', configResults.map(f => f.label))
+    }
+
+    return (configResults ?? this.compatibleUnits).sort((a, b) => a.label.localeCompare(b.label))
   }
 
   comfortableWith(value){
