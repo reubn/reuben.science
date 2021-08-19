@@ -2,22 +2,18 @@ import {useEffect, useState, useMemo} from 'react'
 
 import IngredientText from '../IngredientText'
 
-export const IngredientDefinition = ({ingredient, alternative}) => {
-  // console.log('RENDER DEFINITION', ingredient.name)
+export const IngredientDefinition = ({ingredient, alternative}) => (
+  <IngredientText
+   onMouseEnter={() => ingredient.setHover('definition')}
+   onMouseLeave={() => ingredient.setHover(false)}
 
-  return (
-    <IngredientText
-     onMouseEnter={() => ingredient.setHover('definition')}
-     onMouseLeave={() => ingredient.setHover(false)}
-
-     ingredient={ingredient}
-     alternative={alternative}
-     name={true}
-     interactive={true}
-     highlightOnHover={'link'}
-    />
-  )
-}
+   ingredient={ingredient}
+   alternative={alternative}
+   name={true}
+   interactive={true}
+   highlightOnHover={'link'}
+  />
+)
 
 export const createIngredientDefinition = recipe => ({id, alternative, ...props}) => {
   const ingredient = recipe.getIngredient(id) || recipe.addIngredient({id, ...props})

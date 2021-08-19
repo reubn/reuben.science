@@ -75,7 +75,6 @@ class Quantity {
 
   formatted({displayedWithName=false}={}){
     const key = displayedWithName ? '_formattedDisplayedWithName' : '_formattedDisplayedWithoutName'
-    if(this[key]) console.log(this[key])
     if(this[key]) return this[key]
 
     const fractions = Object.entries({

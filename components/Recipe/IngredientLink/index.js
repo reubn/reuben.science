@@ -4,27 +4,23 @@ import IngredientText from '../IngredientText'
 
 import {link, quantity, hover} from './styles'
 
-export const IngredientLink = ({ingredient, children}) => {
-  // console.log('RENDER LINK', ingredient.name)
+export const IngredientLink = ({ingredient, children}) => (
+  <span
+   className={[link, (ingredient.hover === 'definition') && hover].filter(cn => cn).join(' ')}
+   style={{'--ingredient-accent': `var(--colours-${ingredient.colour})`}}
+   onMouseEnter={() => ingredient.setHover('link')}
+   onMouseLeave={() => ingredient.setHover(false)}
+   >
+    <IngredientText
+     ingredient={ingredient}
+     name={false}
+     interactive={true}
 
-  return (
-    <span
-     className={[link, (ingredient.hover === 'definition') && hover].filter(cn => cn).join(' ')}
-     style={{'--ingredient-accent': `var(--colours-${ingredient.colour})`}}
-     onMouseEnter={() => ingredient.setHover('link')}
-     onMouseLeave={() => ingredient.setHover(false)}
-     >
-      <IngredientText
-       ingredient={ingredient}
-       name={false}
-       interactive={true}
-
-       className={quantity}
-      />
-      {children || ingredient.name.toLowerCase()}
-    </span>
-  )
-}
+     className={quantity}
+    />
+    {children || ingredient.name.toLowerCase()}
+  </span>
+)
 
 export const createIngredientLink = recipe => ({id, scale: localScale=1, ...props}) => {
   const ingredient = recipe.getIngredient(id)

@@ -183,8 +183,6 @@ export const createServingsControl = recipe => ({servings: servingsAsWritten, ..
   const servingsChanged = state => {
     const {string, number} = state
 
-    console.log('servingsChanged', state)
-
     if(number <= 0) return
 
     const newScale = number / servingsAsWritten
@@ -194,8 +192,6 @@ export const createServingsControl = recipe => ({servings: servingsAsWritten, ..
 
   const scaleChanged = state => {
     const {string, number} = state
-
-    console.log('scaleChanged', state)
 
     if(recipe.scale === number || string.endsWith('.x') || !string.endsWith('x') || number <= 0 || isNaN(number)) return
 

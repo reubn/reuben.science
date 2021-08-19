@@ -107,8 +107,6 @@ class Unit {
 
       configResults = (configReturnResults || configPassIn).map(Unit.from)
       configResults.push(this)
-
-      console.log('using config results', configResults.map(f => f.label))
     }
 
     return (configResults ?? this.compatibleUnits).sort((a, b) => a.label.localeCompare(b.label))

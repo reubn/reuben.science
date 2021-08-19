@@ -37,7 +37,7 @@ const Memoji = ({frameTimeout=5*1000, frameCount, getFrameURL, defaultFrameNumbe
       if(!loaded) {
         loadingFrames.forEach((frame, frameNumber) => (frameNumber !== defaultFrameNumber) && frame.removeAttribute('src'))
         rej()
-      } // else console.log('timeout called but already finished')
+      }
     }, frameTimeout))
 
     const loadedFrames = Promise.all(loadingFrames.map(async (frame, frameNumber) => memojiFrames[frameNumber] = await createFrame(frame)))
@@ -122,10 +122,6 @@ const Memoji = ({frameTimeout=5*1000, frameCount, getFrameURL, defaultFrameNumbe
       my: vy + (vh / 2)
     }
   }
-
-  // useEffect(() => {
-  //   console.log({defaultFrameReady, ready, framesStartedToLoad})
-  // }, [defaultFrameReady, ready, framesStartedToLoad])
 
   useEffect(() => {
     if(!framesStartedToLoad) loadFrames()

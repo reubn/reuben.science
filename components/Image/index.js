@@ -20,7 +20,6 @@ const Image = ({image={}, className, lazy=true, alt, ...props}) => {
   const imageInCache = imageCacheList.has(src)
 
   const onLoad = img => {
-    console.log(alt, img.complete ? 'complete' : 'incomplete')
     imageCacheList.add(src)
     setLoaded(true)
   }
@@ -91,9 +90,7 @@ const createBackingImage = props => {
 
   const {alt, image, onLoad, onError} = props
   const {src='', srcSet='', size: {width, height}={}} = image
-
-  console.log(alt, 'creating')
-
+  
   const img = document.createElement('img')
   img.width = width
   img.height = height
@@ -101,8 +98,6 @@ const createBackingImage = props => {
   img.props = props
 
   img.go = () => {
-    console.log(alt, 'loading')
-
     img.going = true
 
     img.src = src
