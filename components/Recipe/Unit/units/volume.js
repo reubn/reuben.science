@@ -31,7 +31,7 @@ export default {
 
       const tspValue = value / 5
       const tspRemainder = tspValue % 1
-      const tspWouldBeBetter = tspValue <= 10 && tspRemainder <= 0.0000001 || Math.abs(tspRemainder - 0.5) <= 0.0000001
+      const tspWouldBeBetter = tspValue <= 10 && (tspRemainder <= 0.0000001 || Math.abs(tspRemainder - 0.5) <= 0.0000001)
 
       if(tspWouldBeBetter) return 'tsp'
 
