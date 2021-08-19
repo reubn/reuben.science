@@ -62,9 +62,9 @@ class Quantity {
 
     if(unit === this.unit) return this
 
-    const transformation = this.unit.transformationTo(unit)
+    const conversionFn = this.unit.conversionFnTo(unit)
 
-    const value = transformation(this.value)
+    const value = conversionFn(this.value)
 
     return new Quantity({...this.config, value, unit})
   }
