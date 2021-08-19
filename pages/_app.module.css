@@ -36,3 +36,20 @@
     min-height: calc(100vh - var(--header-height));
   }
 }
+
+@media print {
+  .app {
+    overflow-y: visible;
+    overflow-x: visible;
+
+    color: inherit!important;
+    background: transparent!important;
+  }
+
+ .app > *:not(.content) {display: none}
+
+ .content * {
+   color: inherit!important;
+   background: transparent!important;
+ }
+}

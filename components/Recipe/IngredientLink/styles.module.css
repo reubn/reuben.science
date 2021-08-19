@@ -11,6 +11,12 @@
   transition: text-decoration-color 0.2s ease-in;
 }
 
+@media print {
+  .link {
+    text-decoration: none;
+  }
+}
+
 .link .quantity {
   --offset: 10px;
   position: absolute;

@@ -44,6 +44,12 @@
   text-align: center;
 }
 
+@media print {
+  .categories, .headerImage {
+    display: none;
+  }
+}
+
 .info {
   display: inline-block;
   font-weight: 500;

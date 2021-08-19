@@ -9,6 +9,13 @@ body {
   background-color: var(--colours-dark);
 }
 
+@media print {
+  html, body {
+    background-color: #fff;
+    color: #000;
+  }
+}
+
 a {
   color: inherit;
   text-decoration: none;
