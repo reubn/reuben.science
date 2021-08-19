@@ -10,6 +10,7 @@ export const units = Unit => ({
   ...distance,
   abs: {
     name: 'abs',
+    type: 'abs',
     format: ({formattedNumber, displayedWithName}) => [['value', formattedNumber]],
     isBase: true,
     isComfortable: value => true
