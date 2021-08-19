@@ -8,11 +8,8 @@ export const createInlineQuantity = recipe => ({quantity: quantityConfig, scaleF
 
   const quantityText = useMemo(
     () => {
-      const scaleFn = doNotScale
-        ? value => value
-        : suppliedScaleFn?.bind(null, recipe) || recipe.scaleFn
-
-      const scaledQuantity = quantity.transform(scaleFn)
+      const scaleFn = suppliedScaleFn?.bind(null, recipe) || recipe.scaleFn
+      const scaledQuantity = doNotScale ? quantity : quantity.transform(scaleFn)
 
       return (
         <QuantityText quantity={scaledQuantity} displayedWithName={false} {...props} />
