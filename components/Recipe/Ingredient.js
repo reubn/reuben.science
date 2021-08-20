@@ -3,14 +3,7 @@ import Unit from './Unit'
 
 class Ingredient {
   constructor(recipe, config){
-    if(Array.isArray(config)) this.config = {
-      id: config[0],
-      name: config[1],
-      quantity: config[2],
-      scaleFn: config[3]
-    }
-    else this.config = config
-
+    this.config = config
     this.recipe = recipe
     this.displayUnit = this.quantity.unit
   }
