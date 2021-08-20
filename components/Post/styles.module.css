@@ -65,7 +65,11 @@
   margin-bottom: 2rem;
 }
 
-.body h2:not(:first-child) {
+.body > *:first-child {
+  margin-top: 0!important;
+}
+
+.body h2 {
   margin-top: 4rem;
 }
 
@@ -281,6 +285,10 @@
   vertical-align: middle;
 
   overflow-x: auto;
+}
+
+.body > blockquote:first-child {
+  margin-bottom: 2rem;
 }
 
 @media (max-width: 650px) {
