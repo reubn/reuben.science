@@ -5,7 +5,8 @@ class Ingredient {
   constructor(recipe, config){
     this.config = config
     this.recipe = recipe
-    this.displayUnit = this.quantity.unit
+
+    if(this.hasQuantity) this.displayUnit = this.quantity.unit
   }
 
   get id(){
@@ -24,22 +25,34 @@ class Ingredient {
     return this.config.comment
   }
 
+  get hasQuantity(){
+    return !!this.config.quantity
+  }
+
   get quantity(){
+    if(!this.hasQuantity) return undefined
+
     return Quantity.from(this.config.quantity)
   }
 
   setDisplayUnit(unit){
+    if(!this.hasQuantity) return
+
     this.displayUnit = unit
     this.recipe.ingredientUpdated()
   }
 
   get displayQuantity(){
+    if(!this.hasQuantity) return undefined
+
     const scaleFn = this.config.scaleFn?.bind(null, this.recipe) || this.recipe.scaleFn
 
     return this.quantity.transform(scaleFn).convert(this.displayUnit)
   }
 
   withScale(scale){
+    if(!this.hasQuantity) return this
+
     const scaledIngredient = new Ingredient(this.recipe, {
       ...this.config,
       quantity: this.quantity.transform(v => scale * v)
@@ -56,6 +69,8 @@ class Ingredient {
   }
 
   recipeUpdated(){
+    if(!this.hasQuantity) return
+
     const betterUnit = this.displayQuantity.betterUnitChoice
 
     if(betterUnit) this.setDisplayUnit(betterUnit)

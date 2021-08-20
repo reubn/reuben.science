@@ -11,13 +11,17 @@ export const IngredientLink = ({ingredient, children}) => (
    onMouseEnter={() => ingredient.setHover('link')}
    onMouseLeave={() => ingredient.setHover(false)}
    >
-    <IngredientText
-     ingredient={ingredient}
-     name={false}
-     interactive={true}
+    {
+      ingredient.hasQuantity && (
+        <IngredientText
+         ingredient={ingredient}
+         name={false}
+         interactive={true}
 
-     className={quantity}
-    />
+         className={quantity}
+        />
+      )
+    }
     {children || ingredient.name.toLowerCase()}
   </span>
 )

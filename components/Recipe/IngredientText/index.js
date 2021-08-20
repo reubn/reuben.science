@@ -12,7 +12,7 @@ export const IngredientText = ({ingredient, alternative=false, name=true, intera
   const displayQuantity = ingredient.displayQuantity
   const isHovered = ingredient.hover === highlightOnHover
 
-  const rotationUnits = interactive && displayQuantity.sensibleUnits
+  const rotationUnits = interactive && displayQuantity?.sensibleUnits
   const isInteractive = rotationUnits && rotationUnits.length > 1
 
   const onClick = isInteractive && (() => {
@@ -35,7 +35,7 @@ export const IngredientText = ({ingredient, alternative=false, name=true, intera
       {...props}
       >
         {alternative && <span className={conjunction}>or </span>}
-        <QuantityText quantity={displayQuantity} isInteractive={isInteractive} isHovered={isHovered} displayedWithName={name} onClick={onClick} />
+        {displayQuantity && <QuantityText quantity={displayQuantity} isInteractive={isInteractive} isHovered={isHovered} displayedWithName={name} onClick={onClick} />}
         {nameComment}
       </span>
   )
