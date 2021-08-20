@@ -274,13 +274,13 @@
 }
 
 .body blockquote, .body .key {
-    background: linear-gradient(135deg, var(--colours-dark-2) 0%, var(--colours-dark-1) 100%);
-    padding: 1rem 2rem;
-    margin: 4rem auto;
-    border-radius: 4px;
-    vertical-align: middle;
+  background: linear-gradient(135deg, var(--colours-dark-2) 0%, var(--colours-dark-1) 100%);
+  padding: 1rem 2rem;
+  margin: 4rem auto;
+  border-radius: 4px;
+  vertical-align: middle;
 
-    overflow-x: auto;
+  overflow-x: auto;
 }
 
 @media (max-width: 650px) {
