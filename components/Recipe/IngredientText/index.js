@@ -35,7 +35,7 @@ export const IngredientText = ({ingredient, alternative=false, name=true, intera
       {...props}
       >
         {alternative && <span className={conjunction}>or </span>}
-        {displayQuantity && <QuantityText quantity={displayQuantity} isInteractive={isInteractive} isHovered={isHovered} displayedWithName={name} onClick={onClick} />}
+        {displayQuantity && <QuantityText quantity={displayQuantity} isInteractive={isInteractive} isHovered={isHovered} displayedWithName={name} onClick={onClick || undefined} />}
         {nameComment}
       </span>
   )
