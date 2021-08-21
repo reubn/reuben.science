@@ -112,7 +112,7 @@ class Unit {
     return (configResults ?? this.compatibleUnits).sort((a, b) => a.label.localeCompare(b.label))
   }
 
-  comfortableWith(value){
+  comfortableWith(value){ // TODO: this should recur. What if suggested value isn't comfortable?
     const configResult = this.config.isComfortable?.(value)
 
     if(configResult === undefined || typeof configResult === 'boolean') return {
