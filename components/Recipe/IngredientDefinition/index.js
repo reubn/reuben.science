@@ -15,7 +15,7 @@ export const IngredientDefinition = ({ingredient, alternative}) => (
   />
 )
 
-export const createIngredientDefinition = recipe => ({id, alternative, ...props}) => {
+export const createIngredientDefinition = recipe => ({id, alternative=false, display=true, ...props}) => {
   const ingredient = recipe.getIngredient(id) || recipe.addIngredient({id, ...props})
 
   const [_, setDummy] = useState()
@@ -26,6 +26,8 @@ export const createIngredientDefinition = recipe => ({id, alternative, ...props}
     recipe.addListener(forceUpdate)
     return () => recipe.removeListener(forceUpdate)
   }, [])
+
+  if(!display) return null
 
   return useMemo(() => (
     <IngredientDefinition ingredient={ingredient} alternative={alternative} />
