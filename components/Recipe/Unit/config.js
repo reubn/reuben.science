@@ -2,12 +2,14 @@ import time from './units/time'
 import mass from './units/mass'
 import volume from './units/volume'
 import distance from './units/distance'
+import temperature from './units/temperature'
 
 export const units = Unit => ({
   ...time,
   ...mass,
   ...volume,
   ...distance,
+  ...temperature,
   abs: {
     name: 'abs',
     type: 'abs',
