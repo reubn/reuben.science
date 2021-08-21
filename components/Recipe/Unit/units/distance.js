@@ -1,13 +1,13 @@
 export default {
   m: {
-    name: 'meter',
+    name: 'metre',
     colour: 'pink',
     type: 'distance',
     suffix: true,
     isBase: true
   },
   cm: {
-    name: 'centimeter',
+    name: 'centimetre',
     colour: 'red',
     suffix: true,
     parent: 'm',
@@ -15,7 +15,7 @@ export default {
     fromParent: m => m * 100
   },
   mm: {
-    name: 'miliimeter',
+    name: 'millimetre',
     colour: 'blue',
     suffix: true,
     parent: 'm',
