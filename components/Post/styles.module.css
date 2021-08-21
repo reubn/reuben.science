@@ -310,9 +310,9 @@
 }
 
 .body hr {
-    border: 2px solid var(--colours-dark-2);
-    border-radius: 2px;
-    margin: 2rem;
+  border: 2px solid var(--colours-dark-2);
+  border-radius: 2px;
+  margin: 2rem;
 }
 
 
