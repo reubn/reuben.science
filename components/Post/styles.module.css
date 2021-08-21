@@ -114,19 +114,19 @@
   white-space: nowrap;
 
   text-decoration: underline;
-  text-decoration-color: var(--colours-pink);
+  text-decoration-color: var(--colours-accent-antithesis);;
   text-underline-offset: 2px;
   text-decoration-thickness: 3px;
 }
 
 .body strong > em::selection {
-  color: var(--colours-pink);
+  color: var(--colours-accent-antithesis);;
   background: var(--colours-light);
 }
 
 .body del {
   text-decoration-thickness: 3px;
-  text-decoration-color: var(--colours-pink);
+  text-decoration-color: var(--colours-accent-antithesis);;
 }
 
 .body li {
@@ -425,7 +425,7 @@
 
 .body sup[id^=fnref-]:target a {
   color: var(--colours-light);
-  background: var(--colours-pink);
+  background: var(--colours-accent-antithesis);;
   padding: 0px 2px 0px 1px;
   border-radius: 2px;
 }
