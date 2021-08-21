@@ -40,6 +40,7 @@
   --colours-dark-7: hsl(205, 12%, 40%);
 
   --colours-dark-shadow: hsla(205, 30%, 5%, 0.5);
+  --colours-dark-shadow-1: hsla(205, 30%, 10%, 0.3);
 
   --colours-mid: hsl(205, 10%, 80%);
   --colours-mid-1: hsl(205, 7%, 70%);
