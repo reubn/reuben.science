@@ -27,9 +27,7 @@ export const IngredientLink = ({ingredient, quantityOnly=false, inlineQuantity=q
   </span>
 )
 
-export const createIngredientLink = recipe => ({id, scale: localScale=1, ...props}) => {
-  const ingredient = recipe.getIngredient(id)
-
+export const createIngredientLink = recipe => ({id, ingredient=recipe.getIngredient(id), doNotSubscribe, scale: localScale=1, ...props}) => {
   if(!ingredient) throw `Ingredient ${id} not defined`
 
   const locallyScaledIngredient = useMemo(
@@ -40,6 +38,8 @@ export const createIngredientLink = recipe => ({id, scale: localScale=1, ...prop
   const [_, setDummy] = useState()
 
   useEffect(() => {
+    if(doNotSubscribe) return
+
     const forceUpdate = () => setDummy({})
 
     recipe.addListener(forceUpdate)
