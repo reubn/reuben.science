@@ -19,7 +19,7 @@ export const units = Unit => ({
   },
   raw: {
     name: 'raw',
-    type: 'raw', 
+    type: 'raw',
     format: ({value}) => [['unit', value]],
     isBase: true,
     isComfortable: value => true
