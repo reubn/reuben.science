@@ -106,10 +106,6 @@
 
 .body *:not(strong) > em {
   font-weight: 400;
-  /* font-style: normal; */
-  transform: translateY(-1px) skew(-10deg, 0deg);
-  display: inline-block;
-  vertical-align: middle;
 }
 
 .body strong > em {
