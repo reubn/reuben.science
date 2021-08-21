@@ -2,7 +2,7 @@ import {useEffect, useState, useMemo} from 'react'
 
 import IngredientText from '../IngredientText'
 
-import {link, quantity, hover} from './styles'
+import {link, quantity, hover, mousetrap} from './styles'
 
 export const IngredientLink = ({ingredient, children}) => (
   <span
@@ -11,6 +11,7 @@ export const IngredientLink = ({ingredient, children}) => (
    onMouseEnter={() => ingredient.setHover('link')}
    onMouseLeave={() => ingredient.setHover(false)}
    >
+    <span className={mousetrap} />
     {
       ingredient.hasQuantity && (
         <IngredientText
