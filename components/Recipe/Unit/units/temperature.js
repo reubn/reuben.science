@@ -5,8 +5,7 @@ export default {
     type: 'temperature',
     suffix: true,
     isBase: true,
-    isComfortable: value => true,
-    sensibleUnits: value => ['c', 'f']
+    isComfortable: value => true
   },
   c: {
     name: 'celcius',
@@ -15,8 +14,7 @@ export default {
     parent: 'K',
     toParent: c => c + 273.15,
     fromParent: k => k - 273.15,
-    isComfortable: value => true,
-    sensibleUnits: value => ['f', 'K']
+    isComfortable: value => true
   },
   f: {
     name: 'fahrenheit',
@@ -25,7 +23,6 @@ export default {
     parent: 'c',
     toParent: f => (f - 32) * (5 / 9),
     fromParent: c => (c * (9 / 5)) + 32,
-    isComfortable: value => true,
-    sensibleUnits: value => ['c', 'K']
+    isComfortable: value => true
   }
 }
