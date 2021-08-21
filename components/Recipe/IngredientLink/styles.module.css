@@ -15,6 +15,10 @@
   transition: text-decoration-color 0.2s ease-in;
 }
 
+blockquote .link {
+  text-decoration-color: var(--colours-dark-3);
+}
+
 @media print {
   .link {
     text-decoration: none;
