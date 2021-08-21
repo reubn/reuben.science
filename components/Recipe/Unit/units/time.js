@@ -16,14 +16,14 @@ const timeUnits = {
 
 const {d, h, m, s, ms} = timeUnits
 
-const baseSymbol = Symbol()
+const equivalencySymbol = Symbol()
 
 const base = (timeUnits, config) => ({
   ...config,
   colour: 'pink',
   type: 'time',
   isBase: true,
-  base: baseSymbol,
+  equivalencySymbol,
   format: ({value: seconds}) => Object.entries(timeUnits).reduce(({seconds, components}, [key, {value, padding, floor=true}]) => {
     if(!seconds) return {seconds, components}
 

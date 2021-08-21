@@ -87,7 +87,7 @@ class Unit {
   conversionFnTo(unitOrString){
     const unit = Unit.from(unitOrString)
 
-    if(unit.base !== this.base) throw `Cannot Convert ${this.label} to Incombatible Unit ${unit.label}`
+    if(unit.base !== this.base && unit.equivalencySymbol !== this.equivalencySymbol) throw `Cannot Convert ${this.label} to Incombatible Unit ${unit.label}`
 
     return number => unit.fromBase(this.toBase(number))
   }
