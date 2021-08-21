@@ -2,16 +2,16 @@ import {useEffect, useState, useMemo} from 'react'
 
 import IngredientText from '../IngredientText'
 
-import {link, quantity, hover, mousetrap} from './styles'
+import {link, label, quantity, hover, mousetrap} from './styles'
 
-export const IngredientLink = ({ingredient, children}) => (
+export const IngredientLink = ({ingredient, quantityOnly=false, inlineQuantity=false, children}) => (
   <span
    className={[link, (ingredient.hover === 'definition') && hover].filter(cn => cn).join(' ')}
    style={{'--ingredient-accent': `var(--colours-${ingredient.colour})`}}
    onMouseEnter={() => ingredient.setHover('link')}
    onMouseLeave={() => ingredient.setHover(false)}
    >
-    <span className={mousetrap} />
+    {!inlineQuantity && <span className={mousetrap} />}
     {
       ingredient.hasQuantity && (
         <IngredientText
@@ -19,11 +19,11 @@ export const IngredientLink = ({ingredient, children}) => (
          name={false}
          interactive={true}
 
-         className={quantity}
+         className={!inlineQuantity && quantity}
         />
       )
     }
-    {children || ingredient.name.toLowerCase()}
+    {!quantityOnly && <span className={label}>{inlineQuantity ? ' ' : ''}{children || ingredient.name.toLowerCase()}</span>}
   </span>
 )
 
