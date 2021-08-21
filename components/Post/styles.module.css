@@ -147,16 +147,28 @@
   list-style-image: url("data:image/svg+xml;charset=utf-8,%3Csvg%20width=%229%22%20height=%229%22%20xmlns=%22http://www.w3.org/2000/svg%22%3E%3Ccircle%20fill=%22hsla(205,%2015%25,%2020%25,%201)%22%20cx=%224.5%22%20cy=%224.5%22%20r=%224.5%22/%3E%3C/svg%3E");
 }
 
+.body blockquote ul > li {
+  list-style-image: url("data:image/svg+xml;charset=utf-8,%3Csvg%20width=%229%22%20height=%229%22%20xmlns=%22http://www.w3.org/2000/svg%22%3E%3Ccircle%20fill=%22hsla(205,%2014%25,%2030%25,%201)%22%20cx=%224.5%22%20cy=%224.5%22%20r=%224.5%22/%3E%3C/svg%3E");
+}
+
 .body ol li:not([data-marker])::marker  {
   content: initial ". ";
   font-weight: 500;
   color: var(--colours-dark-4);
 }
 
+.body blockquote ol li:not([data-marker])::marker {
+  color: var(--colours-dark-5);
+}
+
 .body li[data-marker]::marker {
   content: attr(data-marker) " ";
   font-weight: 500;
   color: var(--colours-dark-4);
+}
+
+.body blockquote li[data-marker]::marker {
+  color: var(--colours-dark-5);
 }
 
 .body pre {
