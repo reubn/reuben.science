@@ -50,7 +50,7 @@ class Ingredient {
     return this.quantity.transform(scaleFn).convert(this.displayUnit)
   }
 
-  withScale(scale){
+  withScale(scale){ // TODO: would be better to store the scale as display property - then we can supply custom scaleFn
     if(!this.hasQuantity) return this
 
     const scaledIngredient = new Ingredient(this.recipe, {

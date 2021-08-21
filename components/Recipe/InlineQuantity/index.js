@@ -1,33 +1,41 @@
-import {useEffect, useState, useMemo} from 'react'
+import {useEffect, useState, useMemo, useRef} from 'react'
 
-import Quantity from '../Quantity'
-import QuantityText from '../QuantityText'
+import {createIngredientLink} from '../IngredientLink'
 
-export const createInlineQuantity = recipe => ({quantity: quantityConfig, scaleFn: suppliedScaleFn, doNotScale=false, ...props}) => {
-  const quantity = useMemo(() => Quantity.from(quantityConfig), [quantityConfig])
+export const InlineQuantity = ({IngredientLink, ingredient, ...props}) => {
+  return (
+    <IngredientLink
+     ingredient={ingredient}
+     quantityOnly
+     wrapped
 
-  const quantityText = useMemo(
-    () => {
-      const scaleFn = suppliedScaleFn?.bind(null, recipe) || recipe.scaleFn
-      const scaledQuantity = doNotScale ? quantity : quantity.transform(scaleFn)
-
-      return (
-        <QuantityText quantity={scaledQuantity} displayedWithName={false} {...props} />
-      )
-    },
-    [quantity, suppliedScaleFn, doNotScale, recipe.scale]
+     {...props}
+    />
   )
+}
 
-  const [_, setDummy] = useState()
+export const createInlineQuantity = recipe => {
+  const IngredientLink = createIngredientLink(recipe)
 
-  useEffect(() => {
-    const forceUpdate = () => setDummy({})
+  return ({id: _id=Math.random()+'', display=true, ...props}) => {
+    const {current: id} = useRef(_id)
+    const ingredient = recipe.getIngredient(id) || recipe.addIngredient({id, ...props})
 
-    recipe.addListener(forceUpdate)
-    return () => recipe.removeListener(forceUpdate)
-  }, [])
+    const [_, setDummy] = useState()
 
-  return quantityText
+    useEffect(() => {
+      const forceUpdate = () => setDummy({})
+
+      recipe.addListener(forceUpdate)
+      return () => recipe.removeListener(forceUpdate)
+    }, [])
+
+    if(!display) return null
+
+    return useMemo(() => (
+      <InlineQuantity IngredientLink={IngredientLink} ingredient={ingredient} {...props} />
+    ), [ingredient, ingredient.displayUnit, recipe.scale])
+  }
 }
 
 export default createInlineQuantity
