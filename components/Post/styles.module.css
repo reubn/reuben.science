@@ -111,7 +111,6 @@
 .body strong > em {
   font-style: normal;
   font-weight: 500;
-  white-space: nowrap;
 
   text-decoration: underline;
   text-decoration-color: var(--colours-accent-antithesis);;
