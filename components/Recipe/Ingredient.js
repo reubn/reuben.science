@@ -45,9 +45,7 @@ class Ingredient {
   get displayQuantity(){
     if(!this.hasQuantity) return undefined
 
-    if(this.config.doNotScale) return this.quantity.convert(this.displayUnit)
-
-    const scaleFn = this.config.scaleFn?.bind(null, this.recipe) || this.recipe.scaleFn
+    const scaleFn = !this.config.doNotScale && (this.config.scaleFn?.bind(null, this.recipe) ?? this.recipe.scaleFn)
 
     return this.quantity.transform(scaleFn).convert(this.displayUnit)
   }

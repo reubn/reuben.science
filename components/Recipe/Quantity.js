@@ -70,6 +70,8 @@ class Quantity {
   }
 
   transform(fn){
+    if(!fn) return this
+    
     return new Quantity({...this.config, value: fn(this.value)})
   }
 
