@@ -22,6 +22,8 @@ export const IngredientText = ({ingredient, alternative=false, name=true, intera
     ingredient.setDisplayUnit(rotationUnits[nextIndex])
   })
 
+  const onMouseDown = event => (event.detail >= 2) && event.preventDefault()
+
   const nameComment = name && (
     <span style={{'--ingredient-accent': `var(--colours-${ingredient.colour})`}}>
       <span className={nameStyle}>{ingredient.name}</span>
@@ -35,7 +37,7 @@ export const IngredientText = ({ingredient, alternative=false, name=true, intera
       {...props}
       >
         {alternative && <span className={conjunction}>or </span>}
-        {displayQuantity && <QuantityText quantity={displayQuantity} isInteractive={isInteractive} isHovered={isHovered} displayedWithName={name} onClick={onClick || undefined} />}
+        {displayQuantity && <QuantityText quantity={displayQuantity} isInteractive={isInteractive} isHovered={isHovered} displayedWithName={name} onClick={onClick || undefined} onMouseDown={onMouseDown} />}
         {nameComment}
       </span>
   )
