@@ -53,8 +53,8 @@ const base = (timeUnits, config) => ({
 })
 
 export default {
-  dhmsms: base({d, h, m, s, ms}, {name: 'days, hours, minutes, seconds, and milliseconds', colour: 'pink', alias: 'time'}),
-   hmsms: base({h, m, s, ms}, {name: 'hours, minutes, seconds, and milliseconds', colour: 'aqua', isComfortable: seconds => seconds <= day * 5}),
+  dhmsms: base({d, h, m, s, ms}, {name: 'days, hours, minutes, seconds, and milliseconds', colour: 'aqua', alias: 'time'}),
+   hmsms: base({h, m, s, ms}, {name: 'hours, minutes, seconds, and milliseconds', colour: 'blue', isComfortable: seconds => seconds <= day * 5}),
     msms: base({m, s, ms}, {name: 'minutes, seconds, and milliseconds', colour: 'purple', isComfortable: seconds => seconds <= hour * 12}),
      sms: base({s, ms}, {name: 'seconds, and milliseconds', colour: 'indigo', isComfortable: seconds => seconds <= hour * 2}),
       ms: base({ms}, {name: 'milliseconds', colour: 'pink-red', isComfortable: seconds => seconds <= 10})
