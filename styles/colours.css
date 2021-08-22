@@ -11,8 +11,8 @@
   --colours-green: hsl(140, 95%, 61%);
   --colours-green-hint: hsl(144, 95%, 61%);
 
-  /* TODO --colours-aqua: hsl(165, 80%, 64%); */
-  /* TODO --colours-aqua-hint: hsl(162, 80%, 60%); */
+  --colours-aqua: hsl(165, 80%, 64%);
+  --colours-aqua-hint: hsl(162, 80%, 60%);
 
   --colours-blue: hsl(196, 100%, 65%);
   --colours-blue-hint: hsl(180, 90%, 48%);

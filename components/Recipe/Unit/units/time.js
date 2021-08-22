@@ -20,7 +20,6 @@ const equivalencySymbol = Symbol()
 
 const base = (timeUnits, config) => ({
   ...config,
-  colour: 'pink',
   type: 'time',
   isBase: true,
   equivalencySymbol,
@@ -45,10 +44,13 @@ const base = (timeUnits, config) => ({
 })
 
 export default {
-  time: base({d, h, m, s, ms}, {name: 'time'}),
-  dhms: base({d, h, m, s}, {name: 'dhms'}),
-  dhm: base({d, h, m}, {name: 'dhm'}),
-  dh: base({d, h}, {name: 'dh'}),
+  time: base({d, h, m, s, ms}, {name: 'time', colour: 'pink'}),
 
-  hms: base({h, m, s}, {name: 'hms'}),
+  // dhms: base({d, h, m, s}, {name: 'dhms', colour: 'yellow'}),
+  // dhm: base({d, h, m}, {name: 'dhm', colour: 'green'}),
+  // dh: base({d, h}, {name: 'dh', colour: 'blue'}),
+
+  hms: base({h, m, s}, {name: 'hms', colour: 'aqua'}),
+  mS: base({m, s}, {name: 'mS', colour: 'purple'}),
+  s: base({s}, {name: 's', colour: 'indigo'})
 }
