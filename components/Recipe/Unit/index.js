@@ -5,6 +5,10 @@ class Unit {
     this.config = config
   }
 
+  get alias(){
+    return this.config.alias
+  }
+
   get name(){
     return this.config.name
   }
@@ -130,7 +134,7 @@ class Unit {
   static units = Object.fromEntries(Unit.unitsArray)
   static from = unknown => {
     if(unknown instanceof Unit) return unknown
-    if(typeof unknown === 'string') return Unit.units[unknown]
+    if(typeof unknown === 'string') return Unit.units[unknown] || Unit.unitsArray.find(([label, unit]) => unit.alias === unknown || unit.alias.includes?.(unknown))?.[1]
     if(typeof unknown === 'undefined') return Unit.units.abs
   }
 
