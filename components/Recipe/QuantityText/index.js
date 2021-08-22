@@ -11,7 +11,7 @@ export const QuantityText = ({quantity, isInteractive, isHovered, displayedWithN
   const components = quantity.formatted({displayedWithName: displayedWithName})
   const unit = quantity.unit
   
-  const elements = components.map(([type, content, noUnitSpacing, alt]) => ({
+  const elements = components.map(([type, content, noUnitSpacing, alt=unit.name]) => ({
      value: () => <span key={content} className={valueStyle}>{content}</span>,
      unit: () => <span key={content} className={`${unitStyle} ${noUnitSpacing ? noUnitSpacingStyle : ''}`} title={alt}>{content}</span>,
      raw: () => content
