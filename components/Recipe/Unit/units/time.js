@@ -40,17 +40,22 @@ const base = (timeUnits, config) => ({
     }
   }, {seconds, components: []}).components,
   parse: def => Object.entries(def).reduce((total, [key, quantity]) => total + (quantity * (timeUnits[key]?.value || 0)), 0),
-  isComfortable: seconds => Object.entries(timeUnits).some(([key, {value, floor=true}]) => floor ? Math.floor(seconds / value) : seconds / value)
+  isComfortable: seconds => {
+    const specific = config.isComfortable?.(seconds)
+
+    if(specific !== undefined && specific !== true) return specific
+
+    const [key, {value, floor=true}] = Object.entries(timeUnits)[0]
+    const quantity = floor ? Math.floor(seconds / value) : seconds / value
+
+    return !!quantity
+  }
 })
 
 export default {
-  time: base({d, h, m, s, ms}, {name: 'time', colour: 'pink'}),
-
-  // dhms: base({d, h, m, s}, {name: 'dhms', colour: 'yellow'}),
-  // dhm: base({d, h, m}, {name: 'dhm', colour: 'green'}),
-  // dh: base({d, h}, {name: 'dh', colour: 'blue'}),
-
-  hms: base({h, m, s}, {name: 'hms', colour: 'aqua'}),
-  mS: base({m, s}, {name: 'mS', colour: 'purple'}),
-  s: base({s}, {name: 's', colour: 'indigo'})
+  dhmsms: base({d, h, m, s, ms}, {name: 'days, hours, minutes, seconds, and milliseconds', colour: 'pink', alias: 'time'}),
+   hmsms: base({h, m, s, ms}, {name: 'hours, minutes, seconds, and milliseconds', colour: 'aqua', isComfortable: seconds => seconds <= day * 5}),
+    msms: base({m, s, ms}, {name: 'minutes, seconds, and milliseconds', colour: 'purple', isComfortable: seconds => seconds <= hour * 12}),
+     sms: base({s, ms}, {name: 'seconds, and milliseconds', colour: 'indigo', isComfortable: seconds => seconds <= hour * 2}),
+      ms: base({ms}, {name: 'milliseconds', colour: 'pink-red', isComfortable: seconds => seconds <= 10})
 }
