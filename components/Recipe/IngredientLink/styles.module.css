@@ -76,6 +76,9 @@ blockquote .link .quantity {
   top: calc((-1 * var(--height)) - var(--offset));
   width: calc(100% + (var(--padding) * 2));
   max-width: unset!important;
-  height: calc(var(--height) + var(--offset));
   left: calc(-1 * var(--padding));
+}
+
+.link:hover .mousetrap {
+  height: calc(var(--height) + var(--offset));
 }
