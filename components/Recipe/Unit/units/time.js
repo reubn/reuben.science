@@ -41,7 +41,7 @@ const base = (timeUnits, config) => ({
     }
   }, {seconds, components: []}).components,
   parse: def => Object.entries(def).reduce((total, [key, quantity]) => total + (quantity * (timeUnits[key]?.value || 0)), 0),
-  isComfortable: seconds => true
+  isComfortable: seconds => Object.entries(timeUnits).some(([key, {value, floor=true}]) => floor ? Math.floor(seconds / value) : seconds / value)
 })
 
 export default {
