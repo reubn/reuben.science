@@ -113,7 +113,7 @@ class Unit {
       configResults.push(this)
     }
 
-    return (configResults ?? this.compatibleUnits.filter(unit => unit.comfortableWith(this.conversionFnTo(unit)(value)).comfortable)).sort((a, b) => a.label.localeCompare(b.label))
+    return (configResults ?? this.compatibleUnits.filter(unit => unit.comfortableWith(this.conversionFnTo(unit)(value)).comfortable)).sort((a, b) => a.toBase(1) < b.toBase(1))
   }
 
   comfortableWith(value){ // TODO: this should recur. What if suggested value isn't comfortable?
