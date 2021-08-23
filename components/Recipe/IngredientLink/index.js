@@ -6,7 +6,7 @@ import {link, label, quantity, hover, mousetrap} from './styles'
 
 export const IngredientLink = ({ingredient, quantityOnly=false, inlineQuantity=quantityOnly, children}) => (
   <span
-   className={[link, (ingredient.hover === 'definition') && hover].filter(cn => cn).join(' ')}
+   className={[link, ingredient.hover && hover].filter(cn => cn).join(' ')}
    style={{'--ingredient-accent': `var(--colours-${ingredient.colour})`}}
    onMouseEnter={() => ingredient.setHover('link')}
    onMouseLeave={() => ingredient.setHover(false)}
