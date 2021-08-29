@@ -53,9 +53,9 @@ const base = (timeUnits, config) => ({
 })
 
 export default {
-  dhmsms: base({d, h, m, s, ms}, {name: 'days, hours, minutes, seconds, and milliseconds', colour: 'aqua', alias: 'time'}),
-   hmsms: base({h, m, s, ms}, {name: 'hours, minutes, seconds, and milliseconds', colour: 'blue', isComfortable: seconds => seconds <= day * 5}),
-    msms: base({m, s, ms}, {name: 'minutes, seconds, and milliseconds', colour: 'purple', isComfortable: seconds => seconds <= hour * 12}),
-     sms: base({s, ms}, {name: 'seconds, and milliseconds', colour: 'indigo', isComfortable: seconds => seconds <= hour * 2}),
-      ms: base({ms}, {name: 'milliseconds', colour: 'pink-red', isComfortable: seconds => seconds <= 10})
+  dhmsms: base({d, h, m, s, ms}, {name: 'days, hours, minutes, seconds, and milliseconds', colour: 'aqua', order: 0, alias: 'time'}),
+   hmsms: base({h, m, s, ms}, {name: 'hours, minutes, seconds, and milliseconds', colour: 'blue', order: 1, isComfortable: seconds => seconds <= day * 5}),
+    msms: base({m, s, ms}, {name: 'minutes, seconds, and milliseconds', colour: 'purple', order: 2, isComfortable: seconds => seconds <= hour * 12}),
+     sms: base({s, ms}, {name: 'seconds, and milliseconds', colour: 'indigo', order: 3, isComfortable: seconds => seconds <= hour * 2}),
+      ms: base({ms}, {name: 'milliseconds', colour: 'pink-red', order: 4, isComfortable: seconds => seconds <= 10})
 }
