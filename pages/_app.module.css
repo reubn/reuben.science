@@ -2,14 +2,6 @@
   --header-height: 6rem;
   --footer-height: 7rem;
 
-  width: 100vw;
-  height: 100vh;
-  margin: 0;
-  padding: 0;
-
-  overflow: auto;
-  overflow-x: hidden;
-
   background-color: var(--colours-dark);
   color: var(--colours-light);
 
@@ -39,9 +31,6 @@
 
 @media print {
   .app {
-    overflow-y: visible;
-    overflow-x: visible;
-
     color: inherit!important;
     background: transparent!important;
   }
