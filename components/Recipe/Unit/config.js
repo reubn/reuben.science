@@ -3,6 +3,7 @@ import mass from './units/mass'
 import volume from './units/volume'
 import distance from './units/distance'
 import temperature from './units/temperature'
+import angle from './units/angle'
 
 export const units = Unit => ({
   ...time,
@@ -10,6 +11,7 @@ export const units = Unit => ({
   ...volume,
   ...distance,
   ...temperature,
+  ...angle,
   abs: {
     name: 'abs',
     type: 'abs',
