@@ -10,11 +10,11 @@
 
 .post:hover {
   transform: scale(1.05);
-  background: linear-gradient(135deg, var(--colours-dark-2) 0%, var(--colours-dark-1) 100%);
+  background: var(--colours-dark-1);
   box-shadow: 0 0 2rem 1rem var(--colours-dark-shadow);
 
   transition: transform 0.2s cubic-bezier(.47,0,0,1.54),
-              background 0.2s cubic-bezier(.47,0,0,1.54),
+              background 0.2s cubic-bezier(.47,0,0,1),
               box-shadow 0.2s cubic-bezier(.47,0,0,1.54);
 }
 
