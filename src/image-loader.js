@@ -7,37 +7,59 @@ const sizeOf = require('image-size')
 
 const extensionRegex = /\.[^\.]+$/
 
-const suffixes = ['', '@2x', '@3x']
+const config = [
+  {
+    scale: 0.25,
+    suffix: '@0.25x'
+  },
+  {
+    scale: 0.5,
+    suffix: '@0.5x'
+  },
+  {
+    scale: 1
+  },
+  {
+    scale: 2,
+    suffix: '@2x'
+  },
+  {
+    scale: 3,
+    suffix: '@3x'
+  }
+]
 
 module.exports = async function (content) {
   const intialPath = this.resourcePath
   const basePath = intialPath.replace(extensionRegex, '')
   const extension = this.resourcePath.match(extensionRegex)[0]
 
-  const {width, height} = sizeOf(content)
-
-  const srcSet = await Promise.all(suffixes.map(async (suffix, index) => {
-    const density = index + 1
-
+  const resolutionsArray = (await Promise.all(config.map(async ({scale, suffix=''}) => {
     const filename = `${basePath}${suffix}${extension}`
 
     const fileContent = await fs.promises.readFile(filename).catch(() => false)
 
-    if(!fileContent) return ''
+    if(!fileContent) return
+
+    const {width, height} = sizeOf(fileContent)
 
     const src = JSON.parse(fileLoader.call(this, fileContent).match(/".+?"/)[0])
 
     this.addDependency(filename)
 
-    return {src, density}
-  }))
+    return {
+      src,
+      scale,
+      width,
+      height
+    }
+  }))).filter(s => s)
 
+  const resolutions = resolutionsArray.reduce((obj, size) => ({...obj, [size.scale]: size}), {})
 
   const result = {
     id: Math.random(),
-    size: {width, height},
-    src: srcSet[0].src,
-    srcSet: srcSet.filter(s => s).map(({src, density}) => `${src} ${density}x`).join(', ')
+    resolutions
   }
 
   return `export default ${JSON.stringify(result)}`

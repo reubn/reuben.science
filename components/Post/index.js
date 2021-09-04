@@ -24,9 +24,9 @@ export default function Post({slug, metadata, children, __HACK_ID}){
             tags: metadata.category,
           },
           images: metadata.image ? [{
-              url: `https://${process.env.NEXT_PUBLIC_DOMAIN}${metadata.image.src}`,
-              width: metadata.image.size.width,
-              height: metadata.image.size.height,
+              url: `https://${process.env.NEXT_PUBLIC_DOMAIN}${metadata.image.resolutions[1].src}`,
+              width: metadata.image.resolutions[1].width,
+              height: metadata.image.resolutions[1].height,
               alt: metadata.title,
             }] : undefined
         }}
