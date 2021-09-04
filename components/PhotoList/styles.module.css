@@ -24,7 +24,7 @@
   }
 }
 
-@media (max-width: 650px) {
+@media (max-width: 360px) {
   .photos {
     --max-columns: 1;
   }
@@ -36,8 +36,8 @@
   height: fit-content;
 }
 
-@media (max-width: 650px) {
-  .photo:nth-of-type(n+5) {
+@media (max-width: 360px) {
+  .photo:nth-of-type(n+3) {
     display: none;
   }
 }
