@@ -1,0 +1,20 @@
+.sieve, .drip, .contents {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-miterlimit: 10;
+}
+
+.sieve {
+  color: var(--colours-dark-7);
+}
+
+.contents, .contentsDots, .drip {
+  color: var(--colours-light-2);
+}
+
+.contentsDots {
+  fill: currentColor;
+}

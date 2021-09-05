@@ -1,0 +1,16 @@
+.jar, .bubbles {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.9;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-miterlimit: 10;
+}
+
+.jar {
+  color: var(--colours-dark-7);
+}
+
+.bubbles {
+  color: var(--colours-light-2);
+}
