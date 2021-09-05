@@ -66,6 +66,10 @@
   margin-bottom: 2rem;
 }
 
+.readingTime {
+  cursor: pointer;
+}
+
 .body > *:first-child {
   margin-top: 0!important;
 }
