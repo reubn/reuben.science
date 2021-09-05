@@ -1,5 +1,7 @@
 import {Camera, Twitter, Instagram, GitHub, Mail, Code} from 'react-feather'
 
+import {useRouter} from 'next/router'
+
 import ActiveLink from '../ActiveLink'
 
 import {footer, icons, icon, unsplash, github, mail, twitter, instagram, code} from './styles'
@@ -19,31 +21,50 @@ const Gradient = () => (
   </svg>
 )
 
-const Footer = () => (
-  <footer className={footer}>
-    <p className={icons}>
-      <a href="//unsplash.com/@re" className={unsplash} title="Unsplash">
-        <Camera className={icon} />
-      </a>
-      <a href="//github.com/reubn" className={github} title="GitHub">
-        <GitHub className={icon} />
-      </a>
-      <a href="mailto:click.to.reveal@email.com" onClick={e => (window.location.href = `mailto:${localPart}@${process.env.NEXT_PUBLIC_DOMAIN}`, e.preventDefault())} className={mail} title="Email">
-        <Mail className={icon} />
-      </a>
-      <a href="//twitter.com/reubn_" className={twitter} title="Twitter">
-        <Twitter className={icon} />
-      </a>
-      <a href="//instagram.com/reubn" className={instagram} title="Instagram">
-        <Gradient />
-        <Instagram className={icon} />
-      </a>
-    </p>
+const srcLookup = {
+  '/posts/[slug]': ({slug}) => `content/posts/${slug}`,
+  '/snippets/[slug]': ({slug}) => `content/snippets/${slug}`,
+  '/categories/[slug]': () => `pages/categories/[slug].js`,
+  '/404': () => `pages/404.js`
+}
 
-    <a href="//github.com/reubn/reuben.science" className={code} title="Source Code">
-      <Code className={icon} />
-    </a>
-  </footer>
-)
+const Footer = () => {
+  const {pathname, asPath, query} = useRouter() || {}
+
+  const githubPath = (pathname !== asPath)
+    ? srcLookup[pathname]?.(query)
+    : `pages/${pathname.startsWith('/') ? pathname.slice(1) : pathname}${pathname.endsWith('/') ? '' : '/'}index.js`
+
+  const githubURL = githubPath
+    ? `https://github.com/reubn/reuben.science/tree/main/${githubPath}`
+    : `https://github.com/reubn/reuben.science`
+
+  return (
+    <footer className={footer}>
+      <p className={icons}>
+        <a href="//unsplash.com/@re" className={unsplash} title="Unsplash">
+          <Camera className={icon} />
+        </a>
+        <a href="//github.com/reubn" className={github} title="GitHub">
+          <GitHub className={icon} />
+        </a>
+        <a href="mailto:click.to.reveal@email.com" onClick={e => (window.location.href = `mailto:${localPart}@${process.env.NEXT_PUBLIC_DOMAIN}`, e.preventDefault())} className={mail} title="Email">
+          <Mail className={icon} />
+        </a>
+        <a href="//twitter.com/reubn_" className={twitter} title="Twitter">
+          <Twitter className={icon} />
+        </a>
+        <a href="//instagram.com/reubn" className={instagram} title="Instagram">
+          <Gradient />
+          <Instagram className={icon} />
+        </a>
+      </p>
+
+      <a href={githubURL} className={code} title="Source Code">
+        <Code className={icon} />
+      </a>
+    </footer>
+  )
+}
 
 export default Footer
