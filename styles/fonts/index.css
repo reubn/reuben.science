@@ -1,5 +1,6 @@
 :root{
   --font-family: 'Rubik', -apple-system, 'Futura', 'Arial', sans-serif, 'Emoji';
+  --font-family-monospace: 'SF Mono', monospace;
 
   font-family: var(--font-family);
   font-size: 18px;
