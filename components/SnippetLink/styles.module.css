@@ -21,7 +21,7 @@
 
 .pre code {
   font-weight: 400;
-  font-family: SF Mono, monospace;
+  font-family: var(--font-family-monospace);
   -webkit-font-smoothing: subpixel-antialiased;
 
   display: block;
