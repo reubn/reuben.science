@@ -1,7 +1,7 @@
 .footer {
   width: 100%;
   height: var(--footer-height);
-  background: linear-gradient(135deg, var(--colours-dark-2) 0%, var(--colours-dark-1) 100%);
+  background: var(--colours-dark-1);
 
   display: flex;
   justify-content: center;

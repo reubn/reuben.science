@@ -1,0 +1,188 @@
+import {Unit} from '@/components/Recipe'
+import Image from '@/components/Image'
+
+import {svg} from './styles'
+
+import {recipe, IngredientDefinition, IngredientLink, ServingsControl, InlineQuantity} from './recipe'
+
+import header from './images/header.webp'
+
+import SourdoughStarter from './SourdoughStarter'
+import Sourdough from './Sourdough'
+import Sieve from './Sieve'
+import Cooking from './Cooking'
+import RemoveHandle from './RemoveHandle'
+
+export const metadata = {
+  title: 'Perfect Sourdough Pizza',
+  description: 'Pizza without the Pizza Oven',
+  emoji: '🍕',
+  date: '2021-09-05',
+  category: ['food'],
+  image: header
+}
+
+export const cloves = new Unit({
+  label: 'cloves',
+  name: 'cloves',
+  format: ({formattedNumber, displayedWithName}) => displayedWithName ? [['value', formattedNumber]] : [['value', formattedNumber], ['raw', ' '], ['unit', 'cloves']],
+  isBase: true,
+  isComfortable: value => true
+})
+
+This is my recipe for sourdough pizza. We'll start by culturing a starter, that we'll later incorporate into a sourdough. We'll prepare a seasoned sauce. Finally, I'll share the foolproof method I use for cooking the pizza, using nothing more than a *hob*, *frying pan*, and *grill*.
+
+import IMG_1763 from './images/IMG_1763.webp'
+
+<Image image={IMG_1763} alt="Finished Slice" />
+
+It does involve steps over **multiple days**, and if you haven't already got a sourdough culture: it can take anywhere from *days* to *weeks* to grow one.
+
+<ServingsControl servings={6} plural="Pizzas" />
+
+## Leaven
+
+The leaven is the living, breathing mixture, containing primarily two groups of microorganisms: *Lactobacilli*, and *yeasts*. Both metabolise the carbohydrates provided in the flour and work to produce CO<sub>2</sub>, giving our pizza its rise. The *Lactobacilli* are responsible for giving the dough its characteristic sourness - in the form of lactic acid.
+Both these groups are found abundantly in the environment, and therefore we don't have to innoculate our starter - as they'll naturally colonise our mixture of their own accord.
+
+You will need to find a suitable vessel to house your sourdough colony. It should be:  
+
+- large enough for the leaven to expand multiple times in size
+- has some means of pressure release - making sure the container isn't going to assume the role of an IED if the yeasts get a bit carried away
+- covered to prevent fruit flies or other creatures being enticed by the fermenting mixture
+
+Specific fermentation jars exist, but are not required by any means.
+
+<SourdoughStarter />
+
+<blockquote>
+
+*to start*
+- <IngredientDefinition id="sourStartFlour" name="Strong Flour" quantity={[300, 'g']} doNotScale colour="blue" />
+- <IngredientDefinition id="sourStartWater" name="Water" quantity={[300, 'ml']} doNotScale colour="blue" />
+
+*to refresh*
+- <IngredientDefinition id="sourRefreshFlour" name="Strong Flour" quantity={[100, 'g']} doNotScale colour="blue" />
+- <IngredientDefinition id="sourRefreshWater" name="Water" quantity={[100, 'ml']} doNotScale colour="blue" />
+
+1. Mix the <IngredientLink id="sourStartFlour">flour</IngredientLink>, and <IngredientLink id="sourStartWater">water</IngredientLink> in your container
+2. Now leave your mixture for <InlineQuantity quantity={[{h:12}, 'time']} doNotScale />
+3. Refresh your starter by tipping away (yes) about ¾ of the mixture, and add more <IngredientLink id="sourRefreshFlour">flour</IngredientLink>, and <IngredientLink id="sourRefreshWater">water</IngredientLink>.
+4. Repeat this every <InlineQuantity quantity={[{h:12}, 'time']} doNotScale /> until the mixture starts to bubble, expand, and develops a characteristic sour smell.
+
+</blockquote>
+
+<IngredientDefinition id="sourdoughStarter" name="Sourdough Starter" quantity={[360, 'g']} colour="yellow" display={false}/>
+
+As your starter grows, you may want to adjust the amounts of <IngredientLink id="sourRefreshFlour">flour</IngredientLink>, and <IngredientLink id="sourRefreshWater">water</IngredientLink>, to arrive at the final <IngredientLink id="sourdoughStarter" quantityOnly inlineQuantity /> + enough to replenish. This is fine, as long as you maintain the `1:1` weight:weight ratio.  
+
+You should end up with a viscous mixture, full of bubbles.  
+
+Sourdough is also very forgiving, so if you forget to refresh, just resume as if you hadn't.  
+You can even dry the mixture to revive later on!
+
+## Sourdough
+
+Once you have enough mature starter, you can go ahead and make your dough.  
+If you can, try and feed your leaven <InlineQuantity quantity={[{h:12}, 'time']} doNotScale /> before you make the dough - to ensure it's really active.
+
+<Sourdough />
+
+<blockquote>
+
+- <IngredientDefinition id="sourdoughStarter" name="Sourdough Starter" quantity={[360, 'g']} colour="yellow" />
+- <IngredientDefinition id="flour" name="Strong Flour" quantity={[900, 'g']} colour="blue" />
+- <IngredientDefinition id="water" name="Water" quantity={[500, 'ml']} comment="lukewarm" colour="blue" />
+- <IngredientDefinition id="saltDough" name="Salt" quantity={[20, 'g']} colour="mid" />
+
+1. In a large mixing bowl, combine the <IngredientLink id="flour">flour</IngredientLink>, <IngredientLink id="sourdoughStarter" />, and <IngredientLink id="water">warm water</IngredientLink>.   
+Mix by hand, until the dough is homogenous, and comes together.
+2. Cover the bowl to prevent moisture loss, and leave for <InlineQuantity quantity={[{m: 30}, 'time']} doNotScale /> at **room temperature** to rest  
+***Now's a good time to start working on the sauce 😊***
+3. Place the dough on a floured worktop, and sprinkle over the <IngredientLink id="saltDough" />
+4. Work the dough for <InlineQuantity quantity={[{m: 5}, 'time']} doNotScale /> - stretching it to develop the gluten fibres. This is what will give your dough its 'stretch', and allow it to be spread thinly
+5. Return the dough to the bowl, cover, and refrigerate overnight
+
+</blockquote>
+
+## Sauce
+
+import IMG_8215 from './images/IMG_8215.webp'
+
+<Image image={IMG_8215} alt="Sauce Mix" />
+
+Store bought passata is often really watery, and without a pizza oven, this extra liquid will just sink into the dough turning it to mush.  
+  
+To combat this, I add in chopped tomatoes - where plenty of water is still locked into the tomatoes and also drain both the ingredients. This removes excess water without losing any of the tomatoey richness.  
+Save some of the plain passata, to taste the difference before and after.
+
+<Sieve />
+
+<blockquote>
+
+- <IngredientDefinition id="passata" name="Passata" quantity={[500, 'g']} colour="red" />
+- <IngredientDefinition id="choppedTomatoes" name="Chopped Tomatoes" quantity={[400, 'g']} colour="red" />
+- <IngredientDefinition id="paprika" name="Smoked Paprika" quantity={[1, 'tbsp']} colour="orange" />
+- <IngredientDefinition id="oregano" name="Dried Oregano" quantity={[1, 'tbsp']} colour="green" />
+- <IngredientDefinition id="sugar" name="Sugar" quantity={[2, 'tsp']} colour="mid" />
+- <IngredientDefinition id="saltSauce" name="Salt" quantity={[1, 'tsp']} colour="mid" />
+- <IngredientDefinition id="garlicCloves" name="Garlic Cloves" quantity={[2, cloves]} colour="purple" />
+
+1. Seat a large sieve on the rim of a bowl, pour in the <IngredientLink id="choppedTomatoes" />, followed by the <IngredientLink id="passata" />
+2. Allow to drain ***undisturbed*** for <InlineQuantity quantity={[{h:1}, 'time']} doNotScale /> to <InlineQuantity quantity={[{h: 1.5}, 'time']} doNotScale />, until a substantial amount of liquid has collected: the aim being to remove as much water as possible, leaving us with a thicker, richer sauce
+3. Discard (or drink) the extracted liquid, and tip the contents of the sieve into the bowl
+4. Add the <IngredientLink id="paprika" />, <IngredientLink id="oregano" />, <IngredientLink id="sugar" />, <IngredientLink id="saltSauce" />, and <IngredientLink id="garlicCloves">minced garlic</IngredientLink>
+5. Mix well, and leave to rest. For best results, leave refrigerated overnight, allowing the flavours to diffuse
+
+</blockquote>
+
+## Cooking
+
+Now that everything's ready, cooking the pizza is pretty simple. The best way of cooking pizza is in a pizza oven at ><InlineQuantity quantity={[450, 'c']} doNotScale />, with a stone base. This delivers a massive amount of heat to both the bottom and top of the pizza simultaneously. 
+
+I don't have a pizza oven, and you probably don't either. Turns out, it's no biggy.  
+
+We're going to recreate the conditions of a pizza oven using a frying pan, and oven grill, to heat the bottom and top of the pizza respectively. Heating from the bottom crisps the base, and the slightly gentler heat gives a really good rise. A red hot grill element easily reaches pizza oven temperatures, and will cook the toppings and char the crust. 
+
+To get a really intense heat we'll place the pizzas as **close to the element as physically possible** - so it's a good idea to sort the oven racks out, and check you can remove and insert the pizzas whilst cold.
+
+<Cooking style={{width: '80%'}} />
+
+Most ovens don't measure the grill temperature directly. Instead their thermostat is set off the air temperature somewhere inside the oven.  
+
+If your oven allows the grill to be powered whilst the door is open, we can use this to our advantage by keeping the door at <InlineQuantity quantity={[45, 'deg']} doNotScale /> ish, preventing the air temperature from reaching the maximum, and the thermostat cutting the power.  
+If your oven doesn't allow this, then you can leave the oven door open once the pizza comes out, and allow the thermostat to yield before the next goes in.
+
+In essence, we're trying to keep the grill red hot - cooking our pizzas as quickly as possible.
+
+
+If you've found out that your oven door needs to be closed to activate the grill element, and you don't like the taste of plastic decomposition products, you'll also want to remove the handle of your frying pan. Similarly, you might want to be careful using PTFE coated pans, but to be honest I've never noticed any visible degradation.
+
+<RemoveHandle />
+
+<blockquote>
+
+1. Remove the dough from the fridge <InlineQuantity id="riseRT" quantity={[{h: 3}, 'time']} doNotScale /> before you need it. (the dough may not have noticibly risen yet, but after the <InlineQuantity id="riseRT" />  at room temperature it should have)
+2. Configure your oven racks to allow your pan to sit as close to the grill element as possible - while being easy to remove.
+3. Preheat the grill to its maximum setting
+4. Partition the dough into <InlineQuantity quantity={[6]} />
+5. Stretch the dough from the centre to the edge, until the dough is translucent and covers the pan you'll be using
+6. Place your pan on the stove, and heat up on full.
+7. Carefully lay the stretched base into the pan
+8. Spread passata over the base, leaving a <InlineQuantity quantity={[1, 'inch']} doNotScale /> clear zone around the edge - for the crust to form
+9. Add your chosen toppings
+10. Once the underside of the pizza has developed darker brown spots, transfer the pan to the grill
+11. Cook for approximately <InlineQuantity quantity={[{m: 2}, 'time']} doNotScale />, checking after <InlineQuantity quantity={[{m: 1}, 'time']} doNotScale />, and every <InlineQuantity quantity={[{s: 30}, 'time']} doNotScale /> thereafter.
+12. Serve with a scattering of fresh basil leaves, and enjoy!
+
+</blockquote>
+
+import IMG_8178 from './images/IMG_8178.webp'
+
+<Image image={IMG_8178} alt="Pizza" />
+
+> 📷
+>
+> Tomatoes by [Mockup Graphics](https://unsplash.com/@mockupgraphics?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/s/photos/tomato?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)
+>
+> Basil by [Jeremy Zero](https://unsplash.com/@jeremy0?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/s/photos/basil?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)

@@ -19,7 +19,6 @@ import ping from '@/src/.analytics'
 
 import {setUp as setUpClickToCopy} from '@/src/syntaxHighlight/clickToCopy'
 
-const APP_ID = 'app'
 setUpClickToCopy((typeof window !== 'undefined') && window)
 
 function App({Component, pageProps}){
@@ -32,14 +31,6 @@ function App({Component, pageProps}){
 
     return () => clearTimeout(timer)
   }, [])
-
-  useEffect(() => {
-    const handler = url => !url.includes('#') && document.getElementById(APP_ID).scrollTo(0, 0)
-
-    router.events.on('routeChangeComplete', handler)
-
-    return () => router.events.off('routerChangeComplete', handler)
-  })
 
   useEffect(() => {
     const routeChangeStart = () => {
@@ -112,7 +103,7 @@ function App({Component, pageProps}){
           cardType: 'summary_large_image',
         }}
       />
-    <section className={`${app} ${loadGlitchFix}`} id={APP_ID}>
+    <section className={`${app} ${loadGlitchFix}`}>
         <Header />
         <main className={content}>
           <Component {...pageProps} />

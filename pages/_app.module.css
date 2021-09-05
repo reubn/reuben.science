@@ -2,14 +2,6 @@
   --header-height: 6rem;
   --footer-height: 7rem;
 
-  width: 100vw;
-  height: 100vh;
-  margin: 0;
-  padding: 0;
-
-  overflow: auto;
-  overflow-x: hidden;
-
   background-color: var(--colours-dark);
   color: var(--colours-light);
 
@@ -24,7 +16,8 @@
 .content {
   overflow: visible;
 
-  line-height: 1.75;
+  --line-height: 1.75;
+  line-height: var(--line-height);
   font-size: 1rem;
 
   min-height: calc(100vh);
@@ -34,4 +27,18 @@
   .content {
     min-height: calc(100vh - var(--header-height));
   }
+}
+
+@media print {
+  .app {
+    color: inherit!important;
+    background: transparent!important;
+  }
+
+ .app > *:not(.content) {display: none}
+
+ .content * {
+   color: inherit!important;
+   background: transparent!important;
+ }
 }

@@ -9,10 +9,10 @@ const PhotoList = ({photos: {photos, width}, fallback=null, ...props}) => (
   photos.length
     ? (
       <Section heading="Recent Photos" moreHref="https://unsplash.com/re" moreAria="More Photos" {...props}>
-        <div className={photosStyle} style={{'--columns': Math.min(photos.length, 4), '--photo-width': `${width}px`}} role="grid">
-          {photos.map(({id, desc, src, height}) => (
+        <div className={photosStyle} style={{'--photo-count': photos.length, '--photo-width': `${width}px`}} role="grid">
+          {photos.map(({id, desc, resolutions}) => (
             <a href={`https://unsplash.com/photos/${id}`} className={photo} title={`Photo: ${desc}`} key={id}>
-              <Image image={{src, size: {width, height}}} alt={`Photo: ${desc}`} lazy={false} />
+              <Image image={{id, resolutions}} alt={`Photo: ${desc}`} lazy={false} sizes="(max-width: 360px) calc(min(1000px, 100vw - 3.5rem) - 1rem), (max-width: 800px) calc((min(1000px, 100vw - 3.5rem) - 1rem) / 2), (max-width: 900px) calc((min(1000px, 100vw - 3.5rem) - 1rem) / 3), calc((min(1000px, 100vw - 3.5rem) - 1rem) / 4)" />
             </a>)
           )}
         </div>

@@ -24,6 +24,9 @@ module.exports = withPlugins([[withMDX]], {
   images: {
     disableStaticImages: true,
   },
+  experimental: {
+    scrollRestoration: true,
+  },
   webpack: (config, {isServer, dev}) => {
     if(!dev) config.module.rules.forEach(({oneOf}) => oneOf?.forEach(({use}) => {
       use?.forEach?.(({options: {modules}}) => {

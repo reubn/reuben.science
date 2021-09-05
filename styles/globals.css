@@ -4,9 +4,18 @@
 html,
 body {
   --colours-accent: var(--colours-blue);
+  --colours-accent-antithesis: var(--colours-pink);
+  --colours-background: var(--colours-dark);
   padding: 0;
   margin: 0;
-  background-color: var(--colours-dark);
+  background-color: var(--colours-background);
+}
+
+@media print {
+  html, body {
+    background-color: #fff;
+    color: #000;
+  }
 }
 
 a {
@@ -20,7 +29,7 @@ a {
 
 ::selection {
   color: var(--colours-light);
-  background-color: var(--colours-pink);
+  background-color: var(--colours-accent-antithesis);
 }
 
 ::-webkit-scrollbar {

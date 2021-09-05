@@ -11,8 +11,8 @@
   --colours-green: hsl(140, 95%, 61%);
   --colours-green-hint: hsl(144, 95%, 61%);
 
-  /* TODO --colours-aqua: hsl(165, 80%, 64%); */
-  /* TODO --colours-aqua-hint: hsl(162, 80%, 60%); */
+  --colours-aqua: hsl(165, 80%, 64%);
+  --colours-aqua-hint: hsl(162, 80%, 60%);
 
   --colours-blue: hsl(196, 100%, 65%);
   --colours-blue-hint: hsl(180, 90%, 48%);
@@ -33,13 +33,14 @@
   --colours-dark: hsl(205, 31%, 8%);
   --colours-dark-1: hsl(205, 30%, 11%);
   --colours-dark-2: hsl(205, 30%, 13%);
-  --colours-dark-3: hsl(205, 20%, 20%);
-  --colours-dark-4: hsl(205, 16%, 25%);
-  --colours-dark-5: hsl(205, 14%, 30%);
-  --colours-dark-6: hsl(205, 13%, 35%);
-  --colours-dark-7: hsl(205, 12%, 40%);
+  --colours-dark-3: hsl(205, 20%, 16%);
+  --colours-dark-4: hsl(205, 16%, 20%);
+  --colours-dark-5: hsl(205, 14%, 27%);
+  --colours-dark-6: hsl(205, 13%, 33%);
+  --colours-dark-7: hsl(205, 6%, 38%);
 
   --colours-dark-shadow: hsla(205, 30%, 5%, 0.5);
+  --colours-dark-shadow-1: hsla(205, 30%, 10%, 0.3);
 
   --colours-mid: hsl(205, 10%, 80%);
   --colours-mid-1: hsl(205, 7%, 70%);
@@ -48,4 +49,6 @@
 
   --colours-light: hsl(0, 0%, 100%);
   --colours-light-1: hsl(0, 0%, 93%);
+  --colours-light-2: hsl(0, 0%, 87%);
+  --colours-light-3: hsl(0, 0%, 83%);
 }

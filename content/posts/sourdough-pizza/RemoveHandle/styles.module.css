@@ -1,0 +1,16 @@
+.handle, .arrow, .pan {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.9;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-miterlimit: 10;
+}
+
+.handle, .pan {
+  color: var(--colours-light-2);
+}
+
+.arrow {
+  color: var(--colours-dark-7);
+}

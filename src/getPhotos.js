@@ -7,6 +7,26 @@ export default async (...slice) => ({
 	photos: (
 		(Array.isArray(await response) ? await response : [])
 		.slice(...slice)
-		.map(({id, description: desc, urls: {raw}, width, height}) => ({id, desc, height: Math.ceil((process.env.UNSPLASH_SIZE/width) * height), src: `${raw}&q=${process.env.UNSPLASH_QUALITY}&fm=auto&w=${process.env.UNSPLASH_SIZE}&fit=max`}))
+		.map(({id, description: desc, urls: {raw}, width, height}) => ({
+			id,
+			desc,
+			resolutions: Object.fromEntries([100, 200, 300, 400, 600, 800].map(_width => {
+				const scale = _width / process.env.UNSPLASH_SIZE
+
+				return [scale, makeSize(scale, {raw, width, height})]
+			}))
+		}))
 	)
 })
+
+const makeUnsplashURL = (raw, width) => `${raw}&q=${process.env.UNSPLASH_QUALITY}&fm=auto&w=${width}&fit=max`
+const makeSize = (scale, original) => {
+	const width = Math.ceil(scale * process.env.UNSPLASH_SIZE)
+	const height = Math.ceil(((scale * process.env.UNSPLASH_SIZE) / original.width) * original.height)
+
+	return {
+		src: makeUnsplashURL(original.raw, width),
+		width,
+		height
+	}
+}

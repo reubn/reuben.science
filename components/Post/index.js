@@ -3,7 +3,9 @@ import {NextSeo, BreadcrumbJsonLd, ArticleJsonLd} from 'next-seo'
 import CategoryLink from '../CategoryLink'
 import Image from '../Image'
 
-import {title, description, categories, headerImage, info as infoStyle, words as wordsStyle, date as dateStyle, post, body} from './styles'
+import LengthDisplay from './LengthDisplay'
+
+import {title, description, categories, headerImage, info as infoStyle, readingTime as readingTimeStyle, words as wordsStyle, date as dateStyle, post, body} from './styles'
 
 export default function Post({slug, metadata, children, __HACK_ID}){
   const date = new Date(metadata.date)
@@ -24,9 +26,9 @@ export default function Post({slug, metadata, children, __HACK_ID}){
             tags: metadata.category,
           },
           images: metadata.image ? [{
-              url: `https://${process.env.NEXT_PUBLIC_DOMAIN}${metadata.image.src}`,
-              width: metadata.image.size.width,
-              height: metadata.image.size.height,
+              url: `https://${process.env.NEXT_PUBLIC_DOMAIN}${metadata.image.resolutions[1].src}`,
+              width: metadata.image.resolutions[1].width,
+              height: metadata.image.resolutions[1].height,
               alt: metadata.title,
             }] : undefined
         }}
@@ -67,7 +69,7 @@ export default function Post({slug, metadata, children, __HACK_ID}){
         <Image image={metadata.image} className={headerImage} alt={metadata.emoji} />
         <span className={infoStyle}>
           <time dateTime={date.toLocaleDateString()}>{date.toLocaleDateString()}</time>
-          <time time={metadata.readingTime.mins && `PD0T0H${metadata.readingTime.mins}M`} aria-label="Reading Time">{metadata.readingTime.mins || '???'} min{metadata.readingTime.mins != 1 && 's'}</time>
+          <LengthDisplay className={readingTimeStyle} readingTime={metadata.readingTime} />
         </span>
         <div className={body} id={__HACK_ID}>
           {children}

@@ -1,0 +1,18 @@
+.name {
+  margin-left: 4px;
+
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-underline-offset: 2px;
+  text-decoration-thickness: 3px;
+}
+
+.hover .name, .name:hover {
+  text-decoration-color: var(--ingredient-accent);
+  transition: text-decoration-color 0.2s ease-in;
+}
+
+.conjunction, .alternative, .comment {
+  font-style: italic;
+  color: var(--colours-mid-3);
+}

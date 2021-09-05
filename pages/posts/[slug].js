@@ -29,7 +29,7 @@ export const processPost = ({metadata, content}) => {
     date: new Date(metadata.date).toISOString(),
     readingTime: {
       mins: +readingTimeResult.text.replace('min read', ''),
-      // words: +readingTimeResult.words
+      words: +readingTimeResult.words
     }
   }
 }

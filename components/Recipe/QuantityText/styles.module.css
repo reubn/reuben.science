@@ -1,0 +1,20 @@
+.value {
+  font-weight: 500;
+}
+
+.unit {
+  margin-left: 1px;
+  color: var(--colours-mid-3);
+}
+
+.unit.noUnitSpacing {
+  margin-left: unset;
+}
+
+.quantity.interactive  {
+  cursor: pointer;
+}
+
+.quantity.interactive:hover .unit {
+  color: var(--unit-accent);
+}

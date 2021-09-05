@@ -88,7 +88,6 @@ export const processPost = ({slug, metadata, codeBlocks, content}) => {
 
   const highlighted = getPreview(config, codeBlocks)
   const util = require('util')
-  // if(metadata.preview.lines) console.log(util.inspect(highlighted, false, null, true))
 
   return {
     ...metadata,
