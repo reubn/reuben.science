@@ -25,7 +25,7 @@ export const metadata = {
 export const cloves = new Unit({
   label: 'cloves',
   name: 'cloves',
-  format: ({formattedNumber, displayedWithName}) => displayedWithName ? [['value', formattedNumber]] : [['value', formattedNumber], ['raw', ' '], ['unit', 'cloves']],
+  format: ({formattedNumber, displayedWithName}) => displayedWithName ? [['value', formattedNumber]] : [['value', formattedNumber], ['unit', 'cloves', true]],
   isBase: true,
   isComfortable: value => true
 })
