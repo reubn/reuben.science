@@ -104,6 +104,7 @@ export const ServingsControl = ({scale, servingsAsWritten, servingsChanged, scal
             ref={servingsRef}
             type="text"
             inputMode="decimal"
+            aria-label={`Number of ${plural}`}
 
             className={input}
 
@@ -147,6 +148,7 @@ export const ServingsControl = ({scale, servingsAsWritten, servingsChanged, scal
           ref={scaleRef}
           type="text"
           inputMode="decimal"
+          aria-label="recipe scale factor"
 
           className={recipeScaleInput}
           style={{'--digits': localScale.string.length}}
