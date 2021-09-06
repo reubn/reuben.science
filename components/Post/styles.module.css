@@ -55,6 +55,7 @@
   font-weight: 500;
   font-size: 0.9rem;
   width: 100%;
+  height: calc(var(--line-height) * 1rem);
   color: var(--colours-mid-3);
 
   display: inline-flex;
@@ -63,18 +64,14 @@
 
   letter-spacing: 0.8px;
 
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
 }
 
 .readingTime {
   cursor: pointer;
 }
 
-.body > *:first-child {
-  margin-top: 0!important;
-}
-
-.body h2 {
+.body h2:not(:first-child) {
   margin-top: 2rem;
 }
 
