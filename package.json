@@ -11,13 +11,13 @@
   "dependencies": {
     "@mdx-js/loader": "^1.6.22",
     "@next/mdx": "^11.1.0",
-    "@react-three/drei": "^7.5.0",
+    "@react-three/drei": "^7.6.1",
     "@react-three/fiber": "^7.0.6",
     "file-loader": "^6.2.0",
     "hast-util-to-html": "^7.1.3",
     "hast-util-to-string": "^1.0.4",
     "image-size": "^1.0.0",
-    "next": "^11.1.0",
+    "next": "^11.1.2",
     "next-compose-plugins": "^2.2.1",
     "next-seo": "^4.26.0",
     "node-fetch": "^2.6.1",
@@ -25,7 +25,7 @@
     "react-compare-slider": "^2.0.3",
     "react-dom": "^17.0.2",
     "react-feather": "^2.0.9",
-    "react-intersection-observer": "^8.32.0",
+    "react-intersection-observer": "^8.32.1",
     "reading-time": "^1.4.0",
     "refractor": "^3.3.0",
     "rehype-autolink-headings": "^5.1.0",
@@ -38,6 +38,6 @@
     "webp-hero": "0.0.0-dev.27"
   },
   "devDependencies": {
-    "http-server": "^13.0.0"
+    "http-server": "^13.0.1"
   }
 }

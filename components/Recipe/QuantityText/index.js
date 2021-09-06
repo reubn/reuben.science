@@ -3,17 +3,21 @@ import {
   hover as hoverStyle,
   quantity as quantityStyle,
   value as valueStyle,
-  unit as unitStyle,
-  noUnitSpacing as noUnitSpacingStyle
+  unit as unitStyle
 } from './styles'
 
 export const QuantityText = ({quantity, isInteractive, isHovered, displayedWithName, className, ...props}) => {
   const components = quantity.formatted({displayedWithName: displayedWithName})
   const unit = quantity.unit
-  
-  const elements = components.map(([type, content, noUnitSpacing, alt=unit.name]) => ({
+
+  const elements = components.map(([type, content, fullSpaceBeforeUnit, alt=unit.name]) => ({
      value: () => <span key={content} className={valueStyle}>{content}</span>,
-     unit: () => <span key={content} className={`${unitStyle} ${noUnitSpacing ? noUnitSpacingStyle : ''}`} title={alt}>{content}</span>,
+     unit: () => (
+       <>
+         <span style={fullSpaceBeforeUnit ? undefined : {display: 'inline-block', width: '1px'}}>{' '}</span>
+         <span key={content} className={unitStyle} title={alt}>{content}</span>
+       </>
+     ),
      raw: () => content
    })[type]())
 

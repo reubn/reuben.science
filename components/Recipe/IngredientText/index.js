@@ -26,8 +26,9 @@ export const IngredientText = ({ingredient, alternative=false, name=true, intera
 
   const nameComment = name && (
     <span style={{'--ingredient-accent': `var(--colours-${ingredient.colour})`}}>
+      {' '}
       <span className={nameStyle}>{ingredient.name}</span>
-      {ingredient.comment && <span className={commentStyle}> - {ingredient.comment}</span>}
+      {ingredient.comment && <span className={commentStyle}> {['-', '+', '(', '[', '/'].includes(ingredient.comment[0]) ? '' : '- '}{ingredient.comment}</span>}
     </span>
   )
 
