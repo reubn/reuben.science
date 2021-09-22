@@ -71,6 +71,10 @@
   cursor: pointer;
 }
 
+.body > * {
+  overflow-x: auto;
+}
+
 .body h2:not(:first-child) {
   margin-top: 2rem;
 }
