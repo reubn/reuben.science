@@ -438,7 +438,7 @@
 .body sup[id^=fnref-]:target a {
   color: var(--colours-light);
   --colours-background: var(--colours-accent-antithesis);
-  background: var(--colours-background);;
+  background: var(--colours-background);
   padding: 0px 2px 0px 1px;
   border-radius: 2px;
 }
