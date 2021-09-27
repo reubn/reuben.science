@@ -27,7 +27,7 @@
     "react-feather": "^2.0.9",
     "react-intersection-observer": "^8.32.1",
     "reading-time": "^1.4.0",
-    "refractor": "^3.3.0",
+    "refractor": "^4.2.1",
     "rehype-autolink-headings": "^5.1.0",
     "rehype-slug": "^4.0.1",
     "remark-captions": "^2.2.2",
