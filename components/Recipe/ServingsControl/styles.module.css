@@ -63,6 +63,7 @@
   --border-colour: var(--colours-dark-4);
   border-radius: 3px;
   overflow: hidden;
+  vertical-align: middle;
 }
 
 @media print {
@@ -100,10 +101,11 @@
 }
 
 .servingsName {
+  appearance: none;
+  border: none;
   height: 100%;
   width: calc((var(--maxLetters) * var(--perDigit)) + (0.27rem + (0.33rem * ((var(--maxLetters) - 1) / 6))));
-  margin: 0;
-  padding: 5px 4px 2px calc((var(--maxLetters) - var(--letters)) * (var(--perDigit) / 2));
+  padding: 2px 0px;
   display: inline-flex;
   align-items: flex-start;
   justify-content: center;
@@ -112,15 +114,7 @@
   font-size: inherit;
   background: inherit;
   cursor: pointer;
-}
-
-/* HACK SAFARI DESKTOP + iOS  */
-@media not all and (min-resolution:.001dpcm) {
-  @media {
-    .servingsName {
-      padding: 6px 4px 2px calc((var(--maxLetters) - var(--letters)) * (var(--perDigit) / 2));
-    }
-  }
+  outline: transparent!important;
 }
 
 .incDec {

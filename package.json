@@ -22,7 +22,7 @@
     "next-seo": "^4.26.0",
     "node-fetch": "^2.6.1",
     "react": "^17.0.2",
-    "react-compare-slider": "^2.0.3",
+    "react-compare-slider": "^2.1.0",
     "react-dom": "^17.0.2",
     "react-feather": "^2.0.9",
     "react-intersection-observer": "^8.32.1",
@@ -38,6 +38,6 @@
     "webp-hero": "0.0.0-dev.27"
   },
   "devDependencies": {
-    "http-server": "^13.0.1"
+    "http-server": "^13.0.2"
   }
 }
