@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@mdx-js/loader": "^1.6.22",
-    "@next/mdx": "^11.1.0",
+    "@next/mdx": "^11.1.2",
     "@react-three/drei": "^7.6.1",
     "@react-three/fiber": "^7.0.6",
     "file-loader": "^6.2.0",
@@ -38,6 +38,6 @@
     "webp-hero": "0.0.0-dev.27"
   },
   "devDependencies": {
-    "http-server": "^13.0.1"
+    "http-server": "^13.0.2"
   }
 }
