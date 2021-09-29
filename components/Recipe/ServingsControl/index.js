@@ -120,19 +120,25 @@ export const ServingsControl = ({scale, servingsAsWritten, servingsChanged, scal
               else _setLocalServings(makeServingsState(servings))
             }}
           />
-          <div
+          <input
+           type="text"
            className={servingsName}
            style={{
              '--maxLetters': Math.max(plural.length, singular.length),
              '--letters': name.length
            }}
+
+           value={name}
+
+           tabindex="-1"
+           role="presentation"
+
            onClick={() => {
-            const position = servingsRef.current.value.length
-            servingsRef.current.setSelectionRange(position, position);
-            servingsRef.current.focus()
-          }}>
-            {name}
-          </div>
+             const position = servingsRef.current.value.length
+             servingsRef.current.setSelectionRange(position, position);
+             servingsRef.current.focus()
+           }}
+          />
           <div className={incDec}>
             <button
              onClick={() => setLocalServings(Math.floor(servingsRef.current.value || servingsRef.current.placeholder) + 1)}
