@@ -111,20 +111,38 @@
   transition: width 0.2s cubic-bezier(.47,0,.89,.16);
 }
 
-.link:hover:after, .link:active:after, .link.active:after {
+.link:hover:after, .link:active:after, .link.active:after, .link.secret:after {
   width: 100%;
 
   transition: width 0.2s cubic-bezier(.47,0,0,1.8);
 }
 
-.link.active:hover:after, .link:active:hover:after {
+.link.active:hover:after, .link:active:hover:after, .link.secret:hover:after {
   width: 120%;
 
   transition: width 0.2s cubic-bezier(.47,0,0,1.8);
 }
 
-.link.active:active:after {
+.link.active:active:after,.link.secret:active:after  {
   width: 100%;
 
   transition: width 0.2s cubic-bezier(.47,0,0,1.8);
+}
+
+.secret {
+  position: absolute;
+  top:-100vw;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 1s cubic-bezier(.47,0,0,1.8);
+}
+
+@media (min-width: 500px) {
+  .visible {
+    position: relative;
+    top: 0;
+    display: inline-flex;
+    opacity: 1;
+    pointer-events: auto;
+  }
 }
