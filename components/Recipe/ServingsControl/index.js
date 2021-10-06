@@ -131,7 +131,7 @@ export const ServingsControl = ({scale, servingsAsWritten, servingsChanged, scal
            value={name}
            onChange={() => 0}
 
-           tabindex="-1"
+           tabIndex="-1"
            role="presentation"
 
            onClick={() => {
