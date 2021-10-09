@@ -103,7 +103,7 @@ function App({Component, pageProps}){
           cardType: 'summary_large_image',
         }}
       />
-    <section className={`${app} ${loadGlitchFix}`}>
+      <section className={`${app} ${loadGlitchFix}`}>
         <Header />
         <main className={content}>
           <Component {...pageProps} />
