@@ -3,7 +3,8 @@ import {NextSeo} from 'next-seo'
 import Video from '@/components/Video'
 import {main} from '../styles'
 
-import fin from './finlay.webm'
+import finWebm from './finlay.webm'
+import finMp4 from './finlay.mp4'
 
 import {video} from './styles'
 
@@ -24,8 +25,12 @@ export default () => (
              height: 720
            },
            sources: [{
-             src: fin,
+             src: finWebm,
              type: 'video/webm'
+           },
+           {
+             src: finMp4,
+             type: 'video/mp4'
            }]
          }
        }
