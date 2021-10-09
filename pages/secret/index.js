@@ -4,11 +4,10 @@ import {video} from './styles'
 import {main} from '../styles'
 
 export default () => (
+
   <main className={main}>
-
-  <p>welcome to finlay's lair 🐾</p>
-  <p>a place of mystery and intrigue</p>
-
+  <h1>Welcome to Finlay's Lair</h1>
+  <p>A place of mystery and intrigue</p>
 
   <Video className={video} muted autoPlay loop video={
     {
