@@ -12,19 +12,17 @@ import hydratePost from '@/src/posts/hydrate'
 
 export default function F0F({posts, photos}) {
   return (
-    <>
-      <main className={main}>
-        <h1>
-          <span className={errorCode}>4</span>
-          <span className={errorCode}>0</span>
-          <span className={errorCode}>4</span>
-        </h1>
-        <h2 className={errorMessage}>ngl idk where this page is</h2>
+    <main className={main}>
+      <h1>
+        <span className={errorCode}>4</span>
+        <span className={errorCode}>0</span>
+        <span className={errorCode}>4</span>
+      </h1>
+      <h2 className={errorMessage}>ngl idk where this page is</h2>
 
-        <PostList posts={posts.map(hydratePost)} heading="Trash Reads" />
-        <PhotoList photos={photos} heading="Pretty Pictures" />
-      </main>
-    </>
+      <PostList posts={posts.map(hydratePost)} heading="Trash Reads" />
+      <PhotoList photos={photos} heading="Pretty Pictures" />
+    </main>
   )
 }
 
