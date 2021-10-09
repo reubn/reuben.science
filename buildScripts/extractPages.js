@@ -7,8 +7,10 @@ const manifest = require(path.join(process.cwd(), '.next', PRERENDER_MANIFEST))
 const extractPages = () => {
   const {routes} = manifest
 
-  return Object.entries(routes).map(([page, route]) => {
+  return Object.entries(routes).flatMap(([page, route]) => {
     const {pageProps} = require(path.join(process.cwd(), 'out', route.dataRoute))
+
+    if(pageProps.hidden) return []
 
     return {
       page,

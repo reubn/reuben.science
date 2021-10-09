@@ -34,3 +34,9 @@ export default () => (
     </main>
   </>
 )
+
+export const getStaticProps = async () => ({
+  props: {
+    hidden: true
+  }
+})
