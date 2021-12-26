@@ -155,12 +155,6 @@ const Memoji = ({frameTimeout=5*1000, frameCount, getFrameURL, defaultFrameNumbe
     let memojiHasBeenTouched = false
     if("ontouchstart" in window && !memojiHasBeenTouched) {
       setCTA(ready && localStorage.getItem('memojiKnowsIsInteractive') !== 'true')
-      // crude animate head before touch interaction
-      let f = 0
-      let direction = +1
-      const intervalA = setInterval(() => tiltHead({fraction: (f = (f + 1 + (direction * 0.005 * Math.random())) % 1)}), 10)
-      const intervalB = setInterval(() => direction *= Math.random() > 0.5 ? -1 : +1, 10 * 200)
-
 
       let sxa = []
       let sya = []
@@ -176,8 +170,6 @@ const Memoji = ({frameTimeout=5*1000, frameCount, getFrameURL, defaultFrameNumbe
 
         memojiHasBeenTouched = true
         localStorage.setItem('memojiKnowsIsInteractive', 'true')
-        clearInterval(intervalA)
-        clearInterval(intervalB)
         setCTA(false)
 
         mouseHandler({clientX: cx, clientY: cy})
@@ -186,14 +178,31 @@ const Memoji = ({frameTimeout=5*1000, frameCount, getFrameURL, defaultFrameNumbe
       canvasRef.current.addEventListener('touchstart', touchHandler)
       canvasRef.current.addEventListener('touchmove', touchHandler)
 
-      return () => {
-        clearInterval(intervalA)
-        clearInterval(intervalB)
+      const scrollHandler = event => {
+        const domRect = canvasRef.current.getBoundingClientRect()
+        const scrollProportion = document.documentElement.scrollTop / (domRect.height + domRect.bottom) * 1.25
+        const fraction = scrollProportion % 1
+        console.log({
+          dst: document.documentElement.scrollTop,
+          bottom: domRect.bottom,
+          height: domRect.height,
+          scrollProportion,
+          fraction
+        })
 
+
+        if(canvasRef.current) tiltHead({fraction})
+      }
+
+      document.addEventListener('scroll', scrollHandler)
+
+      return () => {
         if(canvasRef.current){
           canvasRef.current.removeEventListener('touchstart', touchHandler)
           canvasRef.current.removeEventListener('touchmove', touchHandler)
         }
+
+        document.removeEventListener('scroll', scrollHandler)
       }
     }
     else {
