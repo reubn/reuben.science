@@ -1,0 +1,10 @@
+export const metadata = {
+  title: 'For Each File Loop',
+  description: 'Run Bash Command for Every File in a Directory/Glob',
+  emoji: '🔁',
+  date: '2021-12-26'
+}
+
+```bash
+for file in *.png; do echo "${file} -> ./${file//\.png/.webp}"; done
+```
