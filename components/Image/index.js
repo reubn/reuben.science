@@ -9,7 +9,7 @@ import imageCacheList from './imageCacheList'
 
 import {image as imageStyle, loading} from './styles'
 
-const Image = ({image={}, className, lazy=true, alt, sizes='min(1000px, 100vw - 1rem)', ...props}) => {
+const Image = ({image={}, className, lazy=true, alt, aspectRatio, sizes='min(1000px, 100vw - 1rem)', ...props}) => {
   const {resolutions} = image
   const srcSet = useMemo(() => makeSrcSet(resolutions), [resolutions])
 
@@ -67,7 +67,7 @@ const Image = ({image={}, className, lazy=true, alt, sizes='min(1000px, 100vw - 
         sizes={sizes}
 
         className={[imageStyle, className].join(' ')}
-        style={{aspectRatio: `${resolutions[1].width}/${resolutions[1].height}`}}
+        style={{aspectRatio: aspectRatio || `${resolutions[1].width}/${resolutions[1].height}`}}
         loading={loadingMode}
 
         alt={alt}
