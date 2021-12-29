@@ -28,14 +28,7 @@ module.exports = withPlugins([[withMDX]], {
     scrollRestoration: true,
   },
   webpack: (config, {isServer, dev}) => {
-    if(!dev) config.module.rules.forEach(({oneOf}) => oneOf?.forEach(({use}) => {
-      use?.forEach?.(({options: {modules}}) => {
-        if(modules?.getLocalIdent) {
-          delete modules.getLocalIdent
-          modules.localIdentName = '[hash:base64:4]'
-        }
-      })
-    }))
+    require('./src/cssClassNames')(config, {dev})
 
     config.resolve.extensions.push('.md', '.mdx', '.css', '.module.css', '.json')
 
