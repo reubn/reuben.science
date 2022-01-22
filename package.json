@@ -21,7 +21,7 @@
     "next": "^12.0.7",
     "next-compose-plugins": "^2.2.1",
     "next-seo": "^4.28.1",
-    "node-fetch": "^3.1.0",
+    "node-fetch": "^3.1.1",
     "react": "^17.0.2",
     "react-compare-slider": "^2.2.0",
     "react-dom": "^17.0.2",
