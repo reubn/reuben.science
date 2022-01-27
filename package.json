@@ -34,7 +34,7 @@
     "remark-captions": "^2.2.2",
     "remark-sub-super": "^1.0.20",
     "striptags": "^3.2.0",
-    "three": "^0.136.0",
+    "three": "^0.137.0",
     "unist-util-visit": "^2.0.3",
     "webp-hero": "0.0.0-dev.27"
   },
