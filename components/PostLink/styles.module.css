@@ -62,7 +62,7 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  margin: 1rem auto 0 auto;
+  margin: 0.5rem auto 0 auto;
 }
 
 @media (max-width: 900px) and (min-width: 760px) {
