@@ -1,0 +1,13 @@
+export const metadata = {
+  title: 'Docker Add File to Image',
+  description: 'Docker Add File to Image',
+  emoji: '🐳',
+  date: '2022-01-06'
+}
+
+```bash
+docker create --name temp_container $IMAGE \
+&& docker cp $HOST_FILE_PATH temp_container:$CONTAINER_FILE_PATH  \
+&& docker commit temp_container $IMAGE \
+&& (docker rm temp_container || :) 
+```
