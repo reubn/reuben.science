@@ -1,0 +1,10 @@
+export const metadata = {
+  title: 'Docker Run Command in Container',
+  description: 'Docker Run Command in Container by Name',
+  emoji: '🐳',
+  date: '2022-01-06'
+}
+
+```bash
+docker exec -it $(sudo docker ps -aqf "name=$CONTAINER") $CMD
+```

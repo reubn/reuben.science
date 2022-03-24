@@ -86,6 +86,10 @@
   color: var(--colours-light);
 }
 
+.language-applescript .token.string {
+  color: var(--colours-blue);
+}
+
 .language-bash .token.variable {
   color: var(--colours-light);
 }

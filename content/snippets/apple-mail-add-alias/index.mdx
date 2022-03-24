@@ -1,0 +1,69 @@
+export const metadata = {
+  title: 'New Email Alias Shortcut for Apple Mail',
+  description: 'Quickly Create Email Alias in Mail on macOS',
+  emoji: '🍏',
+  date: '2022-03-24'
+}
+
+Hook this up to a keyboard shortcut to quickly add new email aliases as you're composing/replying.  
+Trigger from compose window.
+
+```applescript
+tell application "System Events"
+ tell process "Mail"
+  click menu item "Preferences…" of menu 1 of menu bar item "Mail" of menu bar 1
+  set preferencesWindow to window 1
+  click button "Accounts" of toolbar 1 of preferencesWindow
+  
+  set accountsTable to table 1 of scroll area 1 of group 1 of preferencesWindow
+  
+  set accounts to value of static text 1 of UI element 1 of every row of accountsTable
+  
+  set selectedAccount to first item of (choose from list accounts with prompt "Select Account" default items {""})
+  if selectedAccount contains "@" then
+   set defaultAnswer to do shell script "sed 's/^[^@]*@/@/g' <<< " & quoted form of selectedAccount
+  else if selectedAccount contains "." then
+   set defaultAnswer to "@" & selectedAccount
+  else
+   set defaultAnswer to ""
+  end if
+  
+  set answer to display dialog "Enter New Alias" default answer defaultAnswer with icon note buttons {"Cancel", "Continue"} default button "Continue"
+  
+  set correctRow to first row of accountsTable where value of (static text 1 of UI element 1) is selectedAccount
+  set selected of correctRow to true
+  
+  click radio button "Account Information" of tab group 1 of group 1 of preferencesWindow
+  
+  set emailAdressPopUpButton to first pop up button of tab group 1 of group 1 of preferencesWindow
+  tell emailAdressPopUpButton
+   click
+   click last menu item of menu 1
+  end tell
+  
+  click button 1 of group 1 of sheet 1 of preferencesWindow
+  
+  set correctSheet to sheet 1 of preferencesWindow
+  set newRow to last row of table 1 of scroll area 1 of correctSheet
+  
+  set fullNameField to text field 1 of UI element 1 of newRow
+  set emailAddressField to text field 1 of UI element 2 of newRow
+  
+  set newAlias to text returned of answer
+  
+  set value of fullNameField to "Full Name"
+  set value of emailAddressField to newAlias
+  
+  click button "OK" of correctSheet
+  click value of attribute "AXCloseButton" of preferencesWindow
+  
+  set messageWindow to first window
+  set fromPopUpButton to pop up button 1 of messageWindow
+  
+  tell fromPopUpButton
+   click
+   click (menu item newAlias of menu 1)
+  end tell
+ end tell
+end tell
+```
