@@ -9,8 +9,15 @@ Hook this up to a keyboard shortcut to quickly add new email aliases as you're c
 Trigger from compose window.
 
 ```applescript
+global messageWindow
+global preferencesWindow
+global accountsTable
+global accounts
+
+
 tell application "System Events"
  tell process "Mail"
+  set messageWindow to first window
   click menu item "Preferences…" of menu 1 of menu bar item "Mail" of menu bar 1
   set preferencesWindow to window 1
   click button "Accounts" of toolbar 1 of preferencesWindow
@@ -19,23 +26,30 @@ tell application "System Events"
   
   set accounts to value of static text 1 of UI element 1 of every row of accountsTable
   
-  set selectedAccount to first item of (choose from list accounts with prompt "Select Account" default items {""})
-  if selectedAccount contains "@" then
-   set defaultAnswer to do shell script "sed 's/^[^@]*@/@/g' <<< " & quoted form of selectedAccount
-  else if selectedAccount contains "." then
-   set defaultAnswer to "@" & selectedAccount
-  else
-   set defaultAnswer to ""
-  end if
-  
-  set answer to display dialog "Enter New Alias" default answer defaultAnswer with icon note buttons {"Cancel", "Continue"} default button "Continue"
-  
+ end tell
+end tell
+
+set selectedAccount to first item of (choose from list accounts with prompt "Select Account" default items {""})
+if selectedAccount contains "@" then
+ set defaultAnswer to do shell script "sed 's/^[^@]*@/@/g' <<< " & quoted form of selectedAccount
+else if selectedAccount contains "." then
+ set defaultAnswer to "@" & selectedAccount
+else
+ set defaultAnswer to ""
+end if
+
+set answer to display dialog "Enter New Alias" default answer defaultAnswer with icon note buttons {"Cancel", "Continue"} default button "Continue"
+
+tell application "System Events"
+ tell process "Mail"
   set correctRow to first row of accountsTable where value of (static text 1 of UI element 1) is selectedAccount
+  
   set selected of correctRow to true
   
   click radio button "Account Information" of tab group 1 of group 1 of preferencesWindow
   
   set emailAdressPopUpButton to first pop up button of tab group 1 of group 1 of preferencesWindow
+  
   tell emailAdressPopUpButton
    click
    click last menu item of menu 1
@@ -57,13 +71,13 @@ tell application "System Events"
   click button "OK" of correctSheet
   click value of attribute "AXCloseButton" of preferencesWindow
   
-  set messageWindow to first window
   set fromPopUpButton to pop up button 1 of messageWindow
   
   tell fromPopUpButton
    click
    click (menu item newAlias of menu 1)
   end tell
+  
  end tell
 end tell
 ```
