@@ -5,7 +5,7 @@
    <description>RSS</description>
    <language>en</language>
    <link>https://reuben.science</link>
-   <lastBuildDate>Thu, 24 Mar 2022 19:43:07 GMT</lastBuildDate>
+   <lastBuildDate>Wed, 20 Apr 2022 10:25:34 GMT</lastBuildDate>
    <atom:link href="https://reuben.science/rss.xml" rel="self" type="application/rss+xml" />
    <item>
   <title>The Ultimate Adventure Maps</title>
@@ -144,6 +144,12 @@
   <description>Emit Service Workers to the Root Directory</description>
   <link>https://reuben.science/snippets/webpack-service-workers</link>
   <pubDate>Thu, 05 Aug 2021 00:00:00 GMT</pubDate>
+</item>
+<item>
+  <title>Stop Xcode Adding File Headers</title>
+  <description>Prevent Xcode from Adding Headers to Files</description>
+  <link>https://reuben.science/snippets/xcode-remove-file-headers</link>
+  <pubDate>Wed, 20 Apr 2022 00:00:00 GMT</pubDate>
 </item>
   </channel>
 </rss>
