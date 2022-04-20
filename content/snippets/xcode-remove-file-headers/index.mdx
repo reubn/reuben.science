@@ -1,0 +1,41 @@
+export const metadata = {
+  title: 'Stop Xcode Adding File Headers',
+  description: 'Prevent Xcode from Adding Headers to Files',
+  emoji: '🛠',
+  date: '2022-04-20',
+  preview: {
+    language: 'bash',
+    code: `for folder in "\${TEMPLATE_FOLDERS[@]}"
+do
+   find -E "$folder" -type f \( -regex '.*\.[chm]' -or -regex '.*\.swift' \) -exec sed -i '' -e 's@//___FILEHEADER___@@' -e '/./,$!d' {} \;
+done`
+  }
+}
+
+This script will prevent Xcode from adding the default headers such as
+```swift
+//
+//  filename.swift
+//  Gaia
+//
+//  Created by Reuben on 21/03/2021.
+//
+
+...
+```
+
+to new files.
+
+```bash remove-headers-from-templates.sh
+TEMPLATE_FOLDERS=(
+  $(find "$(xcode-select -p)/Platforms" -path "*.platform/Developer/Library/Xcode/Templates" -type d -mindepth 5 -maxdepth 5)
+  "$(xcode-select -p)/Library/Xcode/Templates"
+)
+
+for folder in "${TEMPLATE_FOLDERS[@]}"
+do
+   find -E "$folder" -type f \( -regex '.*\.[chm]' -or -regex '.*\.swift' \) -exec sed -i '' -e 's@//___FILEHEADER___@@' -e '/./,$!d' {} \;
+done
+```
+
+This patches the Xcode file templates.
