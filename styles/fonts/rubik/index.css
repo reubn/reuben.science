@@ -1,0 +1,124 @@
+@import './900-normal.css';
+@import './900-italic.css';
+@import './700-normal.css';
+@import './700-italic.css';
+@import './800-normal.css';
+@import './800-italic.css';
+@import './400-italic.css';
+@import './300-normal.css';
+@import './300-italic.css';
+@import './500-normal.css';
+@import './500-italic.css';
+@import './400-normal.css';
+@import './700-normal.css';
+@import './700-italic.css';
+
+@font-face {
+    font-family: 'Fallback';
+    src: local("Arial");
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+    ascent-override: 94.482421875%;
+    descent-override: 32.666015625%;
+    line-gap-override: 0%;
+}
+
+@font-face {
+    font-family: 'Fallback';
+    src: local("Arial");
+    font-weight: 900;
+    font-style: italic;
+    font-display: swap;
+    ascent-override: 94.482421875%;
+    descent-override: 32.666015625%;
+    line-gap-override: 0%;
+}
+
+@font-face {
+    font-family: 'Fallback';
+    src: local("Arial");
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+    ascent-override: 93.017578125%;
+    descent-override: 31.15234375%;
+    line-gap-override: 0%;
+}
+
+@font-face {
+    font-family: 'Fallback';
+    src: local("Arial");
+    font-weight: 700;
+    font-style: italic;
+    font-display: swap;
+    ascent-override: 92.3828125%;
+    descent-override: 31.15234375%;
+    line-gap-override: 0%;
+}
+
+@font-face {
+    font-family: 'Fallback';
+    src: local("Arial");
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+    ascent-override: 90.478515625%;
+    descent-override: 28.369140625%;
+    line-gap-override: 0%;
+}
+
+@font-face {
+    font-family: 'Fallback';
+    src: local("Arial");
+    font-weight: 300;
+    font-style: italic;
+    font-display: swap;
+    ascent-override: 89.599609375%;
+    descent-override: 28.369140625%;
+    line-gap-override: 0%;
+}
+
+@font-face {
+    font-family: 'Fallback';
+    src: local("Arial");
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+    ascent-override: 92.08984375%;
+    descent-override: 30.17578125%;
+    line-gap-override: 0%;
+}
+
+@font-face {
+    font-family: 'Fallback';
+    src: local("Arial");
+    font-weight: 500;
+    font-style: italic;
+    font-display: swap;
+    ascent-override: 91.2109375%;
+    descent-override: 30.17578125%;
+    line-gap-override: 0%;
+}
+
+@font-face {
+    font-family: 'Fallback';
+    src: local("Arial");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+    ascent-override: 91.30859375%;
+    descent-override: 29.052734375%;
+    line-gap-override: 0%;
+}
+
+@font-face {
+    font-family: 'Fallback';
+    src: local("Arial");
+    font-weight: 400;
+    font-style: italic;
+    font-display: swap;
+    ascent-override: 89.990234375%;
+    descent-override: 29.052734375%;
+    line-gap-override: 0%;
+}
