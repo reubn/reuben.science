@@ -1,0 +1,1 @@
+self.__SSG_MANIFEST=new Set(["/categories","/snippets","/404","/","/posts","/posts/[slug]","/snippets/[slug]","/categories/[slug]"]);self.__SSG_MANIFEST_CB&&self.__SSG_MANIFEST_CB()
