@@ -1,7 +1,7 @@
 const withPlugins = require('next-compose-plugins')
 const withMDX = require('@next/mdx')({
   options: {
-    remarkPlugins: [require('./src/refs/remark'), require('remark-sub-super'), [require('remark-captions'), {
+    /*remarkPlugins: [require('./src/refs/remark'), require('remark-sub-super'), [require('remark-captions'), {
       external: {
         code: 'caption:',
       },
@@ -14,7 +14,7 @@ const withMDX = require('@next/mdx')({
       require('./src/syntaxHighlight/rehype'),
       require('rehype-slug'),
       [require('rehype-autolink-headings'), {behavior: 'wrap'}]
-    ],
+    ],*/
   },
   extension: /\.mdx?$/
 })
