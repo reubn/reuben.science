@@ -130,7 +130,6 @@ export default function SnippetWrapper({slug, metadata}) {
 export const getStaticProps = async ctx => {
   const slug = ctx.params?.slug
   const post = await import(`@/content/snippets/${slug}/index.mdx`)
-  console.log({...post})
   const metadata = processPost({metadata: post.metadata, codeBlocks: post.codeBlocks, content: renderToString(post)})
 
   return {
