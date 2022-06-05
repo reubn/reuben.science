@@ -1,4 +1,5 @@
 import remarkMdx from 'remark-mdx'
+import remarkGfm from 'remark-gfm'
 
 import refsRemark from './src/refs/remark.mjs'
 import refsRehype from './src/refs/rehype.mjs'
@@ -49,7 +50,7 @@ export default {
           loader: '@mdx-js/loader',
           options: {
             providerImportSource: '@mdx-js/react',
-            remarkPlugins: [remarkMdx, refsRemark, superSub, syntaxHighlightRemark],
+            remarkPlugins: [remarkMdx, remarkGfm, refsRemark, superSub, syntaxHighlightRemark],
             rehypePlugins: [
               refsRehype,
               syntaxHighlightRehype,
