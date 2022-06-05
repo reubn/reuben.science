@@ -4,7 +4,7 @@ import {visit} from 'unist-util-visit'
 import {toString} from 'hast-util-to-string'
 import {refractor} from 'refractor'
 
-import {element} from './clickToCopy.mjs'
+import clickToCopy from './clickToCopyServer.mjs'
 
 import commentLookup from './commentLookup.mjs'
 
@@ -22,7 +22,7 @@ function getLanguage(node) {
 }
 
 function visitor(node, index, parent) {
-  if(node.tagName === 'pre') node.children.unshift(element)
+  if(node.tagName === 'pre') node.children.unshift(clickToCopy)
   if(node.tagName === 'pre' && parent && parent.tagName === 'figure') return parent.properties.className = (parent.properties.className || []).concat('code')
   if(!(node.tagName === 'inlineCode' || (node.tagName === 'code' && parent && parent.tagName === 'pre'))) return
 
@@ -31,7 +31,6 @@ function visitor(node, index, parent) {
 
   const properties = {
     className: (parent.properties.className || []).concat('language-' + lang),
-    magic: "55",
     metastring: node.properties.metastring ? `${(lang && commentLookup[lang]?.[0]) || '//'} ${node.properties.metastring}` : undefined
   }
 

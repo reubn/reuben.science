@@ -17,7 +17,7 @@ import {app, content} from './_app.module.css'
 
 import ping from '@/src/.analytics'
 
-import {setUp as setUpClickToCopy} from '@/src/syntaxHighlight/clickToCopy'
+import setUpClickToCopy from '@/src/syntaxHighlight/clickToCopyClient'
 
 setUpClickToCopy((typeof window !== 'undefined') && window)
 
