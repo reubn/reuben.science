@@ -1,7 +1,7 @@
 import dynamic from "next/dynamic"
 
 import {refractor} from 'refractor'
-import {toHTML} from 'hast-util-to-html'
+import {toHtml} from 'hast-util-to-html'
 
 import SnippetPost from "@/components/SnippetPost"
 
@@ -21,7 +21,7 @@ const dynamicImports = postList.reduce(
 
 const previewLineCount = 5
 
-const wrapCode = (language, children) => ({
+const wrapCode = (language, {children}) => ({
   type: 'element',
   tagName: 'span',
   properties: {
@@ -94,7 +94,7 @@ export const processPost = ({slug, metadata, codeBlocks, content}) => {
     date: new Date(metadata.date).toISOString(),
     linesOfCode: Math.max(0, (content.match(/<pre[^]*?<\/pre>/gm) || []).join('').split('\n').length - 1) || null,
     preview: {
-      html: toHTML(highlighted)
+      html: toHtml(highlighted)
     }
   }
 }

@@ -1,5 +1,7 @@
 import {visit} from 'unist-util-visit'
 
+import mdast from '../mdast.mjs'
+
 const preview = tree => {
   const codeNodes = []
 
@@ -10,11 +12,7 @@ const preview = tree => {
   visit(tree, 'code', visitor)
 
   const exportValue = codeNodes.map(({lang, value}) => ({language: lang, lines: value.split('\n')}))
-
-  const exportNode = {
-    type: 'mdxjsEsm',
-    value: `export const codeBlocks = ${JSON.stringify(exportValue)}`
-  }
+  const exportNode = mdast(`export const codeBlocks = ${JSON.stringify(exportValue)}`)
 
   tree.children.unshift(exportNode)
 }
