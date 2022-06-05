@@ -2,7 +2,7 @@ import {NextSeo, BreadcrumbJsonLd, ArticleJsonLd} from 'next-seo'
 
 import {title, description, categories, info as infoStyle, date as dateStyle, post, body} from '../Post/styles'
 
-export default function SnippetPost({slug, metadata, children, __HACK_ID}){
+export default function SnippetPost({slug, metadata, children}){
   const date = new Date(metadata.date)
 
   return (
@@ -56,7 +56,7 @@ export default function SnippetPost({slug, metadata, children, __HACK_ID}){
           <time dateTime={date.toLocaleDateString()}>{date.toLocaleDateString()}</time>
           <span>{metadata.linesOfCode || '???'} line{metadata.linesOfCode != 1 && 's'}</span>
         </span>
-        <div className={body} id={__HACK_ID}>
+        <div className={body}>
           {children}
         </div>
       </article>
