@@ -1,4 +1,4 @@
-const visit = require('unist-util-visit')
+import {visit} from 'unist-util-visit'
 
 const regex = /^\{\:(.+?)\}\s?/ // `{:js} console.log('this is js')`
 
@@ -12,4 +12,4 @@ function withInlineCodeLanguage(node) {
   }
 }
 
-module.exports = tree => visit(tree, 'inlineCode', withInlineCodeLanguage)
+export default tree => visit(tree, 'inlineCode', withInlineCodeLanguage)

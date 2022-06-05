@@ -1,6 +1,4 @@
-'use strict'
-
-module.exports = jsonExtra
+export default jsonExtra
 jsonExtra.displayName = 'jsonExtra'
 jsonExtra.aliases = []
 
@@ -31,6 +29,6 @@ function jsonExtra(Prism) {
         booleanTrue: /true/,
         booleanFalse: /false/
       }
-    },
+    }
   }
 }

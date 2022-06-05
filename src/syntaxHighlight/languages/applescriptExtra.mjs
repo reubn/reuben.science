@@ -1,6 +1,5 @@
-'use strict'
+export default applescriptExtra
 
-module.exports = applescriptExtra
 applescriptExtra.displayName = 'applescriptExtra'
 applescriptExtra.aliases = []
 

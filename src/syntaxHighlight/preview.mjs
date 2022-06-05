@@ -1,4 +1,4 @@
-const visit = require('unist-util-visit')
+import {visit} from 'unist-util-visit'
 
 const preview = tree => {
   const codeNodes = []
@@ -12,11 +12,11 @@ const preview = tree => {
   const exportValue = codeNodes.map(({lang, value}) => ({language: lang, lines: value.split('\n')}))
 
   const exportNode = {
-    type: 'export',
+    type: 'mdxjsEsm',
     value: `export const codeBlocks = ${JSON.stringify(exportValue)}`
   }
 
   tree.children.unshift(exportNode)
 }
 
-module.exports = preview
+export default preview

@@ -1,5 +1,8 @@
 import dynamic from "next/dynamic"
 
+import {refractor} from 'refractor'
+import {toHTML} from 'hast-util-to-html'
+
 import SnippetPost from "@/components/SnippetPost"
 
 import postList from '@/content/snippets/.list'
@@ -41,13 +44,13 @@ const filterLines = (commentLookup, blacklistedLines) => language => line => {
   return true
 }
 
+import languages from '@/src/syntaxHighlight/languages/index.mjs'
+languages(refractor)
+
+import commentLookup from '@/src/syntaxHighlight/commentLookup'
+import blacklistedLines from '@/src/syntaxHighlight/blacklistedLines'
+
 const getPreview = (config, codeBlocks) => {
-  const refractor = require('refractor')
-  require('@/src/syntaxHighlight/languages')(refractor)
-
-  const commentLookup = require('@/src/syntaxHighlight/commentLookup')
-  const blacklistedLines = require('@/src/syntaxHighlight/blacklistedLines')
-
   const filterLinesWithOpts = filterLines(commentLookup, blacklistedLines)
 
   if(config.code) return wrapCode(config.language, refractor.highlight(config.code, config.language))
@@ -76,8 +79,6 @@ const getPreview = (config, codeBlocks) => {
 }
 
 export const processPost = ({slug, metadata, codeBlocks, content}) => {
-  const toHTML = require('hast-util-to-html')
-
   const config = {
     lines: {
       from: 0,
@@ -87,7 +88,6 @@ export const processPost = ({slug, metadata, codeBlocks, content}) => {
   }
 
   const highlighted = getPreview(config, codeBlocks)
-  const util = require('util')
 
   return {
     ...metadata,
@@ -130,6 +130,7 @@ export default function SnippetWrapper({slug, metadata}) {
 export const getStaticProps = async ctx => {
   const slug = ctx.params?.slug
   const post = await import(`@/content/snippets/${slug}/index.mdx`)
+  console.log({...post})
   const metadata = processPost({metadata: post.metadata, codeBlocks: post.codeBlocks, content: renderToString(post)})
 
   return {

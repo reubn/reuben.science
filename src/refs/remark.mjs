@@ -1,6 +1,6 @@
 // https://github.com/zestedesavoir/zmarkdown/blob/master/packages/remark-numbered-footnotes/src/index.js
 
-const visit = require('unist-util-visit')
+import {visit} from 'unist-util-visit'
 
 function transformer (tree){
   const footnotes = {}
@@ -30,4 +30,4 @@ function definitionPass(footnotes) {
   }
 }
 
-module.exports = () => transformer
+export default () => transformer
