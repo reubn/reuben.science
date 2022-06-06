@@ -5,6 +5,7 @@ import refsRemark from './src/refs/remark.mjs'
 import refsRehype from './src/refs/rehype.mjs'
 
 import superSub from './src/super-sub.mjs'
+import remarkCaptions from 'remark-captions'
 import rehypeSlug from 'rehype-slug'
 import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 
@@ -50,7 +51,21 @@ export default {
           loader: '@mdx-js/loader',
           options: {
             providerImportSource: '@mdx-js/react',
-            remarkPlugins: [remarkMdx, remarkGfm, refsRemark, superSub, syntaxHighlightRemark],
+            remarkPlugins: [
+              remarkMdx,
+              remarkGfm,
+              refsRemark,
+              [remarkCaptions, {
+                external: {
+                  code: 'caption:',
+                },
+                internal: {
+                  image: 'caption:',
+                }
+              }],
+              superSub,
+              syntaxHighlightRemark
+            ],
             rehypePlugins: [
               refsRehype,
               syntaxHighlightRehype,
