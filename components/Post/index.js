@@ -7,7 +7,7 @@ import LengthDisplay from './LengthDisplay'
 
 import {title, description, categories, headerImage, info as infoStyle, readingTime as readingTimeStyle, words as wordsStyle, date as dateStyle, post, body} from './styles'
 
-export default function Post({slug, metadata, children, __HACK_ID}){
+export default function Post({slug, metadata, children}){
   const date = new Date(metadata.date)
 
   return (
@@ -71,7 +71,7 @@ export default function Post({slug, metadata, children, __HACK_ID}){
           <time dateTime={date.toLocaleDateString()}>{date.toLocaleDateString()}</time>
           <LengthDisplay className={readingTimeStyle} readingTime={metadata.readingTime} />
         </span>
-        <div className={body} id={__HACK_ID}>
+        <div className={body}>
           {children}
         </div>
       </article>

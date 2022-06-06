@@ -1,4 +1,8 @@
+import {Suspense} from 'react'
 import dynamic from "next/dynamic"
+
+import {refractor} from 'refractor'
+import {toHtml} from 'hast-util-to-html'
 
 import SnippetPost from "@/components/SnippetPost"
 
@@ -10,15 +14,13 @@ const dynamicImports = postList.reduce(
   (map, slug) => ({
     ...map,
     [slug]: dynamic(() => import(`@/content/snippets/${slug}/index.mdx`), {
-      loading: () => process.browser && window.__HACK_GLOBAL
-        ? <span dangerouslySetInnerHTML={{__html: window.__HACK_GLOBAL[slug] || ''}} />
-        : null
+      suspense: true
     })
   }), {})
 
 const previewLineCount = 5
 
-const wrapCode = (language, children) => ({
+const wrapCode = (language, {children}) => ({
   type: 'element',
   tagName: 'span',
   properties: {
@@ -41,13 +43,13 @@ const filterLines = (commentLookup, blacklistedLines) => language => line => {
   return true
 }
 
+import languages from '@/src/syntaxHighlight/languages/index.mjs'
+languages(refractor)
+
+import commentLookup from '@/src/syntaxHighlight/commentLookup'
+import blacklistedLines from '@/src/syntaxHighlight/blacklistedLines'
+
 const getPreview = (config, codeBlocks) => {
-  const refractor = require('refractor')
-  require('@/src/syntaxHighlight/languages')(refractor)
-
-  const commentLookup = require('@/src/syntaxHighlight/commentLookup')
-  const blacklistedLines = require('@/src/syntaxHighlight/blacklistedLines')
-
   const filterLinesWithOpts = filterLines(commentLookup, blacklistedLines)
 
   if(config.code) return wrapCode(config.language, refractor.highlight(config.code, config.language))
@@ -76,8 +78,6 @@ const getPreview = (config, codeBlocks) => {
 }
 
 export const processPost = ({slug, metadata, codeBlocks, content}) => {
-  const toHTML = require('hast-util-to-html')
-
   const config = {
     lines: {
       from: 0,
@@ -87,14 +87,13 @@ export const processPost = ({slug, metadata, codeBlocks, content}) => {
   }
 
   const highlighted = getPreview(config, codeBlocks)
-  const util = require('util')
 
   return {
     ...metadata,
     date: new Date(metadata.date).toISOString(),
     linesOfCode: Math.max(0, (content.match(/<pre[^]*?<\/pre>/gm) || []).join('').split('\n').length - 1) || null,
     preview: {
-      html: toHTML(highlighted)
+      html: toHtml(highlighted)
     }
   }
 }
@@ -107,22 +106,14 @@ const renderToString = ({default: Component}) => {
 
 export default function SnippetWrapper({slug, metadata}) {
   const Mdx = dynamicImports[slug]
-  const __HACK_ID = `HACK-SNIPPET-${slug}`
 
   return (
     <>
-      <SnippetPost slug={slug} metadata={metadata} __HACK_ID={__HACK_ID}>
-        <Mdx />
+      <SnippetPost slug={slug} metadata={metadata}>
+        <Suspense fallback={"Loading"}>
+          <Mdx />
+        </Suspense>
       </SnippetPost>
-      {
-        process.browser
-          ? null
-          : <script
-              dangerouslySetInnerHTML={{
-                __html: `window.__HACK_GLOBAL = {...(window.__HACK_GLOBAL || {}), [${JSON.stringify(slug)}]: document.getElementById('${__HACK_ID}').innerHTML}`
-              }}
-            />
-        }
     </>
   )
 }

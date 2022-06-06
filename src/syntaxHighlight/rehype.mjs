@@ -1,14 +1,15 @@
 // https://github.com/mapbox/rehype-prism/blob/main/index.js
 
-const visit = require('unist-util-visit')
-const nodeToString = require('hast-util-to-string')
-const refractor = require('refractor')
+import {visit} from 'unist-util-visit'
+import {toString} from 'hast-util-to-string'
+import {refractor} from 'refractor'
 
-const {element: clickToCopy, ids: {copyFn, clearFn}} = require('./clickToCopy')
+import clickToCopy from './clickToCopyServer.mjs'
 
-const commentLookup = require('./commentLookup')
+import commentLookup from './commentLookup.mjs'
 
-require('./languages')(refractor)
+import languages from './languages/index.mjs'
+languages(refractor)
 
 function getLanguage(node) {
   const className = node.properties.className || node.className || []
@@ -36,10 +37,10 @@ function visitor(node, index, parent) {
   node.properties = properties
 
   let result
-  try {result = refractor.highlight(nodeToString(node), lang)}
+  try {result = refractor.highlight(toString(node), lang)}
   catch (err) {return console.error(err)}
 
-  node.children = result
+  node.children = result.children
 }
 
-module.exports = () => tree => visit(tree, 'element', visitor)
+export default () => tree => visit(tree, 'element', visitor)

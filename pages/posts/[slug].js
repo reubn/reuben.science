@@ -1,3 +1,4 @@
+import {Suspense} from 'react'
 import dynamic from "next/dynamic"
 
 import Post from "@/components/Post"
@@ -11,9 +12,7 @@ const dynamicImports = postList.reduce(
   (map, slug) => ({
     ...map,
     [slug]: dynamic(() => import(`@/content/posts/${slug}/index.mdx`), {
-      loading: () => process.browser && window.__HACK_GLOBAL
-        ? <span dangerouslySetInnerHTML={{__html: window.__HACK_GLOBAL[slug] || ''}} />
-        : null
+      suspense: true
     })
   }), {})
 
@@ -42,22 +41,14 @@ const renderToString = ({default: Component}) => {
 
 export default function PostWrapper({slug, metadata}) {
   const Mdx = dynamicImports[slug]
-  const __HACK_ID = `HACK-POST-${slug}`
 
   return (
     <>
-      <Post slug={slug} metadata={metadata} __HACK_ID={__HACK_ID}>
-        <Mdx />
+      <Post slug={slug} metadata={metadata}>
+        <Suspense fallback={"Loading"}>
+          <Mdx />
+        </Suspense>
       </Post>
-      {
-        process.browser
-          ? null
-          : <script
-              dangerouslySetInnerHTML={{
-                __html: `window.__HACK_GLOBAL = {...(window.__HACK_GLOBAL || {}), [${JSON.stringify(slug)}]: document.getElementById('${__HACK_ID}').innerHTML}`
-              }}
-            />
-        }
     </>
   )
 }
