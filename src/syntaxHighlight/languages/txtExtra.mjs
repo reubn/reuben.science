@@ -1,6 +1,4 @@
-'use strict'
-
-module.exports = txtExtra
+export default txtExtra
 txtExtra.displayName = 'txtExtra'
 txtExtra.aliases = []
 

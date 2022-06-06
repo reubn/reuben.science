@@ -1,6 +1,4 @@
-'use strict'
-
-module.exports = bashExtra
+export default bashExtra
 bashExtra.displayName = 'bashExtra'
 bashExtra.aliases = []
 

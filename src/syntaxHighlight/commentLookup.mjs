@@ -5,7 +5,7 @@ const comments = {
   '/*': ['js', 'c', 'c++', 'swift', 'php']
 }
 
-module.exports = Object.entries(comments)
+export default Object.entries(comments)
   .map(([comment, languages]) => languages.map(language => [language, comment]))
   .flat()
   .reduce((obj, [key, value]) => {
