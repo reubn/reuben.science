@@ -422,12 +422,11 @@
 }
 
 .body :global(.footnotes) li {
-  color: var(--colours-mid-2);
-  word-break: keep-all;
+  white-space: nowrap;
 }
 
 .body :global(.footnotes) li a {
-  color: var(--colours-mid-1);
+  color: var(--colours-mid-2);
 }
 
 .body :global(.footnotes) li:target a {
@@ -439,7 +438,7 @@
   color: var(--colours-accent);
 }
 
-.body sup[id^=fnref-]:target a {
+.body sup a[id^=ref-]:target {
   color: var(--colours-light);
   --colours-background: var(--colours-accent-antithesis);
   background: var(--colours-background);
