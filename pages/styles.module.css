@@ -2,7 +2,7 @@
   max-width: 1000px;
   width: calc((100vw - 3.5rem));
 
-  margin: 3rem auto 6rem auto;
+  margin: 0 auto 6rem auto;
 
   display: flex;
   flex-direction: column;
@@ -13,13 +13,19 @@
 @media (max-width: 650px) {
   .main {
     width: calc((100vw - 2rem));
-    margin: 0 auto 6rem auto;
   }
 }
 
 .me {
   display: grid;
   grid-template-columns: auto auto;
+  margin-top: 3rem;
+}
+
+@media (max-width: 650px) {
+  .me {
+    margin-top: 0;
+  }
 }
 
 @media (max-width: 800px) {
