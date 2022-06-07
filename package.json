@@ -6,7 +6,8 @@
     "dev": "node ./buildScripts/before && next dev",
     "build": "node ./buildScripts/before && next build",
     "export": "npm run build && next export && node ./buildScripts/after",
-    "dev-export": "npm run export && http-server ./out -p 8000"
+    "dev-export": "npm run export && http-server ./out -p 8000",
+    "crush": "node ./src/crush.mjs $INIT_CWD"
   },
   "dependencies": {
     "@mdx-js/loader": "^2.1.1",
@@ -46,6 +47,9 @@
     "xtend": "^4.0.2"
   },
   "devDependencies": {
-    "http-server": "^14.1.1"
+    "colors": "^1.4.0",
+    "find-up": "^6.3.0",
+    "http-server": "^14.1.1",
+    "pretty-bytes": "^6.0.0"
   }
 }
