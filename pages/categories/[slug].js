@@ -46,7 +46,7 @@ export default function Category({slug, posts}) {
 
       <main className={main}>
         <CategoryLink category={slug} className={category} />
-        <PostList posts={posts.map(hydratePost)} heading={false} fallback={<h2 className={empty}>no posts here mate</h2>}/>
+        <PostList posts={posts.map(hydratePost)} heading={false} fallback={<h2 className={empty}>no posts here mate</h2>} displayImage={true} />
       </main>
     </>
   )
