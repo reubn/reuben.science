@@ -14,6 +14,8 @@ const cwd = process.argv[2] || process.cwd()
 const packageJSON = await findUp('package.json', {cwd})
 const configFile = await findUp(configName, {cwd, stopAt: packageJSON ? dirname(packageJSON) : undefined})
 
+const varientWhitelist = process.argv[3]?.split(',').map(x => x.trim()).filter(x => x) ?? undefined
+
 const configText = await readFile(configFile, 'utf8')
 
 const conversions = configText.split('\n\n').flatMap(_entryText => {
@@ -24,15 +26,18 @@ const conversions = configText.split('\n\n').flatMap(_entryText => {
   const baseStem = base.replace(extensionRegex, '')
   const extension = base.match(extensionRegex)[0]
 
-  return varientLines.map(varientLine => {
+  return varientLines.flatMap(varientLine => {
     const [varient, options] = varientLine.split(': ')
+
+    if(varientWhitelist && !varientWhitelist.includes(varient)) return []
+
     const suffix = varient === '@1x' ? '' : varient
 
     const from = join(cwd, `${baseStem}${suffix}${extension}`)
     const to = from.replace(new RegExp(extension + '$'), '.webp')
     const command = `cwebp ${options} ${from} -o ${to}`
 
-    return {base, varient, from, to, command}
+    return [{base, varient, from, to, command}]
   })
 })
 
