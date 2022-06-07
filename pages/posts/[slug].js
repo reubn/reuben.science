@@ -27,8 +27,8 @@ export const processPost = ({metadata, content}) => {
     category: metadata.category.sort(categorySort),
     date: new Date(metadata.date).toISOString(),
     readingTime: {
-      mins: +readingTimeResult.text.replace('min read', ''),
-      words: +readingTimeResult.words
+      mins: +readingTimeResult?.text?.replace('min read', '') ?? 0,
+      words: +readingTimeResult?.words ?? 0
     }
   }
 }
