@@ -20,7 +20,6 @@ export const IngredientLink = ({ingredient, quantityOnly=false, inlineQuantity=q
          interactive={true}
 
          className={!inlineQuantity && quantity}
-         style={{display: typeof window !== 'undefined' ? undefined : 'none'}}
         />
       )
     }
