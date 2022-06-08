@@ -15,7 +15,7 @@ export const IngredientLink = ({ingredient, quantityOnly=false, inlineQuantity=q
       {!inlineQuantity && <span className={mousetrap} />}
       <IngredientText
         ingredient={ingredient}
-        name={false}
+        displayedWithName={false}
         interactive={true}
 
         className={!inlineQuantity && quantity}

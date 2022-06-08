@@ -8,7 +8,7 @@ import {
   conjunction
 } from './styles'
 
-export const IngredientText = ({ingredient, alternative=false, name=true, interactive=false, highlightOnHover=undefined, className, ...props}) => {
+export const IngredientText = ({ingredient, alternative=false, displayedWithName=true, displayedWithQuantity=true, interactive=false, highlightOnHover=undefined, className, ...props}) => {
   const displayQuantity = ingredient.displayQuantity
   const isHovered = ingredient.hover === highlightOnHover
 
@@ -24,7 +24,7 @@ export const IngredientText = ({ingredient, alternative=false, name=true, intera
 
   const onMouseDown = event => (event.detail >= 2) && event.preventDefault()
 
-  const nameComment = name && (
+  const nameComment = displayedWithName && (
     <span style={{'--ingredient-accent': `var(--colours-${ingredient.colour})`}}>
       {' '}
       <span className={nameStyle}>{ingredient.name}</span>
@@ -38,7 +38,7 @@ export const IngredientText = ({ingredient, alternative=false, name=true, intera
       {...props}
       >
         {alternative && <span className={conjunction}>or </span>}
-        {displayQuantity && <QuantityText quantity={displayQuantity} isInteractive={isInteractive} isHovered={isHovered} displayedWithName={name} onClick={onClick || undefined} onMouseDown={onMouseDown} />}
+        {displayedWithQuantity && displayQuantity && <QuantityText quantity={displayQuantity} isInteractive={isInteractive} isHovered={isHovered} displayedWithName={displayedWithName} onClick={onClick || undefined} onMouseDown={onMouseDown} />}
         {nameComment}
       </span>
   )
