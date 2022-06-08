@@ -1,3 +1,5 @@
+import {Fragment} from 'react'
+
 import {
   interactive as interactiveStyle,
   hover as hoverStyle,
@@ -11,12 +13,12 @@ export const QuantityText = ({quantity, isInteractive, isHovered, displayedWithN
   const unit = quantity.unit
 
   const elements = components.map(([type, content, fullSpaceBeforeUnit, alt=unit.name]) => ({
-     value: () => <span key={content} className={valueStyle}>{content}</span>,
+     value: () => <span key={'value' + content} className={valueStyle}>{content}</span>,
      unit: () => (
-       <>
+       <Fragment key={'unit' + content}>
          <span style={fullSpaceBeforeUnit ? undefined : {display: 'inline-block', width: '1px'}}>{' '}</span>
-         <span key={content} className={unitStyle} title={alt}>{content}</span>
-       </>
+         <span className={unitStyle} title={alt}>{content}</span>
+       </Fragment>
      ),
      raw: () => content
    })[type]())
