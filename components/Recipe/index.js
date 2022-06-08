@@ -11,15 +11,6 @@ import createInlineQuantity from './InlineQuantity'
 const createRecipe = config => {
   const recipe = new Recipe(config || {})
 
-  // if(typeof window !== 'undefined'){
-  //   window.Recipe = Recipe
-  //   window.Ingredient = Ingredient
-  //   window.Quantity = Quantity
-  //   window.Unit = Unit
-  //
-  //   window.recipe = recipe
-  // }
-
   return {
     recipe,
     IngredientDefinition: createIngredientDefinition(recipe),
