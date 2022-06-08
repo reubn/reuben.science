@@ -145,8 +145,15 @@ class Unit {
   static units = Object.fromEntries(Unit.unitsArray)
   static from = unknown => {
     if(unknown instanceof Unit) return unknown
-    if(typeof unknown === 'string') return Unit.units[unknown] || Unit.unitsArray.find(([label, unit]) => unit.alias === unknown || unit.alias.includes?.(unknown))?.[1]
+
     if(typeof unknown === 'undefined') return Unit.units.abs
+  
+    const lookup = Unit.units[unknown] || Unit.unitsArray.find(([label, unit]) => unit.alias === unknown || unit.alias?.includes?.(unknown))?.[1]
+    if(lookup) return lookup
+  
+    console.warn(`Unit ${unknown} not defined, using absolute Unit`)
+
+    return Unit.units.abs
   }
 
   static convert = (from, to, value) => Unit.from(from).conversionFnTo(to)(value)
