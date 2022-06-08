@@ -176,6 +176,14 @@ class Unit {
       chain: [...chain, unit]
     })
   }
+
+  static createAbsolute = (plural, singular = (plural.endsWith('s') ? plural.slice(0, -1) : plural)) => new Unit({
+    label: plural,
+    name: plural,
+    format: ({formattedNumber, displayedWithName, value}) => displayedWithName ? [['value', formattedNumber]] : [['value', formattedNumber], ['unit', value === 1 ? singular : plural, true]],
+    isBase: true,
+    isComfortable: value => true
+  })
 }
 
 export default Unit

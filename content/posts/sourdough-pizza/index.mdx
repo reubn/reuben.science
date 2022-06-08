@@ -22,13 +22,7 @@ export const metadata = {
   image: header
 }
 
-export const cloves = new Unit({
-  label: 'cloves',
-  name: 'cloves',
-  format: ({formattedNumber, displayedWithName}) => displayedWithName ? [['value', formattedNumber]] : [['value', formattedNumber], ['unit', 'cloves', true]],
-  isBase: true,
-  isComfortable: value => true
-})
+export const cloves = Unit.createAbsolute('cloves')
 
 This is my recipe for sourdough pizza. We'll start by culturing a starter, that we'll later incorporate into a sourdough. We'll prepare a seasoned sauce. Finally, I'll share the foolproof method I use for cooking the pizza, using nothing more than a *hob*, *frying pan*, and *grill*.
 
