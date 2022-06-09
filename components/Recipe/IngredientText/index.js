@@ -8,14 +8,14 @@ import {
   conjunction
 } from './styles'
 
-export const IngredientText = ({ingredient, alternative=false, name=true, interactive=false, highlightOnHover=undefined, className, ...props}) => {
+export const IngredientText = ({ingredient, alternative=false, displayedWithName=true, displayedWithQuantity=true, quantityInteractive=false, highlightOnHover=undefined, className, onNameClick, ...props}) => {
   const displayQuantity = ingredient.displayQuantity
   const isHovered = ingredient.hover === highlightOnHover
 
-  const rotationUnits = interactive && displayQuantity?.sensibleUnits
-  const isInteractive = rotationUnits && rotationUnits.length > 1
+  const rotationUnits = quantityInteractive && displayQuantity?.sensibleUnits
+  const isQuantityInteractive = rotationUnits && rotationUnits.length > 1
 
-  const onClick = isInteractive && (() => {
+  const onQuantityClick = isQuantityInteractive && (() => {
     const currentIndex = rotationUnits.indexOf(displayQuantity.unit)
     const nextIndex = (currentIndex + 1) % rotationUnits.length
 
@@ -24,8 +24,8 @@ export const IngredientText = ({ingredient, alternative=false, name=true, intera
 
   const onMouseDown = event => (event.detail >= 2) && event.preventDefault()
 
-  const nameComment = name && (
-    <span style={{'--ingredient-accent': `var(--colours-${ingredient.colour})`}}>
+  const nameComment = displayedWithName && (
+    <span style={{'--ingredient-accent': `var(--colours-${ingredient.colour})`, cursor: onNameClick ? 'pointer' : undefined}} onClick={onNameClick}>
       {' '}
       <span className={nameStyle}>{ingredient.name}</span>
       {ingredient.comment && <span className={commentStyle}> {['-', '+', '(', '[', '/'].includes(ingredient.comment[0]) ? '' : '- '}{ingredient.comment}</span>}
@@ -36,11 +36,11 @@ export const IngredientText = ({ingredient, alternative=false, name=true, intera
     <span
       className={[className, alternative && alternativeStyle, isHovered && hoverStyle].filter(cn => cn).join(' ')}
       {...props}
-      >
-        {alternative && <span className={conjunction}>or </span>}
-        {displayQuantity && <QuantityText quantity={displayQuantity} isInteractive={isInteractive} isHovered={isHovered} displayedWithName={name} onClick={onClick || undefined} onMouseDown={onMouseDown} />}
-        {nameComment}
-      </span>
+    >
+      {alternative && <span className={conjunction}>or </span>}
+      {displayedWithQuantity && displayQuantity && <QuantityText quantity={displayQuantity} isInteractive={isQuantityInteractive} isHovered={isHovered} displayedWithName={displayedWithName} onClick={onQuantityClick || undefined} onMouseDown={onMouseDown} />}
+      {nameComment}
+    </span>
   )
 }
 

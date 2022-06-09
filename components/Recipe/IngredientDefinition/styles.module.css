@@ -1,0 +1,32 @@
+.checkable {
+  display: inline-block;
+  position: relative;
+}
+
+.checkable:before {
+  content: "";
+  display: inline-block;
+  background: var(--colours-green);
+  height: 2.5px;
+  width: 0;
+  position: absolute;
+  top: 50%;
+  left: calc(100% + 4px + 2px);
+  border-radius: 3px;
+
+  transition-property: width, left;
+  transition-duration: 0.25s;
+  transition-timing-function: ease-out;
+}
+
+.checked {
+  cursor: pointer;
+}
+
+.checked:before {
+  width: calc(100% + 10px);
+  left: -4px;
+
+  transition-duration: 0.075s;
+  transition-timing-function: cubic-bezier(.25,0,1,0);
+}

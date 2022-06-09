@@ -11,18 +11,16 @@ export const IngredientLink = ({ingredient, quantityOnly=false, inlineQuantity=q
    onMouseEnter={() => ingredient.setHover('link')}
    onMouseLeave={() => ingredient.setHover(false)}
    >
-    {!inlineQuantity && <span className={mousetrap} />}
-    {
-      ingredient.hasQuantity && (
-        <IngredientText
-         ingredient={ingredient}
-         name={false}
-         interactive={true}
+    {ingredient.hasQuantity && (<>
+      {!inlineQuantity && <span className={mousetrap} />}
+      <IngredientText
+        ingredient={ingredient}
+        displayedWithName={false}
+        quantityInteractive={true}
 
-         className={!inlineQuantity && quantity}
-         style={{display: typeof window !== 'undefined' ? undefined : 'none'}}
-        />
-      )
+        className={!inlineQuantity && quantity}
+      />
+    </>)
     }
     {!quantityOnly && <span className={label}>{inlineQuantity ? ' ' : ''}{children || ingredient.name.toLowerCase()}</span>}
   </span>
