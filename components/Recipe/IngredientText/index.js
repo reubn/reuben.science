@@ -8,11 +8,11 @@ import {
   conjunction
 } from './styles'
 
-export const IngredientText = ({ingredient, alternative=false, displayedWithName=true, displayedWithQuantity=true, interactive=false, highlightOnHover=undefined, className, onNameClick, ...props}) => {
+export const IngredientText = ({ingredient, alternative=false, displayedWithName=true, displayedWithQuantity=true, quantityInteractive=false, highlightOnHover=undefined, className, onNameClick, ...props}) => {
   const displayQuantity = ingredient.displayQuantity
   const isHovered = ingredient.hover === highlightOnHover
 
-  const rotationUnits = interactive && displayQuantity?.sensibleUnits
+  const rotationUnits = quantityInteractive && displayQuantity?.sensibleUnits
   const isQuantityInteractive = rotationUnits && rotationUnits.length > 1
 
   const onQuantityClick = isQuantityInteractive && (() => {
@@ -25,7 +25,7 @@ export const IngredientText = ({ingredient, alternative=false, displayedWithName
   const onMouseDown = event => (event.detail >= 2) && event.preventDefault()
 
   const nameComment = displayedWithName && (
-    <span style={{ '--ingredient-accent': `var(--colours-${ingredient.colour})`, cursor: interactive ? 'pointer' : undefined }} onClick={interactive && onNameClick}>
+    <span style={{'--ingredient-accent': `var(--colours-${ingredient.colour})`, cursor: onNameClick ? 'pointer' : undefined}} onClick={onNameClick}>
       {' '}
       <span className={nameStyle}>{ingredient.name}</span>
       {ingredient.comment && <span className={commentStyle}> {['-', '+', '(', '[', '/'].includes(ingredient.comment[0]) ? '' : '- '}{ingredient.comment}</span>}

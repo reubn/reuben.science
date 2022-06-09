@@ -16,7 +16,7 @@ export const IngredientLink = ({ingredient, quantityOnly=false, inlineQuantity=q
       <IngredientText
         ingredient={ingredient}
         displayedWithName={false}
-        interactive={true}
+        quantityInteractive={true}
 
         className={!inlineQuantity && quantity}
       />
