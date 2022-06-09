@@ -11,6 +11,7 @@
   width: 0;
   position: absolute;
   top: 50%;
+  transform: translateY(-50%);
   left: calc(100% + 4px + 2px);
   border-radius: 3px;
 
