@@ -14,7 +14,9 @@
   left: calc(100% + 4px + 2px);
   border-radius: 3px;
 
-  transition: width 0.25s ease-out, left 0.25s ease-out;
+  transition-property: width, left;
+  transition-duration: 0.25s;
+  transition-timing-function: ease-out;
 }
 
 .checked {
@@ -25,5 +27,6 @@
   width: calc(100% + 10px);
   left: -4px;
 
-  transition: width 0.075s ease-in, left 0.075s ease-in;
+  transition-duration: 0.075s;
+  transition-timing-function: cubic-bezier(.25,0,1,0);
 }
