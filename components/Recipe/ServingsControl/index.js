@@ -30,6 +30,10 @@ export const ServingsControl = ({scale, servingsAsWritten, servingsChanged, scal
   const servingsRef = useRef()
   const scaleRef = useRef()
 
+  // prevent loop
+  const previousServingsOutRef = useRef()
+  const previousScaleOutRef = useRef()
+
   const servings = scale * servingsAsWritten
   const name = servings !== 1 ? plural : singular
 
@@ -45,11 +49,21 @@ export const ServingsControl = ({scale, servingsAsWritten, servingsChanged, scal
     number: +(value + '').replace(/x$/, '')
   })
 
-  useEffect(() => _setLocalServings(makeServingsState(servings)), [servings])
-  useEffect(() => _setLocalScale(makeScaleState(scale)), [scale])
+  useEffect(() => {
+    if(servings !== previousServingsOutRef.current) _setLocalServings(makeServingsState(servings))
+  }, [servings])
+  useEffect(() => {
+    if(scale !== previousScaleOutRef.current) _setLocalScale(makeScaleState(scale))
+  }, [scale])
 
-  useEffect(() => servingsChanged(localServings), [localServings])
-  useEffect(() => scaleChanged(localScale), [localScale])
+  useEffect(() => {
+    previousServingsOutRef.current = localServings.number
+    servingsChanged(localServings)
+  }, [localServings])
+  useEffect(() => {
+    previousScaleOutRef.current = localScale.number
+    scaleChanged(localScale)
+  }, [localScale])
 
   const servingsUsedInRecipe = toFixedOrInteger(servings, 2) + ''
 
