@@ -13,7 +13,7 @@ import Footer from '@/components/Footer'
 
 import NoScriptCSS from '@/components/Lazy/NoScriptCSS'
 
-import {app, content} from './_app.module.css'
+import {app, loadGlitchFix as loadGlitchFixStyle, content} from './_app.module.css'
 
 import ping from '@/src/.analytics'
 
@@ -23,6 +23,14 @@ setUpClickToCopy((typeof window !== 'undefined') && window)
 
 function App({Component, pageProps}){
   const router = useRouter()
+  const [loadGlitchFix, setLoadGlitchFix] = useState(loadGlitchFixStyle)
+
+  // prevents flashing on elements with transition-delays on page load
+  useEffect(() => {
+    const timer = setTimeout(() => setLoadGlitchFix(''), 20)
+
+    return () => clearTimeout(timer)
+  }, [])
 
   useEffect(() => {
     const routeChangeStart = () => {
@@ -95,7 +103,7 @@ function App({Component, pageProps}){
           cardType: 'summary_large_image',
         }}
       />
-      <section className={app}>
+      <section className={`${app} ${loadGlitchFix}`}>
         <Header />
         <main className={content}>
           <Component {...pageProps} />
