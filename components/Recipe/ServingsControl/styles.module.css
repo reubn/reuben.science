@@ -51,7 +51,6 @@
 
 .control {
   --controlHeight: 2.4rem;
-  --perDigit: 0.5rem;
   font-size: 1.125rem;
 
   display: inline-flex;
@@ -73,16 +72,18 @@
 }
 
 .input {
+  --perDigit: 0.6rem;
   font-size: inherit;
+  font-family: inherit;
   appearance: none;
   border: none;
-  width: calc((var(--digits) * var(--perDigit)) + (0.88rem + (0.55rem * ((var(--digits) - 1) / 6))));
+  width: calc((var(--digits) * var(--perDigit)) + (0.88rem + (0.7rem * ((var(--digits) - 1) / 6))));
   height: 100%;
   padding: 2px 0px 2px 4px;
   color: inherit;
   background: var(--colours-dark-3);
   text-align: center;
-  font-weight: 600;
+  font-weight: 500;
   cursor: pointer;
 }
 
@@ -101,6 +102,7 @@
 }
 
 .servingsName {
+  --perDigit: 0.55rem;
   appearance: none;
   border: none;
   height: 100%;
@@ -112,6 +114,7 @@
   flex-direction: column;
   color: inherit;
   font-size: inherit;
+  font-family: inherit;
   background: inherit;
   cursor: pointer;
   outline: transparent!important;
@@ -146,6 +149,7 @@
   color: var(--colours-light-2);
   background: inherit;
   font-size: 1rem;
+  font-family: inherit;
   font-weight: 400;
   border-left: 1px solid var(--border-colour);
 
@@ -186,7 +190,7 @@
 }
 
 .recipeScaleInput {
-  --perDigit: 0.45rem;
+  --perDigit: 0.475rem;
 
   height: 1.75rem;
   appearance: none;
@@ -194,6 +198,7 @@
   background: none;
   color: var(--colours-mid-2);
   font-size: 1rem;
+  font-family: inherit;
   font-weight: 400;
   border-radius: 3px;
   padding: 2px 4px;

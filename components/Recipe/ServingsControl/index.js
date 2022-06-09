@@ -14,6 +14,17 @@ const makeScaleState = scale => ({
   number: scale
 })
 
+const digitWidthReducer = (sum, digit, index, {length}) => {
+  if(length === 1) return 1 // if string is single digit, length should be 1
+
+  const widths = [
+    [0.5, '.'],
+    [0.75, '1']
+  ]
+
+  return sum + (widths.find(([_, chars]) => chars.includes(digit))?.[0] ?? 1)
+}
+
 export const ServingsControl = ({scale, servingsAsWritten, servingsChanged, scaleChanged, plural, singular=(plural.endsWith('s') ? plural.slice(0, -1) : plural)}) => {
   const controlRef = useRef()
   const servingsRef = useRef()
@@ -95,11 +106,14 @@ export const ServingsControl = ({scale, servingsAsWritten, servingsChanged, scal
     return () => scaleRef.current?.removeEventListener('keydown', listener)
   }, [scaleRef.current])
 
+  const servingsDigits = (localServings.string || servingsUsedInRecipe).split('').reduce(digitWidthReducer, 0)
+  const scaleDigits = localScale.string.split('').reduce(digitWidthReducer, 0)
+
   return (
     <div className={container}>
       <div className={content}>
       <h3 className={title}><span className={icon}>🔢</span> Recipe Makes</h3>
-        <div ref={controlRef} className={control} style={{'--digits': (localServings.string || servingsUsedInRecipe).length ?? 1}}>
+        <div ref={controlRef} className={control} style={{'--digits': servingsDigits}}>
           <input
             ref={servingsRef}
             type="text"
@@ -158,7 +172,7 @@ export const ServingsControl = ({scale, servingsAsWritten, servingsChanged, scal
           aria-label="recipe scale factor"
 
           className={recipeScaleInput}
-          style={{'--digits': localScale.string.length}}
+          style={{'--digits': scaleDigits}}
 
           value={localScale.string}
           placeholder="1x"
