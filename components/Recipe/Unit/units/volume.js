@@ -1,3 +1,9 @@
+import {isApprox} from "./util"
+
+const acceptableFractions = [0, 0.25, 0.5, 0.75]
+const closeTo = isApprox(acceptableFractions, true)
+const notCloseTo = isApprox(acceptableFractions, false)
+
 export default {
   l: {
     name: 'litre',
@@ -25,13 +31,13 @@ export default {
     isComfortable: value => {
       const tbspValue = value / 15
       const tbspRemainder = tbspValue % 1
-      const tbspWouldBeBetter = tbspValue <= 10 && (tbspRemainder <= 0.0000001 || Math.abs(tbspRemainder - 0.5) <= 0.0000001)
-
+      const tbspWouldBeBetter = tbspValue <= 10 && closeTo(tbspRemainder)
+      
       if(tbspWouldBeBetter) return 'tbsp'
 
       const tspValue = value / 5
       const tspRemainder = tspValue % 1
-      const tspWouldBeBetter = tspValue <= 10 && (tspRemainder <= 0.0000001 || Math.abs(tspRemainder - 0.5) <= 0.0000001)
+      const tspWouldBeBetter = tspValue <= 10 && closeTo(tspRemainder)
 
       if(tspWouldBeBetter) return 'tsp'
 
@@ -63,10 +69,10 @@ export default {
     isComfortable: value => {
       const currentRemainder = value % 1
 
-      if(currentRemainder >= 0.0000001 && Math.abs(currentRemainder - 0.5) >= 0.0000001) {
+      if(notCloseTo(currentRemainder)) {
         const tspValue = value * 3
         const tspRemainder = tspValue % 1
-        const tspWouldBeBetter = tspValue <= 10 && (tspRemainder <= 0.0000001 || Math.abs(tspRemainder - 0.5) <= 0.0000001)
+        const tspWouldBeBetter = tspValue <= 10 && closeTo(tspRemainder)
 
         if(tspWouldBeBetter) return 'tsp'
       }
@@ -86,7 +92,7 @@ export default {
     isComfortable: value => {
       const tbspValue = value / 3
       const tbspRemainder = tbspValue % 1
-      const tbspWouldBeBetter = tbspValue <= 10 && (tbspRemainder <= 0.0000001 || Math.abs(tbspRemainder - 0.5) <= 0.0000001)
+      const tbspWouldBeBetter = tbspValue <= 10 && closeTo(tbspRemainder)
 
       if(tbspWouldBeBetter) return 'tbsp'
 
