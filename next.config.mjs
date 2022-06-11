@@ -1,5 +1,6 @@
 import composePlugins from 'next-compose-plugins'
-const {withPlugins, optional} = composePlugins
+const {withPlugins} = composePlugins
+
 import withMDX from '@next/mdx'
 
 import remarkMdx from 'remark-mdx'
@@ -16,8 +17,7 @@ import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 import syntaxHighlightRemark from './src/syntaxHighlight/remark.mjs'
 import syntaxHighlightRehype from './src/syntaxHighlight/rehype.mjs'
 
-const {default: bundleAnalyser} = process.env.ANALYSE === 'ANALYSE' && await import('@next/bundle-analyzer')
-
+const {BundleAnalyzerPlugin} = process.env.ANALYSE === 'ANALYSE' ? await import('webpack-bundle-analyzer') : {}
 
 const mdx = withMDX({
   options: {
