@@ -1,3 +1,7 @@
+import composePlugins from 'next-compose-plugins'
+const {withPlugins, optional} = composePlugins
+import withMDX from '@next/mdx'
+
 import remarkMdx from 'remark-mdx'
 import remarkGfm from 'remark-gfm'
 
@@ -12,7 +16,34 @@ import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 import syntaxHighlightRemark from './src/syntaxHighlight/remark.mjs'
 import syntaxHighlightRehype from './src/syntaxHighlight/rehype.mjs'
 
-export default {
+const mdx = withMDX({
+  options: {
+    providerImportSource: '@mdx-js/react',
+    remarkPlugins: [
+      remarkMdx,
+      remarkGfm,
+      refsRemark,
+      [remarkCaptions, {
+        external: {
+          code: 'caption:',
+        },
+        internal: {
+          image: 'caption:',
+        }
+      }],
+      superSub,
+      syntaxHighlightRemark
+    ],
+    rehypePlugins: [
+      refsRehype,
+      syntaxHighlightRehype,
+      rehypeSlug,
+      [rehypeAutolinkHeadings, {behavior: 'wrap'}]
+    ]
+  }
+})
+
+const config = {
   pageExtensions: ['js', 'jsx', 'md', 'mdx'],
   images: {
     disableStaticImages: true,
@@ -43,40 +74,8 @@ export default {
         options: fileOptions
     })
 
-    config.module.rules.push({
-      test: /\.mdx$/,
-      use: [
-        defaultLoaders.babel,
-        {
-          loader: '@mdx-js/loader',
-          options: {
-            providerImportSource: '@mdx-js/react',
-            remarkPlugins: [
-              remarkMdx,
-              remarkGfm,
-              refsRemark,
-              [remarkCaptions, {
-                external: {
-                  code: 'caption:',
-                },
-                internal: {
-                  image: 'caption:',
-                }
-              }],
-              superSub,
-              syntaxHighlightRemark
-            ],
-            rehypePlugins: [
-              refsRehype,
-              syntaxHighlightRehype,
-              rehypeSlug,
-              [rehypeAutolinkHeadings, {behavior: 'wrap'}]
-            ]
-          }
-        },
-      ],
-    })
-
     return config
   }
 }
+
+export default withPlugins([mdx], config)
