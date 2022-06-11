@@ -123,10 +123,13 @@ export const getStaticProps = async ctx => {
   const post = await import(`@/content/snippets/${slug}/index.mdx`)
   const metadata = processPost({metadata: post.metadata, codeBlocks: post.codeBlocks, content: renderToString(post)})
 
+  const hidden = process.env.SHOW_WIP !== 'SHOW_WIP' && slug.endsWith('.wip')
+
   return {
     props: {
       slug,
-      metadata
+      metadata,
+      hidden
     }
   }
 }

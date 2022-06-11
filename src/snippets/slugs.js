@@ -6,7 +6,6 @@ module.exports = async () => {
 
   return posts
     .filter(path => !path.startsWith('.'))
-    .filter(path => process.env.SHOW_WIP === 'SHOW_WIP' || !path.includes('.wip'))
     .map(path => path.endsWith('.wip') ? path : path.replace(/\.[^\.]+$/, ''))
 }
 

@@ -10,6 +10,7 @@ export default async (...slice) => {
 
   return (await Promise.all(promises))
     .map(({props}) => hydratePost(props))
+    .filter(({hidden}) => !hidden)
     .sort(sortPosts)
     .slice(...slice)
 }
