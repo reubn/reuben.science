@@ -48,6 +48,8 @@
   height: auto;
   margin: 0;
 
+  object-fit: cover;
+
   background: transparent;
 
   transition: transform 0.15s ease-out,
