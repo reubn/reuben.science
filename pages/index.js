@@ -43,7 +43,7 @@ export default function Home({posts, photos}) {
     />
       <main className={main}>
         <section className={me}>
-          <Suspense fallback={"Loading"}>
+          <Suspense fallback={""}>
             <Memoji className={memoji} frameCount={frameCount} getFrameURL={getFrameURL} width={Math.floor(459 * 1.5)} height={Math.floor(350 * 1.5)} />
           </Suspense>
           <div className={profile}>
