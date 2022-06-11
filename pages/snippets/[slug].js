@@ -44,12 +44,12 @@ const filterLines = (commentLookup, blacklistedLines) => language => line => {
 }
 
 import languages from '@/src/syntaxHighlight/languages/index.mjs'
-languages(refractor)
 
 import commentLookup from '@/src/syntaxHighlight/commentLookup'
 import blacklistedLines from '@/src/syntaxHighlight/blacklistedLines'
 
 const getPreview = (config, codeBlocks) => {
+  languages(refractor)
   const filterLinesWithOpts = filterLines(commentLookup, blacklistedLines)
 
   if(config.code) return wrapCode(config.language, refractor.highlight(config.code, config.language))
@@ -77,7 +77,7 @@ const getPreview = (config, codeBlocks) => {
   })
 }
 
-export const processPost = ({slug, metadata, codeBlocks, content}) => {
+const processPost = ({slug, metadata, codeBlocks, content}) => {
   const config = {
     lines: {
       from: 0,
@@ -123,10 +123,13 @@ export const getStaticProps = async ctx => {
   const post = await import(`@/content/snippets/${slug}/index.mdx`)
   const metadata = processPost({metadata: post.metadata, codeBlocks: post.codeBlocks, content: renderToString(post)})
 
+  const hidden = process.env.SHOW_WIP !== 'SHOW_WIP' && slug.endsWith('.wip')
+
   return {
     props: {
       slug,
-      metadata
+      metadata,
+      hidden
     }
   }
 }

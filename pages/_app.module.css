@@ -9,6 +9,10 @@
   text-rendering: optimizelegibility;
 }
 
+.app.loadGlitchFix *, .app.loadGlitchFix *:before, .app.loadGlitchFix *:after {
+  transition: none!important;
+}
+
 .content {
   overflow: visible;
 

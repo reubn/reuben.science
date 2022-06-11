@@ -1,3 +1,8 @@
+import composePlugins from 'next-compose-plugins'
+const {withPlugins} = composePlugins
+
+import withMDX from '@next/mdx'
+
 import remarkMdx from 'remark-mdx'
 import remarkGfm from 'remark-gfm'
 
@@ -12,7 +17,36 @@ import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 import syntaxHighlightRemark from './src/syntaxHighlight/remark.mjs'
 import syntaxHighlightRehype from './src/syntaxHighlight/rehype.mjs'
 
-export default {
+const {BundleAnalyzerPlugin} = process.env.ANALYSE === 'ANALYSE' ? await import('webpack-bundle-analyzer') : {}
+
+const mdx = withMDX({
+  options: {
+    providerImportSource: '@mdx-js/react',
+    remarkPlugins: [
+      remarkMdx,
+      remarkGfm,
+      refsRemark,
+      [remarkCaptions, {
+        external: {
+          code: 'caption:',
+        },
+        internal: {
+          image: 'caption:',
+        }
+      }],
+      superSub,
+      syntaxHighlightRemark
+    ],
+    rehypePlugins: [
+      refsRehype,
+      syntaxHighlightRehype,
+      rehypeSlug,
+      [rehypeAutolinkHeadings, {behavior: 'wrap'}]
+    ]
+  }
+})
+
+const config = {
   pageExtensions: ['js', 'jsx', 'md', 'mdx'],
   images: {
     disableStaticImages: true,
@@ -22,6 +56,20 @@ export default {
   },
   webpack: (config, {isServer, dev, defaultLoaders}) => {
     // import('./src/cssClassNames')(config, {dev})
+
+    if(process.env.ANALYSE === 'ANALYSE') config.plugins.push(
+      new BundleAnalyzerPlugin({
+        analyzerMode: 'static',
+        openAnalyzer: false,
+        generateStatsFile: true,
+        statsFilename: isServer
+        ? '../analyze/server.stats.json'
+        : './analyze/client.stats.json',
+        reportFilename: isServer
+          ? '../analyze/server.html'
+          : './analyze/client.html',
+      })
+    )
 
     config.resolve.extensions.push('.md', '.mdx', '.css', '.module.css', '.json')
 
@@ -43,40 +91,8 @@ export default {
         options: fileOptions
     })
 
-    config.module.rules.push({
-      test: /\.mdx$/,
-      use: [
-        defaultLoaders.babel,
-        {
-          loader: '@mdx-js/loader',
-          options: {
-            providerImportSource: '@mdx-js/react',
-            remarkPlugins: [
-              remarkMdx,
-              remarkGfm,
-              refsRemark,
-              [remarkCaptions, {
-                external: {
-                  code: 'caption:',
-                },
-                internal: {
-                  image: 'caption:',
-                }
-              }],
-              superSub,
-              syntaxHighlightRemark
-            ],
-            rehypePlugins: [
-              refsRehype,
-              syntaxHighlightRehype,
-              rehypeSlug,
-              [rehypeAutolinkHeadings, {behavior: 'wrap'}]
-            ]
-          }
-        },
-      ],
-    })
-
     return config
   }
 }
+
+export default withPlugins([mdx], config)

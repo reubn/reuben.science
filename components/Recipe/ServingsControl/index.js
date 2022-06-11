@@ -14,10 +14,25 @@ const makeScaleState = scale => ({
   number: scale
 })
 
+const digitWidthReducer = (sum, digit, index, {length}) => {
+  if(length === 1) return 1 // if string is single digit, length should be 1
+
+  const widths = [
+    [0.5, '.'],
+    [0.75, '1']
+  ]
+
+  return sum + (widths.find(([_, chars]) => chars.includes(digit))?.[0] ?? 1)
+}
+
 export const ServingsControl = ({scale, servingsAsWritten, servingsChanged, scaleChanged, plural, singular=(plural.endsWith('s') ? plural.slice(0, -1) : plural)}) => {
   const controlRef = useRef()
   const servingsRef = useRef()
   const scaleRef = useRef()
+
+  // prevent loop
+  const previousServingsOutRef = useRef()
+  const previousScaleOutRef = useRef()
 
   const servings = scale * servingsAsWritten
   const name = servings !== 1 ? plural : singular
@@ -34,11 +49,21 @@ export const ServingsControl = ({scale, servingsAsWritten, servingsChanged, scal
     number: +(value + '').replace(/x$/, '')
   })
 
-  useEffect(() => _setLocalServings(makeServingsState(servings)), [servings])
-  useEffect(() => _setLocalScale(makeScaleState(scale)), [scale])
+  useEffect(() => {
+    if(servings !== previousServingsOutRef.current) _setLocalServings(makeServingsState(servings))
+  }, [servings])
+  useEffect(() => {
+    if(scale !== previousScaleOutRef.current) _setLocalScale(makeScaleState(scale))
+  }, [scale])
 
-  useEffect(() => servingsChanged(localServings), [localServings])
-  useEffect(() => scaleChanged(localScale), [localScale])
+  useEffect(() => {
+    previousServingsOutRef.current = localServings.number
+    servingsChanged(localServings)
+  }, [localServings])
+  useEffect(() => {
+    previousScaleOutRef.current = localScale.number
+    scaleChanged(localScale)
+  }, [localScale])
 
   const servingsUsedInRecipe = toFixedOrInteger(servings, 2) + ''
 
@@ -95,11 +120,14 @@ export const ServingsControl = ({scale, servingsAsWritten, servingsChanged, scal
     return () => scaleRef.current?.removeEventListener('keydown', listener)
   }, [scaleRef.current])
 
+  const servingsDigits = (localServings.string || servingsUsedInRecipe).split('').reduce(digitWidthReducer, 0)
+  const scaleDigits = localScale.string.split('').reduce(digitWidthReducer, 0)
+
   return (
     <div className={container}>
       <div className={content}>
       <h3 className={title}><span className={icon}>🔢</span> Recipe Makes</h3>
-        <div ref={controlRef} className={control} style={{'--digits': (localServings.string || servingsUsedInRecipe).length ?? 1}}>
+        <div ref={controlRef} className={control} style={{'--digits': servingsDigits}}>
           <input
             ref={servingsRef}
             type="text"
@@ -158,7 +186,7 @@ export const ServingsControl = ({scale, servingsAsWritten, servingsChanged, scal
           aria-label="recipe scale factor"
 
           className={recipeScaleInput}
-          style={{'--digits': localScale.string.length}}
+          style={{'--digits': scaleDigits}}
 
           value={localScale.string}
           placeholder="1x"

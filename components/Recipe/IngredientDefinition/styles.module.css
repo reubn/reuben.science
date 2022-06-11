@@ -11,6 +11,7 @@
   width: 0;
   position: absolute;
   top: 50%;
+  transform: translateY(-50%);
   left: calc(100% + 4px + 2px);
   border-radius: 3px;
 
@@ -27,6 +28,6 @@
   width: calc(100% + 10px);
   left: -4px;
 
-  transition-duration: 0.075s;
+  transition-duration: 0.1s;
   transition-timing-function: cubic-bezier(.25,0,1,0);
 }

@@ -1,6 +1,8 @@
+import {Suspense} from 'react'
+import dynamic from "next/dynamic"
+
 import {NextSeo, BreadcrumbJsonLd} from 'next-seo'
 
-import Memoji from '@/components/Memoji'
 import PostList from '@/components/PostList'
 import PhotoList from '@/components/PhotoList'
 
@@ -11,6 +13,10 @@ import dehydratePost from '@/src/posts/dehydrate'
 import hydratePost from '@/src/posts/hydrate'
 
 import {main, me, profile, name, description, emoji, memoji} from './styles'
+
+const Memoji = dynamic(() => import('@/components/Memoji'), {
+  suspense: true
+})
 
 const frameCount = Math.floor(315 / 3);
 const getFrameURL = frame => `/me-360t/frame-${frame * 3}.webp`
@@ -37,7 +43,9 @@ export default function Home({posts, photos}) {
     />
       <main className={main}>
         <section className={me}>
-          <Memoji className={memoji} frameCount={frameCount} getFrameURL={getFrameURL} width={Math.floor(459 * 1.5)} height={Math.floor(350 * 1.5)} />
+          <Suspense fallback={"Loading"}>
+            <Memoji className={memoji} frameCount={frameCount} getFrameURL={getFrameURL} width={Math.floor(459 * 1.5)} height={Math.floor(350 * 1.5)} />
+          </Suspense>
           <div className={profile}>
             <h1 className={name}>Reuben</h1>
             <p className={description}>

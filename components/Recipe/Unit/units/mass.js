@@ -1,4 +1,16 @@
 export default {
+  t: {
+    name: 'metric tonne',
+    colour: 'blue',
+    type: 'mass',
+    parent: 'kg',
+    suffix: true,
+    toParent: t => t * 1000,
+    fromParent: kg => kg / 1000,
+    sensibleUnits: (value, units) => {
+      if(value <= 10) units.push('kg')
+    }
+  },
   kg: {
     name: 'kilogram',
     colour: 'pink',
@@ -6,6 +18,7 @@ export default {
     suffix: true,
     isBase: true,
     sensibleUnits: (value, units) => {
+      if(value >= 100) units.push('t')
       if(value <= 10) units.push('g')
     }
   },
