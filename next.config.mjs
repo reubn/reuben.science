@@ -16,6 +16,9 @@ import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 import syntaxHighlightRemark from './src/syntaxHighlight/remark.mjs'
 import syntaxHighlightRehype from './src/syntaxHighlight/rehype.mjs'
 
+const {default: bundleAnalyser} = process.env.ANALYSE === 'ANALYSE' && await import('@next/bundle-analyzer')
+
+
 const mdx = withMDX({
   options: {
     providerImportSource: '@mdx-js/react',
@@ -53,6 +56,20 @@ const config = {
   },
   webpack: (config, {isServer, dev, defaultLoaders}) => {
     // import('./src/cssClassNames')(config, {dev})
+
+    if(process.env.ANALYSE === 'ANALYSE') config.plugins.push(
+      new BundleAnalyzerPlugin({
+        analyzerMode: 'static',
+        openAnalyzer: false,
+        generateStatsFile: true,
+        statsFilename: isServer
+        ? '../analyze/server.stats.json'
+        : './analyze/client.stats.json',
+        reportFilename: isServer
+          ? '../analyze/server.html'
+          : './analyze/client.html',
+      })
+    )
 
     config.resolve.extensions.push('.md', '.mdx', '.css', '.module.css', '.json')
 
