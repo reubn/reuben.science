@@ -16,7 +16,7 @@ const dynamicImports = postList.reduce(
     })
   }), {})
 
-export const processPost = ({metadata, content}) => {
+const processPost = ({metadata, content}) => {
   const readingTime = require('reading-time')
   const stripTags = require('striptags')
 

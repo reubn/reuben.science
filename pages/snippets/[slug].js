@@ -44,12 +44,12 @@ const filterLines = (commentLookup, blacklistedLines) => language => line => {
 }
 
 import languages from '@/src/syntaxHighlight/languages/index.mjs'
-languages(refractor)
 
 import commentLookup from '@/src/syntaxHighlight/commentLookup'
 import blacklistedLines from '@/src/syntaxHighlight/blacklistedLines'
 
 const getPreview = (config, codeBlocks) => {
+  languages(refractor)
   const filterLinesWithOpts = filterLines(commentLookup, blacklistedLines)
 
   if(config.code) return wrapCode(config.language, refractor.highlight(config.code, config.language))
@@ -77,7 +77,7 @@ const getPreview = (config, codeBlocks) => {
   })
 }
 
-export const processPost = ({slug, metadata, codeBlocks, content}) => {
+const processPost = ({slug, metadata, codeBlocks, content}) => {
   const config = {
     lines: {
       from: 0,
