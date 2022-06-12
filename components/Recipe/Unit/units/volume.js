@@ -96,7 +96,7 @@ export default {
 
       if(tbspWouldBeBetter) return 'tbsp'
 
-      return (value >= 0.5 && value <= 10) || 'tbsp'
+      return (value >= 0.5 && value <= 10)
     },
     sensibleUnits: value => ['tbsp', 'ml']
   },
