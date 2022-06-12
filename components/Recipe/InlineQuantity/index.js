@@ -17,9 +17,9 @@ export const InlineQuantity = ({IngredientLink, ingredient, ...props}) => {
 export const createInlineQuantity = recipe => {
   const IngredientLink = createIngredientLink(recipe)
 
-  return ({id: _id=Math.random()+'', display=true, ...props}) => {
+  return ({id: _id=Math.random()+'', display=true, shouldScale=false, ...props}) => {
     const {current: id} = useRef(_id)
-    const ingredient = recipe.getIngredient(id) || recipe.addIngredient({id, ...props})
+    const ingredient = recipe.getIngredient(id) || recipe.addIngredient({id, doNotScale: !shouldScale, ...props})
 
     const [_, setDummy] = useState()
 
