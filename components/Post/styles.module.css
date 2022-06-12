@@ -139,6 +139,10 @@
   padding-left: 0.25rem;
 }
 
+.body li > table {
+  padding: 0;
+}
+
 .body ul > li {
   list-style-image: url("data:image/svg+xml;charset=utf-8,%3Csvg%20width=%229%22%20height=%229%22%20xmlns=%22http://www.w3.org/2000/svg%22%3E%3Ccircle%20fill=%22hsla(205,%2015%25,%2020%25,%201)%22%20cx=%224.5%22%20cy=%224.5%22%20r=%224.5%22/%3E%3C/svg%3E");
 }
@@ -339,13 +343,13 @@
 }
 
 .body th, .body td, .body tr {
-  padding: 0.5rem;
+  padding: 0.166rem 0.33rem;
   border-style: hidden;
-  font-size: 0.9rem;
+  font-size: 1rem;
 }
 
-.body thead th {
-  font-size: 1rem;
+.body table td > th {
+  display: inline;
 }
 
 .body img:not(.inline), .body video {
