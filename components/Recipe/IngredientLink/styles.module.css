@@ -56,7 +56,6 @@ blockquote .link .label {
 blockquote .link .quantity {
   background: var(--colours-dark-3);
   box-shadow: 0px 0px 4px 4px var(--colours-dark-shadow-1);
-  background-color: aqua;
 }
 
 .link:hover .label, .link.hover .label {
