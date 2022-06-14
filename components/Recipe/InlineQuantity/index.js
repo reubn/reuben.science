@@ -17,9 +17,16 @@ export const InlineQuantity = ({IngredientLink, ingredient, ...props}) => {
 export const createInlineQuantity = recipe => {
   const IngredientLink = createIngredientLink(recipe)
 
-  return ({id: _id=Math.random()+'', display=true, shouldScale=false, ...props}) => {
+  return ({id: _id=Math.random()+'', display=true, shouldScale=false, quantity, ...props}) => {
     const {current: id} = useRef(_id)
-    const ingredient = recipe.getIngredient(id) || recipe.addIngredient({id, doNotScale: !shouldScale, ...props})
+
+    const preExistingIngredient = recipe.getIngredient(id)
+   
+    useEffect(() => {
+      if(preExistingIngredient && !preExistingIngredient.hasQuantity && quantity) preExistingIngredient.setQuantity(quantity)
+    }, [preExistingIngredient])
+
+    const ingredient = preExistingIngredient || recipe.addIngredient({id, doNotScale: !shouldScale, quantity})
 
     const [_, setDummy] = useState()
 
@@ -34,7 +41,7 @@ export const createInlineQuantity = recipe => {
 
     return useMemo(() => (
       <InlineQuantity IngredientLink={IngredientLink} ingredient={ingredient} {...props} />
-    ), [ingredient, ingredient.displayUnit, recipe.scale])
+    ), [ingredient, ingredient.displayUnit, ingredient.quantity, recipe.scale])
   }
 }
 
