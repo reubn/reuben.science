@@ -19,7 +19,12 @@ const Image = ({image={}, className, lazy=true, alt, aspectRatio, sizes='min(100
   const [src, setSrc] = useState(resolutions[1].src)
   const [polyfilled, setPolyfilled] = useState(false)
 
-  const imageInCache = imageCacheList.has(src)
+  const [imageInCache, setImageInCache] = useState(true)
+
+  const _imageInCache = imageCacheList.has(src)
+  useEffect(() => {
+    setImageInCache(_imageInCache)
+  }, [_imageInCache])
 
   const onLoad = img => {
     imageCacheList.add(src)
