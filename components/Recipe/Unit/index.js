@@ -146,9 +146,7 @@ class Unit {
   static from = unknown => {
     if(unknown instanceof Unit) return unknown
 
-    if(typeof unknown === 'undefined') return Unit.units.abs
-  
-    const lookup = Unit.units[unknown] || Unit.unitsArray.find(([label, unit]) => unit.alias === unknown || unit.alias?.includes?.(unknown))?.[1]
+    const lookup = typeof unknown !== 'undefined' && Unit.units[unknown] || Unit.unitsArray.find(([label, unit]) => unit.alias === unknown || unit.alias?.includes?.(unknown))?.[1]
     if(lookup) return lookup
   
     console.warn(`Unit ${unknown} not defined, using absolute Unit`)

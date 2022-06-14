@@ -11,7 +11,7 @@ class Quantity {
     }
     else this.config = config
 
-    this.config.unit = Unit.from(this.config.unit)
+    this.config.unit = Unit.from(this.config.unit || Unit.units.abs)
 
     if(this.config.sensibleUnits){
       this.config.sensibleUnits = this.config.sensibleUnits.map(u => Unit.from(u))
