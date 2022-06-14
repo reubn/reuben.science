@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import {useState, forwardRef} from 'react'
 
 import {svg, type, square, t1, t2, t3, b1, b2, b3, dim, active, locked, interactive} from './styles'
 
@@ -6,7 +6,7 @@ import * as classMap from './styles'
 
 const rx = '20px'
 
-const Logo = ({className='', type: style, easterEgg, ...props}) => {
+const Logo = ({className='', type: style, easterEgg, _ref, ...props}) => {
   const normalClass = classMap[style]
   const gradientClass = classMap[(style.startsWith('dol') ? 'dol' : 'lod') + 'RainbowGradient']
 
@@ -30,7 +30,7 @@ const Logo = ({className='', type: style, easterEgg, ...props}) => {
 
 
   return (
-    <svg {...props} className={`${className} ${svg}`} viewBox="0 0 994 994">
+    <svg {...props} ref={_ref} className={`${className} ${svg}`} viewBox="0 0 994 994">
       <defs>
           <linearGradient x1="0%" y1="0%" x2="99.9884439%" y2="99.9884439%" id="orange">
               <stop stopColor="hsl(14, 100%, 61%)" offset="0.0115561319%"></stop>
@@ -89,4 +89,4 @@ const Logo = ({className='', type: style, easterEgg, ...props}) => {
   )
 };
 
-export default Logo
+export default forwardRef((props, ref) => <Logo {...props} _ref={ref} />)
