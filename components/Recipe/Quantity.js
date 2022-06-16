@@ -114,10 +114,7 @@ class Quantity {
     // const formattedNumber = fraction || toFixedIfNecessary(this.value, 2)
 
     if(this.unit.format) this[key] = this.unit.format({value: this.value, formattedNumber, displayedWithName})
-    if(this.unit.suffix) this[key] = [['value', formattedNumber], ['unit', this.unit.suffix]]
-    if(this.unit.prefix) this[key] = [['unit', this.unit.prefix], ['value', formattedNumber]]
-
-    if(!this[key]) throw `Unit '${this.unit.label}' Must Implement .format(), .suffix, or .prefix`
+    else this[key] = [this.unit.prefix && ['unit', this.unit.prefix], ['value', formattedNumber], this.unit.suffix && ['unit', this.unit.suffix]].filter(x => x)
 
     return this[key]
   }

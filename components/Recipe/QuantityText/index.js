@@ -12,10 +12,10 @@ export const QuantityText = ({quantity, isInteractive, isHovered, displayedWithN
   const components = quantity.formatted({displayedWithName: displayedWithName})
   const unit = quantity.unit
 
-  const elements = components.map(([type, content, fullSpaceBeforeUnit, alt=unit.name]) => ({
-     value: () => <span key={'value' + content} className={valueStyle}>{content}</span>,
+  const elements = components.map(([type, content, fullSpaceBeforeUnit, alt=unit.name], index) => ({
+     value: () => <span key={`value-${content}-${index}`} className={valueStyle}>{content}</span>,
      unit: () => (
-       <Fragment key={'unit' + content}>
+       <Fragment key={`unit-${content}-${index}`}>
          <span style={fullSpaceBeforeUnit ? undefined : {display: 'inline-block', width: '1px'}}>{' '}</span>
          <span className={unitStyle} title={alt}>{content}</span>
        </Fragment>
