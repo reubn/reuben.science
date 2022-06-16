@@ -1,38 +1,44 @@
-import {useEffect, useState, useMemo} from 'react'
+import {useEffect, useState, useMemo, cloneElement} from 'react'
 
 import IngredientText from '../IngredientText'
 
-import {checkable, checked as checkedStyle} from './styles'
+import {checkable, checked as checkedStyle, alternative as alternativeStyle} from './styles'
 
 const getSavedCheckedKey = ({id}) => `saved-checked-${id}`
 const getSavedChecked = ingredient => sessionStorage.getItem(getSavedCheckedKey(ingredient)) === 'true'
 const setSavedChecked = (ingredient, status) => sessionStorage.setItem(getSavedCheckedKey(ingredient), status)
 
-export const IngredientDefinition = ({ingredient, alternative, displayedWithQuantity}) => {
+export const IngredientDefinition = ({ingredient, alternative, isAlternative, displayedWithQuantity, children}) => {
   const [checked, setChecked] = useState(false)
 
   useEffect(() => setChecked(getSavedChecked(ingredient)), [])
   useEffect(() => setSavedChecked(ingredient, checked), [checked])
 
   return (
-    <span className={`${checkable} ${checked && checkedStyle}`} onClick={() => checked && setChecked(false)}>
+    <>
       <IngredientText
         onMouseEnter={() => ingredient.setHover('definition')}
         onMouseLeave={() => ingredient.setHover(false)}
         onNameClick={() => !checked && setChecked(true)}
 
         ingredient={ingredient}
-        alternative={alternative}
+        isAlternative={isAlternative}
         displayedWithName={true}
         displayedWithQuantity={displayedWithQuantity}
         quantityInteractive={!checked}
         highlightOnHover={'link'}
+
+        className={`${checkable} ${checked && checkedStyle}`}
+        onClick={() => checked && setChecked(false)}
+
+        children={children}
       />
-    </span>
+      {alternative && <span className={alternativeStyle}> or {cloneElement(alternative, {isAlternative: true})}</span>}
+    </>
   )
 }
 
-export const createIngredientDefinition = recipe => ({id, alternative=false, display=true, displayedWithQuantity, ...props}) => {
+export const createIngredientDefinition = recipe => ({id, alternative, isAlternative=false, display=true, displayedWithQuantity, children, ...props}) => {
   const ingredient = recipe.getIngredient(id) || recipe.addIngredient({id, ...props})
 
   const [_, setDummy] = useState()
@@ -47,8 +53,8 @@ export const createIngredientDefinition = recipe => ({id, alternative=false, dis
   if(!display) return null
 
   return useMemo(() => (
-    <IngredientDefinition ingredient={ingredient} alternative={alternative} displayedWithQuantity={displayedWithQuantity} />
-  ), [ingredient, ingredient.displayUnit, ingredient.hover, recipe.scale, alternative, displayedWithQuantity])
+    <IngredientDefinition ingredient={ingredient} alternative={alternative} isAlternative={isAlternative} displayedWithQuantity={displayedWithQuantity} children={children}/>
+  ), [ingredient, ingredient.displayUnit, ingredient.hover, recipe.scale, children, alternative, isAlternative, displayedWithQuantity])
 }
 
 export default createIngredientDefinition

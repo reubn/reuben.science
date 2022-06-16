@@ -4,11 +4,10 @@ import {
   alternative as alternativeStyle,
   hover as hoverStyle,
   name as nameStyle,
-  comment as commentStyle,
-  conjunction
+  comment as commentStyle
 } from './styles'
 
-export const IngredientText = ({ingredient, alternative=false, displayedWithName=true, displayedWithQuantity=true, quantityInteractive=false, highlightOnHover=undefined, className, onNameClick, ...props}) => {
+export const IngredientText = ({ingredient, displayedWithName=true, displayedWithQuantity=true, quantityInteractive=false, highlightOnHover=undefined, className, onNameClick, children, ...props}) => {
   const displayQuantity = ingredient.displayQuantity
   const isHovered = ingredient.hover === highlightOnHover
 
@@ -27,17 +26,16 @@ export const IngredientText = ({ingredient, alternative=false, displayedWithName
   const nameComment = displayedWithName && (
     <span style={{'--ingredient-accent': `var(--colours-${ingredient.colour})`, cursor: onNameClick ? 'pointer' : undefined}} onClick={onNameClick}>
       {' '}
-      <span className={nameStyle}>{ingredient.name}</span>
+      <span className={nameStyle}>{children || ingredient.name}</span>
       {ingredient.comment && <span className={commentStyle}> {['-', '+', '(', '[', '/'].includes(ingredient.comment[0]) ? '' : '- '}{ingredient.comment}</span>}
     </span>
   )
 
   return (
     <span
-      className={[className, alternative && alternativeStyle, isHovered && hoverStyle].filter(cn => cn).join(' ')}
+      className={[className, isHovered && hoverStyle].filter(cn => cn).join(' ')}
       {...props}
     >
-      {alternative && <span className={conjunction}>or </span>}
       {displayedWithQuantity && displayQuantity && <QuantityText quantity={displayQuantity} isInteractive={isQuantityInteractive} isHovered={isHovered} displayedWithName={displayedWithName} onClick={onQuantityClick || undefined} onMouseDown={onMouseDown} />}
       {nameComment}
     </span>

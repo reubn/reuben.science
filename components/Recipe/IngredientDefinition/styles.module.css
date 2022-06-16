@@ -31,3 +31,8 @@
   transition-duration: 0.1s;
   transition-timing-function: cubic-bezier(.25,0,1,0);
 }
+
+.alternative {
+  font-style: italic;
+  color: var(--colours-mid-3);
+}
