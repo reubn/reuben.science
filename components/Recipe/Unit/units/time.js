@@ -6,7 +6,7 @@ const minute = 60 * second
 const hour = 60 * minute
 const day = 24 * hour
 
-const timeUnits = {
+const allTimeUnits = {
   d: {value: day, padding: 1},
   h: {value: hour, padding: 2},
   m: {value: minute, padding: 2},
@@ -14,7 +14,7 @@ const timeUnits = {
   ms: {value: milisecond, padding: 3, floor: false}
 }
 
-const {d, h, m, s, ms} = timeUnits
+const {d, h, m, s, ms} = allTimeUnits
 
 const equivalencySymbol = Symbol()
 
@@ -39,7 +39,7 @@ const base = (timeUnits, config) => ({
       ] : components
     }
   }, {seconds, components: []}).components,
-  parse: def => Object.entries(def).reduce((total, [key, quantity]) => total + (quantity * (timeUnits[key]?.value || 0)), 0),
+  parse: def => Object.entries(def).reduce((total, [key, quantity]) => total + (quantity * (allTimeUnits[key]?.value || 0)), 0),
   isComfortable: seconds => {
     const specific = config.isComfortable?.(seconds)
 
