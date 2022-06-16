@@ -22,7 +22,6 @@ export const IngredientDefinition = ({ingredient, alternative, isAlternative, di
         onNameClick={() => !checked && setChecked(true)}
 
         ingredient={ingredient}
-        isAlternative={isAlternative}
         displayedWithName={true}
         displayedWithQuantity={displayedWithQuantity}
         quantityInteractive={!checked}
