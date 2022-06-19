@@ -26,7 +26,7 @@ function textTransformer(node, index, parent) {
 
           return {
             offset: index + length,
-            currentPart: {...currentPart, content: currentPart.content.slice(index + length)},
+            currentPart: {...currentPart, content: currentPart.content.slice((index - offset) + length)},
             parts: [...parts, ...newParts]
           }
         }, {offset: 0, currentPart: part, parts: []})
