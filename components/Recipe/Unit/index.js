@@ -33,6 +33,16 @@ class Unit {
     return this.config.format
   }
 
+  get snapIntervalConfig(){
+    return this.config.snapIntervalConfig || [
+      [4, [10]],
+      [3, [5]],
+      [2, [1]],
+      [-1, [0.25]],
+      [-Infinity, []]
+    ]
+  }
+
   get parse(){
     return this.config.parse
   }

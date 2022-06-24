@@ -101,17 +101,33 @@ class Quantity {
     })
 
     const integer = Math.floor(this.value)
-    const enoughSigFig = integer.toString().length >= 3
 
-    const remainder = this.value % 1
-    const fraction = !enoughSigFig && remainder > 0.0001 && fractions.find(([_, fraction]) => Math.abs(remainder - fraction) <= 0.000001)?.[0]
-    const mixed = !enoughSigFig && fraction && (integer ? `${integer}${fraction}` : fraction)
+    const powerOf10 = Math.floor(Math.log10(this.value))
+    const magnitudeSign = Math.sign(powerOf10)
+    const magnitude = this.value ? magnitudeSign > -1 ? powerOf10 + 1 : powerOf10 : 0
 
-    const formattedNumber = enoughSigFig ? integer : (mixed || toFixedOrInteger(this.value, 2))
+    const [_, snapIntervals] = this.unit.snapIntervalConfig.find(([key]) => key <= magnitude)
+    
+    const {snapPoint: snappedValue} = snapIntervals.reduce((bestSoFar, snapInterval) => {
+      const snappedBelow = Math.floor(this.value / snapInterval) * snapInterval
+      const snappedAbove = Math.ceil(this.value / snapInterval) * snapInterval
 
-    // const fraction = this.value < 1 && fractions.find(([_, fraction]) => Math.abs(this.value - fraction) <= 0.000001)?.[0]
-    //
-    // const formattedNumber = fraction || toFixedIfNecessary(this.value, 2)
+      const [remainder, snapPoint] = [snappedBelow, snappedAbove].map(snappedPoint => [Math.abs(this.value - snappedPoint), snappedPoint]).sort(([remainderA], [remainderB]) => remainderA - remainderB)[0]
+
+      if(remainder < bestSoFar.remainder || (remainder === bestSoFar.remainder && snapPoint < bestSoFar.snapPoint)) return {remainder, snapInterval, snapPoint}
+      
+      return bestSoFar
+    }, {remainder: Infinity, snapInterval: Infinity, snapPoint: this.value})
+
+    console.log({value: this.value, integer, magnitude, snapIntervals, snapIntervalConfig: this.unit.snapIntervalConfig, snapped: snappedValue})
+
+    const enoughMagnitude = magnitude >= 3
+
+    const remainder = snappedValue % 1
+    const fraction = !enoughMagnitude && remainder > 0.0001 && fractions.find(([_, fraction]) => Math.abs(remainder - fraction) <= 0.000001)?.[0]
+    const mixed = !enoughMagnitude && fraction && (integer ? `${integer}${fraction}` : fraction)
+
+    const formattedNumber = enoughMagnitude ? snappedValue : (mixed || toFixedOrInteger(snappedValue, 2))
 
     if(this.unit.format) this[key] = this.unit.format({value: this.value, formattedNumber, displayedWithName})
     else this[key] = [this.unit.prefix && ['unit', this.unit.prefix], ['value', formattedNumber], this.unit.suffix && ['unit', this.unit.suffix]].filter(x => x)
