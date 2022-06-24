@@ -1,8 +1,18 @@
 import {isApprox} from "./util"
 
 const acceptableFractions = [0, 0.25, 0.5, 0.75]
-const closeTo = isApprox(acceptableFractions, true)
-const notCloseTo = isApprox(acceptableFractions, false)
+
+const basicallyIsFraction = isApprox(acceptableFractions, true)
+
+const threshold = 0.075
+const approxIsFraction = isApprox(acceptableFractions, true, threshold)
+const approxIsNotFraction = isApprox(acceptableFractions, false, threshold)
+
+const minTsp = 0.5 - threshold
+const maxTsp = 9
+
+const minTbsp = 0.5 - threshold
+const maxTbsp = 9
 
 export default {
   l: {
@@ -31,13 +41,13 @@ export default {
     isComfortable: value => {
       const tbspValue = value / 15
       const tbspRemainder = tbspValue % 1
-      const tbspWouldBeBetter = tbspValue <= 10 && closeTo(tbspRemainder)
+      const tbspWouldBeBetter = tbspValue <= maxTbsp && approxIsFraction(tbspRemainder)
       
       if(tbspWouldBeBetter) return 'tbsp'
 
       const tspValue = value / 5
       const tspRemainder = tspValue % 1
-      const tspWouldBeBetter = tspValue <= 10 && closeTo(tspRemainder)
+      const tspWouldBeBetter = tspValue <= maxTsp && approxIsFraction(tspRemainder)
 
       if(tspWouldBeBetter) return 'tsp'
 
@@ -69,16 +79,20 @@ export default {
     isComfortable: value => {
       const currentRemainder = value % 1
 
-      if(notCloseTo(currentRemainder)) {
+      if(approxIsNotFraction(currentRemainder)) {
         const tspValue = value * 3
         const tspRemainder = tspValue % 1
-        const tspWouldBeBetter = tspValue <= 10 && closeTo(tspRemainder)
+        const tspWouldBeBetter = tspValue <= maxTsp && approxIsFraction(tspRemainder)
 
         if(tspWouldBeBetter) return 'tsp'
+        if(((value * 15) % 5) === 0) return 'ml'
       }
+      
 
+      if(value <= minTbsp) return 'ml'
+      if(value >= maxTbsp) return 'ml'
 
-      return value >= 0.5 && value <= 10
+      return true
     },
     sensibleUnits: value => ['tsp', 'ml']
   },
@@ -92,11 +106,16 @@ export default {
     isComfortable: value => {
       const tbspValue = value / 3
       const tbspRemainder = tbspValue % 1
-      const tbspWouldBeBetter = tbspValue <= 10 && closeTo(tbspRemainder)
+      const tbspWouldBeBetter = tbspValue <= maxTbsp && basicallyIsFraction(tbspRemainder)
 
       if(tbspWouldBeBetter) return 'tbsp'
 
-      return (value >= 0.5 && value <= 10)
+      if(value <= minTsp) return 'ml'
+      if(value >= maxTsp) return 'ml'
+/* 
+      if(((value * 15) % 5) === 0) return 'ml' */
+
+      return true
     },
     sensibleUnits: value => ['tbsp', 'ml']
   },
