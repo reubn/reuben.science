@@ -68,6 +68,13 @@ class Ingredient {
     this.recipe.ingredientUpdated()
   }
 
+  setQuantity(quantity){
+    this.config.quantity = Quantity.from(quantity)
+    this.displayUnit = this.config.quantity.unit
+
+    this.recipe.ingredientUpdated()
+  }
+
   recipeUpdated(){
     if(!this.hasQuantity) return
 

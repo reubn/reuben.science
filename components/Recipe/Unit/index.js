@@ -26,15 +26,29 @@ class Unit {
   }
 
   get type(){
-    return this.isBase ? this.config.type : this.base.type
+    return this.config.type
   }
 
   get format(){
     return this.config.format
   }
 
+  get snapIntervalConfig(){
+    return this.config.snapIntervalConfig || [
+      [4, [10]],
+      [3, [5]],
+      [2, [1]],
+      [-1, [0.25]],
+      [-Infinity, []]
+    ]
+  }
+
   get parse(){
     return this.config.parse
+  }
+
+  get equivalencySymbol(){
+    return this.config.equivalencySymbol
   }
 
   get prefix(){
@@ -63,41 +77,47 @@ class Unit {
     return !!this.config.isBase
   }
 
-  get baseChain(){
-    if(!this._baseChain) this._baseChain = Unit.resolveBase({unit: this})
-
-    return this._baseChain
+  _parentChain = new Set()
+  get parentChain(){
+    if(!this._parentChain.size) Unit.resolveCommonAncestor(this, Unit.units._)
+    return this._parentChain
   }
 
+  _base = undefined
   get base(){
-    return this.baseChain.unit
+    if(this.isBase) return this
+
+    if(!this._base) {
+      let link
+      for(link of this.parentChain);
+      this._base = link
+    }
+
+    return this._base
   }
 
   get toBase(){
-    const {chain} = this.baseChain
-
-    return chain.reduce((fn, link) => {
-      if(link.isBase) return value => fn ? fn(value) : value
-      return value => link.toParent(fn ? fn(value) : value)
-    }, null)
+    return this.conversionFnTo(this.base)
   }
 
-  get fromBase(){
-    const {chain} = this.baseChain
-    const reversed = chain.slice().reverse()
-
-    return reversed.reduce((fn, link) => {
-      if(link === this) return value => link.fromParent(fn ? fn(value) : value)
-      return value => fn ? fn(link.fromParent(value)) : link.fromParent(value)
-    }, null)
-  }
-
+  _conversionCache = new Map()
   conversionFnTo(unitOrString){
     const unit = Unit.from(unitOrString)
 
-    if(unit.base !== this.base && unit.equivalencySymbol !== this.equivalencySymbol) throw `Cannot Convert ${this.label} to Incombatible Unit ${unit.label}`
+    if(this._conversionCache.has(unit)) return this._conversionCache.get(unit)
 
-    return number => unit.fromBase(this.toBase(number))
+    const {commonAncestor, upChain, downChain} = Unit.resolveCommonAncestor(this, unit)
+  
+    if(!commonAncestor) throw `Cannot Convert ${this.label} to Incombatible Unit ${unit.label}`
+
+    const upFn = upChain.reduce((fn, link) => value => link.toParent(fn ? fn(value) : value), null)
+    const downFn = downChain.reduce((fn, link) => value => fn ? fn(link.fromParent(value)) : link.fromParent(value), null)
+
+    const fn = number => downFn(upFn(number))
+
+    this._conversionCache.set(unit, fn)
+
+    return fn
   }
 
   get compatibleUnits(){
@@ -146,9 +166,7 @@ class Unit {
   static from = unknown => {
     if(unknown instanceof Unit) return unknown
 
-    if(typeof unknown === 'undefined') return Unit.units.abs
-  
-    const lookup = Unit.units[unknown] || Unit.unitsArray.find(([label, unit]) => unit.alias === unknown || unit.alias?.includes?.(unknown))?.[1]
+    const lookup = typeof unknown !== 'undefined' && Unit.units[unknown] || Unit.unitsArray.find(([label, unit]) => unit.alias === unknown || unit.alias?.includes?.(unknown))?.[1]
     if(lookup) return lookup
   
     console.warn(`Unit ${unknown} not defined, using absolute Unit`)
@@ -158,30 +176,39 @@ class Unit {
 
   static convert = (from, to, value) => Unit.from(from).conversionFnTo(to)(value)
 
-  static resolveBase = ({unit, chain=[]}) => {
-    if(unit.isBase) {
-      const finalChain = [...chain, unit]
+  static resolveCommonAncestor = (unitA, unitB) => {
+    let a = Unit.from(unitA)
+    let b = Unit.from(unitB)
 
-      finalChain.forEach((link, i) => link._baseChain = {
-        unit,
-        chain: finalChain.slice(i)
-      })
+    const aSeen = a._parentChain
+    const bSeen = b._parentChain
+
+    const commonAncestorIs = commonAncestor => {
+      const upChain = [...aSeen]
+      const downChain = [...bSeen]
+
+      upChain.forEach((link, i) => link._parentChain = link._parentChain || new Set(upChain.slice(i)))
+      downChain.forEach((link, i) => link._parentChain = link._parentChain || new Set(downChain.slice(i)))
 
       return {
-        unit,
-        chain: finalChain
+        commonAncestor,
+        upChain,
+        downChain
       }
     }
 
-    if(unit._baseChain) return {
-      unit: unit._baseChain.unit,
-      chain: [...chain, ...unit._baseChain.chain]
-    }
+    while(true) {
+      aSeen.add(a)
+      bSeen.add(b)
 
-    return Unit.resolveBase({
-      unit: unit.parent,
-      chain: [...chain, unit]
-    })
+      if(aSeen.has(b)) return commonAncestorIs(b)
+      if(bSeen.has(a)) return commonAncestorIs(a)
+
+      if(a.isBase && b.isBase) return commonAncestorIs((a === b || (a.equivalencySymbol && (a.equivalencySymbol === b.equivalencySymbol))) ? [a, b] : undefined)
+
+      if(!a.isBase) a = a.parent
+      if(!b.isBase) b = b.parent
+    }
   }
 
   static createAbsolute = (plural, singular = (plural.endsWith('s') ? plural.slice(0, -1) : plural)) => new Unit({

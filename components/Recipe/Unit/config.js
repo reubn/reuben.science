@@ -5,13 +5,19 @@ import distance from './units/distance'
 import temperature from './units/temperature'
 import angle from './units/angle'
 
+const types = {
+  time,
+  mass,
+  volume,
+  distance,
+  temperature,
+  angle,
+}
+
+const typed = Object.fromEntries(Object.entries(types).flatMap(([type, object]) => Object.entries(object).map(([key, value]) => ([key, ({...value, type})]))))
+
 export const units = Unit => ({
-  ...time,
-  ...mass,
-  ...volume,
-  ...distance,
-  ...temperature,
-  ...angle,
+  ...typed,
   abs: {
     name: 'abs',
     type: 'abs',
@@ -25,5 +31,10 @@ export const units = Unit => ({
     format: ({value}) => [['unit', value]],
     isBase: true,
     isComfortable: value => true
+  },
+  _: {
+    name: '_',
+    type: '_',
+    isBase: true
   }
 })

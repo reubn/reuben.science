@@ -31,7 +31,7 @@ export default {
     colour: 'blue',
     suffix: true,
     parent: 'm',
-    toParent: cm => cm / 1000,
+    toParent: mm => mm / 1000,
     fromParent: m => m * 1000,
     isComfortable: value => {
       if(value >= 100) return 'cm'

@@ -13,7 +13,7 @@
   text-align: center;
   font-size: 2rem;
   font-weight: 700;
-  line-height: normal;
+  line-height: 1;
   overflow: hidden;
 }
 
@@ -137,6 +137,10 @@
 
 .body li {
   padding-left: 0.25rem;
+}
+
+.body li > table {
+  padding: 0;
 }
 
 .body ul > li {
@@ -339,14 +343,13 @@
 }
 
 .body th, .body td, .body tr {
-  padding: 0.5rem;
+  padding: 0.166rem 0.33rem;
   border-style: hidden;
-  font-size: 0.9rem;
+  font-size: 1rem;
 }
 
-.body thead th {
-  font-size: 1rem;
-  padding: 0.75rem 0;
+.body table td > th {
+  display: inline;
 }
 
 .body img:not(.inline), .body video {
