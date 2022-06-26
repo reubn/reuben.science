@@ -119,7 +119,7 @@ class Quantity {
       return bestSoFar
     }, {remainder: Infinity, snapInterval: Infinity, snapPoint: this.value})
 
-    console.log({value: this.value, integer, magnitude, snapIntervals, snapIntervalConfig: this.unit.snapIntervalConfig, snapped: snappedValue})
+    // console.log({value: this.value, integer, magnitude, snapIntervals, snapIntervalConfig: this.unit.snapIntervalConfig, snapped: snappedValue})
 
     const enoughMagnitude = magnitude >= 3
 
