@@ -1,0 +1,21 @@
+.line, .tub, .fluidLevel, .chicken {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 3.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-miterlimit: 10;
+}
+
+.tub, .chicken {
+  color: var(--colours-light-2);
+}
+
+.fluid, .fluidLevel{
+  color: var(--colours-dark-7);
+}
+
+.fluid {
+  fill: currentColor;
+  opacity: 0.5;
+}

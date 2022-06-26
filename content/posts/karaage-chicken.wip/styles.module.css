@@ -1,0 +1,15 @@
+.svg {
+  margin: 4rem auto;
+
+  display: block;
+  object-fit: cover;
+
+  width: 40%;
+  height: auto;
+}
+
+@media (max-width: 650px) {
+  .svg  {
+    min-width: 75vw;
+  }
+}
