@@ -10,7 +10,7 @@
     "crush": "node ./src/crush.mjs $INIT_CWD"
   },
   "dependencies": {
-    "@mdx-js/loader": "^2.1.1",
+    "@mdx-js/loader": "^2.1.2",
     "@mdx-js/react": "^2.1.1",
     "@next/mdx": "^12.1.6",
     "@react-three/drei": "^9.13.0",
