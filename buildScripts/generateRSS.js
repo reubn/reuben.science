@@ -4,8 +4,6 @@ const path = require('path')
 const {EXPORT_DETAIL} = require('next/constants')
 const {outDirectory} = require(path.join(process.cwd(), '.next', EXPORT_DETAIL))
 
-const RSS_FILE = 'rss.xml'
-
 module.exports = async pages => {
   const entries = pages
   .filter(({pageProps}) => pageProps.metadata)
@@ -27,10 +25,10 @@ module.exports = async pages => {
    <language>en</language>
    <link>https://${process.env.NEXT_PUBLIC_DOMAIN}</link>
    <lastBuildDate>${new Date().toUTCString()}</lastBuildDate>
-   <atom:link href="https://${process.env.NEXT_PUBLIC_DOMAIN}/${RSS_FILE}" rel="self" type="application/rss+xml" />
+   <atom:link href="https://${process.env.NEXT_PUBLIC_DOMAIN}/${process.env.NEXT_PUBLIC_RSS_FILE}" rel="self" type="application/rss+xml" />
    ${entries.join('\n')}
   </channel>
 </rss>`)
 
-  await fs.promises.writeFile(path.join(outDirectory, RSS_FILE), rss);
+  await fs.promises.writeFile(path.join(outDirectory, process.env.NEXT_PUBLIC_RSS_FILE), rss);
 }
