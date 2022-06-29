@@ -9,7 +9,7 @@ export const metadata = {
   title: 'Tori no Tatsutaage',
   description: `Japanese Fried Karāge Chicken`,
   emoji: '🍗',
-  date: '2022-06-07',
+  date: '2022-06-29',
   category: ['food'],
   image: header
 }
@@ -23,7 +23,7 @@ Marinated before being coated in starch, the chicken is incredibly juicy, whilst
   * <IngredientDefinition id="chicken" name="Chicken" quantity={[450, 'g']} colour="red">Chicken Thighs</IngredientDefinition>
   - <IngredientDefinition id="soy" name="Light Soy" quantity={[3, 'tbsp']} colour="orange" />
   - <IngredientDefinition id="mirin" name="Mirin" quantity={[1, 'tbsp']} colour="yellow" />
-  - <IngredientDefinition id="sake" name="Sake" quantity={[2, 'tbsp']} colour="yellow" alternative={<IngredientDefinition id="xiaoshing" name="Xiaoshing" quantity={[2, 'tbsp']} colour="yellow" />} />
+  - <IngredientDefinition id="sake" name="Sake" quantity={[2, 'tbsp']} colour="yellow" alternative={<IngredientDefinition id="shaoxing" name="Shaoxing" quantity={[2, 'tbsp']} colour="yellow" />} />
   - <IngredientDefinition id="sesameOil" name="Sesame Oil" quantity={[1, 'tsp']} colour="orange" />
   * <IngredientDefinition id="ginger" name="Ginger" quantity={[1, 'tbsp']} colour="green" comment="minced" />
   * <IngredientDefinition id="garlic" name="Garlic" quantity={[1, 'tbsp']} colour="purple" comment="minced" />
@@ -39,7 +39,7 @@ import GingerGarlicSake from './GingerGarlicSake'
   1. Remove the bones from the <IngredientLink id="chicken" />, and cut the flesh into thumb sized pieces; leaving the skin on
   2. Puncture the <IngredientLink id="chicken" /> multiple times with a sharp knife, to allow the marinade to saturate the meat
   3. Create the marinade by combining <IngredientLink id="soy" />, <IngredientLink id="mirin" />, <IngredientLink id="sake" />, <IngredientLink id="sesameOil" />, <IngredientLink id="ginger" />, and <IngredientLink id="garlic" /> in tall-sided container
-  4. Add the <IngredientLink id="chicken" /> to marinade, and leave the rest for <InlineQuantity quantity={[{m: 30}, 'time']} />
+  4. Add the <IngredientLink id="chicken" /> to marinade, and leave to rest for <InlineQuantity quantity={[{m: 30}, 'time']} />
 </blockquote>
 
 import Marinade from './Marinade'
@@ -49,25 +49,27 @@ import Marinade from './Marinade'
 <blockquote>
   5. Generously coat the <IngredientLink id="chicken" /> in the <IngredientLink id="cornflour" />
   6. Heat up the <IngredientLink id="oil">oil</IngredientLink> to <InlineQuantity id="fryTemp1" />
-  7. As marinate soaks into the <IngredientLink id="cornflour" />, dust with the excess to recoat the <IngredientLink id="chicken" />
+  7. As the marinade soaks into the <IngredientLink id="cornflour" />, dust with the excess to recoat the <IngredientLink id="chicken" />
 </blockquote>
 
 In order to get a good crisp on the outside of the karāge, we'll fry the <IngredientLink id="chicken" /> 3 times. The first time, we'll use a lower temperature - <InlineQuantity id="fryTemp1" /> - for a longer time - <InlineQuantity id="fryTime1" />.
 This allows the heat to reach the inside of the meat. The 2^nd^ and 3^rd^ fries drive off more of the moisture (primarily from the outside), and crisp up the <IngredientLink id="cornflour" />.
-We limit the duration here, and allow resting time for the internal temperature of the <IngredientLink id="chicken" /> to drop some, to avoid overcooking the <IngredientLink id="chicken" /> in the middle.
+We limit the duration here, and allow resting time for the internal temperature of the <IngredientLink id="chicken" /> to drop a bit, to avoid overcooking the <IngredientLink id="chicken" /> in the middle.
 
 import IMG_3841 from './images/IMG_3841.webp'
 
 <Image image={IMG_3841} alt="Frying Karāge" />
 
 <blockquote>
-  8. Fry in batches, according to the timings below Remove the <IngredientLink id="chicken" /> from the oil to rest.
+  8. Fry in batches, according to the timings below.
 
   | Fry No. | Duration  | Temp. | Rest |
   | --- | ---  | ---  | ---  |
   | <b>1</b> | <InlineQuantity quantity={[{m: 1}, 'sms']} id="fryTime1" /> | <InlineQuantity quantity={[170, 'c']} id="fryTemp1" /> | <InlineQuantity quantity={[{s: 45}, 'time']} />  |
   | <b>2</b> | <InlineQuantity quantity={[{s: 30}, 'time']} id="fryTime2" /> | <InlineQuantity quantity={[180, 'c']} /> | <InlineQuantity quantity={[{s: 45}, 'time']} />  |
   | <b>3</b> | <InlineQuantity quantity={[{s: 30}, 'time']} /> | <InlineQuantity quantity={[180, 'c']} /> | <span style={{color: 'var(--colours-mid-3)'}}>—</span> |
+
+   9. Remove the <IngredientLink id="chicken" /> from the oil to rest.
 </blockquote>
 
 import IMG_3357 from './images/IMG_3357.webp'
