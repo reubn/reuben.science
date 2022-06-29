@@ -5,7 +5,7 @@
    <description>RSS</description>
    <language>en</language>
    <link>https://reuben.science</link>
-   <lastBuildDate>Mon, 27 Jun 2022 12:07:43 GMT</lastBuildDate>
+   <lastBuildDate>Wed, 29 Jun 2022 15:39:11 GMT</lastBuildDate>
    <atom:link href="https://reuben.science/rss.xml" rel="self" type="application/rss+xml" />
    <item>
   <title>The Ultimate Adventure Maps</title>
@@ -30,6 +30,12 @@
   <description>Three Dimensional Contour Maps from Card</description>
   <link>https://reuben.science/posts/contour-card</link>
   <pubDate>Wed, 21 Apr 2021 00:00:00 GMT</pubDate>
+</item>
+<item>
+  <title>Tori no Tatsutaage</title>
+  <description>Japanese Fried Karāge Chicken</description>
+  <link>https://reuben.science/posts/karaage-chicken</link>
+  <pubDate>Wed, 29 Jun 2022 00:00:00 GMT</pubDate>
 </item>
 <item>
   <title>Making an iOS App</title>
