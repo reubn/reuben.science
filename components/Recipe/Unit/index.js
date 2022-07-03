@@ -108,7 +108,7 @@ class Unit {
 
     const {commonAncestor, upChain, downChain} = Unit.resolveCommonAncestor(this, unit)
   
-    if(!commonAncestor) throw `Cannot Convert ${this.label} to Incombatible Unit ${unit.label}`
+    if(!commonAncestor) throw `Cannot Convert ${this.label} to Incompatible Unit ${unit.label}`
 
     const upFn = upChain.reduce((fn, link) => value => link.toParent(fn ? fn(value) : value), null)
     const downFn = downChain.reduce((fn, link) => value => fn ? fn(link.fromParent(value)) : link.fromParent(value), null)
