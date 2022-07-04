@@ -39,15 +39,20 @@ class Ingredient {
     if(!this.hasQuantity) return
 
     this.displayUnit = unit
+    this._displayQuantity = null
     this.recipe.ingredientUpdated()
   }
 
+  _displayQuantity = null
   get displayQuantity(){
     if(!this.hasQuantity) return undefined
 
-    const scaleFn = !this.config.doNotScale && (this.config.scaleFn?.bind(null, this.recipe) ?? this.recipe.scaleFn)
-
-    return this.quantity.transform(scaleFn).convert(this.displayUnit)
+    if(!this._displayQuantity) {
+      const scaleFn = !this.config.doNotScale && (this.config.scaleFn?.bind(null, this.recipe) ?? this.recipe.scaleFn)
+      this._displayQuantity = this.quantity.transform(scaleFn).convert(this.displayUnit)
+    }
+    
+    return this._displayQuantity
   }
 
   withScale(scale){ // TODO: would be better to store the scale as display property - then we can supply custom scaleFn
@@ -77,6 +82,7 @@ class Ingredient {
 
   recipeUpdated(){
     if(!this.hasQuantity) return
+    this._displayQuantity = null
 
     const betterUnit = this.displayQuantity.betterUnitChoice
 

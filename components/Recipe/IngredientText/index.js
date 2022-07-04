@@ -1,3 +1,4 @@
+import {useMemo} from 'react'
 import QuantityText from '../QuantityText'
 
 import {
@@ -11,7 +12,7 @@ export const IngredientText = ({ingredient, displayedWithName=true, displayedWit
   const displayQuantity = ingredient.displayQuantity
   const isHovered = ingredient.hover === highlightOnHover
 
-  const rotationUnits = quantityInteractive && displayQuantity?.sensibleUnits
+  const rotationUnits = quantityInteractive && useMemo(() => displayQuantity?.sensibleUnits, [displayQuantity])
   const isQuantityInteractive = rotationUnits && rotationUnits.length > 1
 
   const onQuantityClick = isQuantityInteractive && (() => {
