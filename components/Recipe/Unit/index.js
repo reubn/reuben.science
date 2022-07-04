@@ -284,7 +284,9 @@ class Unit {
   static createAbsolute = (plural, singular = (plural.endsWith('s') ? plural.slice(0, -1) : plural)) => new Unit({
     label: plural,
     name: plural,
-    format: ({formattedNumber, displayedWithName, value}) => displayedWithName ? [['value', formattedNumber]] : [['value', formattedNumber], ['unit', value === 1 ? singular : plural, true]],
+    format: ({formattedNumber, displayedWithName, value}) => displayedWithName
+      ? [{type: 'value', content: formattedNumber, rawValue: value}]
+      : [{type: 'value', content: formattedNumber, rawValue: value}, {type: 'unit', content: value === 1 ? singular : plural, fullSpaceBeforeUnit: true}],
     isBase: true,
     isComfortable: value => true
   })

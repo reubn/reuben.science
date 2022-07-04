@@ -33,9 +33,9 @@ const base = (timeUnits, config) => ({
       seconds: newSeconds,
       components: quantity ? [
         ...components,
-        ['value', (floor ? quantity : toFixedOrInteger(quantity, 2)).toString().padStart(components.length ? padding : 0, '0')],
-        ['unit', key],
-        ['raw', newSeconds ? ' ' : false]
+        {type: 'value', content: (floor ? quantity : toFixedOrInteger(quantity, 2)).toString().padStart(components.length ? padding : 0, '0'), rawValue: quantity},
+        {type: 'unit', content: key},
+        {type: 'raw', content:  newSeconds ? ' ' : false}
       ] : components
     }
   }, {seconds, components: []}).components,

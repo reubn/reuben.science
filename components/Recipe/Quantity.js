@@ -138,7 +138,11 @@ class Quantity {
     const formattedNumber = enoughMagnitude ? snappedValue : (mixed || toFixedOrInteger(snappedValue, 2))
 
     if(this.unit.format) this[key] = this.unit.format({value: this.value, formattedNumber, displayedWithName})
-    else this[key] = [this.unit.prefix && ['unit', this.unit.prefix], ['value', formattedNumber], this.unit.suffix && ['unit', this.unit.suffix]].filter(x => x)
+    else this[key] = [
+      this.unit.prefix && {type: 'unit', content: this.unit.prefix},
+                          {type: 'value', content: formattedNumber, rawValue: this.value},
+      this.unit.suffix && {type: 'unit', content: this.unit.suffix}
+    ].filter(x => x)
 
     return this[key]
   }
