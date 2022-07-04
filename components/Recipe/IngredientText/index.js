@@ -15,10 +15,10 @@ export const IngredientText = ({ingredient, displayedWithName=true, displayedWit
   const isQuantityInteractive = rotationUnits && rotationUnits.length > 1
 
   const onQuantityClick = isQuantityInteractive && (() => {
-    const currentIndex = rotationUnits.indexOf(displayQuantity.unit)
+    const currentIndex = rotationUnits.findIndex(({unit}) => unit === displayQuantity.unit)
     const nextIndex = (currentIndex + 1) % rotationUnits.length
 
-    ingredient.setDisplayUnit(rotationUnits[nextIndex])
+    ingredient.setDisplayUnit(rotationUnits[nextIndex].unit)
   })
 
   const onMouseDown = event => (event.detail >= 2) && event.preventDefault()

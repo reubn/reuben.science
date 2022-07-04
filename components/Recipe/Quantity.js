@@ -34,26 +34,31 @@ class Quantity {
 
   get comfort(){
     const unitComfort = this.unit.comfortableWith(this.value)
-
+/* 
     const suggestedIsAllowed = this.config.sensibleUnits?.includes(unitComfort.suggested) ?? true
-    if(!suggestedIsAllowed) delete unitComfort.suggested
+    if(!suggestedIsAllowed) delete unitComfort.suggested */
 
     return unitComfort
   }
 
   get sensibleUnits(){
-    return this.config.sensibleUnits || this.unit.sensibleUnitsWith(this.value)
+    return this.unit.sensibleUnitsWith(this.value)
   }
 
   get betterUnitChoice(){
-    const comfort = this.comfort
+    const sensibleUnits = this.sensibleUnits
 
-    if(!comfort.comfortable){
-      const betterUnit = comfort.suggested || this.sensibleUnits.find(unit => (unit !== this.unit) && this.convert(unit).comfort.comfortable)
+    if(!sensibleUnits.length) return null
 
-      if(betterUnit) return betterUnit
-    }
+    const {score, unit} = sensibleUnits[0]
+    const {score: currentUnitScore} = sensibleUnits.find(({unit}) => unit === this.unit) || {}
 
+    console.log('buc', {unit: this.unit, value: this.value, score: this.comfort, sensibleUnits, better: {unit: unit.label, score}, change: score >= this.comfort.score})
+    console.log('com',  score, '>', this.comfort.score, '=', score > this.comfort.score)
+
+    if(currentUnitScore === undefined) return unit
+    if(score > currentUnitScore) return unit
+    
     return null
   }
 
@@ -112,7 +117,10 @@ class Quantity {
       const snappedBelow = Math.floor(this.value / snapInterval) * snapInterval
       const snappedAbove = Math.ceil(this.value / snapInterval) * snapInterval
 
-      const [remainder, snapPoint] = [snappedBelow, snappedAbove].map(snappedPoint => [Math.abs(this.value - snappedPoint), snappedPoint]).sort(([remainderA], [remainderB]) => remainderA - remainderB)[0]
+      const [remainder, snapPoint] = [snappedBelow, snappedAbove]
+        .map(snappedPoint => [Math.abs(this.value - snappedPoint), snappedPoint])
+        .sort(([remainderA], [remainderB]) => remainderA - remainderB)
+        [0]
 
       if(remainder < bestSoFar.remainder || (remainder === bestSoFar.remainder && snapPoint < bestSoFar.snapPoint)) return {remainder, snapInterval, snapPoint}
       
@@ -136,6 +144,7 @@ class Quantity {
   }
 
   static from = quantityOrConfig => quantityOrConfig instanceof Quantity ? quantityOrConfig : new Quantity(quantityOrConfig)
+  static equal = (a, b) => a.value === b.value && a.unit === b.unit
 }
 
 export default Quantity

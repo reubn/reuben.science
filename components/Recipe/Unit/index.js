@@ -34,11 +34,11 @@ class Unit {
   }
 
   get snapIntervalConfig(){
-    return this.config.snapIntervalConfig || [
-      [4, [10]],
-      [3, [5]],
-      [2, [1]],
-      [-1, [0.25]],
+    return this.config.comfort?.snapIntervals || [
+      [4, [5]],
+      [3, [1]],
+      [2, [0.5]],
+      [-1, [0.05]],
       [-Infinity, []]
     ]
   }
@@ -126,39 +126,109 @@ class Unit {
   }
 
   sensibleUnitsWith(value){
-    const usingConfigResults = typeof this.config.sensibleUnits !== 'undefined'
-    let configResults = null
-
-    if(usingConfigResults) {
-      const configPassIn = []
-      const configReturnResults = this.config.sensibleUnits?.(value, configPassIn)
-
-      configResults = (configReturnResults || configPassIn).map(Unit.from)
-      configResults.push(this)
-    }
-
-    return (configResults ?? this.compatibleUnits.filter(unit => unit.comfortableWith(this.conversionFnTo(unit)(value)).comfortable)).sort((a, b) => {
-      const aBaseValue = a.toBase(1)
-      const bBaseValue = b.toBase(1)
-
-      if(aBaseValue === bBaseValue) return a.order - b.order
-
-      return bBaseValue - aBaseValue
+    const result = this.compatibleUnits
+    .map(unit => {
+      const valueWithUnit = this.conversionFnTo(unit)(value)
+      return {
+        unit,
+        valueWithUnit,
+        scoreBreakdown: unit.comfortableWith(this.conversionFnTo(unit)(value))
+      }
     })
+    .filter(({scoreBreakdown: {isInRange}}) => isInRange !== false)
+    
+
+    .map(({valueWithUnit, ...object}) => ({...object, valueWithUnit, magnitude: Math.abs(Math.log10(valueWithUnit))}))
+
+    .sort(({magnitude: a}, {magnitude: b}) => b - a)
+    .reduce(({cursor, prev, map}, object) => {
+      if((prev === null) || Math.abs(prev - object.magnitude) > 0.001) cursor++
+
+      object.score = object.scoreBreakdown.score + cursor
+      object.valueScoreAdd = cursor
+      return {cursor, prev: object.magnitude, map: [...map, object]}
+    }, {cursor: -1, prev: null, map: []}).map
+  
+/* 
+    .map(({valueWithUnit, ...object}) => {
+      const magRaw = Math.log10(valueWithUnit)
+      const magnitude = magRaw < 0 ? 1000 + magRaw : magRaw
+      return ({...object, valueWithUnit, magnitude})
+    }) // makes 0.1mm beat 0.01cm
+    .sort(({magnitude: a}, {magnitude: b}) => a - b) // makes 0.1mm beat 0.01cm
+    .reduce(({cursor, prev, map}, object) => {
+      
+      if((prev === null) || Math.abs(prev - object.magnitude) > 0.001) cursor+=2
+
+      console.log('red', object.unit.label, {prev, magnitude: object.magnitude, cursor})
+
+      object.score = object.score + cursor
+      object.magnitudeScoreAdd = cursor
+      return {cursor, prev: object.magnitude, map: [...map, object]}
+    }, {cursor: -1, prev: null, map: []}).map */
+    
+    .sort(({scoreBreakdown: {snapIntervalRemainder: a}}, {scoreBreakdown: {snapIntervalRemainder: b}}) => b - a)
+    .reduce(({cursor, prev, map}, object) => {
+      if((prev === null) || Math.abs(prev - object.scoreBreakdown.snapIntervalRemainder) > 0.001) cursor++
+
+      object.score = object.score + cursor + 1
+      object.snapIntervalRemainderScoreAdd = cursor + 1
+      return {cursor, prev:  object.scoreBreakdown.snapIntervalRemainder, map: [...map, object]}
+    }, {cursor: -1, prev: null, map: []}).map
+    // .map(({score, ...object}, snapIntervalRemainderIndex, {length}) => ({...object, snapIntervalRemainderIndex, score: score + ((snapIntervalRemainderIndex + 1) / length)}))
+
+    .sort(({score: a}, {score: b}) => b - a)
+
+    console.log('sensibleUnitsWith', {value, unit: this.label}, result.map(({unit: {label}, ...o}) => ({label, ...o})))
+
+    return result
   }
 
   comfortableWith(value){ // TODO: this should recur. What if suggested value isn't comfortable?
-    const configResult = this.config.isComfortable?.(value)
-
-    if(configResult === undefined || typeof configResult === 'boolean') return {
-      comfortable: configResult ?? (value >= 1 && value < 1000),
-      suggested: null
+    if(!this.config.comfort) return {}
+    const {custom, range} = this.config.comfort || {}
+    if(custom) return custom(value)
+    
+    const inRange = (value, {comfortableBetween: [lowerComfort=0.5, upperComfort=Infinity]=[], dontShowOutside: [dontShowBelow=0.1, dontShowAbove=Infinity + 1]=[]}) => {
+      if(value >= lowerComfort && value < upperComfort) return true
+      if(value >= dontShowBelow && value < dontShowAbove) return null
+      return false
     }
 
-    return {
-      comfortable: false,
-      suggested: Unit.from(configResult)
-    }
+    const powerOf10 = Math.floor(Math.log10(value))
+    const magnitudeSign = Math.sign(powerOf10)
+    const magnitude = value ? magnitudeSign > -1 ? powerOf10 + 1 : powerOf10 : 0
+
+    const [_, snapIntervals] = this.snapIntervalConfig.find(([key]) => key <= magnitude)
+    
+    const {snapPoint: snappedValue, remainder} = snapIntervals.reduce((bestSoFar, snapInterval) => {
+      const snappedBelow = Math.floor(value / snapInterval) * snapInterval
+      const snappedAbove = Math.ceil(value / snapInterval) * snapInterval
+
+      const [remainder, snapPoint] = [snappedBelow, snappedAbove]
+        .map(snappedPoint => [Math.abs(value - snappedPoint), snappedPoint])
+        .sort(([remainderA], [remainderB]) => remainderA - remainderB)
+        [0]
+
+      if(remainder < bestSoFar.remainder || (remainder === bestSoFar.remainder && snapPoint < bestSoFar.snapPoint)) return {remainder, snapInterval, snapPoint}
+      
+      return bestSoFar
+    }, {remainder: Infinity, snapInterval: Infinity, snapPoint: value})
+
+    console.log({value, snappedValue, remainder})
+
+    const isUserChosen = null
+    const isInRange = inRange(value, range)
+    const isWhole = Math.abs(value - Math.floor(value)) < 0.00001
+    const isWholeSnapped = Math.abs(snappedValue - Math.floor(snappedValue)) < 0.00001
+
+    const score = [isUserChosen, isInRange, isWhole, isWholeSnapped].reduce((sum, component, index, {length}) => {
+      const componentScore = (component === null ? 1 : (component ? 2 : 0)) * (length / (index + 1))
+
+      return sum + componentScore
+    }, 0)
+
+    return {score, isUserChosen, isInRange, snapIntervalRemainder: (remainder === Infinity ? 0 : remainder) / value}
   }
 
   static unitsArray = Object.entries(units(Unit)).map(([label, config]) => [label, new Unit({label, ...config})])

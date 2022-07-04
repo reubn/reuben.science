@@ -40,15 +40,17 @@ const base = (timeUnits, config) => ({
     }
   }, {seconds, components: []}).components,
   parse: def => Object.entries(def).reduce((total, [key, quantity]) => total + (quantity * (allTimeUnits[key]?.value || 0)), 0),
-  isComfortable: seconds => {
+  comfort: {
+   custom: seconds => {
     const specific = config.isComfortable?.(seconds)
 
-    if(specific !== undefined && specific !== true) return specific
+    if(specific !== undefined && specific !== true) return {score: 0, isInRange: false}
 
     const [key, {value, floor=true}] = Object.entries(timeUnits)[0]
     const quantity = floor ? Math.floor(seconds / value) : seconds / value
 
-    return !!quantity
+    return {score: 1 / quantity, isInRange: !!quantity}
+  }
   }
 })
 

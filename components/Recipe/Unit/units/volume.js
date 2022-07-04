@@ -1,19 +1,3 @@
-import {isApprox} from "./util"
-
-const acceptableFractions = [0, 0.25, 0.5, 0.75]
-
-const basicallyIsFraction = isApprox(acceptableFractions, true)
-
-const threshold = 0.075
-const approxIsFraction = isApprox(acceptableFractions, true, threshold)
-const approxIsNotFraction = isApprox(acceptableFractions, false, threshold)
-
-const minTsp = 0.5 - threshold
-const maxTsp = 9
-
-const minTbsp = 0.5 - threshold
-const maxTbsp = 9
-
 export default {
   l: {
     name: 'litre',
@@ -22,13 +6,17 @@ export default {
     type: 'volume',
     suffix: true,
     isBase: true,
-    isComfortable: value => {
-      if(value < 1) return 'ml'
-
-      return true
-    },
-    sensibleUnits: (value, units) => {
-      if(value < 10) units.push('ml')
+    comfort: {
+      range: {
+        comfortableBetween: [0.5, Infinity],
+        dontShowOutside: [0.1, Infinity]
+      },
+      snapIntervals: [
+        [4, [10]],
+        [3, [5]],
+        [-1, [0.05]],
+        [-Infinity, []]
+      ]
     }
   },
   ml: {
@@ -38,28 +26,17 @@ export default {
     parent: 'l',
     toParent: ml => ml / 1000,
     fromParent: l => l * 1000,
-    isComfortable: value => {
-      const tbspValue = value / 15
-      const tbspRemainder = tbspValue % 1
-      const tbspWouldBeBetter = tbspValue <= maxTbsp && approxIsFraction(tbspRemainder)
-      
-      if(tbspWouldBeBetter) return 'tbsp'
-
-      const tspValue = value / 5
-      const tspRemainder = tspValue % 1
-      const tspWouldBeBetter = tspValue <= maxTsp && approxIsFraction(tspRemainder)
-
-      if(tspWouldBeBetter) return 'tsp'
-
-      if(value >= 1000) return 'l'
-
-      return true //value >= 0.5
-    },
-    sensibleUnits: (value, units) => {
-      if(value <= (10 * 5)) units.push('tsp')
-      if(value <= (10 * 15)) units.push('tbsp')
-      // if(value >= 10) units.push('cl')
-      if(value >= 100) units.push('l')
+    comfort: {
+      range: {
+        comfortableBetween: [1, 1000],
+        dontShowOutside: [0, 10000]
+      },
+      snapIntervals: [
+        [4, [10]],
+        [3, [5]],
+        [1, [1]],
+        [-Infinity, []]
+      ]
     }
   },
   // cl: {
@@ -76,25 +53,15 @@ export default {
     parent: 'ml',
     toParent: tbsp => tbsp * 15,
     fromParent: ml => ml / 15,
-    isComfortable: value => {
-      const currentRemainder = value % 1
-
-      if(approxIsNotFraction(currentRemainder)) {
-        const tspValue = value * 3
-        const tspRemainder = tspValue % 1
-        const tspWouldBeBetter = tspValue <= maxTsp && approxIsFraction(tspRemainder)
-
-        if(tspWouldBeBetter) return 'tsp'
-        if(((value * 15) % 5) === 0) return 'ml'
-      }
-      
-
-      if(value <= minTbsp) return 'ml'
-      if(value >= maxTbsp) return 'ml'
-
-      return true
-    },
-    sensibleUnits: value => ['tsp', 'ml']
+    comfort: {
+      range: {
+        comfortableBetween: [0.5, 6],
+        dontShowOutside: [0.25, 6]
+      },
+      snapIntervals: [
+        [-Infinity, [0.5]]
+      ]
+    }
   },
   tsp: {
     name: 'teaspoon',
@@ -103,22 +70,30 @@ export default {
     parent: 'ml',
     toParent: tsp => tsp * 5,
     fromParent: ml => ml / 5,
-    isComfortable: value => {
-      const tbspValue = value / 3
-      const tbspRemainder = tbspValue % 1
-      const tbspWouldBeBetter = tbspValue <= maxTbsp && basicallyIsFraction(tbspRemainder)
-
-      if(tbspWouldBeBetter) return 'tbsp'
-
-      if(value <= minTsp) return 'ml'
-      if(value >= maxTsp) return 'ml'
-/* 
-      if(((value * 15) % 5) === 0) return 'ml' */
-
-      return true
-    },
-    sensibleUnits: value => ['tbsp', 'ml']
+    comfort: {
+      range: {
+        comfortableBetween: [0.25, 6],
+        dontShowOutside: [0.25, 6]
+      },
+      snapIntervals: [
+        [-Infinity, [0.5]]
+      ]
+    }
   },
+ /*  tsp2: {
+    name: 'teaspoon2',
+    colour: 'blue',
+    suffix: 'Tsp2',
+    parent: 'ml',
+    toParent: tsp => tsp * 5,
+    fromParent: ml => ml / 5,
+    comfort: {
+      range: {
+        comfortableBetween: [0.25, 10],
+        dontShowOutside: [0.25, 10]
+      }
+    }
+  }, */
   // impGal: {
   //   name: 'imperial gallon',
   //   suffix: 'imp. gal',
