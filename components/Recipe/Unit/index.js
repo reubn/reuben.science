@@ -288,7 +288,9 @@ class Unit {
       ? [{type: 'value', content: formattedNumber, rawValue: value}]
       : [{type: 'value', content: formattedNumber, rawValue: value}, {type: 'unit', content: value === 1 ? singular : plural, fullSpaceBeforeUnit: true}],
     isBase: true,
-    isComfortable: value => true
+    comfort: { 
+      custom: () => ({score: 1, isInRange: true})
+    }
   })
 }
 
