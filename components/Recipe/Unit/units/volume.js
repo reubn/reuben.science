@@ -34,7 +34,7 @@ export default {
       snapIntervals: [
         [4, [10]],
         [3, [5]],
-        [1, [1]],
+        [1, [0.5]],
         [-Infinity, []]
       ]
     }
