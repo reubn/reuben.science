@@ -1,0 +1,146 @@
+.container {
+  margin: 2rem auto;
+}
+
+@media print {
+  .container {
+    margin: unset;
+  }
+}
+
+.content {
+  background: var(--colours-dark-1);
+  padding: 1.75rem 2rem;
+
+  border-radius: 4px;
+  vertical-align: middle;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+@media (max-width: 650px) {
+  .content {
+    width: 100%;
+  }
+}
+
+@media print {
+  .content {
+    padding: 0;
+  }
+}
+
+.title {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-weight: 500;
+}
+
+@media print {
+  .title {
+    margin: 0;
+    display: inline;
+  }
+}
+
+.icon {
+  margin-right: 0.25rem;
+}
+
+.control {
+  --controlHeight: 2.4rem;
+  font-size: 1.05rem;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: var(--controlHeight);
+  margin-right: 0.5rem;
+
+  vertical-align: middle;
+}
+
+@media print {
+  .control {
+    margin: 0;
+  }
+}
+
+.control input {
+  display: none;
+}
+
+.control label {
+  --border-radius: 3px;
+  --scale: 1.1;
+  font-size: inherit;
+  font-family: inherit;
+  padding: 0.25rem 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 5rem;
+  height: 100%;
+
+  background: var(--colours-dark-3);
+
+  border-right: 1.5px solid var(--colours-dark-4);
+
+  cursor: pointer;
+  user-select: none;
+
+  transition: transform 0.15s cubic-bezier(.47,0,.89,.16);
+}
+
+.control label:first-of-type {
+  border-radius: var(--border-radius) 0px 0px var(--border-radius);
+}
+
+.control label:last-of-type {
+  border-radius: 0px var(--border-radius) var(--border-radius) 0px;
+  border-right: none;
+}
+
+.control input + label span {
+  transition: inherit;
+}
+
+.control input:checked + label {
+  background: var(--colours-dark-4);
+  transform: scale(var(--scale));
+  border-radius: var(--border-radius);
+  border: none;
+  z-index: 10;
+
+  transition: transform 0.075s cubic-bezier(.47,0,0,1.8);
+}
+
+.control input:checked + label span {
+  transform: scale(calc(2 - var(--scale)));
+}
+
+.control input + label span:after {
+  content: "";
+  display: block;
+  position: relative;
+  bottom: 6px;
+  width: 0;
+  height: 3px;
+  border-radius: 6px;
+  background: var(--colours-dark-5);
+
+  left: 50%;
+
+  transition: width 0.2s cubic-bezier(.47,0,.89,.16), left 0.2s cubic-bezier(.47,0,.89,.16), background 0.2s cubic-bezier(.47,0,.89,.16);
+}
+
+.control input:checked + label span:after {
+  width: 110%;
+  left: -5%;
+
+  transition: width 0.2s cubic-bezier(.47,0,0,1.8), left 0.2s cubic-bezier(.47,0,0,1.8), background 0.2s cubic-bezier(.47,0,0,1.8);
+}
+
+.control input:checked + label:hover span:after {
+  background: var(--option-underline);
+}
