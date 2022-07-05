@@ -57,8 +57,6 @@ class Quantity {
     const {score, unit} = sensibleUnits[0]
     const {score: currentUnitScore} = sensibleUnits.find(({unit}) => unit === this.unit) || {}
 
-    console.log('buc', {unit: this.unit, value: this.value, score: this.comfort, sensibleUnits, better: {unit: unit.label, score}, change: score >= this.comfort.score})
-    console.log('com',  score, '>', this.comfort.score, '=', score > this.comfort.score)
 
     if(currentUnitScore === undefined) return unit
     if(score > currentUnitScore) return unit

@@ -218,7 +218,6 @@ class Unit {
       return bestSoFar
     }, {remainder: Infinity, snapInterval: Infinity, snapPoint: value})
 
-    console.log({value, snappedValue, remainder})
 
     const isUserChosen = null
     const isInRange = inRange(value, range)
