@@ -55,7 +55,7 @@ export default function Home({posts, photos}) {
           </div>
         </section>
 
-        <PostList posts={posts.map(hydratePost)} />
+        <PostList posts={posts.map(hydratePost)} displayImage={true} />
         <PhotoList photos={photos} />
       </main>
     </>

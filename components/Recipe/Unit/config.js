@@ -21,14 +21,14 @@ export const units = Unit => ({
   abs: {
     name: 'abs',
     type: 'abs',
-    format: ({formattedNumber, displayedWithName}) => [['value', formattedNumber]],
+    format: ({formattedNumber, displayedWithName, value}) => [{type: 'value', content: formattedNumber, rawValue: value}],
     isBase: true,
     isComfortable: value => true
   },
   raw: {
     name: 'raw',
     type: 'raw',
-    format: ({value}) => [['unit', value]],
+    format: ({value}) => [{type: 'unit', content: value}],
     isBase: true,
     isComfortable: value => true
   },

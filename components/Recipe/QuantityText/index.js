@@ -1,4 +1,5 @@
 import {Fragment} from 'react'
+import toFixedOrInteger from 'src/toFixedOrInteger'
 
 import {
   interactive as interactiveStyle,
@@ -12,8 +13,8 @@ export const QuantityText = ({quantity, isInteractive, isHovered, displayedWithN
   const components = quantity.formatted({displayedWithName: displayedWithName})
   const unit = quantity.unit
 
-  const elements = components.map(([type, content, fullSpaceBeforeUnit, alt=unit.name], index) => ({
-     value: () => <span key={`value-${content}-${index}`} className={valueStyle}>{content}</span>,
+  const elements = components.map(({type, content, fullSpaceBeforeUnit, alt=unit.name, rawValue}, index) => ({
+     value: () => <span key={`value-${content}-${index}`} className={valueStyle} title={rawValue && toFixedOrInteger(rawValue, 4)}>{content}</span>,
      unit: () => (
        <Fragment key={`unit-${content}-${index}`}>
          <span style={fullSpaceBeforeUnit ? undefined : {display: 'inline-block', width: '1px'}}>{' '}</span>

@@ -3,7 +3,7 @@ import {Unit} from '@/components/Recipe'
 
 import header from './images/header.webp'
 
-import {recipe, IngredientDefinition, IngredientLink, ServingsControl, InlineQuantity} from './recipe'
+import {recipe, IngredientDefinition, IngredientLink, RecipeConfig, InlineQuantity} from './recipe'
 
 export const metadata = {
   title: 'Tori no Tatsutaage',
@@ -14,7 +14,7 @@ export const metadata = {
   image: header
 }
 
-<ServingsControl servings={24} plural="Pieces" />
+<RecipeConfig servings={24} plural="Pieces" />
 
 Tatsutaage is a type of Japanese fried chicken or karāge.
 Marinated before being coated in starch, the chicken is incredibly juicy, whilst still having a great crunch. 💯

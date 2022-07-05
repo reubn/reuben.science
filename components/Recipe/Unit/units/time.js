@@ -33,22 +33,24 @@ const base = (timeUnits, config) => ({
       seconds: newSeconds,
       components: quantity ? [
         ...components,
-        ['value', (floor ? quantity : toFixedOrInteger(quantity, 2)).toString().padStart(components.length ? padding : 0, '0')],
-        ['unit', key],
-        ['raw', newSeconds ? ' ' : false]
+        {type: 'value', content: (floor ? quantity : toFixedOrInteger(quantity, 2)).toString().padStart(components.length ? padding : 0, '0'), rawValue: quantity},
+        {type: 'unit', content: key},
+        {type: 'raw', content:  newSeconds ? ' ' : false}
       ] : components
     }
   }, {seconds, components: []}).components,
   parse: def => Object.entries(def).reduce((total, [key, quantity]) => total + (quantity * (allTimeUnits[key]?.value || 0)), 0),
-  isComfortable: seconds => {
+  comfort: {
+   custom: seconds => {
     const specific = config.isComfortable?.(seconds)
 
-    if(specific !== undefined && specific !== true) return specific
+    if(specific !== undefined && specific !== true) return {score: 0, isInRange: false}
 
     const [key, {value, floor=true}] = Object.entries(timeUnits)[0]
     const quantity = floor ? Math.floor(seconds / value) : seconds / value
 
-    return !!quantity
+    return {score: 1 / quantity, isInRange: !!quantity}
+  }
   }
 })
 

@@ -37,7 +37,7 @@ export default function Snippets({posts}) {
       />
 
       <main className={main}>
-        <SnippetList posts={posts.map(hydratePost)} heading={false} fallback={<h2 className={empty}>no posts here mate</h2>} />
+        <SnippetList posts={posts.map(hydratePost)} heading={false} fallback={<h2 className={empty}>no posts here mate</h2>} displayPreview={true} />
       </main>
     </>
   )

@@ -24,6 +24,13 @@ class Recipe {
     this.recipeUpdated()
   }
 
+  unitFilterFn = this.config?.unitFilterFn ?? (unit => true)
+
+  setUnitFilterFn(fn){
+    this.unitFilterFn = fn
+    this.recipeUpdated()
+  }
+
   hasIngredient(id){
     return !!this.ingredients[id]
   }

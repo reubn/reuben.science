@@ -9,14 +9,10 @@
 }
 
 .content {
-  background: var(--colours-dark-1);
   padding: 1.75rem 2rem;
 
-  border-radius: 4px;
   vertical-align: middle;
   overflow-x: auto;
-  width: fit-content;
-  min-width: 33.3%;
   white-space: nowrap;
 }
 

@@ -32,28 +32,35 @@ class Quantity {
     return this.config.unit
   }
 
-  get comfort(){
-    const unitComfort = this.unit.comfortableWith(this.value)
+  get unitFilterFn(){
+    return this.config.unitFilterFn
+  }
 
+  get comfort(){
+    const unitComfort = this.unit.comfortableWith(this.value, this.unitFilterFn)
+/* 
     const suggestedIsAllowed = this.config.sensibleUnits?.includes(unitComfort.suggested) ?? true
-    if(!suggestedIsAllowed) delete unitComfort.suggested
+    if(!suggestedIsAllowed) delete unitComfort.suggested */
 
     return unitComfort
   }
 
   get sensibleUnits(){
-    return this.config.sensibleUnits || this.unit.sensibleUnitsWith(this.value)
+    return this.unit.sensibleUnitsWith(this.value, this.unitFilterFn)
   }
 
   get betterUnitChoice(){
-    const comfort = this.comfort
+    const sensibleUnits = this.sensibleUnits
 
-    if(!comfort.comfortable){
-      const betterUnit = comfort.suggested || this.sensibleUnits.find(unit => (unit !== this.unit) && this.convert(unit).comfort.comfortable)
+    if(!sensibleUnits.length) return null
 
-      if(betterUnit) return betterUnit
-    }
+    const {score, unit} = sensibleUnits[0]
+    const {score: currentUnitScore} = sensibleUnits.find(({unit}) => unit === this.unit) || {}
 
+
+    if(currentUnitScore === undefined) return unit
+    if(score > currentUnitScore) return unit
+    
     return null
   }
 
@@ -112,7 +119,10 @@ class Quantity {
       const snappedBelow = Math.floor(this.value / snapInterval) * snapInterval
       const snappedAbove = Math.ceil(this.value / snapInterval) * snapInterval
 
-      const [remainder, snapPoint] = [snappedBelow, snappedAbove].map(snappedPoint => [Math.abs(this.value - snappedPoint), snappedPoint]).sort(([remainderA], [remainderB]) => remainderA - remainderB)[0]
+      const [remainder, snapPoint] = [snappedBelow, snappedAbove]
+        .map(snappedPoint => [Math.abs(this.value - snappedPoint), snappedPoint])
+        .sort(([remainderA], [remainderB]) => remainderA - remainderB)
+        [0]
 
       if(remainder < bestSoFar.remainder || (remainder === bestSoFar.remainder && snapPoint < bestSoFar.snapPoint)) return {remainder, snapInterval, snapPoint}
       
@@ -130,12 +140,17 @@ class Quantity {
     const formattedNumber = enoughMagnitude ? snappedValue : (mixed || toFixedOrInteger(snappedValue, 2))
 
     if(this.unit.format) this[key] = this.unit.format({value: this.value, formattedNumber, displayedWithName})
-    else this[key] = [this.unit.prefix && ['unit', this.unit.prefix], ['value', formattedNumber], this.unit.suffix && ['unit', this.unit.suffix]].filter(x => x)
+    else this[key] = [
+      this.unit.prefix && {type: 'unit', content: this.unit.prefix},
+                          {type: 'value', content: formattedNumber, rawValue: this.value},
+      this.unit.suffix && {type: 'unit', content: this.unit.suffix}
+    ].filter(x => x)
 
     return this[key]
   }
 
   static from = quantityOrConfig => quantityOrConfig instanceof Quantity ? quantityOrConfig : new Quantity(quantityOrConfig)
+  static equal = (a, b) => a.value === b.value && a.unit === b.unit
 }
 
 export default Quantity
