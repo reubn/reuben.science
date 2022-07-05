@@ -41,7 +41,7 @@
     "remark-mdx": "^2.1.2",
     "remark-sub-super": "^1.0.20",
     "striptags": "^3.2.0",
-    "three": "^0.141.0",
+    "three": "^0.142.0",
     "unist-util-visit": "^4.1.0",
     "webp-hero": "0.0.2",
     "xtend": "^4.0.2"
