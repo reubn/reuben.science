@@ -1,7 +1,10 @@
+import {metric, US} from '../constants'
+
 export default {
   t: {
     name: 'metric tonne',
     colour: 'blue',
+    systems: [metric],
     type: 'mass',
     parent: 'kg',
     suffix: true,
@@ -24,6 +27,7 @@ export default {
   kg: {
     name: 'kilogram',
     colour: 'pink',
+    systems: [metric],
     type: 'mass',
     suffix: true,
     isBase: true,
@@ -44,6 +48,7 @@ export default {
   g: {
     name: 'gram',
     colour: 'green',
+    systems: [metric],
     suffix: true,
     parent: 'kg',
     toParent: g => g / 1000,
@@ -64,6 +69,7 @@ export default {
   mg: {
     name: 'milligram',
     colour: 'orange',
+    systems: [metric],
     suffix: true,
     parent: 'g',
     toParent: mg => mg / 1000,
@@ -74,5 +80,60 @@ export default {
         dontShowOutside: [0, 1000]
       }
     }
-  }
+  },
+
+  st: {
+    name: 'US short ton',
+    colour: 'green',
+    systems: [US],
+    suffix: 'ton',
+    parent: 'lb',
+    toParent: st => st * 2000,
+    fromParent: lb => lb / 2000,
+    comfort: {
+      range: {
+        comfortableBetween: [0.5, Infinity],
+        dontShowOutside: [0.5, Infinity]
+      },
+      snapIntervals: [
+        [-Infinity, [0.25]]
+      ]
+    }
+  },
+  lb: {
+    name: 'US pound',
+    colour: 'red',
+    systems: [US],
+    suffix: true,
+    parent: 'kg',
+    toParent: lb => lb / 0.45359237,
+    fromParent: kg => kg * 0.45359237,
+    comfort: {
+      range: {
+        comfortableBetween: [1, 1000],
+        dontShowOutside: [0.25, 2000]
+      },
+      snapIntervals: [
+        [-Infinity, [0.25]]
+      ]
+    }
+  },
+  oz: {
+    name: 'US ounce',
+    colour: 'orange',
+    systems: [US],
+    suffix: true,
+    parent: 'lb',
+    toParent: oz => oz / 16,
+    fromParent: lb => lb * 16,
+    comfort: {
+      range: {
+        comfortableBetween: [0, 16],
+        dontShowOutside: [0, 32]
+      },
+      snapIntervals: [
+        [-Infinity, [0.25]]
+      ]
+    }
+  },
 }

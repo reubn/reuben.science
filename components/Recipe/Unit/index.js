@@ -1,4 +1,5 @@
 import {units} from './config'
+import * as constants from './constants'
 
 class Unit {
   constructor(config){
@@ -233,6 +234,7 @@ class Unit {
 
   static unitsArray = Object.entries(units(Unit)).map(([label, config]) => [label, new Unit({label, ...config})])
   static units = Object.fromEntries(Unit.unitsArray)
+  static constants = constants
   static from = unknown => {
     if(unknown instanceof Unit) return unknown
 

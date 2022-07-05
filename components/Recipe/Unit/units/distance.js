@@ -1,7 +1,10 @@
+import {metric, US} from '../constants'
+
 export default {
   m: {
     name: 'metre',
     colour: 'pink',
+    systems: [metric],
     type: 'distance',
     suffix: true,
     isBase: true,
@@ -15,6 +18,7 @@ export default {
   cm: {
     name: 'centimetre',
     colour: 'red',
+    systems: [metric],
     suffix: true,
     parent: 'm',
     toParent: cm => cm / 100,
@@ -33,6 +37,7 @@ export default {
   mm: {
     name: 'millimetre',
     colour: 'blue',
+    systems: [metric],
     suffix: true,
     parent: 'm',
     toParent: mm => mm / 1000,
@@ -51,6 +56,7 @@ export default {
   inch: {
     name: 'inch',
     colour: 'orange',
+    systems: [US],
     parent: 'mm',
     suffix: '"',
     toParent: inch => inch * 25.4,

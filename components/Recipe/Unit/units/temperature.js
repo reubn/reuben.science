@@ -1,7 +1,10 @@
+import {metric, US} from '../constants'
+
 export default {
   K: {
     name: 'kelvin',
     colour: 'pink-red',
+    systems: [metric],
     type: 'temperature',
     suffix: true,
     isBase: true,
@@ -15,6 +18,7 @@ export default {
   c: {
     name: 'celcius',
     colour: 'blue',
+    systems: [metric],
     suffix: '°C',
     parent: 'K',
     toParent: c => c + 273.15,
@@ -29,6 +33,7 @@ export default {
   f: {
     name: 'fahrenheit',
     colour: 'orange',
+    systems: [US],
     suffix: '°F',
     parent: 'c',
     toParent: f => (f - 32) * (5 / 9),
