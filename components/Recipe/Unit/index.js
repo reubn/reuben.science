@@ -126,17 +126,17 @@ class Unit {
     return this._compatibleUnits
   }
 
-  sensibleUnitsWith(value){
+  sensibleUnitsWith(value, unitFilterFn){
     const result = this.compatibleUnits
     .map(unit => {
       const valueWithUnit = this.conversionFnTo(unit)(value)
       return {
         unit,
         valueWithUnit,
-        scoreBreakdown: unit.comfortableWith(this.conversionFnTo(unit)(value))
+        scoreBreakdown: unit.comfortableWith(this.conversionFnTo(unit)(value), unitFilterFn)
       }
     })
-    .filter(({scoreBreakdown: {isInRange}}) => isInRange !== false)
+    .filter(({scoreBreakdown: {isFilteredOut, isInRange}}) => (!isFilteredOut && (isInRange !== false)))
     
 
     .map(({valueWithUnit, ...object}) => ({...object, valueWithUnit, magnitude: Math.abs(Math.log10(valueWithUnit))}))
@@ -180,17 +180,19 @@ class Unit {
 
     .sort(({score: a}, {score: b}) => b - a)
 
-    console.log('sensibleUnitsWith', {value, unit: this.label}, result.map(({unit: {label}, ...o}) => ({label, ...o})))
+    // console.log('sensibleUnitsWith', {value, unit: this.label}, result.map(({unit: {label}, ...o}) => ({label, ...o})))
 
     return result
   }
 
-  comfortableWith(value){ // TODO: this should recur. What if suggested value isn't comfortable?
-    if(!this.config.comfort) return {}
+  comfortableWith(value, unitFilterFn){ // TODO: this should recur. What if suggested value isn't comfortable?
     const {custom, range} = this.config.comfort || {}
+
+    if(!unitFilterFn?.(this)) return {isFilteredOut: true}
+
     if(custom) return custom(value)
     
-    const inRange = (value, {comfortableBetween: [lowerComfort=0.5, upperComfort=Infinity]=[], dontShowOutside: [dontShowBelow=0.1, dontShowAbove=Infinity + 1]=[]}) => {
+    const inRange = (value, {comfortableBetween: [lowerComfort=0.5, upperComfort=Infinity]=[], dontShowOutside: [dontShowBelow=0.1, dontShowAbove=Infinity + 1]=[]}={}) => {
       if(value >= lowerComfort && value < upperComfort) return true
       if(value >= dontShowBelow && value < dontShowAbove) return null
       return false

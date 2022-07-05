@@ -50,6 +50,7 @@ class Ingredient {
     if(!this._displayQuantity) {
       const scaleFn = !this.config.doNotScale && (this.config.scaleFn?.bind(null, this.recipe) ?? this.recipe.scaleFn)
       this._displayQuantity = this.quantity.transform(scaleFn).convert(this.displayUnit)
+      this._displayQuantity.config.unitFilterFn = (this.config.unitFilterFn ?? this.recipe.unitFilterFn).bind(this.recipe)
     }
     
     return this._displayQuantity

@@ -32,8 +32,12 @@ class Quantity {
     return this.config.unit
   }
 
+  get unitFilterFn(){
+    return this.config.unitFilterFn
+  }
+
   get comfort(){
-    const unitComfort = this.unit.comfortableWith(this.value)
+    const unitComfort = this.unit.comfortableWith(this.value, this.unitFilterFn)
 /* 
     const suggestedIsAllowed = this.config.sensibleUnits?.includes(unitComfort.suggested) ?? true
     if(!suggestedIsAllowed) delete unitComfort.suggested */
@@ -42,7 +46,7 @@ class Quantity {
   }
 
   get sensibleUnits(){
-    return this.unit.sensibleUnitsWith(this.value)
+    return this.unit.sensibleUnitsWith(this.value, this.unitFilterFn)
   }
 
   get betterUnitChoice(){
