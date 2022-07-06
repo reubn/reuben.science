@@ -80,7 +80,7 @@ export const createUnitSystemControl = recipe => ({...props}) => {
     if(checked) activeUnitSystems.add(unitSystem)
     else {
       activeUnitSystems.delete(unitSystem)
-      if(activeUnitSystems.size <= 1){
+      if(!activeUnitSystems.size){
         const {unitSystem: next} = unitSystemConfig.find(({unitSystem: uS}) => uS !== unitSystem)
         activeUnitSystems.add(next)
       }
