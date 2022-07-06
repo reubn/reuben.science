@@ -64,7 +64,7 @@ const createInitialState = () => {
   const previousSelectionStrings = previousSelectionJSON ? JSON.parse(previousSelectionJSON) : null
   const previousSelections = previousSelectionStrings?.map(unitSystemName => unitSystemConfig.find(({name}) => name === unitSystemName)?.unitSystem).filter(x => x)
 
-  const initialState = (previousSelections.length && previousSelections) || regionMap[region] || regionMap.default
+  const initialState = (previousSelections?.length && previousSelections) || regionMap[region] || regionMap.default
 
   return new Set(initialState)
 }
