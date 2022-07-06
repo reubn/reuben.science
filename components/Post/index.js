@@ -1,4 +1,5 @@
 import {NextSeo, BreadcrumbJsonLd, ArticleJsonLd} from 'next-seo'
+import {useEffect, useState} from 'react'
 
 import CategoryLink from '../CategoryLink'
 import Image from '../Image'
@@ -9,6 +10,11 @@ import {title, description, categories, headerImage, info as infoStyle, readingT
 
 export default function Post({slug, metadata, children}){
   const date = new Date(metadata.date)
+
+  const [locales, setLocales] = useState(['en-GB'])
+  useEffect(() => setLocales(navigator.languages), [])
+
+  const localisedDate = new Intl.DateTimeFormat(locales).format(date)
 
   return (
     <>
@@ -68,8 +74,8 @@ export default function Post({slug, metadata, children}){
         {metadata.description && <h2 className={description}>{metadata.description}</h2>}
         <Image image={metadata.image} className={headerImage} alt={metadata.emoji} />
         <span className={infoStyle}>
-          <time dateTime={date.toLocaleDateString()}>{date.toLocaleDateString()}</time>
-          <LengthDisplay className={readingTimeStyle} readingTime={metadata.readingTime} />
+          <time dateTime={localisedDate}>{localisedDate}</time>
+          <LengthDisplay className={readingTimeStyle} readingTime={metadata.readingTime} locales={locales} />
         </span>
         <div className={body}>
           {children}
