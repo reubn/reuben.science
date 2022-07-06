@@ -48,8 +48,6 @@ export const UnitSystemControl = ({options}) => (
 const localStorageKey = 'unitSystem'
 
 const createInitialState = () => {
-  if(!global.navigator) return new Set()
-
   const localeString = navigator?.languages?.length ? navigator?.languages[0] : navigator?.language
   const locale = localeString && new Intl.Locale(localeString)
 
@@ -61,7 +59,7 @@ const createInitialState = () => {
     default: [metric]
   }
 
-  const previousSelectionJSON = global.localStorage?.getItem(localStorageKey)
+  const previousSelectionJSON = localStorage?.getItem(localStorageKey)
   const previousSelectionStrings = previousSelectionJSON ? JSON.parse(previousSelectionJSON) : null
   const previousSelections = previousSelectionStrings?.map(unitSystemName => unitSystemConfig.find(({name}) => name === unitSystemName)?.unitSystem).filter(x => x)
 
@@ -71,27 +69,28 @@ const createInitialState = () => {
 }
 
 export const createUnitSystemControl = recipe => ({...props}) => {
-  const {current: activeUnitSystems} = useRef(createInitialState())
+  const [activeUnitSystems, replaceActiveUnitSystems] = useState(new Set([]))
 
-  const removingLastDisabled = activeUnitSystems.size <= 1
+  const applyFilter = () => recipe.setUnitFilterFn(unit => unit.config.systems?.some?.(system => activeUnitSystems.has(system)) ?? true)
+
+  useEffect(() => replaceActiveUnitSystems(createInitialState()), [])
+  useEffect(applyFilter, [activeUnitSystems])
 
   const unitSystemsUpdate = (unitSystem, checked) => {
     if(checked) activeUnitSystems.add(unitSystem)
     else {
       activeUnitSystems.delete(unitSystem)
-      if(removingLastDisabled){
+      if(activeUnitSystems.size <= 1){
         const {unitSystem: next} = unitSystemConfig.find(({unitSystem: uS}) => uS !== unitSystem)
         activeUnitSystems.add(next)
       }
     }
 
     const json = JSON.stringify([...activeUnitSystems.values()].map(unitSystem => unitSystemConfig.find(({unitSystem: uS}) => unitSystem === uS)?.name))
-    global.localStorage?.setItem(localStorageKey, json)
+    localStorage?.setItem(localStorageKey, json)
 
     applyFilter()
   }
-
-  const applyFilter = () => recipe.setUnitFilterFn(unit => unit.config.systems?.some?.(system => activeUnitSystems.has(system)) ?? true)
 
   const options = unitSystemConfig.map(({unitSystem, ...other}) => ({
     ...other,
@@ -103,7 +102,6 @@ export const createUnitSystemControl = recipe => ({...props}) => {
   const [_, setDummy] = useState()
 
   useEffect(() => {
-    applyFilter()
     const forceUpdate = () => setDummy({})
 
     recipe.addListener(forceUpdate)
@@ -113,9 +111,8 @@ export const createUnitSystemControl = recipe => ({...props}) => {
   return useMemo(() => (
     <UnitSystemControl
       options={options}
-      removingLastDisabled={removingLastDisabled}
      {...props} />
-  ), [options, removingLastDisabled])
+  ), [options])
 }
 
 export default createUnitSystemControl
