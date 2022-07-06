@@ -1,8 +1,8 @@
-import {container} from './styles'
+import {recipeConfig} from './styles'
 
 export const createRecipeConfig = ({ServingsControl, UnitSystemControl}) => props => {
  return (
-  <section className={container}>
+  <section className={recipeConfig}>
     <ServingsControl {...props} />
     <UnitSystemControl {...props} />
   </section>

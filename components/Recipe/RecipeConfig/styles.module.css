@@ -1,4 +1,4 @@
-.container {
+.recipeConfig {
   margin: 2rem auto;
 
   display: flex;
@@ -11,12 +11,75 @@
 }
 
 @media print {
-  .container {
+  .recipeConfig, .container {
     margin: unset;
   }
 }
 
-.container > * {
+.container {
+  margin: 2rem auto;
+  background: var(--colours-dark-1);
+  border-radius: 4px;
+}
+
+
+.recipeConfig .container {
   margin: unset!important;
   min-width: 50%;
+}
+
+.content {
+  padding: 1.75rem 2rem;
+
+  vertical-align: middle;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+@media (max-width: 650px) {
+  .content {
+    width: 100%;
+  }
+}
+
+@media print {
+  .content {
+    padding: 0;
+  }
+}
+
+.title {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-weight: 500;
+}
+
+@media print {
+  .title {
+    margin: 0;
+    display: inline;
+  }
+}
+
+.icon {
+  margin-right: 0.25rem;
+}
+
+.control {
+  --controlHeight: 2.4rem;
+  font-size: 1.05rem;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: var(--controlHeight);
+  margin-right: 0.5rem;
+
+  vertical-align: middle;
+}
+
+@media print {
+  .control {
+    margin: 0;
+  }
 }

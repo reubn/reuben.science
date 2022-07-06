@@ -1,70 +1,9 @@
-.container {
-  margin: 2rem auto;
-}
-
-@media print {
-  .container {
-    margin: unset;
-  }
-}
-
-.content {
-  padding: 1.75rem 2rem;
-
-  vertical-align: middle;
-  overflow-x: auto;
-  white-space: nowrap;
-}
-
-@media (max-width: 650px) {
-  .content {
-    width: 100%;
-  }
-}
-
-@media print {
-  .content {
-    padding: 0;
-  }
-}
-
-.title {
-  margin-top: 0;
-  margin-bottom: 1rem;
-  font-weight: 500;
-}
-
-@media print {
-  .title {
-    margin: 0;
-    display: inline;
-  }
-}
-
-.icon {
-  margin-right: 0.25rem;
-}
-
 .control {
-  --controlHeight: 2.4rem;
-  font-size: 1.125rem;
-
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  height: var(--controlHeight);
-  margin-right: 0.5rem;
   background: var(--colours-dark-3);
   --border-colour: var(--colours-dark-4);
   border-radius: 3px;
   overflow: hidden;
   vertical-align: middle;
-}
-
-@media print {
-  .control {
-    margin: 0;
-  }
 }
 
 .input {

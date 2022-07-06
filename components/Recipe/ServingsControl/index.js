@@ -2,7 +2,8 @@ import {useEffect, useState, useMemo, useRef} from 'react'
 
 import toFixedOrInteger from '@/src/toFixedOrInteger'
 
-import {container, content, title, icon, control, input, incDec, servingsName, equals, recipeScaleInput} from './styles'
+import {container, content, title, icon, control} from '../RecipeConfig/styles'
+import {control as localControl, input, incDec, servingsName, equals, recipeScaleInput} from './styles'
 
 const makeServingsState = servings => ({
   string: toFixedOrInteger(servings, 2) + '',
@@ -127,7 +128,7 @@ export const ServingsControl = ({scale, servingsAsWritten, servingsChanged, scal
     <div className={container}>
       <div className={content}>
       <h3 className={title}><span className={icon}>🔢</span> Recipe Makes</h3>
-        <div ref={controlRef} className={control} style={{'--digits': servingsDigits}}>
+        <div ref={controlRef} className={`${control} ${localControl}`} style={{'--digits': servingsDigits}}>
           <input
             ref={servingsRef}
             type="text"

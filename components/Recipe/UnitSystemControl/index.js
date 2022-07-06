@@ -4,7 +4,8 @@ import gradient from '@/src/gradient'
 
 import {metric, US} from '../Unit/constants'
 
-import {container, content, title, icon, control} from './styles'
+import {container, content, title, icon, control} from '../RecipeConfig/styles'
+import {control as localControl} from './styles'
 
 const unitSystemConfig = [
   {
@@ -30,7 +31,7 @@ export const UnitSystemControl = ({options}) => (
   <div className={container}>
     <div className={content}>
     <h3 className={title}><span className={icon}>⚖️</span> Preferred Units</h3>
-      <div className={control}>
+      <div className={`${control} ${localControl}`}>
         {options.map(({name, colour, checked, onChange}) => (
           <Fragment key={name}>
             <input type="checkbox" id={optionKey(name)} checked={checked} onChange={onChange} />
