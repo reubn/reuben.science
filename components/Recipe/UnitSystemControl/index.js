@@ -61,10 +61,10 @@ const createInitialState = () => {
   }
 
   const previousSelectionJSON = global.localStorage?.getItem(localStorageKey)
-  const previousSelectionStrings = previousSelectionJSON ? JSON.parse(previousSelectionJSON).filter(x => x) : null
-  const previousSelections = previousSelectionStrings?.length && previousSelectionStrings?.map(unitSystemName => unitSystemConfig.find(({name}) => name === unitSystemName)?.unitSystem)
+  const previousSelectionStrings = previousSelectionJSON ? JSON.parse(previousSelectionJSON) : null
+  const previousSelections = previousSelectionStrings?.map(unitSystemName => unitSystemConfig.find(({name}) => name === unitSystemName)?.unitSystem).filter(x => x)
 
-  const initialState = previousSelections || regionMap[region] || regionMap.default
+  const initialState = (previousSelections.length && previousSelections) || regionMap[region] || regionMap.default
 
   return new Set(initialState)
 }
