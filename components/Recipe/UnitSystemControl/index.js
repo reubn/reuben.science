@@ -24,23 +24,25 @@ const unitSystemConfig = [
   }
 ]
 
-export const ServingsControl = ({options, removingLastDisabled}) => {
-  return (
-    <div className={container}>
-      <div className={content}>
-      <h3 className={title}><span className={icon}>⚖️</span> Preferred Units</h3>
-        <div className={control}>
-          {options.map(({name, colour, checked, onChange}, index) => (
-            <Fragment key={name}>
-              <input type="checkbox" id={index} checked={checked} onChange={onChange} />
-              <label htmlFor={index} style={{'--option-underline': gradient(colour)}}><span>{name}</span></label>
-            </Fragment>
-          ))}
-        </div>
+const optionKey = name => `unitSystemControl-${name}`
+
+export const UnitSystemControl = ({options}) => (
+  <div className={container}>
+    <div className={content}>
+    <h3 className={title}><span className={icon}>⚖️</span> Preferred Units</h3>
+      <div className={control}>
+        {options.map(({name, colour, checked, onChange}) => (
+          <Fragment key={name}>
+            <input type="checkbox" id={optionKey(name)} checked={checked} onChange={onChange} />
+            <label htmlFor={optionKey(name)} style={{'--option-underline': gradient(colour)}}>
+              <span>{name}</span>
+            </label>
+          </Fragment>
+        ))}
       </div>
     </div>
-  )
-}
+  </div>
+)
 
 const localStorageKey = 'unitSystem'
 
@@ -108,11 +110,11 @@ export const createServingsControl = recipe => ({...props}) => {
   }, [])
 
   return useMemo(() => (
-    <ServingsControl
+    <UnitSystemControl
       options={options}
       removingLastDisabled={removingLastDisabled}
      {...props} />
   ), [options, removingLastDisabled])
 }
 
-export default createServingsControl
+export default createUnitSystemControl
