@@ -6,7 +6,7 @@
 .control label {
   --border-radius: 3px;
   --scale: 1.1;
-  --reverse-scale: calc(2 - var(--scale));
+  --reverse-scale: calc(1 / var(--scale));
   font-size: inherit;
   font-family: inherit;
   padding: 0.25rem 0.75rem;
@@ -15,10 +15,9 @@
   justify-content: center;
   min-width: 5rem;
   height: 100%;
+  position: relative;
 
   background: var(--colours-dark-3);
-
-  border-right: 1.5px solid var(--colours-dark-4);
 
   cursor: pointer;
   user-select: none;
@@ -32,11 +31,6 @@
 
 .control label:last-of-type {
   border-radius: 0px var(--border-radius) var(--border-radius) 0px;
-  border-right: none;
-}
-
-.control input + label span {
-  transition: inherit;
 }
 
 .control input:checked + label {
@@ -49,24 +43,49 @@
   transition: transform 0.075s cubic-bezier(.47,0,0,1.8);
 }
 
+/* active state border */
 .control label:after {
+  --border-width: 2px;
+
   content: "";
   background: var(--colours-dark-5);
   height: 0;
+  left: calc(var(--border-width) / -2);
   position: absolute;
-  left: 0;
-  width: 2px;
-  border-radius: 4px;
 
-  transition: height 0.25s cubic-bezier(.47,0,.89,.16);
+
+ 
+  width: var(--border-width);
+  border-radius: var(--border-width);
 }
 
-.control input:checked + label + input:checked + label:after { /* match where checked option is up against checked option on the left */
-  height: 85%;
+.control input:checked + label + input:checked + label:after,
+.control input:not(:checked) + label:after { /* match where checked option is up against checked option on the left */
+  height: 70%;
 
-  transition: height 0.2s cubic-bezier(.32,1,.77,1.01);
+  transition: height 0.25s cubic-bezier(.47,0,.89,.16), left 0.25s cubic-bezier(.47,0,.89,.16);
 }
 
+.control input:checked + label + input:checked + label:after {
+  --scaledWidth: 100%;
+  --originalWidth: calc(var(--scaledWidth) * var(--reverse-scale));
+  --overlap: calc(var(--scaledWidth) - var(--originalWidth));
+  --original-interface-left: calc(var(--overlap) / 2);
+
+  height: 80%;
+
+  left: calc(var(--original-interface-left) - (var(--border-width) / 2));
+
+  transition: height 0.2s cubic-bezier(.32,1,.77,1.01), left 0.2s cubic-bezier(.32,1,.77,1.01);
+}
+
+.control input:first-of-type + label:after {
+  height: 0;
+}
+
+.control input + label span {
+  transition: inherit;
+}
 
 .control input:checked + label span {
   transform: scale(var(--reverse-scale));
