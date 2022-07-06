@@ -1,6 +1,6 @@
 import {useState} from 'react'
 
-const LengthDisplay = ({readingTime: {mins, words}, ...props}) => {
+const LengthDisplay = ({readingTime: {mins, words}, locales, ...props}) => {
   const [minMode, setMinMode] = useState(true)
 
   const display = minMode
@@ -12,7 +12,7 @@ const LengthDisplay = ({readingTime: {mins, words}, ...props}) => {
       </time>
     )
     : (
-      <span>{new Intl.NumberFormat(navigator.languages).format(words)} words</span>
+      <span>{new Intl.NumberFormat(locales).format(words)} words</span>
     )
 
   return (
