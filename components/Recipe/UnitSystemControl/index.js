@@ -4,7 +4,8 @@ import gradient from '@/src/gradient'
 
 import {metric, US} from '../Unit/constants'
 
-import {container, content, title, icon, control} from './styles'
+import {container, content, title, icon, control} from '../RecipeConfig/styles'
+import {control as localControl} from './styles'
 
 const unitSystemConfig = [
   {
@@ -16,37 +17,37 @@ const unitSystemConfig = [
     name: 'US',
     unitSystem: US,
     colour: 'red'
-  },
+  }/* ,
   {
     name: 'Imperial',
     unitSystem: Symbol('imperial'),
     colour: 'green'
-  }
+  } */
 ]
 
-export const ServingsControl = ({options, removingLastDisabled}) => {
-  return (
-    <div className={container}>
-      <div className={content}>
-      <h3 className={title}><span className={icon}>⚖️</span> Preferred Units</h3>
-        <div className={control}>
-          {options.map(({name, colour, checked, onChange}, index) => (
-            <Fragment key={name}>
-              <input type="checkbox" id={index} checked={checked} onChange={onChange} />
-              <label htmlFor={index} style={{'--option-underline': gradient(colour)}}><span>{name}</span></label>
-            </Fragment>
-          ))}
-        </div>
+const optionKey = name => `unitSystemControl-${name}`
+
+export const UnitSystemControl = ({options}) => (
+  <div className={container}>
+    <div className={content}>
+    <h3 className={title}><span className={icon}>⚖️</span> Preferred Units</h3>
+      <div className={`${control} ${localControl}`}>
+        {options.map(({name, colour, checked, onChange}) => (
+          <Fragment key={name}>
+            <input type="checkbox" id={optionKey(name)} checked={checked} onChange={onChange} />
+            <label htmlFor={optionKey(name)} style={{'--option-underline': gradient(colour)}}>
+              <span>{name}</span>
+            </label>
+          </Fragment>
+        ))}
       </div>
     </div>
-  )
-}
+  </div>
+)
 
 const localStorageKey = 'unitSystem'
 
 const createInitialState = () => {
-  if(!global.navigator) return new Set()
-
   const localeString = navigator?.languages?.length ? navigator?.languages[0] : navigator?.language
   const locale = localeString && new Intl.Locale(localeString)
 
@@ -58,36 +59,37 @@ const createInitialState = () => {
     default: [metric]
   }
 
-  const previousSelectionJSON = global.localStorage?.getItem(localStorageKey)
-  const previousSelectionStrings = previousSelectionJSON ? JSON.parse(previousSelectionJSON).filter(x => x) : null
-  const previousSelections = previousSelectionStrings?.length && previousSelectionStrings?.map(unitSystemName => unitSystemConfig.find(({name}) => name === unitSystemName)?.unitSystem)
+  const previousSelectionJSON = localStorage?.getItem(localStorageKey)
+  const previousSelectionStrings = previousSelectionJSON ? JSON.parse(previousSelectionJSON) : null
+  const previousSelections = previousSelectionStrings?.map(unitSystemName => unitSystemConfig.find(({name}) => name === unitSystemName)?.unitSystem).filter(x => x)
 
-  const initialState = previousSelections || regionMap[region] || regionMap.default
+  const initialState = (previousSelections?.length && previousSelections) || regionMap[region] || regionMap.default
 
   return new Set(initialState)
 }
 
-export const createServingsControl = recipe => ({...props}) => {
-  const {current: activeUnitSystems} = useRef(createInitialState())
+export const createUnitSystemControl = recipe => ({...props}) => {
+  const [activeUnitSystems, replaceActiveUnitSystems] = useState(new Set([]))
 
-  const removingLastDisabled = activeUnitSystems.size <= 1
+  const applyFilter = () => recipe.setUnitFilterFn(unit => unit.config.systems?.some?.(system => activeUnitSystems.has(system)) ?? true)
+
+  useEffect(() => replaceActiveUnitSystems(createInitialState()), [])
+  useEffect(applyFilter, [activeUnitSystems])
 
   const unitSystemsUpdate = (unitSystem, checked) => {
     if(checked) activeUnitSystems.add(unitSystem)
     else {
       activeUnitSystems.delete(unitSystem)
-      if(removingLastDisabled){
-        const currentIndex = unitSystemConfig.findIndex(({unitSystem: uS}) => uS === unitSystem)
-        const nextIndex = (currentIndex + 1) % unitSystemConfig.length
-
-        activeUnitSystems.add(unitSystemConfig[nextIndex].unitSystem)
+      if(activeUnitSystems.size <= 1){
+        const {unitSystem: next} = unitSystemConfig.find(({unitSystem: uS}) => uS !== unitSystem)
+        activeUnitSystems.add(next)
       }
     }
 
-    recipe.setUnitFilterFn(unit => unit.config.systems?.some?.(system => activeUnitSystems.has(system)) ?? true)
-
     const json = JSON.stringify([...activeUnitSystems.values()].map(unitSystem => unitSystemConfig.find(({unitSystem: uS}) => unitSystem === uS)?.name))
-    global.localStorage?.setItem(localStorageKey, json)
+    localStorage?.setItem(localStorageKey, json)
+
+    applyFilter()
   }
 
   const options = unitSystemConfig.map(({unitSystem, ...other}) => ({
@@ -100,7 +102,6 @@ export const createServingsControl = recipe => ({...props}) => {
   const [_, setDummy] = useState()
 
   useEffect(() => {
-    unitSystemsUpdate()
     const forceUpdate = () => setDummy({})
 
     recipe.addListener(forceUpdate)
@@ -108,11 +109,10 @@ export const createServingsControl = recipe => ({...props}) => {
   }, [])
 
   return useMemo(() => (
-    <ServingsControl
+    <UnitSystemControl
       options={options}
-      removingLastDisabled={removingLastDisabled}
      {...props} />
-  ), [options, removingLastDisabled])
+  ), [options])
 }
 
-export default createServingsControl
+export default createUnitSystemControl

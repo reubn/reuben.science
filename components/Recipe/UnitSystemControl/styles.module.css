@@ -1,78 +1,12 @@
-.container {
-  margin: 2rem auto;
-}
-
-@media print {
-  .container {
-    margin: unset;
-  }
-}
-
-.content {
-  background: var(--colours-dark-1);
-  padding: 1.75rem 2rem;
-
-  border-radius: 4px;
-  vertical-align: middle;
-  overflow-x: auto;
-  white-space: nowrap;
-}
-
-@media (max-width: 650px) {
-  .content {
-    width: 100%;
-  }
-}
-
-@media print {
-  .content {
-    padding: 0;
-  }
-}
-
-.title {
-  margin-top: 0;
-  margin-bottom: 1rem;
-  font-weight: 500;
-}
-
-@media print {
-  .title {
-    margin: 0;
-    display: inline;
-  }
-}
-
-.icon {
-  margin-right: 0.25rem;
-}
-
-.control {
-  --controlHeight: 2.4rem;
-  font-size: 1.05rem;
-
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  height: var(--controlHeight);
-  margin-right: 0.5rem;
-
-  vertical-align: middle;
-}
-
-@media print {
-  .control {
-    margin: 0;
-  }
-}
-
 .control input {
-  display: none;
+  width: 0;
+  position: absolute;
 }
 
 .control label {
   --border-radius: 3px;
   --scale: 1.1;
+  --reverse-scale: calc(2 - var(--scale));
   font-size: inherit;
   font-family: inherit;
   padding: 0.25rem 0.75rem;
@@ -115,17 +49,37 @@
   transition: transform 0.075s cubic-bezier(.47,0,0,1.8);
 }
 
+.control label:after {
+  content: "";
+  background: var(--colours-dark-5);
+  height: 0;
+  position: absolute;
+  left: 0;
+  width: 2px;
+  border-radius: 4px;
+
+  transition: height 0.25s cubic-bezier(.47,0,.89,.16);
+}
+
+.control input:checked + label + input:checked + label:after { /* match where checked option is up against checked option on the left */
+  height: 85%;
+
+  transition: height 0.2s cubic-bezier(.32,1,.77,1.01);
+}
+
+
 .control input:checked + label span {
-  transform: scale(calc(2 - var(--scale)));
+  transform: scale(var(--reverse-scale));
 }
 
 .control input + label span:after {
+  --underline-height: 3px;
   content: "";
   display: block;
   position: relative;
   bottom: 6px;
   width: 0;
-  height: 3px;
+  height: var(--underline-height);
   border-radius: 6px;
   background: var(--colours-dark-5);
 
@@ -134,13 +88,20 @@
   transition: width 0.2s cubic-bezier(.47,0,.89,.16), left 0.2s cubic-bezier(.47,0,.89,.16), background 0.2s cubic-bezier(.47,0,.89,.16);
 }
 
-.control input:checked + label span:after {
+.control input:checked + label span:after,
+.control input:focus-visible + label span:after {
   width: 110%;
   left: -5%;
 
   transition: width 0.2s cubic-bezier(.47,0,0,1.8), left 0.2s cubic-bezier(.47,0,0,1.8), background 0.2s cubic-bezier(.47,0,0,1.8);
 }
 
-.control input:checked + label:hover span:after {
+.control input:focus-visible + label span:after {
+  height: calc(var(--reverse-scale) * var(--underline-height));
+}
+
+.control input:checked + label:hover span:after,
+.control input:focus-visible + label span:after {
   background: var(--option-underline);
 }
+
