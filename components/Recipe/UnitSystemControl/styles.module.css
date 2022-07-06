@@ -6,7 +6,7 @@
 .control label {
   --border-radius: 3px;
   --scale: 1.1;
-  --reverse-scale: calc(2 - var(--scale));
+  --reverse-scale: calc(1 / var(--scale));
   font-size: inherit;
   font-family: inherit;
   padding: 0.25rem 0.75rem;
@@ -49,14 +49,21 @@
   transition: transform 0.075s cubic-bezier(.47,0,0,1.8);
 }
 
+/* active state border */
 .control label:after {
   content: "";
   background: var(--colours-dark-5);
   height: 0;
   position: absolute;
-  left: 0;
-  width: 2px;
-  border-radius: 4px;
+  --scaledWidth: 100%;
+  --originalWidth: calc(var(--scaledWidth) * var(--reverse-scale));
+  --overlap: calc(var(--scaledWidth) - var(--originalWidth));
+  --original-interface-left: calc(var(--overlap) / 2);
+  --border-width: 2px;
+
+  left: calc(var(--original-interface-left) - (var(--border-width) / 2));
+  width: var(--border-width);
+  border-radius: var(--border-width);
 
   transition: height 0.25s cubic-bezier(.47,0,.89,.16);
 }
