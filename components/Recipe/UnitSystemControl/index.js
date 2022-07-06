@@ -69,7 +69,7 @@ const createInitialState = () => {
   return new Set(initialState)
 }
 
-export const createServingsControl = recipe => ({...props}) => {
+export const createUnitSystemControl = recipe => ({...props}) => {
   const {current: activeUnitSystems} = useRef(createInitialState())
 
   const removingLastDisabled = activeUnitSystems.size <= 1
