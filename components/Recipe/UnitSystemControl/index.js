@@ -79,10 +79,8 @@ export const createUnitSystemControl = recipe => ({...props}) => {
     else {
       activeUnitSystems.delete(unitSystem)
       if(removingLastDisabled){
-        const currentIndex = unitSystemConfig.findIndex(({unitSystem: uS}) => uS === unitSystem)
-        const nextIndex = (currentIndex + 1) % unitSystemConfig.length
-
-        activeUnitSystems.add(unitSystemConfig[nextIndex].unitSystem)
+        const {unitSystem: next} = unitSystemConfig.find(({unitSystem: uS}) => uS !== unitSystem)
+        activeUnitSystems.add(next)
       }
     }
 
