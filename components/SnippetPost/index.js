@@ -3,7 +3,10 @@ import {NextSeo, BreadcrumbJsonLd, ArticleJsonLd} from 'next-seo'
 import {title, description, categories, info as infoStyle, date as dateStyle, post, body} from '../Post/styles'
 
 export default function SnippetPost({slug, metadata, children}){
-  const date = new Date(metadata.date)
+  const [locales, setLocales] = useState(['en-GB'])
+  useEffect(() => setLocales(navigator.languages), [])
+
+  const localisedDate = new Intl.DateTimeFormat(locales).format(date)
 
   return (
     <>
@@ -53,7 +56,7 @@ export default function SnippetPost({slug, metadata, children}){
       <article className={post}>
         <h1 className={title}>{metadata.title}</h1>
         <span className={infoStyle}>
-          <time dateTime={date.toLocaleDateString()}>{date.toLocaleDateString()}</time>
+          <time dateTime={localisedDate}>{localisedDate}</time>
           <span>{metadata.linesOfCode || '???'} line{metadata.linesOfCode != 1 && 's'}</span>
         </span>
         <div className={body}>
