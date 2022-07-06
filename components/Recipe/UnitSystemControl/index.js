@@ -84,11 +84,13 @@ export const createUnitSystemControl = recipe => ({...props}) => {
       }
     }
 
-    recipe.setUnitFilterFn(unit => unit.config.systems?.some?.(system => activeUnitSystems.has(system)) ?? true)
-
     const json = JSON.stringify([...activeUnitSystems.values()].map(unitSystem => unitSystemConfig.find(({unitSystem: uS}) => unitSystem === uS)?.name))
     global.localStorage?.setItem(localStorageKey, json)
+
+    applyFilter()
   }
+
+  const applyFilter = () => recipe.setUnitFilterFn(unit => unit.config.systems?.some?.(system => activeUnitSystems.has(system)) ?? true)
 
   const options = unitSystemConfig.map(({unitSystem, ...other}) => ({
     ...other,
@@ -100,7 +102,7 @@ export const createUnitSystemControl = recipe => ({...props}) => {
   const [_, setDummy] = useState()
 
   useEffect(() => {
-    unitSystemsUpdate()
+    applyFilter()
     const forceUpdate = () => setDummy({})
 
     recipe.addListener(forceUpdate)
