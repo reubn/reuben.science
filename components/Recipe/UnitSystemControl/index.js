@@ -16,12 +16,12 @@ const unitSystemConfig = [
     name: 'US',
     unitSystem: US,
     colour: 'red'
-  },
+  }/* ,
   {
     name: 'Imperial',
     unitSystem: Symbol('imperial'),
     colour: 'green'
-  }
+  } */
 ]
 
 const optionKey = name => `unitSystemControl-${name}`
