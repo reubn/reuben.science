@@ -1,8 +1,11 @@
+import {useEffect, useState} from 'react'
 import {NextSeo, BreadcrumbJsonLd, ArticleJsonLd} from 'next-seo'
 
 import {title, description, categories, info as infoStyle, date as dateStyle, post, body} from '../Post/styles'
 
 export default function SnippetPost({slug, metadata, children}){
+  const date = new Date(metadata.date)
+  
   const [locales, setLocales] = useState(['en-GB'])
   useEffect(() => setLocales(navigator.languages), [])
 
