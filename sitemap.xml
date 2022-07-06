@@ -3,63 +3,6 @@
   <loc>https://reuben.science/categories</loc>
 </url>
 <url>
-  <loc>https://reuben.science/snippets</loc>
-</url>
-<url>
-  <loc>https://reuben.science/404</loc>
-</url>
-<url>
-  <loc>https://reuben.science/categories/dev</loc>
-</url>
-<url>
-  <loc>https://reuben.science/categories/make</loc>
-</url>
-<url>
-  <loc>https://reuben.science/categories/hardware</loc>
-</url>
-<url>
-  <loc>https://reuben.science/categories/medicine</loc>
-</url>
-<url>
-  <loc>https://reuben.science/categories/food</loc>
-</url>
-<url>
-  <loc>https://reuben.science/categories/automation</loc>
-</url>
-<url>
-  <loc>https://reuben.science/categories/outdoors</loc>
-</url>
-<url>
-  <loc>https://reuben.science/posts</loc>
-</url>
-<url>
-  <loc>https://reuben.science/</loc>
-</url>
-<url>
-  <loc>https://reuben.science/posts/adventure-maps</loc>
-</url>
-<url>
-  <loc>https://reuben.science/posts/anki-controller</loc>
-</url>
-<url>
-  <loc>https://reuben.science/posts/cloudflare-analytics</loc>
-</url>
-<url>
-  <loc>https://reuben.science/posts/contour-card</loc>
-</url>
-<url>
-  <loc>https://reuben.science/posts/karaage-chicken</loc>
-</url>
-<url>
-  <loc>https://reuben.science/posts/making-a-mapping-app</loc>
-</url>
-<url>
-  <loc>https://reuben.science/posts/making-my-memoji</loc>
-</url>
-<url>
-  <loc>https://reuben.science/posts/sourdough-pizza</loc>
-</url>
-<url>
   <loc>https://reuben.science/snippets/apple-mail-add-alias</loc>
 </url>
 <url>
@@ -109,4 +52,61 @@
 </url>
 <url>
   <loc>https://reuben.science/snippets/xcode-remove-file-headers</loc>
+</url>
+<url>
+  <loc>https://reuben.science/snippets</loc>
+</url>
+<url>
+  <loc>https://reuben.science/posts/adventure-maps</loc>
+</url>
+<url>
+  <loc>https://reuben.science/posts/anki-controller</loc>
+</url>
+<url>
+  <loc>https://reuben.science/posts/cloudflare-analytics</loc>
+</url>
+<url>
+  <loc>https://reuben.science/posts/contour-card</loc>
+</url>
+<url>
+  <loc>https://reuben.science/posts/karaage-chicken</loc>
+</url>
+<url>
+  <loc>https://reuben.science/posts/making-a-mapping-app</loc>
+</url>
+<url>
+  <loc>https://reuben.science/posts/making-my-memoji</loc>
+</url>
+<url>
+  <loc>https://reuben.science/posts/sourdough-pizza</loc>
+</url>
+<url>
+  <loc>https://reuben.science/404</loc>
+</url>
+<url>
+  <loc>https://reuben.science/categories/dev</loc>
+</url>
+<url>
+  <loc>https://reuben.science/categories/make</loc>
+</url>
+<url>
+  <loc>https://reuben.science/categories/hardware</loc>
+</url>
+<url>
+  <loc>https://reuben.science/categories/medicine</loc>
+</url>
+<url>
+  <loc>https://reuben.science/categories/food</loc>
+</url>
+<url>
+  <loc>https://reuben.science/categories/automation</loc>
+</url>
+<url>
+  <loc>https://reuben.science/categories/outdoors</loc>
+</url>
+<url>
+  <loc>https://reuben.science/</loc>
+</url>
+<url>
+  <loc>https://reuben.science/posts</loc>
 </url></urlset>
