@@ -293,8 +293,6 @@
 }
 
 .body blockquote, .body .key {
-  --colours-background: var(--colours-dark-1);
-  background: var(--colours-background);
   padding: 1rem 2rem;
   margin: 2rem auto;
   border-radius: 4px;
@@ -308,6 +306,16 @@
     padding: 0 1rem;
     margin: 1rem auto;
   }
+}
+
+.body blockquote,
+.body .key,
+.body table,
+.body figure figcaption {
+  --colours-background: var(--colours-dark-1);
+  --colours-background-next: var(--colours-dark-2);
+  --colours-shadow: var(--colours-dark-shadow-1);
+  background: var(--colours-background);
 }
 
 .body blockquote > h1:first-child,
@@ -337,8 +345,6 @@
 .body table {
   table-layout: fixed;
   text-align: center;
-  --colours-background: var(--colours-dark-1);
-  background: var(--colours-background);
   padding: 0.5rem;
   border-radius: 4px;
 }
@@ -398,8 +404,6 @@
   font-weight: 400;
   text-align: left;
 
-  --colours-background: var(--colours-dark-2);
-  background: var(--colours-background);
   width: 100%;
   padding: 1rem 2rem;
   margin: 0 auto;

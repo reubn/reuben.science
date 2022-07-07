@@ -2,7 +2,10 @@
   --header-height: 6rem;
   --footer-height: 7rem;
 
-  background-color: var(--colours-dark);
+  --colours-background: var(--colours-dark);
+  --colours-background-next: var(--colours-dark-1);
+  --colours-shadow: var(--colours-dark-shadow);
+  background: var(--colours-background);
   color: var(--colours-light);
 
   -webkit-font-smoothing: antialiased;

@@ -5,8 +5,6 @@
   flex-wrap: wrap;
 
   justify-content: space-between;
-
-  background: var(--colours-dark-1);
   border-radius: 4px;
 }
 
@@ -18,8 +16,15 @@
 
 .container {
   margin: 2rem auto;
-  background: var(--colours-dark-1);
   border-radius: 4px;
+}
+
+.recipeConfig, .container {
+  --colours-background: var(--colours-dark-1);
+  --colours-background-next: var(--colours-dark-2);
+  --colours-shadow: var(--colours-dark-shadow-1);
+
+  background: var(--colours-background);
 }
 
 
@@ -32,7 +37,7 @@
   padding: 1.75rem 2rem;
 
   vertical-align: middle;
-  overflow-x: auto;
+  /* overflow-x: auto; */
   white-space: nowrap;
 }
 
