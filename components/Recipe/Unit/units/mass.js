@@ -106,8 +106,8 @@ export default {
     systems: [US],
     suffix: true,
     parent: 'kg',
-    toParent: lb => lb / 0.45359237,
-    fromParent: kg => kg * 0.45359237,
+    toParent: lb => lb * 0.45359237,
+    fromParent: kg => kg / 0.45359237,
     comfort: {
       range: {
         comfortableBetween: [1, 1000],
