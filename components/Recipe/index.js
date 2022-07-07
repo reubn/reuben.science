@@ -10,6 +10,9 @@ import createUnitSystemControl from './UnitSystemControl'
 import createInlineQuantity from './InlineQuantity'
 import createRecipeConfig from './RecipeConfig'
 
+import IngredientList from './IngredientList'
+import StepList from './StepList'
+
 const createRecipe = config => {
   const recipe = new Recipe(config || {})
 
@@ -24,6 +27,8 @@ const createRecipe = config => {
     UnitSystemControl,
     InlineQuantity: createInlineQuantity(recipe),
     RecipeConfig: createRecipeConfig({ServingsControl, UnitSystemControl}),
+    IngredientList,
+    StepList
   }
 }
 

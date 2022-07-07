@@ -1,0 +1,16 @@
+.container {
+  width: fit-content;
+  margin-left: 0;
+  margin-right: auto;
+}
+
+@media (max-width: 650px) {
+  .container {
+    width: 100%;
+  }
+}
+
+.list {
+  padding-left: 1rem;
+  margin-bottom: 0;
+}
