@@ -110,8 +110,8 @@ export default {
     fromParent: kg => kg / 0.45359237,
     comfort: {
       range: {
-        comfortableBetween: [1, 1000],
-        dontShowOutside: [0.25, 2000]
+        comfortableBetween: [0.25, 1000],
+        dontShowOutside: [0.125, 2000]
       },
       snapIntervals: [
         [-Infinity, [0.25]]
