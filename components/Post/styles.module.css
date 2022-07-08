@@ -51,6 +51,10 @@
   }
 }
 
+.body.tldrActive > *:not(.tldr) {
+  display: none!important;
+}
+
 .info {
   display: inline-block;
   font-weight: 500;

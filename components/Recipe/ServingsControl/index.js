@@ -2,6 +2,7 @@ import {useEffect, useState, useMemo, useRef} from 'react'
 
 import toFixedOrInteger from '@/src/toFixedOrInteger'
 
+import {tldr} from '@/components/Post/styles'
 import {container, content, title, icon, control} from '../RecipeConfig/styles'
 import {control as localControl, input, incDec, servingsName, equals, recipeScaleInput} from './styles'
 
@@ -125,7 +126,7 @@ export const ServingsControl = ({scale, servingsAsWritten, servingsChanged, scal
   const scaleDigits = localScale.string.split('').reduce(digitWidthReducer, 0)
 
   return (
-    <div className={container}>
+    <div className={`${tldr} ${container}`}>
       <div className={content}>
       <h3 className={title}><span className={icon}>🔢</span> Recipe Makes</h3>
         <div ref={controlRef} className={`${control} ${localControl}`} style={{'--digits': servingsDigits}}>
