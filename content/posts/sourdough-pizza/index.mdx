@@ -3,7 +3,7 @@ import Image from '@/components/Image'
 
 import {svg} from './styles'
 
-import {recipe, IngredientDefinition, IngredientLink, RecipeConfig, InlineQuantity} from './recipe'
+import {recipe, IngredientDefinition, IngredientLink, RecipeConfig, InlineQuantity, IngredientList, StepList} from './recipe'
 
 import header from './images/header.webp'
 
@@ -49,24 +49,24 @@ Specific fermentation jars exist, but are not required by any means.
 
 <SourdoughStarter />
 
-<blockquote>
-
+<IngredientList title="Leaven" emoji="🥣">
 *to start*
-- <IngredientDefinition id="sourStartFlour" name="Strong Flour" quantity={[300, 'g']} colour="red" />
-- <IngredientDefinition id="sourStartWater" name="Water" quantity={[300, 'ml']} colour="blue" />
+<IngredientDefinition id="sourStartFlour" name="Strong Flour" quantity={[300, 'g']} colour="red" />
+<IngredientDefinition id="sourStartWater" name="Water" quantity={[300, 'ml']} colour="blue" />
 
 *to refresh*
-- <IngredientDefinition id="sourRefreshFlour" name="Strong Flour" quantity={[100, 'g']} colour="red" />
-- <IngredientDefinition id="sourRefreshWater" name="Water" quantity={[100, 'ml']} colour="blue" />
+<IngredientDefinition id="sourRefreshFlour" name="Strong Flour" quantity={[100, 'g']} colour="red" />
+<IngredientDefinition id="sourRefreshWater" name="Water" quantity={[100, 'ml']} colour="blue" />
+</IngredientList>
 
-1. Mix the <IngredientLink id="sourStartFlour">flour</IngredientLink>, and <IngredientLink id="sourStartWater">water</IngredientLink> in your container
-2. Now leave your mixture for <InlineQuantity quantity={[{h:12}, 'time']} />
-3. Refresh your starter by tipping away (yes) about ¾ of the mixture, and add more <IngredientLink id="sourRefreshFlour">flour</IngredientLink>, and <IngredientLink id="sourRefreshWater">water</IngredientLink>.
-4. Repeat this every <InlineQuantity quantity={[{h:12}, 'time']} /> until the mixture starts to bubble, expand, and develops a characteristic sour smell.
+<IngredientDefinition id="sourdoughStarter" name="Sourdough Starter" quantity={[360, 'g']} colour="yellow" display={false} />
 
-</blockquote>
-
-<IngredientDefinition id="sourdoughStarter" name="Sourdough Starter" quantity={[360, 'g']} colour="yellow" display={false}/>
+<StepList>
+  1. Mix the <IngredientLink id="sourStartFlour">flour</IngredientLink>, and <IngredientLink id="sourStartWater">water</IngredientLink> in your container
+  2. Now leave your mixture for <InlineQuantity quantity={[{h:12}, 'time']} />
+  3. Refresh your starter by tipping away (yes) about ¾ of the mixture, and add more <IngredientLink id="sourRefreshFlour">flour</IngredientLink>, and <IngredientLink id="sourRefreshWater">water</IngredientLink>.
+  4. Repeat this every <InlineQuantity quantity={[{h:12}, 'time']} /> until the mixture starts to bubble, expand, and develops a characteristic sour smell.
+</StepList>
 
 As your starter grows, you may want to adjust the amounts of <IngredientLink id="sourRefreshFlour">flour</IngredientLink>, and <IngredientLink id="sourRefreshWater">water</IngredientLink>, to arrive at the final <IngredientLink id="sourdoughStarter" quantityOnly inlineQuantity /> + enough to replenish. This is fine, as long as you maintain the `1:1` `weight:weight` ratio.  
 
@@ -82,22 +82,22 @@ If you can, try and feed your leaven <InlineQuantity quantity={[{h:12}, 'time']}
 
 <Sourdough />
 
-<blockquote>
+<IngredientList title="Sourdough" emoji="🍞">
+  <IngredientDefinition id="sourdoughStarter" name="Sourdough Starter" quantity={[360, 'g']} colour="yellow" />
+  <IngredientDefinition id="flour" name="Strong Flour" quantity={[900, 'g']} colour="red" comment="+ some for dusting"/>
+  <IngredientDefinition id="water" name="Water" quantity={[500, 'ml']} comment="lukewarm" colour="blue" />
+  <IngredientDefinition id="saltDough" name="Salt" quantity={[20, 'g']} colour="mid" />
+</IngredientList>
 
-- <IngredientDefinition id="sourdoughStarter" name="Sourdough Starter" quantity={[360, 'g']} colour="yellow" />
-- <IngredientDefinition id="flour" name="Strong Flour" quantity={[900, 'g']} colour="red" comment="+ some for dusting"/>
-- <IngredientDefinition id="water" name="Water" quantity={[500, 'ml']} comment="lukewarm" colour="blue" />
-- <IngredientDefinition id="saltDough" name="Salt" quantity={[20, 'g']} colour="mid" />
-
-1. In a large mixing bowl, combine the <IngredientLink id="flour">flour</IngredientLink>, <IngredientLink id="sourdoughStarter" />, and <IngredientLink id="water">warm water</IngredientLink>.   
-Mix by hand, until the dough is homogenous, and comes together.
-2. Cover the bowl to prevent moisture loss, and leave for <InlineQuantity quantity={[{m: 30}, 'time']} /> at **room temperature** to rest  
-***Now's a good time to start working on the sauce 😊***
-3. Place the dough on a floured worktop, and sprinkle over the <IngredientLink id="saltDough" />
-4. Work the dough for <InlineQuantity quantity={[{m: 5}, 'time']} /> - stretching it to develop the gluten fibres. This is what will give your dough its 'stretch', and allow it to be spread thinly
-5. Return the dough to the bowl, cover, and refrigerate overnight
-
-</blockquote>
+<StepList>
+  1. In a large mixing bowl, combine the <IngredientLink id="flour">flour</IngredientLink>, <IngredientLink id="sourdoughStarter" />, and <IngredientLink id="water">warm water</IngredientLink>.   
+  Mix by hand, until the dough is homogenous, and comes together.
+  2. Cover the bowl to prevent moisture loss, and leave for <InlineQuantity quantity={[{m: 30}, 'time']} /> at **room temperature** to rest  
+  ***Now's a good time to start working on the sauce 😊***
+  3. Place the dough on a floured worktop, and sprinkle over the <IngredientLink id="saltDough" />
+  4. Work the dough for <InlineQuantity quantity={[{m: 5}, 'time']} /> - stretching it to develop the gluten fibres. This is what will give your dough its 'stretch', and allow it to be spread thinly
+  5. Return the dough to the bowl, cover, and refrigerate overnight
+</StepList>
 
 ## Sauce
 
@@ -112,23 +112,23 @@ Save some of the plain passata, to taste the difference before and after.
 
 <Sieve />
 
-<blockquote>
+<IngredientList title="Sauce" emoji="🍅">
+  <IngredientDefinition id="passata" name="Passata" quantity={[500, 'g']} colour="red" />
+  <IngredientDefinition id="choppedTomatoes" name="Chopped Tomatoes" quantity={[400, 'g']} colour="red" />
+  <IngredientDefinition id="paprika" name="Smoked Paprika" quantity={[1, 'tbsp']} colour="orange" />
+  <IngredientDefinition id="oregano" name="Dried Oregano" quantity={[1, 'tbsp']} colour="green" />
+  <IngredientDefinition id="sugar" name="Sugar" quantity={[2, 'tsp']} colour="mid" />
+  <IngredientDefinition id="saltSauce" name="Salt" quantity={[1, 'tsp']} colour="mid" />
+  <IngredientDefinition id="garlicCloves" name="Garlic Cloves" quantity={[2, cloves]} colour="purple" />
+</IngredientList>
 
-- <IngredientDefinition id="passata" name="Passata" quantity={[500, 'g']} colour="red" />
-- <IngredientDefinition id="choppedTomatoes" name="Chopped Tomatoes" quantity={[400, 'g']} colour="red" />
-- <IngredientDefinition id="paprika" name="Smoked Paprika" quantity={[1, 'tbsp']} colour="orange" />
-- <IngredientDefinition id="oregano" name="Dried Oregano" quantity={[1, 'tbsp']} colour="green" />
-- <IngredientDefinition id="sugar" name="Sugar" quantity={[2, 'tsp']} colour="mid" />
-- <IngredientDefinition id="saltSauce" name="Salt" quantity={[1, 'tsp']} colour="mid" />
-- <IngredientDefinition id="garlicCloves" name="Garlic Cloves" quantity={[2, cloves]} colour="purple" />
-
-1. Seat a large sieve on the rim of a bowl, pour in the <IngredientLink id="choppedTomatoes" />, followed by the <IngredientLink id="passata" />
-2. Allow to drain ***undisturbed*** for <InlineQuantity quantity={[{h:1}, 'time']} /> to <InlineQuantity quantity={[{h: 1.5}, 'time']} />, until a substantial amount of liquid has collected: the aim being to remove as much water as possible, leaving us with a thicker, richer sauce
-3. Discard (or drink) the extracted liquid, and tip the contents of the sieve into the bowl
-4. Add the <IngredientLink id="paprika" />, <IngredientLink id="oregano" />, <IngredientLink id="sugar" />, <IngredientLink id="saltSauce" />, and <IngredientLink id="garlicCloves">minced garlic</IngredientLink>
-5. Mix well, and leave to rest. For best results, leave refrigerated overnight, allowing the flavours to diffuse
-
-</blockquote>
+<StepList>
+  1. Seat a large sieve on the rim of a bowl, pour in the <IngredientLink id="choppedTomatoes" />, followed by the <IngredientLink id="passata" />
+  2. Allow to drain ***undisturbed*** for <InlineQuantity quantity={[{h:1}, 'time']} /> to <InlineQuantity quantity={[{h: 1.5}, 'time']} />, until a substantial amount of liquid has collected: the aim being to remove as much water as possible, leaving us with a thicker, richer sauce
+  3. Discard (or drink) the extracted liquid, and tip the contents of the sieve into the bowl
+  4. Add the <IngredientLink id="paprika" />, <IngredientLink id="oregano" />, <IngredientLink id="sugar" />, <IngredientLink id="saltSauce" />, and <IngredientLink id="garlicCloves">minced garlic</IngredientLink>
+  5. Mix well, and leave to rest. For best results, leave refrigerated overnight, allowing the flavours to diffuse
+</StepList>
 
 ## Cooking
 
@@ -154,22 +154,20 @@ If you've found out that your oven door needs to be closed to activate the grill
 
 <RemoveHandle />
 
-<blockquote>
-
-1. Remove the dough from the fridge <InlineQuantity id="riseRT" quantity={[{h: 3}, 'time']} /> before you need it. (the dough may not have noticibly risen yet, but after the <InlineQuantity id="riseRT" />  at room temperature it should have)
-2. Configure your oven racks to allow your pan to sit as close to the grill element as possible - while being easy to remove.
-3. Preheat the grill to its maximum setting
-4. Partition the dough into <InlineQuantity quantity={[6]} shouldScale />
-5. Stretch the dough from the centre to the edge, until the dough is translucent and covers the pan you'll be using
-6. Place your pan on the stove, and heat up on full.
-7. Carefully lay the stretched base into the pan (don't worry if the edges don't quite fit - any bunching or folding will contribute to the crust)
-8. Spread passata over the base, leaving a <InlineQuantity quantity={[1, 'inch']} /> clear zone around the edge - for the crust to form
-9. Add your chosen toppings
-10. Once the underside of the pizza has developed darker brown spots, transfer the pan to the grill
-11. Cook for approximately <InlineQuantity quantity={[{m: 2}, 'time']} />, checking after <InlineQuantity quantity={[{m: 1}, 'time']} />, and every <InlineQuantity quantity={[{s: 30}, 'time']} /> thereafter.
-12. Serve with a scattering of fresh basil leaves, and enjoy!
-
-</blockquote>
+<StepList title="Pizza" emoji="🍕">
+  1. Remove the dough from the fridge <InlineQuantity id="riseRT" quantity={[{h: 3}, 'time']} /> before you need it. (the dough may not have noticibly risen yet, but after the <InlineQuantity id="riseRT" />  at room temperature it should have)
+  2. Configure your oven racks to allow your pan to sit as close to the grill element as possible - while being easy to remove.
+  3. Preheat the grill to its maximum setting
+  4. Partition the dough into <InlineQuantity quantity={[6]} shouldScale />
+  5. Stretch the dough from the centre to the edge, until the dough is translucent and covers the pan you'll be using
+  6. Place your pan on the stove, and heat up on full.
+  7. Carefully lay the stretched base into the pan (don't worry if the edges don't quite fit - any bunching or folding will contribute to the crust)
+  8. Spread passata over the base, leaving a <InlineQuantity quantity={[1, 'inch']} /> clear zone around the edge - for the crust to form
+  9. Add your chosen toppings
+  10. Once the underside of the pizza has developed darker brown spots, transfer the pan to the grill
+  11. Cook for approximately <InlineQuantity quantity={[{m: 2}, 'time']} />, checking after <InlineQuantity quantity={[{m: 1}, 'time']} />, and every <InlineQuantity quantity={[{s: 30}, 'time']} /> thereafter.
+  12. Serve with a scattering of fresh basil leaves, and enjoy!
+</StepList>
 
 import IMG_8178 from './images/IMG_8178.webp'
 

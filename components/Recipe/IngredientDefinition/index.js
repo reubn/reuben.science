@@ -37,23 +37,31 @@ export const IngredientDefinition = ({ingredient, alternative, isAlternative, di
   )
 }
 
-export const createIngredientDefinition = recipe => ({id, alternative, isAlternative=false, display=true, displayedWithQuantity, children, ...props}) => {
-  const ingredient = recipe.getIngredient(id) || recipe.addIngredient({id, ...props})
+export const ingredientDefinitionSymbol = Symbol('ingredientDefinition')
 
-  const [_, setDummy] = useState()
+export const createIngredientDefinition = recipe => {
+  const fn = ({id, alternative, isAlternative=false, display=true, displayedWithQuantity, children, ...props}) => {
+    const ingredient = recipe.getIngredient(id) || recipe.addIngredient({id, ...props})
+  
+    const [_, setDummy] = useState()
+  
+    useEffect(() => {
+      const forceUpdate = () => setDummy({})
+  
+      recipe.addListener(forceUpdate)
+      return () => recipe.removeListener(forceUpdate)
+    }, [])
+  
+    if(!display) return null
+  
+    return useMemo(() => (
+      <IngredientDefinition ingredient={ingredient} alternative={alternative} isAlternative={isAlternative} displayedWithQuantity={displayedWithQuantity} children={children}/>
+    ), [ingredient, ingredient.displayUnit, ingredient.hover, recipe.scale, children, alternative, isAlternative, displayedWithQuantity])
+  }
 
-  useEffect(() => {
-    const forceUpdate = () => setDummy({})
+  fn[ingredientDefinitionSymbol] = true
 
-    recipe.addListener(forceUpdate)
-    return () => recipe.removeListener(forceUpdate)
-  }, [])
-
-  if(!display) return null
-
-  return useMemo(() => (
-    <IngredientDefinition ingredient={ingredient} alternative={alternative} isAlternative={isAlternative} displayedWithQuantity={displayedWithQuantity} children={children}/>
-  ), [ingredient, ingredient.displayUnit, ingredient.hover, recipe.scale, children, alternative, isAlternative, displayedWithQuantity])
+  return fn
 }
 
 export default createIngredientDefinition

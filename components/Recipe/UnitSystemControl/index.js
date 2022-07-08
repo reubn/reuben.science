@@ -4,6 +4,7 @@ import gradient from '@/src/gradient'
 
 import {metric, US} from '../Unit/constants'
 
+import {tldr} from '@/components/Post/styles'
 import {container, content, title, icon, control} from '../RecipeConfig/styles'
 import {control as localControl} from './styles'
 
@@ -28,7 +29,7 @@ const unitSystemConfig = [
 const optionKey = name => `unitSystemControl-${name}`
 
 export const UnitSystemControl = ({options}) => (
-  <div className={container}>
+  <div className={`${tldr} ${container}`}>
     <div className={content}>
     <h3 className={title}><span className={icon}>⚖️</span> Preferred Units</h3>
       <div className={`${control} ${localControl}`}>

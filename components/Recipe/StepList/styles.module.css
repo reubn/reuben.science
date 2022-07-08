@@ -1,0 +1,19 @@
+.container {
+  overflow: unset;
+}
+
+@media (max-width: 650px) {
+  .container {
+    width: 100%;
+  }
+}
+
+.container > * {
+  white-space: normal;
+}
+
+.container  ol {
+  padding-left: 1rem;
+  margin-top: 0;
+  margin-bottom: 0;
+}

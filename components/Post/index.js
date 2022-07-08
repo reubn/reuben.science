@@ -1,12 +1,12 @@
 import {NextSeo, BreadcrumbJsonLd, ArticleJsonLd} from 'next-seo'
-import {useEffect, useState} from 'react'
+import {useEffect, useState, useRef} from 'react'
 
 import CategoryLink from '../CategoryLink'
 import Image from '../Image'
 
 import LengthDisplay from './LengthDisplay'
 
-import {title, description, categories, headerImage, info as infoStyle, readingTime as readingTimeStyle, words as wordsStyle, date as dateStyle, post, body} from './styles'
+import {title, description, categories, headerImage, info as infoStyle, readingTime as readingTimeStyle, words as wordsStyle, date as dateStyle, post, body, tldrActive} from './styles'
 
 export default function Post({slug, metadata, children}){
   const date = new Date(metadata.date)
@@ -15,6 +15,28 @@ export default function Post({slug, metadata, children}){
   useEffect(() => setLocales(navigator.languages), [])
 
   const localisedDate = new Intl.DateTimeFormat(locales).format(date)
+
+  const [tldr, setTLDR] = useState(false)
+
+  const sequenceRef = useRef('')
+  const searchSequence = 'tldr'
+
+  useEffect(() => {
+    const eventListener = ({key}) => {
+      const nextMatchChar = searchSequence[sequenceRef.current.length]
+      if(nextMatchChar === key) sequenceRef.current += key
+      else sequenceRef.current = ''
+
+      if(sequenceRef.current === searchSequence) {
+        sequenceRef.current = ''
+        setTLDR(!tldr)
+      }
+    }
+
+    document.addEventListener('keydown', eventListener)
+
+    return () => document.removeEventListener('keydown', eventListener)
+  }, [tldr])
 
   return (
     <>
@@ -77,7 +99,7 @@ export default function Post({slug, metadata, children}){
           <time dateTime={localisedDate}>{localisedDate}</time>
           <LengthDisplay className={readingTimeStyle} readingTime={metadata.readingTime} locales={locales} />
         </span>
-        <div className={body}>
+        <div className={`${body} ${tldr && tldrActive}`}>
           {children}
         </div>
       </article>
