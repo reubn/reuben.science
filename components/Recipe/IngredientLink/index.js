@@ -22,7 +22,8 @@ export const IngredientLink = ({ingredient, quantityOnly=false, inlineQuantity=q
       />
     </>)
     }
-    {!quantityOnly && <span className={label}>{inlineQuantity ? ' ' : ''}{children || ingredient.name.toLowerCase()}</span>}
+    {' '}
+    {!quantityOnly && <span className={label}>{children || ingredient.name.toLowerCase()}</span>}
   </span>
 )
 
