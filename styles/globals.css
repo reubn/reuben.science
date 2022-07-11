@@ -13,7 +13,7 @@ body {
 
 @media print {
   html, body {
-    background-color: #fff;
+    --colours-background: var(#fff);
     color: #000;
   }
 }
