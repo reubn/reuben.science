@@ -1,9 +1,9 @@
-import {useEffect, useState} from 'react'
+import {useEffect, useState, Suspense} from 'react'
 import {NextSeo, BreadcrumbJsonLd, ArticleJsonLd} from 'next-seo'
 
 import {title, description, categories, info as infoStyle, date as dateStyle, post, body} from '../Post/styles'
 
-export default function SnippetPost({slug, metadata, children}){
+export default function SnippetPost({slug, metadata, children, __HACK_ID}){
   const date = new Date(metadata.date)
   
   const [locales, setLocales] = useState(['en-GB'])
@@ -62,8 +62,10 @@ export default function SnippetPost({slug, metadata, children}){
           <time dateTime={localisedDate}>{localisedDate}</time>
           <span>{metadata.linesOfCode || '???'} line{metadata.linesOfCode != 1 && 's'}</span>
         </span>
-        <div className={body}>
-          {children}
+        <div className={body} id={__HACK_ID}>
+          <Suspense>
+            {children}
+          </Suspense>
         </div>
       </article>
     </>
