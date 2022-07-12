@@ -1,4 +1,3 @@
-import {Suspense} from 'react'
 import dynamic from "next/dynamic"
 
 import {refractor} from 'refractor'
@@ -14,7 +13,9 @@ const dynamicImports = postList.reduce(
   (map, slug) => ({
     ...map,
     [slug]: dynamic(() => import(`@/content/snippets/${slug}/index.mdx`), {
-      suspense: true
+      loading: () => process.browser && window.__HACK_GLOBAL
+        ? <span dangerouslySetInnerHTML={{__html: window.__HACK_GLOBAL[slug] || ''}} />
+        : null
     })
   }), {})
 
@@ -106,14 +107,22 @@ const renderToString = ({default: Component}) => {
 
 export default function SnippetWrapper({slug, metadata}) {
   const Mdx = dynamicImports[slug]
+  const __HACK_ID = `HACK-SNIPPET-${slug}`
 
   return (
     <>
-      <SnippetPost slug={slug} metadata={metadata}>
-        <Suspense fallback={"Loading"}>
-          <Mdx />
-        </Suspense>
+      <SnippetPost slug={slug} metadata={metadata} __HACK_ID={__HACK_ID}>
+        <Mdx />
       </SnippetPost>
+      {
+        process.browser
+          ? null
+          : <script
+              dangerouslySetInnerHTML={{
+                __html: `window.__HACK_GLOBAL = {...(window.__HACK_GLOBAL || {}), [${JSON.stringify(slug)}]: document.getElementById('${__HACK_ID}').innerHTML}`
+              }}
+            />
+        }
     </>
   )
 }

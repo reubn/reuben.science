@@ -1,5 +1,5 @@
 import {NextSeo, BreadcrumbJsonLd, ArticleJsonLd} from 'next-seo'
-import {useEffect, useState, useRef} from 'react'
+import {useEffect, useState, useRef, Suspense} from 'react'
 
 import CategoryLink from '../CategoryLink'
 import Image from '../Image'
@@ -8,7 +8,7 @@ import LengthDisplay from './LengthDisplay'
 
 import {title, description, categories, headerImage, info as infoStyle, readingTime as readingTimeStyle, words as wordsStyle, date as dateStyle, post, body, tldrActive} from './styles'
 
-export default function Post({slug, metadata, children}){
+export default function Post({slug, metadata, children, __HACK_ID}){
   const date = new Date(metadata.date)
 
   const [locales, setLocales] = useState(['en-GB'])
@@ -99,8 +99,10 @@ export default function Post({slug, metadata, children}){
           <time dateTime={localisedDate}>{localisedDate}</time>
           <LengthDisplay className={readingTimeStyle} readingTime={metadata.readingTime} locales={locales} />
         </span>
-        <div className={`${body} ${tldr && tldrActive}`}>
-          {children}
+        <div className={`${body} ${tldr && tldrActive}`} id={__HACK_ID}>
+          <Suspense>
+            {children}
+          </Suspense>
         </div>
       </article>
     </>
