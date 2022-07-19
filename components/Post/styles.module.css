@@ -55,7 +55,7 @@
   }
 }
 
-.body.tldrActive > *:not(.tldr) {
+.body.tldrActive > .tldr ~ *:not(.tldr) {
   display: none!important;
 }
 
