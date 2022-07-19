@@ -1,8 +1,13 @@
 .post {
   max-width: 1000px;
-  width: calc((100vw - 3.5rem));
+  --margin: 3.5rem;
+  --full-bleed-margin: 0px; /* calc(var(--margin) / 2); */
 
-  margin: 0rem auto 3rem auto;
+  --post-width: calc(min(100vw - var(--margin), 1000px));
+  --actual-margin: calc((100vw - var(--post-width)));
+  width: var(--post-width);
+
+  margin: 0rem auto var(--margin) auto;
 }
 
 .post *:not(li):not(figure) {
@@ -30,7 +35,6 @@
 }
 
 .headerImage {
-  max-width: 100%;
   --colours-background: transparent;
   background: var(--colours-background);
   display: flex;
@@ -367,7 +371,7 @@
   max-width: 100%;
   --colours-background: transparent;
   background: var(--colours-background);
-  margin: 3rem auto;
+  margin: var(--margin) auto;
   display: flex;
   object-fit: cover;
   height: auto;
