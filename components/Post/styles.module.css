@@ -178,6 +178,14 @@
 
 .body pre {
   position: relative;
+
+  margin: var(--margin) auto;
+
+  max-width: 100vw!important;
+  min-width: var(--post-width);
+  
+  resize: horizontal;
+  transform: translateX(calc(((100% - var(--post-width)) / -2)));
 }
 
 .body code[metastring]:before {
