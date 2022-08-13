@@ -38,7 +38,8 @@ export const MultiStepCalculationInput = ({node, title, emphasis, instanceId=Mat
     userInputNeeded: node.isRoot && node.valueState === PENDING && node.useState === IN_USE,
     ignored: node.useState === ALL_CHILDREN_SPECIFIED,
     waiting: !node.isRoot && node.valueState === PENDING && node.useState !== ALL_CHILDREN_SPECIFIED,
-    calculated: !node.isRoot && node.valueState === CALCULATED
+    calculated: !node.isRoot && node.valueState === CALCULATED,
+    noSideEffects: node.useState === ALL_CHILDREN_SPECIFIED || node.isLeaf
   } 
 
   const colour = (
@@ -80,7 +81,7 @@ export const MultiStepCalculationInput = ({node, title, emphasis, instanceId=Mat
       placeholder={flags.waiting ? '...' : ''}
 
       required={flags.userInputNeeded}
-      disabled={flags.ignored}
+      disabled={flags.noSideEffects}
       strikeThrough={flags.ignored}
 
       colour={colour}
