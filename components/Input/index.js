@@ -1,3 +1,4 @@
+import {useRef} from 'react'
 import {
   input,
   title as titleStyle,
@@ -9,6 +10,8 @@ import {
 export {top, bottom, left, right} from './styles'
 
 export default ({title, type, value, onChange: _onChange, className, labels: labelsConfig=[], colour, colourActive, emphasis, highlight, strikeThrough, style: styleProp={}, ...props}) => {
+  const {current: inputId} = useRef(Math.random())
+
   const onChange = event => {
     const {target: {value}} = event
     if(type === 'number') {
@@ -44,8 +47,8 @@ export default ({title, type, value, onChange: _onChange, className, labels: lab
   }
 
   return (
-    <label className={`${container} ${className}`} style={style}>
-      <span className={titleStyle}>{title}</span>
+    <control className={`${container} ${className}`} style={style} >
+      <label className={titleStyle} for={inputId}>{title}</label>
       {labels}
       <input
         className={`${input} ${strikeThrough ? strikeThroughStyle : ''}`}
@@ -53,8 +56,11 @@ export default ({title, type, value, onChange: _onChange, className, labels: lab
         value={value === undefined ? '' : value}
         onChange={onChange}
 
+        id={inputId}
+        title={title}
+
         {...props}
       />
-    </label>
+    </control>
   )
 }
