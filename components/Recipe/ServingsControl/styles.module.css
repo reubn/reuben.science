@@ -7,12 +7,12 @@
 }
 
 .input {
-  --perDigit: 0.6rem;
+  --perDigit: 0.66rem;
   font-size: inherit;
   font-family: inherit;
   appearance: none;
   border: none;
-  width: calc((var(--digits) * var(--perDigit)) + (0.88rem + (0.7rem * ((var(--digits) - 1) / 6))));
+  width: calc(4px + 0.5rem + (var(--digits) * var(--perDigit)));
   height: 100%;
   padding: 2px 0px 2px 4px;
   color: inherit;
@@ -41,7 +41,7 @@
   appearance: none;
   border: none;
   height: 100%;
-  width: calc((var(--maxLetters) * var(--perDigit)) + (0.27rem + (0.33rem * ((var(--maxLetters) - 1) / 6))));
+  width: calc(4px + 0.5rem + (var(--maxLetters) * var(--perDigit)));
   padding: 2px 0px;
   display: inline-flex;
   align-items: flex-start;
