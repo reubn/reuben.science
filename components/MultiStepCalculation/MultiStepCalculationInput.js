@@ -100,8 +100,8 @@ export const MultiStepCalculationInput = ({node, title, emphasis, ...props}) => 
       placeholder={flags.waiting ? '...' : ''}
 
       required={flags.userInputNeeded}
-      disabled={flags.noSideEffects}
       strikeThrough={flags.ignored}
+      readOnly={flags.noSideEffects}
 
       colour={colour}
       emphasis={emphasis}
