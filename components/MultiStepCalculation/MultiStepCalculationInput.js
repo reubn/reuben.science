@@ -4,7 +4,7 @@ import Input, {top, bottom, left, right} from '@/components/Input'
 
 import {SPECIFIED, ALL_CHILDREN_SPECIFIED, PENDING, IN_USE, CALCULATED} from './MultiStepCalculationGraph'
 
-export const MultiStepCalculationInput = ({node, title, emphasis, ...props}) => {
+export const MultiStepCalculationInput = ({node, title, emphasis, userInputSuggested: showAsUserInput, ...props}) => {
   const [dummy, forceUpdate] = useState()
 
   useEffect(() => {
@@ -46,13 +46,13 @@ export const MultiStepCalculationInput = ({node, title, emphasis, ...props}) => 
   }
 
   const flags = {
-    userOverridden: node.valueState === SPECIFIED && !node.isRoot,
-    userInputNeeded: node.isRoot && node.valueState === PENDING && node.useState === IN_USE,
+    userOverridden: !showAsUserInput && node.valueState === SPECIFIED && !node.isRoot,
+    userInputNeeded: (showAsUserInput || node.isRoot) && node.valueState === PENDING && node.useState === IN_USE,
     ignored: node.useState === ALL_CHILDREN_SPECIFIED,
     waiting: !node.isRoot && node.valueState === PENDING && node.useState !== ALL_CHILDREN_SPECIFIED,
     calculated: !node.isRoot && node.valueState === CALCULATED,
     noSideEffects: node.useState === ALL_CHILDREN_SPECIFIED || node.isLeaf,
-    canUserOverride: !node.isRoot && !node.isLeaf
+    canUserOverride: !showAsUserInput && !node.isRoot && !node.isLeaf
   } 
 
   const colour = (
