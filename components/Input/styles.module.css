@@ -122,6 +122,10 @@ button.label:focus span:last-child {
   transition: color 0.2s cubic-bezier(.47,0,0,1.8);
 }
 
+.input:disabled {
+  cursor: not-allowed;
+}
+
 .input::-webkit-inner-spin-button,
 .input::-webkit-outer-spin-button {
     appearance: none;
