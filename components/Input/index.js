@@ -1,4 +1,4 @@
-import {useRef} from 'react'
+import {useRef, useState} from 'react'
 import {
   input,
   title as titleStyle,
@@ -9,8 +9,18 @@ import {
 
 export {top, bottom, left, right} from './styles'
 
-export default ({title, type, value, onChange: _onChange, onFocus, onBlur, tabIndex, className, labels: labelsConfig=[], colour, colourActive, emphasis, highlight, strikeThrough, style: styleProp={}, ...props}) => {
+export default ({title, type, value, onChange: _onChange, onFocus: _onFocus, onBlur: _onBlur, className, labels: labelsConfig=[], colour, colourActive, emphasis, highlight, strikeThrough, style: styleProp={}, ...props}) => {
   const {current: inputId} = useRef(Math.random())
+
+  const [focusState, setFocusState] = useState(false)
+  const onFocus = event => {
+    setFocusState(true)
+    _onFocus?.(event)
+  }
+  const onBlur = event => {
+    setFocusState(false)
+    _onBlur?.(event)
+  }
 
   const onChange = event => {
     const {target: {value}} = event
@@ -34,7 +44,7 @@ export default ({title, type, value, onChange: _onChange, onFocus, onBlur, tabIn
       key: position,
       className: `${[...position, labelStyle].join(' ')} ${className}`,
       role: onClick ? 'button' : 'status',
-      tabIndex,
+      tabIndex: focusState ? undefined : -1, // Input must be focused before button can be focused => tabbing back takes user to input
       'aria-live': 'off',
       onClick: onClick,
       ...otherProps
@@ -80,8 +90,6 @@ export default ({title, type, value, onChange: _onChange, onFocus, onBlur, tabIn
         type={type}
         value={value === undefined ? '' : value}
         onChange={onChange}
-
-        tabIndex={tabIndex}
 
         id={inputId}
         title={title}
