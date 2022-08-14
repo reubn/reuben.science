@@ -4,7 +4,7 @@ import Input, {top, bottom, left, right} from '@/components/Input'
 
 import {SPECIFIED, ALL_CHILDREN_SPECIFIED, PENDING, IN_USE, CALCULATED} from './MultiStepCalculationGraph'
 
-export const MultiStepCalculationInput = ({node, title, emphasis, instanceId=Math.random(), ...props}) => {
+export const MultiStepCalculationInput = ({node, title, emphasis, ...props}) => {
   const [dummy, forceUpdate] = useState()
 
   useEffect(() => {
