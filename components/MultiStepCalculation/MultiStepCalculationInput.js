@@ -23,15 +23,27 @@ export const MultiStepCalculationInput = ({node, title, emphasis, instanceId=Mat
 
   }, [node])
 
+  const [focusState, setFocusState] = useState(false)
+  const [focusStateAnyInstance, setFocusStateAnyInstance] = useState(false)
 
-  const [tabbable, setTabbable] = useState(true)
+  const tabbable = !focusStateAnyInstance || focusState
 
   useEffect(() => {
-    const handler = ({detail: focusState}) => setTabbable(!focusState)
+    const handler = ({detail: focusState}) => setFocusStateAnyInstance(focusState)
 
     node.addEventListener('focusState', handler)
     return () => node.removeEventListener('focusState', handler)
   }, [])
+
+  const onFocus = () => {
+    setFocusState(true)
+    node.dispatchEvent(new CustomEvent('focusState', {detail: true}))
+  }
+
+  const onBlur = () => {
+    setFocusState(false)
+    node.dispatchEvent(new CustomEvent('focusState', {detail: false}))
+  }
 
   const flags = {
     userOverridden: node.valueState === SPECIFIED && !node.isRoot,
@@ -39,7 +51,8 @@ export const MultiStepCalculationInput = ({node, title, emphasis, instanceId=Mat
     ignored: node.useState === ALL_CHILDREN_SPECIFIED,
     waiting: !node.isRoot && node.valueState === PENDING && node.useState !== ALL_CHILDREN_SPECIFIED,
     calculated: !node.isRoot && node.valueState === CALCULATED,
-    noSideEffects: node.useState === ALL_CHILDREN_SPECIFIED || node.isLeaf
+    noSideEffects: node.useState === ALL_CHILDREN_SPECIFIED || node.isLeaf,
+    canUserOverride: !node.isRoot && !node.isLeaf
   } 
 
   const colour = (
@@ -48,7 +61,7 @@ export const MultiStepCalculationInput = ({node, title, emphasis, instanceId=Mat
     undefined
   )
 
-  const topRight = (
+  let topRight = (
     flags.userInputNeeded ? {text: 'Enter Value', colour: 'blue'} :
     flags.waiting ? {text: 'Waiting to Calc', colour: 'mid-2'} :
     flags.ignored ? {text: 'Not Used', colour: 'mid-2'} :
@@ -57,8 +70,14 @@ export const MultiStepCalculationInput = ({node, title, emphasis, instanceId=Mat
     {text: 'OK', colour: 'green'}
   )
 
+  if(flags.canUserOverride && focusState) topRight = (
+    flags.waiting ? {text: 'Enter Value to Lock', colour: 'purple'} :
+    flags.calculated ? {text: 'Edit Value to Lock', colour: 'purple'} :
+    topRight
+  )
+
   const bottomRight = (
-    flags.userOverridden ? {text: 'Fixed Value', colour: 'purple', onClick: event => {node.setSpecifiedValue(undefined); event.preventDefault()}} :
+    flags.userOverridden ? {text: 'Locked', hoverText: 'Unlock', colour: 'purple', onClick: event => {node.setSpecifiedValue(undefined); onBlur()}} :
     // flags.calculated ? {text: 'Fix', colour: 'light', onClick: event => {node.setSpecifiedValue(node.value); event.preventDefault()}} :
     undefined
   )
@@ -92,8 +111,8 @@ export const MultiStepCalculationInput = ({node, title, emphasis, instanceId=Mat
       onChange={value => node.setSpecifiedValue(value)}
 
       tabIndex={tabbable ? undefined : -1} // prevent user from tabbing to identical input if 2nd instance follows
-      onFocus={() => node.dispatchEvent(new CustomEvent('focusState', {detail: true}))}
-      onBlur={() => node.dispatchEvent(new CustomEvent('focusState', {detail: false}))}
+      onFocus={onFocus}
+      onBlur={onBlur}
     />
   )
 }
