@@ -9,7 +9,7 @@ import {
 
 export {top, bottom, left, right} from './styles'
 
-export default ({title, type, value, onChange: _onChange, className, labels: labelsConfig=[], colour, colourActive, emphasis, highlight, strikeThrough, style: styleProp={}, ...props}) => {
+export default ({title, type, value, onChange: _onChange, onFocus, onBlur, tabIndex, className, labels: labelsConfig=[], colour, colourActive, emphasis, highlight, strikeThrough, style: styleProp={}, ...props}) => {
   const {current: inputId} = useRef(Math.random())
 
   const onChange = event => {
@@ -23,15 +23,37 @@ export default ({title, type, value, onChange: _onChange, className, labels: lab
     return _onChange(value, event)
   }
 
-  const labels = labelsConfig.filter(label => label.text).map(({text, colour, colourActive='light', position, className, onClick, ...props}) => {
+  const labels = labelsConfig.filter(label => label.text).map(({text, hoverText, colour, colourActive='light', position, className, onClick, ...otherProps}) => {
     const style = {
-      cursor: onClick ? 'pointer' : undefined,
       '--border-colour-label': `var(--colours-${colour})`,
-      '--border-colour-active-label': `var(--colours-${colourActive})`,
+      '--border-colour-active-label': `var(--colours-${colourActive})`
+    }
+
+    const props = {
+      style,
+      key: position,
+      className: `${[...position, labelStyle].join(' ')} ${className}`,
+      role: onClick ? 'button' : 'status',
+      tabIndex,
+      'aria-live': 'off',
+      onClick: onClick,
+      ...otherProps
     }
 
     return (
-      <span style={style} key={position} className={`${[...position, labelStyle].join(' ')} ${className}`} onClick={onClick} {...props}>{text}</span>
+      onClick
+       ? (
+        <button {...props}>
+          <span>{text}</span>
+          <span>{hoverText}</span>
+       </button>
+       )
+       : (
+        <span {...props}>
+          <span>{text}</span>
+          <span>{hoverText}</span>
+       </span>
+       )
     )
   })
 
@@ -47,20 +69,27 @@ export default ({title, type, value, onChange: _onChange, className, labels: lab
   }
 
   return (
-    <control className={`${container} ${className}`} style={style} >
-      <label className={titleStyle} for={inputId}>{title}</label>
-      {labels}
+    <control 
+      className={`${container} ${className}`}
+      style={style}
+      onFocus={onFocus}
+      onBlur={onBlur}
+    >
       <input
         className={`${input} ${strikeThrough ? strikeThroughStyle : ''}`}
         type={type}
         value={value === undefined ? '' : value}
         onChange={onChange}
 
+        tabIndex={tabIndex}
+
         id={inputId}
         title={title}
 
         {...props}
       />
+      <label className={titleStyle} for={inputId}>{title}</label>
+      {labels}
     </control>
   )
 }

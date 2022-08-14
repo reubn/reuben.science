@@ -41,8 +41,7 @@
   display: block;
   background: inherit;
   padding: 0 4px 0 4px;
-  font-size: 0.7rem;
-  font-weight: 500;
+
   align-items: center;
   position: absolute;
   height: var(--height);
@@ -58,10 +57,34 @@
   transition: color 0.1s cubic-bezier(.47,0,.89,.16);
 
   font-size: 0.6rem;
+  font-family: inherit;
+  font-weight: 500;
   text-transform: uppercase;
 }
 
-.container:focus-within .label {
+.label span:first-child {
+  display: inline;
+}
+.label span:last-child {
+  display: none;
+}
+
+button.label {
+  cursor: pointer;
+  appearance: none;
+  border: none;
+}
+
+button.label:hover span:first-child,
+button.label:focus span:first-child {
+  display: none;
+}
+button.label:hover span:last-child,
+button.label:focus span:last-child {
+  display: inline;
+}
+
+.container:focus-within .label, button.label:hover, button.label:focus {
   color: var(--border-colour-active-label);
   transition: color 0.2s cubic-bezier(.47,0,0,1.8);
 }
