@@ -33,7 +33,7 @@ export const MultiStepCalculationInput = ({node, title, emphasis, instanceId=Mat
 
     node.addEventListener('focusState', handler)
     return () => node.removeEventListener('focusState', handler)
-  }, [])
+  }, [node])
 
   const onFocus = () => {
     setFocusState(true)
