@@ -27,6 +27,7 @@
 }
 
 .container:focus-within {
+  border-color: var(--border-colour-active);
   transition: border 0.2s cubic-bezier(.47,0,0,1.8);
 }
 
