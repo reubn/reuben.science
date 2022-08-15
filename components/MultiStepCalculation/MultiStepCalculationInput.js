@@ -9,7 +9,7 @@ export const MultiStepCalculationInput = ({node, title, emphasis, userInputSugge
 
   useEffect(() => {
     const handler = () => {
-      console.log('UPDATING INPUT', node.id)
+      // console.log('UPDATING INPUT', node.id)
       forceUpdate({})
     }
 

@@ -66,7 +66,7 @@ export class MultiStepCalculationNode extends DirectionalAcyclicGraphNode {
   }
 
   get value(){
-    console.log('GETTING VALUE', this.id)
+    // console.log('GETTING VALUE', this.id)
     
     if(this.valueState === SPECIFIED || this.isRoot) return this.#specifiedValue
     if(this.valueState === CALCULATED) return this.#calculatedValue
@@ -78,7 +78,7 @@ export class MultiStepCalculationNode extends DirectionalAcyclicGraphNode {
     if(this.isRoot) return undefined
     if(this.valueState === CALCULATED) return this.#calculatedValue
 
-    console.log('CALCULATING', this.id)
+    // console.log('CALCULATING', this.id)
 
     const getParentValue = parent => parent.value
 
@@ -91,7 +91,7 @@ export class MultiStepCalculationNode extends DirectionalAcyclicGraphNode {
   }
 
   setSpecifiedValue(value){
-    console.log('SETTING SPECIFIED VALUE', this.id, value)
+    // console.log('SETTING SPECIFIED VALUE', this.id, value)
 
     this.#specifiedValue = value
 
@@ -104,7 +104,7 @@ export class MultiStepCalculationNode extends DirectionalAcyclicGraphNode {
   invalidateCalculatedValue(){
     if(this.valueState === SPECIFIED) return
 
-    console.log('INVALIDATING CALCULATED VALUE', this.id)
+    // console.log('INVALIDATING CALCULATED VALUE', this.id)
 
     this.#calculatedValue = undefined
 
@@ -114,14 +114,14 @@ export class MultiStepCalculationNode extends DirectionalAcyclicGraphNode {
   }
 
   invalidateChildren(){
-    console.log('INVALIDATING CHILDREN', this.id)
+    // console.log('INVALIDATING CHILDREN', this.id)
     this.invalidateCalculatedValue()
     
     this.children.forEach(child => child.invalidateChildren())
   }
 
   informParents(){
-    console.log('INFORMING PARENTS', this.id)
+    // console.log('INFORMING PARENTS', this.id)
 
     this.parents.forEach(parent => {
       parent.informParents()
