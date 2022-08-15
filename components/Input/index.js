@@ -96,7 +96,7 @@ export default ({title, type, value, onChange: _onChange, onFocus: _onFocus, onB
 
         {...props}
       />
-      <label className={titleStyle} for={inputId}>{title}</label>
+      <label className={titleStyle} htmlFor={inputId}>{title}</label>
       {labels}
     </control>
   )
