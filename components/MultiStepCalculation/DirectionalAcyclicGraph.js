@@ -20,7 +20,7 @@ export class DirectionalAcyclicGraph extends EventTarget {
     if(node.graph !== this) throw new Error('node not part of graph')
 
     this.nodes.add(node)
-    this.didUpdate()
+    this.fireEvent('nodeAdded', {node})
 
     return node
   }
@@ -30,10 +30,10 @@ export class DirectionalAcyclicGraph extends EventTarget {
 
 /*     if(!this.nodes.has(from)) throw new Error('from is not in graph')
     if(!this.nodes.has(to)) throw new Error('to is not in graph') */
+    const edge = {from, to}
 
-    this.edges.push({from, to})
-
-    this.didUpdate()
+    this.edges.push(edge)
+    this.fireEvent('edgeAdded', {edge})
   }
 
 /*   get topologicallySorted(){
@@ -63,7 +63,8 @@ export class DirectionalAcyclicGraph extends EventTarget {
     return sorted
   } */
 
-  didUpdate(event=new Event('update')){
+  fireEvent(eventOrType='update', detail={}){
+    const event = eventOrType instanceof Event ? eventOrType : new CustomEvent(eventOrType, {detail})
     this.dispatchEvent(event)
   }
 }
@@ -119,7 +120,9 @@ export class DirectionalAcyclicGraphNode extends EventTarget {
   exploreChildren = this._makeExplorer('children')
   exploreParents = this._makeExplorer('parents')
 
-  didUpdate(event=new Event('update')){
+  fireEvent(eventOrType='update', detail={}){
+    const event = eventOrType instanceof Event ? eventOrType : new CustomEvent(eventOrType, {detail: {node: this, ...detail}})
     this.dispatchEvent(event)
+    this.graph.fireEvent(event)
   }
 }

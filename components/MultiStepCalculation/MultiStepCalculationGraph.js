@@ -95,7 +95,7 @@ export class MultiStepCalculationNode extends DirectionalAcyclicGraphNode {
 
     this.#specifiedValue = value
 
-    this.didUpdate(new Event('valueChanged'))
+    this.fireEvent('nodeValueChanged', {node: this})
 
     this.invalidateChildren()
     this.informParents()
@@ -110,7 +110,7 @@ export class MultiStepCalculationNode extends DirectionalAcyclicGraphNode {
 
     this.calculateValue()
     
-    this.didUpdate(new Event('valueChanged'))
+    this.fireEvent('nodeValueChanged')
   }
 
   invalidateChildren(){
@@ -125,7 +125,7 @@ export class MultiStepCalculationNode extends DirectionalAcyclicGraphNode {
 
     this.parents.forEach(parent => {
       parent.informParents()
-      parent.didUpdate(new Event('childValueChanged'))
+      parent.fireEvent('childNodeValueChanged', {child: this})
     })
   }
 

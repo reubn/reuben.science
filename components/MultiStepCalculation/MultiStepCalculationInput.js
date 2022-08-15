@@ -13,12 +13,12 @@ export const MultiStepCalculationInput = ({node, title, emphasis, userInputSugge
       forceUpdate({})
     }
 
-    node.addEventListener('valueChanged', handler)
-    node.addEventListener('childValueChanged', handler)
+    node.addEventListener('nodeValueChanged', handler)
+    node.addEventListener('childNodeValueChanged', handler)
 
     return () => {
-      node.removeEventListener('valueChanged', handler)
-      node.removeEventListener('childValueChanged', handler)
+      node.removeEventListener('nodeValueChanged', handler)
+      node.removeEventListener('childNodeValueChanged', handler)
     }
 
   }, [node])
@@ -29,7 +29,7 @@ export const MultiStepCalculationInput = ({node, title, emphasis, userInputSugge
   const tabbable = !focusStateAnyInstance || focusState
 
   useEffect(() => {
-    const handler = ({detail: focusState}) => setFocusStateAnyInstance(focusState)
+    const handler = ({detail: {focusState}}) => setFocusStateAnyInstance(focusState)
 
     node.addEventListener('focusState', handler)
     return () => node.removeEventListener('focusState', handler)
@@ -37,12 +37,12 @@ export const MultiStepCalculationInput = ({node, title, emphasis, userInputSugge
 
   const onFocus = () => {
     setFocusState(true)
-    node.dispatchEvent(new CustomEvent('focusState', {detail: true}))
+    node.fireEvent('focusState', {focusState: true})
   }
 
   const onBlur = () => {
     setFocusState(false)
-    node.dispatchEvent(new CustomEvent('focusState', {detail: false}))
+    node.fireEvent('focusState', {focusState: false})
   }
 
   const flags = {
