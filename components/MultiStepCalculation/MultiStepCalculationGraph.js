@@ -14,8 +14,10 @@ export const ALL_CHILDREN_SPECIFIED = Symbol('ALL_CHILDREN_SPECIFIED')
 const noop = () => {}
 
 export class MultiStepCalculationGraph extends DirectionalAcyclicGraph {
-  constructor(){
+  constructor(id){
     super(MultiStepCalculationNode)
+
+    this.id = id
   }
 }
 
@@ -90,12 +92,12 @@ export class MultiStepCalculationNode extends DirectionalAcyclicGraphNode {
     return this.#calculatedValue
   }
 
-  setSpecifiedValue(value){
+  setSpecifiedValue(value, userSpecified=true){
     // console.log('SETTING SPECIFIED VALUE', this.id, value)
 
     this.#specifiedValue = value
 
-    this.fireEvent('nodeValueChanged', {node: this})
+    this.fireEvent('nodeValueChanged', {node: this, userSpecified})
 
     this.invalidateChildren()
     this.informParents()
