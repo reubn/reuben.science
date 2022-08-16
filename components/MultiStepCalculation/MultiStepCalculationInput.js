@@ -80,7 +80,7 @@ export const MultiStepCalculationInput = ({node, title, emphasis, userInputSugge
   )
 
   const bottomRight = (
-    flags.userOverridden ? {text: 'Locked', actionText: 'Unlock', colour: 'purple', onClick: event => {node.setSpecifiedValue(undefined); onBlur()}} :
+    flags.userOverridden ? {text: 'Locked', actionText: 'Unlock', colour: 'purple', onClick: event => {node.setSpecifiedValue(undefined); document.activeElement.blur()}} :
     flags.calculated && !focusStateInput ? {text: 'Lock', colour: 'purple', onClick: event => {node.setSpecifiedValue(node.value); document.activeElement.blur()}} :
     undefined
   )
