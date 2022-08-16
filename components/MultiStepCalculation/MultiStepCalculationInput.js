@@ -74,8 +74,8 @@ export const MultiStepCalculationInput = ({node, title, emphasis, userInputSugge
   )
 
   if(flags.canUserOverride && focusState) topRight = (
-    flags.waiting ? {text: 'Enter Value to Lock', colour: 'purple'} :
-    flags.calculated ? {text: 'Edit Value to Lock', colour: 'purple'} :
+    flags.waiting ? {text: 'Enter Value to Lock', colour: topRight.colour} :
+    flags.calculated ? {text: 'Edit Value to Lock', colour: topRight.colour} :
     topRight
   )
 
