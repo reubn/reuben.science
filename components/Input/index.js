@@ -13,6 +13,7 @@ const Input = ({
   title,
   type,
   value,
+  inputRef,
   onChange: _onChange,
   onFocus: _onFocus,
   onBlur: _onBlur,
@@ -112,6 +113,8 @@ const Input = ({
 
         id={inputId}
         title={title}
+
+        ref={inputRef}
 
         onWheel={() => preventScrollEdits.current = true}
         
