@@ -9,7 +9,23 @@ import {
 
 export {top, bottom, left, right} from './styles'
 
-export default ({title, type, value, onChange: _onChange, onFocus: _onFocus, onBlur: _onBlur, className, labels: labelsConfig=[], colour, colourActive, emphasis, highlight, strikeThrough, style: styleProp={}, ...props}) => {
+const Input = ({
+  title,
+  type,
+  value,
+  onChange: _onChange,
+  onFocus: _onFocus,
+  onBlur: _onBlur,
+  className,
+  labels: labelsConfig=[],
+  colour,
+  colourActive, 
+  emphasis, 
+  highlight, 
+  strikeThrough, 
+  style: styleProp={}, 
+  ...props
+}) => {
   const {current: inputId} = useRef(Math.random())
 
   const [focusState, setFocusState] = useState(false)
@@ -101,3 +117,5 @@ export default ({title, type, value, onChange: _onChange, onFocus: _onFocus, onB
     </control>
   )
 }
+
+export default Input

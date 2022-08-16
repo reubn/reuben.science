@@ -122,7 +122,7 @@ export const MultiStepCalculationInput = ({node, title, emphasis, userInputSugge
 
 export const createInputFactory = graph => (...args) => {
   const node = graph.createNode(...args)
-  const Input = props => <MultiStepCalculationInput node={node} {...props} />
+  const InputWrapper = props => <MultiStepCalculationInput node={node} {...props} />
 
-  return [node, Input]
+  return [node, InputWrapper]
 }
