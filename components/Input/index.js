@@ -65,7 +65,7 @@ const Input = ({
       role: onClick ? 'button' : 'status',
       tabIndex: focusState ? undefined : -1, // Input must be focused before button can be focused => tabbing back takes user to input
       'aria-live': 'off',
-      onClick: onClick,
+      onClick,
       ...otherProps
     }
 
