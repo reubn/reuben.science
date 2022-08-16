@@ -52,7 +52,7 @@ const Input = ({
     return _onChange(value, event)
   }
 
-  const labels = labelsConfig.filter(label => label.text).map(({text, actionText, colour, colourActive='light', position, className, onClick, ...otherProps}) => {
+  const labels = labelsConfig.filter(label => label.text).map(({text, actionText=text, colour, colourActive='light', position, className, onClick, ...otherProps}) => {
     const style = {
       '--border-colour-label': `var(--colours-${colour})`,
       '--border-colour-active-label': `var(--colours-${colourActive})`
