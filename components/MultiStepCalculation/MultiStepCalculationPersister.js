@@ -13,7 +13,7 @@ export class MultiStepCalculationPersister {
 
   #changeHandler = debounce(node => {
     if(node.valueState === SPECIFIED) this.#persist(node)
-    else this.delete(node)
+    else this.#remove(node)
   }, 300)
 
   #changeHandlerOuter = ({detail: {node, userSpecified}}) => {
@@ -43,7 +43,7 @@ export class MultiStepCalculationPersister {
     requestIdleCallback(() => localStorage?.setItem(key, JSON.stringify(node.value)))
   }
 
-  delete(node){
+  #remove(node){
     // console.log('DELETE', node.id)
     const key = this.#getKey(node)
 
