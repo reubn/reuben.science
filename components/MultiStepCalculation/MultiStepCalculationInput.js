@@ -27,6 +27,8 @@ export const MultiStepCalculationInput = ({node, title, emphasis, userInputSugge
   const [focusStateAnyInstance, setFocusStateAnyInstance] = useState(false)
 
   const tabbable = !focusStateAnyInstance || focusState
+  const focusStateOtherInstance = focusStateAnyInstance && !focusState
+  const focusStateInput = focusState && document.activeElement === inputRef.current
 
   useEffect(() => {
     const handler = ({detail: {focusState}}) => setFocusStateAnyInstance(focusState)
