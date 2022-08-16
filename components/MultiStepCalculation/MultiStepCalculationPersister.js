@@ -22,7 +22,7 @@ export class MultiStepCalculationPersister {
     this.#changeHandler(node)
   }
 
-  #addHandler = ({detail: {node}}) => {
+  #addHandler = node => {
     const key = this.#getKey(node)
 
 /*     console.log('RESTORING', node.id, value) */
@@ -31,9 +31,10 @@ export class MultiStepCalculationPersister {
     if(value) node.setSpecifiedValue(JSON.parse(value), false)
   }
 
-  listen(){
+  activate(){
     this.graph.addEventListener('nodeValueChanged', this.#changeHandlerOuter)
-    this.graph.addEventListener('nodeAdded', this.#addHandler)
+    
+    this.graph.nodes.forEach(node => this.#addHandler(node))
   }
 
   #persist(node){
