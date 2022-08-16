@@ -89,9 +89,10 @@ export const MultiStepCalculationInput = ({node, title, emphasis, userInputSugge
     {position: [bottom, right], ...bottomRight}
   ]
 
-  const labelsColour = labels.map(({colour}) => colour).filter(x => x).pop()
+  const highlight = topRight?.colour ?? bottomRight?.colour
 
   // if(flags.userOverridden) emphasis = 'purple'
+  if(focusStateOtherInstance) emphasis = emphasis || highlight
   if(emphasis) labels = labels.map(label => ({...label, colour: 'light'}))
 
   return (
@@ -107,7 +108,7 @@ export const MultiStepCalculationInput = ({node, title, emphasis, userInputSugge
 
       colour={colour}
       emphasis={emphasis}
-      highlight={labelsColour}
+      highlight={highlight}
 
       labels={labels}
       onChange={value => node.setSpecifiedValue(value)}
