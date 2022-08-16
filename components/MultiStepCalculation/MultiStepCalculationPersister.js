@@ -24,9 +24,9 @@ export class MultiStepCalculationPersister {
 
   #addHandler = ({detail: {node}}) => {
     const key = this.#getKey(node)
-    const value = localStorage?.getItem(key)
 
 /*     console.log('RESTORING', node.id, value) */
+    const value = global.localStorage?.getItem(key)
     
     if(value) node.setSpecifiedValue(JSON.parse(value), false)
   }
@@ -40,13 +40,13 @@ export class MultiStepCalculationPersister {
     // console.log('PERSISTING', node.id, node.value)
     const key = this.#getKey(node)
 
-    requestIdleCallback(() => localStorage?.setItem(key, JSON.stringify(node.value)))
+    requestIdleCallback(() => global.localStorage?.setItem(key, JSON.stringify(node.value)))
   }
 
   #remove(node){
     // console.log('DELETE', node.id)
     const key = this.#getKey(node)
 
-    requestIdleCallback(() => localStorage?.removeItem(key))
+    requestIdleCallback(() => global.localStorage?.removeItem(key))
   }
 }
