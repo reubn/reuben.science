@@ -27,6 +27,7 @@ const Input = ({
   ...props
 }) => {
   const {current: inputId} = useRef(Math.random())
+  const preventScrollEdits = useRef(false)
 
   const [focusState, setFocusState] = useState(false)
   const onFocus = event => {
@@ -39,6 +40,8 @@ const Input = ({
   }
 
   const onChange = event => {
+    if(preventScrollEdits.current) return preventScrollEdits.current = false
+
     const {target: {value}} = event
     if(type === 'number') {
       const parsed = parseFloat(value)
@@ -110,6 +113,8 @@ const Input = ({
         id={inputId}
         title={title}
 
+        onWheel={() => preventScrollEdits.current = true}
+        
         {...props}
       />
       <label className={titleStyle} htmlFor={inputId}>{title}</label>
