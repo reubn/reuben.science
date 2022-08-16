@@ -1,10 +1,11 @@
-import {useState, useEffect} from 'react'
+import {useState, useEffect, useRef} from 'react'
 
 import Input, {top, bottom, left, right} from '@/components/Input'
 
 import {SPECIFIED, ALL_CHILDREN_SPECIFIED, PENDING, IN_USE, CALCULATED} from './MultiStepCalculationGraph'
 
 export const MultiStepCalculationInput = ({node, title, emphasis, userInputSuggested: showAsUserInput, ...props}) => {
+  const inputRef = useRef(null)
   const [dummy, forceUpdate] = useState()
 
   useEffect(() => {
@@ -101,6 +102,7 @@ export const MultiStepCalculationInput = ({node, title, emphasis, userInputSugge
       title={title || node.id}
       value={node.value}
       placeholder={flags.waiting ? '...' : ''}
+      inputRef={inputRef}
 
       required={flags.userInputNeeded}
       strikeThrough={flags.ignored}
