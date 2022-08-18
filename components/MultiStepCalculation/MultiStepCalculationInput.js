@@ -113,8 +113,9 @@ export const MultiStepCalculationInput = ({node, title, type, emphasis, userInpu
     setValueContainer({value: node.value})
   }
 
-  const colour = (
-    flags.userOverridden && !flags.ignored ? 'purple' :
+  const colour  = (
+    flags.ignored ? 'dark-5' : 
+    flags.userOverridden ? 'purple' :
     emphasis ||
     undefined
   )
@@ -191,7 +192,6 @@ export const MultiStepCalculationInput = ({node, title, type, emphasis, userInpu
       style={{
         '--placeholder-size-active': flags.waiting ? 'var(--placeholder-size)' : undefined,
         '--placeholder-colour': flags.ignored ? 'var(--colours-dark-3)' : undefined,
-        '--input-colour': flags.ignored ? 'var(--colours-dark-5)' : undefined,
         '--title-colour': flags.ignored ? 'var(--colours-dark-5)' : undefined,
       }}
 
