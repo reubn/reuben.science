@@ -172,7 +172,7 @@ export const MultiStepCalculationInput = ({node, title, type, emphasis, userInpu
 
         const {parsed, validity} = validator(value)
 
-        console.log('KEY', {key, validity})
+        // console.log('KEY', {key, validity})
 
         if(validity !== VALID || flags.noSideEffects) return 
         if(key === 'ArrowUp') onChange(parsed + 1, false)
