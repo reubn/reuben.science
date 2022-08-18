@@ -44,13 +44,8 @@ const Input = ({
     if(preventScrollEdits.current) return preventScrollEdits.current = false
 
     const {target: {value}} = event
-    if(type === 'number') {
-      const parsed = parseFloat(value)
 
-      return _onChange(isNaN(parsed) ? undefined : parsed, event)
-    }
-
-    return _onChange(value, event)
+    _onChange(value, event)
   }
 
   const labels = labelsConfig.filter(label => label.text).map(({text, actionText=text, colour, colourActive='light', position, className, onClick, ...otherProps}) => {
