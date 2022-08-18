@@ -25,7 +25,7 @@ export class MultiStepCalculationNode extends DirectionalAcyclicGraphNode {
   #specifiedValue
   #calculatedValue
 
-  constructor(graph, {id, formula}){
+  constructor(graph, {id, formula, value}){
     super(graph)
 
     this.id = id
@@ -33,6 +33,8 @@ export class MultiStepCalculationNode extends DirectionalAcyclicGraphNode {
 
     const identifyParents = parent => {this.addEdge({from: parent})}
     this.formula?.(identifyParents, identifyParents)
+
+    if(value !== undefined) this.setSpecifiedValue(value, false)
   }
 
   get nodeState(){
