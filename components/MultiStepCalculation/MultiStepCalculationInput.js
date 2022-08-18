@@ -174,9 +174,12 @@ export const MultiStepCalculationInput = ({node, title, type, emphasis, userInpu
 
         console.log('KEY', {key, validity})
 
-        if(validity !== VALID) return 
+        if(validity !== VALID || flags.noSideEffects) return 
         if(key === 'ArrowUp') onChange(parsed + 1, false)
-        if(key === 'ArrowDown') onChange(parsed - 1, false)
+        else if(key === 'ArrowDown') onChange(parsed - 1, false)
+        else return 
+
+        event.preventDefault()
       }
     }
   })[type]
