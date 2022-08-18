@@ -17,6 +17,13 @@
 
   --selection-colour-active: var(--border-colour-active);
 
+  --input-size: 1rem;
+
+  --placeholder-colour: var(--colours-dark-7);
+
+  --placeholder-size: 0.8rem;
+  --placeholder-size-active: var(--input-size);
+
   border: var(--border-width) solid var(--border-colour);
   border-radius: var(--border-radius);
   background: inherit;
@@ -108,7 +115,7 @@ button.label:focus span:last-child {
 
   padding: 1rem;
 
-  font-size: 1rem;
+  font-size: var(--input-size);
   font-family: var(--font-family-monospace);
   font-weight: 500;
 
@@ -126,14 +133,13 @@ button.label:focus span:last-child {
   cursor: not-allowed;
 }
 
-.input::-webkit-inner-spin-button,
-.input::-webkit-outer-spin-button {
-    appearance: none;
+.input::placeholder {
+  font-size: var(--placeholder-size);
+  color: var(--placeholder-colour);
 }
 
-.input::placeholder {
-  font-size: 0.8rem;
-  color: var(--colours-dark-7);
+.input:focus::placeholder {
+  --placeholder-size: var(--placeholder-size-active);
 }
 
 .input:focus::selection {
@@ -148,4 +154,5 @@ button.label:focus span:last-child {
 /* Labels */
 .title {
   composes: label top left;
+  color: var(--title-colour)
 }
