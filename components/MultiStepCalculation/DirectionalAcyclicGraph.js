@@ -104,7 +104,7 @@ export class DirectionalAcyclicGraphNode extends EventTarget {
     this.graph.addEdge({from, to})
   }
 
-  _makeExplorer(property){
+/*   _makeExplorer(property){
     return fn => {
       const dfs = (node, path=[]) => {
         const newPath = [...path, node]
@@ -118,7 +118,7 @@ export class DirectionalAcyclicGraphNode extends EventTarget {
   }
 
   exploreChildren = this._makeExplorer('children')
-  exploreParents = this._makeExplorer('parents')
+  exploreParents = this._makeExplorer('parents') */
 
   fireEvent(eventOrType='update', detail={}){
     const event = eventOrType instanceof Event ? eventOrType : new CustomEvent(eventOrType, {detail: {node: this, ...detail}})
