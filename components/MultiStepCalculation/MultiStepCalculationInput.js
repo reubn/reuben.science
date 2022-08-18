@@ -141,10 +141,15 @@ export const MultiStepCalculationInput = ({node, title, type, emphasis, userInpu
     undefined
   )
 
+  const bottomLeft = (
+    flags.waiting && !showAsUserInput ? {text: `${node.parents.filter(node => node.valueState !== PENDING).length}/${node.parents.length} Inputs`, colour: 'mid-2'} :
+    undefined
+  )
+
   let labels = [
     {position: [top, right], ...topRight},
     {position: [bottom, right], ...bottomRight},
-    {position: [bottom, left], ...(flags.waiting ? {text: `${node.parents.filter(node => node.valueState !== PENDING).length}/${node.parents.length}`, colour: 'mid-2'} : {})}
+    {position: [bottom, left], ...bottomLeft}
   ]
 
   const highlight = topRight?.colour ?? bottomRight?.colour
