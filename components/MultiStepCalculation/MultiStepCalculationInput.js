@@ -144,8 +144,7 @@ export const MultiStepCalculationInput = ({node, title, type, emphasis, userInpu
   let labels = [
     {position: [top, right], ...topRight},
     {position: [bottom, right], ...bottomRight},
-    // {position: [bottom, left], ...(flags.waiting ? {text: `${node.parents.filter(node => node.valueState !== PENDING).length}/${node.parents.length}`, colour: 'mid-2'} : {})}
-    {position: [bottom, left], ...{text: validity}}
+    {position: [bottom, left], ...(flags.waiting ? {text: `${node.parents.filter(node => node.valueState !== PENDING).length}/${node.parents.length}`, colour: 'mid-2'} : {})}
   ]
 
   const highlight = topRight?.colour ?? bottomRight?.colour
