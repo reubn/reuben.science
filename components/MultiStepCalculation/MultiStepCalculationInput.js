@@ -147,13 +147,16 @@ export const MultiStepCalculationInput = ({node, title, type, emphasis, userInpu
     undefined
   )
 
+  const highlight = (
+    flags.userOverridden ? 'purple' :
+    topRight?.colour
+  )
+
   let labels = [
     {position: [top, right], ...topRight},
     {position: [bottom, right], ...bottomRight},
     {position: [bottom, left], ...bottomLeft}
   ]
-
-  const highlight = topRight?.colour ?? bottomRight?.colour
 
   // if(flags.userOverridden) emphasis = 'purple'
   if(focusStateOtherInstance) emphasis = emphasis || highlight
