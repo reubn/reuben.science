@@ -28,7 +28,6 @@ const Input = ({
   ...props
 }) => {
   const {current: inputId} = useRef(Math.random())
-  const preventScrollEdits = useRef(false)
 
   const [focusState, setFocusState] = useState(false)
   const onFocus = event => {
@@ -41,8 +40,6 @@ const Input = ({
   }
 
   const onChange = event => {
-    if(preventScrollEdits.current) return preventScrollEdits.current = false
-
     const {target: {value}} = event
 
     _onChange(value, event)
@@ -110,8 +107,6 @@ const Input = ({
         title={title}
 
         ref={inputRef}
-
-        onWheel={() => preventScrollEdits.current = true}
         
         {...props}
       />
