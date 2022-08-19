@@ -12,14 +12,14 @@
   --border-colour-label: var(--colours-light-3);
   --border-colour-active-label: var(--border-colour-active);
 
-  --input-colour: var(--colours-mid-2);
+  --input-colour: var(--colours-mid-1);
   --input-colour-active: var(--colours-light);
 
   --selection-colour-active: var(--border-colour-active);
 
   --input-size: 1rem;
 
-  --placeholder-colour: var(--colours-dark-7);
+  --placeholder-colour: var(--colours-dark-5);
 
   --placeholder-size: 0.8rem;
   --placeholder-size-active: var(--input-size);
