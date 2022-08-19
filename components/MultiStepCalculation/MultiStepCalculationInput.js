@@ -174,15 +174,15 @@ export const MultiStepCalculationInput = ({node, title, type, emphasis, userInpu
         const {key} = event
 
         const {parsed, validity} = validator(value)
+        const current = validity !== VALID ? 0 : parsed
 
-        // console.log('KEY', {key, validity})
+        const setTo = delta => {
+          if(!flags.noSideEffects) onChange(current + delta, false)
+          event.preventDefault()
+        }
 
-        if(validity !== VALID || flags.noSideEffects) return 
-        if(key === 'ArrowUp') onChange(parsed + 1, false)
-        else if(key === 'ArrowDown') onChange(parsed - 1, false)
-        else return 
-
-        event.preventDefault()
+        if(key === 'ArrowUp') setTo(+1)
+        if(key === 'ArrowDown') setTo(-1)
       }
     }
   })[type]
