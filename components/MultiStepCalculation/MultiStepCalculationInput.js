@@ -45,22 +45,44 @@ export const MultiStepCalculationInput = ({node, title, type, emphasis, userInpu
   }, [node])
 
 
-  const [valueContainer, setValueContainer] = useState({value: node.value})
-  useEffect(() => setValueContainer({value: node.value, checkValidity: false}), [needToUpdate])
+  const [valueContainer, _setValueContainer] = useState({nodeValue: node.value, valueAsEntered: undefined, validity: UNKNOWN})
+  const {nodeValue, valueAsEntered, validity} = valueContainer
+
+  const displayValue = valueAsEntered || nodeValue
+
+  const flags = {
+    userOverridden: !showAsUserInput && node.valueState === SPECIFIED && !node.isRoot,
+    userInputNeeded: (showAsUserInput || node.isRoot) && node.valueState === PENDING && node.useState === IN_USE,
+    ignored: node.useState === ALL_CHILDREN_SPECIFIED,
+    waiting: !node.isRoot && node.valueState === PENDING && node.useState !== ALL_CHILDREN_SPECIFIED,
+    calculated: !node.isRoot && node.valueState === CALCULATED,
+    noSideEffects: node.useState === ALL_CHILDREN_SPECIFIED || node.isLeaf,
+    canUserOverride: !showAsUserInput && !node.isRoot && !node.isLeaf,
+    wontSpringBackOnceEmpty: (showAsUserInput && !node.inputsSatisfied) || node.isRoot,
+  } 
+
+  const newValueFromUser = (newValue, commitUndefined=flags.wontSpringBackOnceEmpty) => {
+    console.log('newValueFromUser', node.id, newValue)
+
+    const {parsed, validity} = validator(newValue)
+
+    _setValueContainer({nodeValue: parsed, valueAsEntered: newValue, validity})
+
+    if(validity === VALID && nodeValue !== parsed) return node.setSpecifiedValue(parsed)
+    if(validity === UNKNOWN && commitUndefined) return node.setSpecifiedValue(undefined)
+  }
+
+  const newValueFromNode = newValue => {
+    console.log('newValueFromNode', node.id, newValue)
+
+    const {validity} = validator(newValue)
+
+    _setValueContainer({nodeValue: newValue, validity})
+  }
+
+  useEffect(() => newValueFromNode(node.value), [needToUpdate])
 
   const [specifiedValueAtFocus, setSpecifiedValueAtFocus] = useState(null)
-
-  const {value} = valueContainer
-
-  const [validity, setValidity] = useState(UNKNOWN)
-  useEffect(() => {
-    const {value, checkValidity=true} = valueContainer
-    
-    if(checkValidity) {
-      const {parsed, validity} = validator(value)
-      setValidity(validity)
-    }
-  }, [valueContainer])
 
   useEffect(() => {
     const handler = () => {
@@ -78,28 +100,7 @@ export const MultiStepCalculationInput = ({node, title, type, emphasis, userInpu
 
   }, [node])
 
-  const flags = {
-    userOverridden: !showAsUserInput && node.valueState === SPECIFIED && !node.isRoot,
-    userInputNeeded: (showAsUserInput || node.isRoot) && node.valueState === PENDING && node.useState === IN_USE,
-    ignored: node.useState === ALL_CHILDREN_SPECIFIED,
-    waiting: !node.isRoot && node.valueState === PENDING && node.useState !== ALL_CHILDREN_SPECIFIED,
-    calculated: !node.isRoot && node.valueState === CALCULATED,
-    noSideEffects: node.useState === ALL_CHILDREN_SPECIFIED || node.isLeaf,
-    canUserOverride: !showAsUserInput && !node.isRoot && !node.isLeaf,
-    wontSpringBackOnceEmpty: (showAsUserInput && !node.inputsSatisfied) || node.isRoot,
-  } 
-
-  const onChange = rawValue => {
-    const {parsed, validity} = validator(rawValue)
-
-    console.log('CHANGING', node.id, rawValue, {parsed, validity})
-
-    setValueContainer({value: rawValue, checkValidity: false})
-    setValidity(validity)
-
-    if(validity === VALID) return node.setSpecifiedValue(parsed)
-    if(validity === UNKNOWN && flags.wontSpringBackOnceEmpty) return node.setSpecifiedValue(undefined)
-  }
+  const onChange = valueAsEntered => newValueFromUser(valueAsEntered)
 
   const onFocus = () => {
     setFocusState(true)
@@ -113,7 +114,8 @@ export const MultiStepCalculationInput = ({node, title, type, emphasis, userInpu
 
     console.log('onBlur', {validity})
     
-    if(validity !== VALID && !flags.wontSpringBackOnceEmpty) node.setSpecifiedValue(flags.userInputNeeded ? specifiedValueAtFocus : undefined)
+    if(validity === INVALID) newValueFromUser(specifiedValueAtFocus, true)
+    if(validity === UNKNOWN) newValueFromUser(undefined, !flags.wontSpringBackOnceEmpty)
   }
 
   const colour  = (
@@ -141,7 +143,7 @@ export const MultiStepCalculationInput = ({node, title, type, emphasis, userInpu
 
   const bottomRight = (
     flags.userOverridden ? {text: 'Locked', actionText: 'Unlock', colour: 'purple', onClick: event => {node.setSpecifiedValue(undefined); document.activeElement.blur()}} :
-    flags.calculated && !focusStateInput ? {text: 'Lock', colour: 'purple', onClick: event => {node.setSpecifiedValue(node.value); inputRef.current.select()}} :
+    // flags.calculated && !focusStateInput ? {text: 'Lock', colour: 'purple', onClick: event => {node.setSpecifiedValue(node.value); inputRef.current.select()}} :
     undefined
   )
 
@@ -151,6 +153,7 @@ export const MultiStepCalculationInput = ({node, title, type, emphasis, userInpu
   )
 
   const highlight = (
+    validity === INVALID ? 'red' :
     flags.userOverridden ? 'purple' :
     topRight?.colour
   )
@@ -172,12 +175,10 @@ export const MultiStepCalculationInput = ({node, title, type, emphasis, userInpu
       inputMode: 'decimal',
       onKeyDown: event => {
         const {key} = event
-
-        const {parsed, validity} = validator(value)
-        const current = validity !== VALID ? 0 : parsed
+        const current = validity !== VALID ? 0 : nodeValue
 
         const setTo = delta => {
-          if(!flags.noSideEffects) onChange(current + delta)
+          if(!flags.noSideEffects) newValueFromUser(current + delta)
           event.preventDefault()
         }
 
@@ -194,8 +195,8 @@ export const MultiStepCalculationInput = ({node, title, type, emphasis, userInpu
       {...typeOptions}
 
       title={title || node.id}
-      value={value}
-      placeholder={flags.waiting ? '...' : value || '???'}
+      value={displayValue}
+      placeholder={flags.waiting ? '...' : displayValue || '???'}
       inputRef={inputRef}
 
       style={{
