@@ -177,7 +177,7 @@ export const MultiStepCalculationInput = ({node, title, type, emphasis, userInpu
         const current = validity !== VALID ? 0 : parsed
 
         const setTo = delta => {
-          if(!flags.noSideEffects) onChange(current + delta, false)
+          if(!flags.noSideEffects) onChange(current + delta)
           event.preventDefault()
         }
 
