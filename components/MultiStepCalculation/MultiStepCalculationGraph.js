@@ -45,6 +45,10 @@ export class MultiStepCalculationNode extends DirectionalAcyclicGraphNode {
     return UNVISITED
   }
 
+  get inputsSatisfied(){
+    return this.parents.every(parent => parent.valueState !== PENDING)
+  }
+
   get valueState(){
     // SPECIFIED
     // CALCULATED
@@ -87,9 +91,8 @@ export class MultiStepCalculationNode extends DirectionalAcyclicGraphNode {
     const getParentValue = parent => parent.value
 
     const calculatedValue = this.formula(getParentValue, noop)
-    const haveAllNeededInputs = this.parents.every(parent => parent.valueState !== PENDING)
 
-    this.#calculatedValue = haveAllNeededInputs ? calculatedValue : undefined
+    this.#calculatedValue = this.inputsSatisfied ? calculatedValue : undefined
     
     return this.#calculatedValue
   }
