@@ -28,7 +28,7 @@ const defaultValidator = rawValue => {
 
 export const MultiStepCalculationInput = ({node, title, type, emphasis, userInputSuggested: showAsUserInput, validator=defaultValidator, ...props}) => {
   const inputRef = useRef(null)
-  const [dummy, forceUpdate] = useState()
+  const [needToUpdate, forceUpdate] = useState({})
 
   const [focusState, setFocusState] = useState(false)
   const [focusStateAnyInstance, setFocusStateAnyInstance] = useState(false)
@@ -46,7 +46,7 @@ export const MultiStepCalculationInput = ({node, title, type, emphasis, userInpu
 
 
   const [valueContainer, setValueContainer] = useState({value: node.value})
-  useEffect(() => setValueContainer({value: node.value, checkValidity: false}), [node.value])
+  useEffect(() => setValueContainer({value: node.value, checkValidity: false}), [needToUpdate])
 
   const {value} = valueContainer
 
