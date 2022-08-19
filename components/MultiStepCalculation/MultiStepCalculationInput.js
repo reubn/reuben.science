@@ -195,10 +195,11 @@ export const MultiStepCalculationInput = ({node, title, type, emphasis, userInpu
 
       title={title || node.id}
       value={value}
-      placeholder={flags.waiting ? '...' : value}
+      placeholder={flags.waiting ? '...' : value || '???'}
       inputRef={inputRef}
 
       style={{
+        '--placeholder-size': flags.userInputNeeded ? 'var(--input-size' : undefined,
         '--placeholder-size-active': flags.waiting ? 'var(--placeholder-size)' : undefined,
         '--placeholder-colour': flags.ignored ? 'var(--colours-dark-3)' : undefined,
         '--title-colour': flags.ignored ? 'var(--colours-dark-5)' : undefined,
