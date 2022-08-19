@@ -48,6 +48,8 @@ export const MultiStepCalculationInput = ({node, title, type, emphasis, userInpu
   const [valueContainer, setValueContainer] = useState({value: node.value})
   useEffect(() => setValueContainer({value: node.value, checkValidity: false}), [needToUpdate])
 
+  const [specifiedValueAtFocus, setSpecifiedValueAtFocus] = useState(null)
+
   const {value} = valueContainer
 
   const [validity, setValidity] = useState(UNKNOWN)
@@ -84,7 +86,7 @@ export const MultiStepCalculationInput = ({node, title, type, emphasis, userInpu
     calculated: !node.isRoot && node.valueState === CALCULATED,
     noSideEffects: node.useState === ALL_CHILDREN_SPECIFIED || node.isLeaf,
     canUserOverride: !showAsUserInput && !node.isRoot && !node.isLeaf,
-    canUserClear: showAsUserInput || node.isRoot
+    wontSpringBackOnceEmpty: (showAsUserInput && !node.inputsSatisfied) || node.isRoot,
   } 
 
   const onChange = rawValue => {
@@ -96,11 +98,12 @@ export const MultiStepCalculationInput = ({node, title, type, emphasis, userInpu
     setValidity(validity)
 
     if(validity === VALID) return node.setSpecifiedValue(parsed)
-    if(validity === UNKNOWN && flags.canUserClear) return node.setSpecifiedValue(undefined)
+    if(validity === UNKNOWN && flags.wontSpringBackOnceEmpty) return node.setSpecifiedValue(undefined)
   }
 
   const onFocus = () => {
     setFocusState(true)
+    setSpecifiedValueAtFocus(node.valueState === SPECIFIED ? node.value : undefined)
     node.fireEvent('focusState', {focusState: true})
   }
 
@@ -110,7 +113,7 @@ export const MultiStepCalculationInput = ({node, title, type, emphasis, userInpu
 
     console.log('onBlur', {validity})
     
-    setValueContainer({value: node.value})
+    if(validity !== VALID && !flags.wontSpringBackOnceEmpty) node.setSpecifiedValue(flags.userInputNeeded ? specifiedValueAtFocus : undefined)
   }
 
   const colour  = (
