@@ -18,7 +18,7 @@ const defaultValidator = rawValue => {
   if(!rawValue?.length) return {validity: UNKNOWN}
 
   const parsed = parseFloat(rawValue)
-  const validity = !isNaN(parsed) && !rawValue.match(/[^\.0-9]/)
+  const validity = !isNaN(parsed) && !rawValue.match(/[^\.0-9\-]/)
 
   return {
     validity: validity ? VALID : INVALID,
