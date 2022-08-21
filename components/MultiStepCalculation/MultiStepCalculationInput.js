@@ -11,9 +11,7 @@ const UNKNOWN = String('UNKNOWN')
 const defaultValidator = rawValue => {
   // console.log('VALIDATING', rawValue, typeof rawValue)
 
-  if(typeof rawValue === 'number') {
-    return {validity: VALID, parsed: rawValue}
-  }
+  if(typeof rawValue === 'number') return {validity: VALID, parsed: rawValue}
 
   if(!rawValue?.length) return {validity: UNKNOWN}
 
