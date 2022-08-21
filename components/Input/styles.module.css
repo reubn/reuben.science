@@ -21,7 +21,7 @@
 
   --placeholder-colour: var(--colours-dark-5);
 
-  --placeholder-size: 0.8rem;
+  --placeholder-size: var(--input-size);
   --placeholder-size-active: var(--input-size);
 
   border: var(--border-width) solid var(--border-colour);
