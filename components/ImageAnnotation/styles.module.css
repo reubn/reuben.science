@@ -27,12 +27,16 @@
   transform-origin: center;
   transform-box: fill-box;
 
+  stroke-linecap: round;
+  stroke-linejoin: round;
+
   transition: fill-opacity .12s ease-in, transform .06s ease-in;
 }
 
 .imageContainer > svg > *:hover,
 .imageContainer svg .active {
   fill-opacity: 0.5;
+  stroke-width: 6px;
   transform: scale(1.1);
 
 }
@@ -42,9 +46,16 @@
   overflow: visible;
 }
 
+@media (max-width: 650px) {
+  .key {
+    columns: 2;
+    overflow: visible;
+  }
+}
+
 .key li {
   break-inside: avoid;
-  height: 2rem;
+  min-height: 2rem;
   margin-bottom: 1rem;
 }
 
@@ -52,7 +63,7 @@
   cursor: default;
   margin-top: calc(-2rem + 1px);
 
-  white-space: nowrap;
+  /* white-space: nowrap; */
   overflow:visible;
 }
 
@@ -62,12 +73,12 @@
   margin: 0;
 }
 
-.key li:hover .primary, .key .active .primary {
+.key li:hover .primary, .key .active .primary, .key li:target .primary {
   /* color: var(--colour); */
   text-decoration: overline;
   text-decoration-color: var(--colour);
   text-decoration-line: underline;
-  text-decoration-thickness: 2.5px;
+  text-decoration-thickness: 3px;
 
   /* font-weight: 500; */
 }
@@ -76,8 +87,9 @@
   display: block;
   color: var(--colours-mid-1);
   font-size: 0.9rem;
-  margin-top: -0.5rem;
-  height: 1rem;
+  margin-top: -0.25rem;
+  line-height: 1.25;
+  /* height: 1rem; */
   /* font-weight: 400; */
 }
 
