@@ -38,7 +38,7 @@ const ImageAnnotation = ({image, list, children, ...props}) => {
     props: {
       'data-id': id,
       style: {
-        color: c(annotations[id]?.colour),
+        color: annotations[id]?.colour && c(annotations[id]?.colour),
       },
       className: annotations[id]?.active ? active : '',
       onMouseEnter: () => list.setAnnotationActive(id, true),
