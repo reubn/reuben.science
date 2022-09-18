@@ -85,7 +85,7 @@ const c = (colour, base) => {
   if(typeof colour === 'string' || colour instanceof String) {
     if(colour.valid) return colour
 
-    if(colour.startsWith('#')) return colour.slice(1)
+    if(colour.startsWith('~')) return colour.slice(1)
     
     const _base = base ? c(base) : {tree: colours, path: []}
     const result = match(colour, _base)
