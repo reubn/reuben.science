@@ -3,9 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "node ./buildScripts/before && next dev",
-    "build": "node ./buildScripts/before && next build",
-    "export": "npm run build && next export && node ./buildScripts/after",
+    "next": "NODE_OPTIONS='--experimental-global-customevent' next",
+    "dev": "node ./buildScripts/before && npm run next -- dev",
+    "build": "node ./buildScripts/before && npm run next -- build",
+    "export": "npm run build && npm run next -- export && node ./buildScripts/after",
     "dev-export": "npm run export && http-server ./out -p 8000",
     "crush": "node ./src/crush.mjs $INIT_CWD"
   },
@@ -13,7 +14,7 @@
     "@mdx-js/loader": "^2.1.2",
     "@mdx-js/react": "^2.1.2",
     "@next/mdx": "^12.2.4",
-    "@react-three/drei": "^9.16.0",
+    "@react-three/drei": "^9.31.1",
     "@react-three/fiber": "^8.1.0",
     "file-loader": "^6.2.0",
     "hast-util-to-html": "^8.0.3",
@@ -43,7 +44,6 @@
     "striptags": "^3.2.0",
     "three": "^0.142.0",
     "unist-util-visit": "^4.1.0",
-    "webp-hero": "0.0.2",
     "xtend": "^4.0.2"
   },
   "devDependencies": {
