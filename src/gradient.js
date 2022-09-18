@@ -1,1 +1,3 @@
-export default (colour, second=colour+'-hint') => `linear-gradient(135deg, var(--colours-${colour}) 0%, var(--colours-${second}) 100%)`
+import c from '@/src/colour'
+
+export default (colour, second=c('hint', colour)) => `linear-gradient(135deg, ${c(colour)} 0%, ${c(second)} 100%)`

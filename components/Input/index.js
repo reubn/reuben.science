@@ -1,4 +1,7 @@
 import {useRef, useState} from 'react'
+
+import c from '@/src/colour'
+
 import {
   input,
   title as titleStyle,
@@ -47,8 +50,8 @@ const Input = ({
 
   const labels = labelsConfig.filter(label => label.text).map(({text, actionText=text, colour, colourActive='light', position, className, onClick, ...otherProps}) => {
     const style = {
-      '--border-colour-label': `var(--colours-${colour})`,
-      '--border-colour-active-label': `var(--colours-${colourActive})`
+      '--border-colour-label': c(colour),
+      '--border-colour-active-label': c(colourActive)
     }
 
     const props = {
@@ -80,11 +83,11 @@ const Input = ({
   })
 
   const style = {
-    '--input-colour': colour ? `var(--colours-${colour})` : undefined,
-    '--input-colour-active': colourActive ? `var(--colours-${colourActive})` : undefined,
+    '--input-colour': colour ? c(colour) : undefined,
+    '--input-colour-active': colourActive ? c(colourActive) : undefined,
 
-    '--border-colour': emphasis ? `var(--colours-${emphasis})` : undefined,
-    '--border-colour-active': emphasis ? `var(--colours-${emphasis})` : `var(--colours-${highlight})` || undefined,
+    '--border-colour': emphasis ? c(emphasis) : undefined,
+    '--border-colour-active': emphasis ? c(emphasis) : c(highlight) || undefined,
     '--border-colour-label': emphasis ? `var(--colours-light` : undefined,
 
     ...styleProp
