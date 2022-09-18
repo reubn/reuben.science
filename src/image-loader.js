@@ -57,9 +57,17 @@ module.exports = async function (content) {
 
   const resolutions = resolutionsArray.reduce((obj, size) => ({...obj, [size.scale]: size}), {})
 
+  const jsonFilename = `${basePath}.json`
+  const jsonContent = await fs.promises.readFile(jsonFilename).catch(() => false)
+
+  const json = jsonContent ? JSON.parse(jsonContent) : undefined
+
+  this.addDependency(jsonFilename)
+
   const result = {
     id: Math.random(),
-    resolutions
+    resolutions,
+    json
   }
 
   return `export default ${JSON.stringify(result)}`
