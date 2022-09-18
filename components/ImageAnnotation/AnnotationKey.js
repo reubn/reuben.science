@@ -8,8 +8,6 @@ const AnnotationKey = ({list}) => {
   const [annotations, setAnnotations] = useState({})
 
   useEffect(() => {
-    console.log('list changed - key', list)
-    
     const update = () => {
       setAnnotations({...list.annotations})
     }

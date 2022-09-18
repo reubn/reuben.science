@@ -13,10 +13,7 @@ const ImageAnnotation = ({image, list, children, ...props}) => {
   const [annotations, setAnnotations] = useState({})
 
   useEffect(() => {
-    console.log('list changed', list)
-
     const update = () => {
-      console.log('setting annotations', list.annotations)
       setAnnotations({...list.annotations})
     }
 
@@ -28,8 +25,6 @@ const ImageAnnotation = ({image, list, children, ...props}) => {
       list.removeEventListener('change', update)
     }
   }, [list])
-
-  console.log('annotations', annotations)
 
   const {json} = image
 
@@ -51,8 +46,6 @@ const ImageAnnotation = ({image, list, children, ...props}) => {
       ...annotations[id]?.props
     }
   }))
-
-  console.log('rerender', displayShapes)
 
   return (
     <section
