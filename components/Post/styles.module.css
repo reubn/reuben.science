@@ -1,11 +1,14 @@
 .post {
-  max-width: 1000px;
+  --max-post-width: 1000px;
   --margin: 3.5rem;
   --full-bleed-margin: 0px; /* calc(var(--margin) / 2); */
 
-  --post-width: calc(min(100vw - var(--margin), 1000px));
   --border-radius: 4px;
+
+  --post-width: calc(min(100vw - var(--margin), var(--max-post-width)));
   --actual-margin: calc((100vw - var(--post-width)));
+
+  max-width: var(--max-post-width);
   width: var(--post-width);
 
   margin: 0rem auto var(--margin) auto;
@@ -13,6 +16,11 @@
 
 .post *:not(li):not(figure) {
   max-width: 100%;
+}
+
+.post .halfWidth {
+  --post-width-proportion: 0.5;
+  max-width: calc(var(--max-post-width) * var(--post-width-proportion));
 }
 
 .title {
