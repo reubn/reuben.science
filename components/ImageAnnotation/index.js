@@ -34,7 +34,8 @@ const ImageAnnotation = ({image, list, children, ...props}) => {
     id,
     type,
     points,
-    title: annotations[id]?.titleOnly ? annotations[id]?.title : annotations[id]?.title ? `${id} - ${annotations[id].title}` : id,
+    title: list.getTooltip(id),
+    active: annotations[id]?.active,
     props: {
       'data-id': id,
       style: {

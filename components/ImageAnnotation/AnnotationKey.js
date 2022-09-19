@@ -33,10 +33,14 @@ const AnnotationKey = ({list, style, ...props}) => {
           onMouseEnter={() => list.setAnnotationActive(id, true)}
           onMouseLeave={() => list.setAnnotationActive(id, false)}
         >
-          <a href={`#svg-${id}`}><div className={colourIndicator} /></a>
+          <a href={`#svg-${id}`}>
+            <div className={colourIndicator}>
+              {annotation.icon}
+            </div>
+          </a>
           <div className={group}>
-            <span className={primary}>{annotation?.titleOnly ? annotation.title : id}</span>
-            {!annotation?.titleOnly && annotation?.title && <span className={secondary}>{annotation.title}</span>}
+            <span className={primary}>{list.getTitle(id)}</span>
+            {list.getDesc(id) && <span className={secondary}>{list.getDesc(id)}</span>}
           </div>
         </li>
       ))}
