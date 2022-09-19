@@ -53,6 +53,15 @@
   transform: scale(1.05);
 }
 
+.mask {
+  fill: currentColor;
+  fill-opacity: 0;
+
+  transition: fill 1s ease-in,
+}
+
+.maskActive {
+  fill-opacity: 0.5;
 }
 
 .key {

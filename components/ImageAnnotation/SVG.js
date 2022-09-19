@@ -1,4 +1,4 @@
-import {shapes as shapesStyle} from './styles'
+import {shapes as shapesStyle, mask, maskActive} from './styles'
 
 const toSvgPath = ({type, points}) => {
   if(type === 'rectangle') {
@@ -25,11 +25,33 @@ const toSvgShape = ({id, path, props}) => (
 )
 
 export default ({shapes, imageId, imageHeight, imageWidth, ...props}) => {
+  const maskD = `M${0} ${0} L${imageWidth} ${0} L${imageWidth} ${imageHeight} L${0} ${imageHeight} Z`
+
+  const highlightedShapes = shapes.filter(({active}) => active && active !== imageId)
+  const haveHighlightedShapes = highlightedShapes.length
+  const highlightedPaths = highlightedShapes.map(toSvgPath)
+
+  const [{props: {style: {color: highlightedColour}={}}={}}={}] = highlightedShapes || []
+
+  console.log(highlightedColour, highlightedShapes)
+
+  const highlightedD = `${maskD} ${highlightedPaths.join(' ')}`
+
+
   return (
     <svg viewBox={`0 0 ${imageWidth} ${imageHeight}`} {...props}>
       <g className={shapesStyle}>
         {shapes.map(shape => ({...shape, path: toSvgPath(shape)})).map(toSvgShape)}
       </g>
+      <g fillRule="evenodd" className={`${mask} ${haveHighlightedShapes && maskActive}`} style={{color: highlightedColour}}>
+      
+        <path 
+            d={haveHighlightedShapes && highlightedD}
+        />
+
+            
+      </g>
+      
     </svg>
   )
 }
