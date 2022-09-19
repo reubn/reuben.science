@@ -375,6 +375,10 @@
   display: inline;
 }
 
+.body > .marginGroup {
+  margin: var(--margin) auto;
+}
+
 .body img:not(.inline), .body video {
   max-width: 100%;
   --colours-background: transparent;

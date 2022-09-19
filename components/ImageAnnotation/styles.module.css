@@ -1,4 +1,6 @@
-.container {}
+.container {
+  composes: marginGroup from '@/components/Post/styles.module.css';
+}
 
 .imageContainer{
   position: relative;
@@ -51,6 +53,14 @@
     columns: 2;
     overflow: visible;
   }
+}
+
+.key {
+  margin: 2rem auto;
+}
+
+.container .key {
+  margin-bottom: 0;
 }
 
 .key li {
