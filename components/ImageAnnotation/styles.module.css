@@ -43,15 +43,15 @@
   transition: fill-opacity .12s ease-in, transform .06s ease-in;
 }
 
-.shapes *:hover {
+.shapes *.active {
   fill-opacity: 0.333;
-  transform: scale(1.05);
+  transform: scale(1.15);
 }
 
-.shapes *.active:not(:hover) {
+.shapes *.activeFromOther {
   fill-opacity: 0.333;
   animation: pulse 2.5s infinite;
-  animation-delay: 1.25s;
+  animation-delay: 2.5s;
 
   transform: scale(1.25);
 }

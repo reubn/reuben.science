@@ -9,7 +9,7 @@ import SVG from './SVG'
 
 import AnnotationKey from './AnnotationKey'
 
-import {container, imageContainer, active} from './styles'
+import {container, imageContainer, active, activeFromOther} from './styles'
 
 const ImageAnnotation = ({image, list, hideKey=false, children, rootProps: {className: rootClassName, ...rootProps}={}, containerProps: {className: containerClassName, ...containerProps}={}, ...props}) => {
   const {current: imageId} = useRef(Math.random())
@@ -45,7 +45,7 @@ const ImageAnnotation = ({image, list, hideKey=false, children, rootProps: {clas
       style: {
         color: annotations[id]?.colour && c(annotations[id]?.colour),
       },
-      className: annotations[id]?.active ? active : '',
+      className: annotations[id]?.active ? (annotations[id]?.active !== imageId ? activeFromOther : active) : '',
       onMouseEnter: () => list.setAnnotationActive(id, imageId),
       onMouseLeave: () => list.setAnnotationActive(id, false),
       ...annotations[id]?.props
