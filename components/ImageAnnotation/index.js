@@ -9,7 +9,7 @@ import SVG from './SVG'
 
 import {container, imageContainer, active} from './styles'
 
-const ImageAnnotation = ({image, list, children, ...props}) => {
+const ImageAnnotation = ({image, list, hideKey=false, children, rootProps: {className: rootClassName, ...rootProps}={}, containerProps: {className: containerClassName, ...containerProps}={}, ...props}) => {
   const [annotations, setAnnotations] = useState({})
 
   useEffect(() => {
@@ -50,11 +50,11 @@ const ImageAnnotation = ({image, list, children, ...props}) => {
 
   return (
     <section
-    	className={container}
-      {...props}
+    	className={`${container} ${rootClassName}`}
+      {...rootProps}
     > 
-      <div className={imageContainer}>
-        <SVG shapes={displayShapes} imageHeight={imageHeight} imageWidth={imageWidth} />
+      <div className={`${imageContainer} ${containerClassName}`} {...containerProps}>
+        <SVG imageId={imageId} shapes={displayShapes} imageHeight={imageHeight} imageWidth={imageWidth} />
         <Image image={image} {...props} />
       </div>
       {children}
