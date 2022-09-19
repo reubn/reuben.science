@@ -7,6 +7,8 @@ import Image from '@/components/Image'
 import parseLabelMe from './parseLabelMe'
 import SVG from './SVG'
 
+import AnnotationKey from './AnnotationKey'
+
 import {container, imageContainer, active} from './styles'
 
 const ImageAnnotation = ({image, list, hideKey=false, children, rootProps: {className: rootClassName, ...rootProps}={}, containerProps: {className: containerClassName, ...containerProps}={}, ...props}) => {
@@ -57,6 +59,7 @@ const ImageAnnotation = ({image, list, hideKey=false, children, rootProps: {clas
         <SVG imageId={imageId} shapes={displayShapes} imageHeight={imageHeight} imageWidth={imageWidth} />
         <Image image={image} {...props} />
       </div>
+      {!hideKey && <AnnotationKey list={list} />}
       {children}
     </section>
   )
