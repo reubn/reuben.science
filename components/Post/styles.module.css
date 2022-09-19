@@ -4,6 +4,7 @@
   --full-bleed-margin: 0px; /* calc(var(--margin) / 2); */
 
   --post-width: calc(min(100vw - var(--margin), 1000px));
+  --border-radius: 4px;
   --actual-margin: calc((100vw - var(--post-width)));
   width: var(--post-width);
 
@@ -199,7 +200,7 @@
   --colours-background: var(--colours-dark-1);
   background: var(--colours-background);
   padding: 1.5rem 2rem;
-  border-radius: 4px;
+  border-radius: var(--border-radius);
   vertical-align: middle;
 
   overflow-x: auto;
@@ -311,7 +312,7 @@
 .body blockquote, .body .key {
   padding: 1rem 2rem;
   margin: 2rem auto;
-  border-radius: 4px;
+  border-radius: var(--border-radius);
   vertical-align: middle;
 
   overflow-x: auto;
@@ -362,7 +363,7 @@
   table-layout: fixed;
   text-align: center;
   padding: 0.5rem;
-  border-radius: 4px;
+  border-radius: var(--border-radius);
 }
 
 .body th, .body td, .body tr {
@@ -414,7 +415,7 @@
 .body figure img:not(.inline) {
   width: 100%;
   margin: 0 auto;
-  border-radius: 4px 4px 0 0;
+  border-radius: var(--border-radius) var(--border-radius) 0 0;
 }
 
 .body figure figcaption {
@@ -427,7 +428,7 @@
   width: 100%;
   padding: 1rem 2rem;
   margin: 0 auto;
-  border-radius: 0 0  4px 4px;
+  border-radius: 0 0 var(--border-radius) var(--border-radius);
 }
 
 @media (max-width: 650px) {
