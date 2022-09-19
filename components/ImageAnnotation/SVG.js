@@ -1,3 +1,5 @@
+import {shapes as shapesStyle} from './styles'
+
 const toSvgPath = ({type, points}) => {
   if(type === 'rectangle') {
     const [[x1, y1], [x2, y2]] = points
@@ -25,7 +27,7 @@ const toSvgShape = ({id, path, props}) => (
 export default ({shapes, imageId, imageHeight, imageWidth, ...props}) => {
   return (
     <svg viewBox={`0 0 ${imageWidth} ${imageHeight}`} {...props}>
-      <g>
+      <g className={shapesStyle}>
         {shapes.map(shape => ({...shape, path: toSvgPath(shape)})).map(toSvgShape)}
       </g>
     </svg>
