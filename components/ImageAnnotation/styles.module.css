@@ -44,13 +44,15 @@
 }
 
 .key {
-  columns: 3;
+  --max-columns: 3;
+
+  columns: calc(min(var(--max-columns), var(--annotations-count)));
   overflow: visible;
 }
 
 @media (max-width: 650px) {
   .key {
-    columns: 2;
+    --max-columns: 2;
     overflow: visible;
   }
 }

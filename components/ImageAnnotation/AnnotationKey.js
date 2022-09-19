@@ -4,7 +4,7 @@ import c from '@/src/colour'
 
 import {key, colourIndicator, active, group, primary, secondary} from './styles'
 
-const AnnotationKey = ({list}) => {
+const AnnotationKey = ({list, style, ...props}) => {
   const [annotations, setAnnotations] = useState({})
 
   useEffect(() => {
@@ -22,8 +22,8 @@ const AnnotationKey = ({list}) => {
   }, [list])
 
   return (
-    <ul className={key}>
-      {Object.entries(annotations).map(([id, annotation]) => (
+    <ul className={key} style={{...style, '--annotations-count': annotationsEntries.length}}{...props}>
+      {annotationsEntries.map(([id, annotation]) => (
         <li
           key={id}
           data-marker=""
