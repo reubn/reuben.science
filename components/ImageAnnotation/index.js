@@ -1,4 +1,4 @@
-import {useState, useEffect} from 'react'
+import {useState, useEffect, useRef} from 'react'
 
 import c from '@/src/colour'
 
@@ -12,6 +12,8 @@ import AnnotationKey from './AnnotationKey'
 import {container, imageContainer, active} from './styles'
 
 const ImageAnnotation = ({image, list, hideKey=false, children, rootProps: {className: rootClassName, ...rootProps}={}, containerProps: {className: containerClassName, ...containerProps}={}, ...props}) => {
+  const {current: imageId} = useRef(Math.random())
+
   const [annotations, setAnnotations] = useState({})
 
   useEffect(() => {
@@ -44,7 +46,7 @@ const ImageAnnotation = ({image, list, hideKey=false, children, rootProps: {clas
         color: annotations[id]?.colour && c(annotations[id]?.colour),
       },
       className: annotations[id]?.active ? active : '',
-      onMouseEnter: () => list.setAnnotationActive(id, true),
+      onMouseEnter: () => list.setAnnotationActive(id, imageId),
       onMouseLeave: () => list.setAnnotationActive(id, false),
       ...annotations[id]?.props
     }

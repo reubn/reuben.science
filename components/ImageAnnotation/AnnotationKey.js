@@ -30,7 +30,7 @@ const AnnotationKey = ({list, style, ...props}) => {
           id={`key-${id}`}
           style={{'--colour': c(annotation.colour)}}
           className={annotation.active ? active : ''}
-          onMouseEnter={() => list.setAnnotationActive(id, true)}
+          onMouseEnter={() => list.setAnnotationActive(id, 'key')}
           onMouseLeave={() => list.setAnnotationActive(id, false)}
         >
           <a href={`#svg-${id}`}>
