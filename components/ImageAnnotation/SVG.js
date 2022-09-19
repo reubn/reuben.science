@@ -1,14 +1,8 @@
-const toSvgShape = ({id, title, type, points, props}) => {
+const toSvgPath = ({type, points}) => {
   if(type === 'rectangle') {
     const [[x1, y1], [x2, y2]] = points
 
-    return (
-      <a href={`#key-${id}`} id={`svg-${id}`}>
-        <rect x={x1} y={y1} width={x2 - x1} height={y2 - y1} {...props}>
-        <title>{title}</title>
-        </rect>
-      </a>
-    )
+    return `M${x1} ${y1} L${x2} ${y1} L${x2} ${y2} L${x1} ${y2} Z`
   }
 
   if(type === 'circle') {
@@ -16,28 +10,24 @@ const toSvgShape = ({id, title, type, points, props}) => {
     
     const radius = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2))
 
-    return (
-      <a href={`#key-${id}`} id={`svg-${id}`}>
-        <circle cx={x1} cy={y1} r={radius} {...props}>
-          <title>{title}</title>
-        </circle>
-      </a>
-    )
+    return `M${x1} ${y1} m${-radius} 0 a${radius} ${radius} 0 1 0 ${radius * 2} 0 a${radius} ${radius} 0 1 0 ${-radius * 2} 0`
   }
 
-  return (
-    <a href={`#key-${id}`} id={`svg-${id}`}>
-      <polygon points={points.map(([x, y]) => `${x},${y}`).join(' ')} {...props}>
-        <title>{title}</title>
-      </polygon>
-    </a>
-  )
+  return `M${points.map(([x, y]) => `${x},${y}`).join(' L')} Z`
 }
 
-export default ({shapes, imageHeight, imageWidth, ...props}) => {
+const toSvgShape = ({id, path, props}) => (
+  <a href={`#key-${id}`} id={`svg-${id}`}>
+    <path d={path} {...props} />
+  </a>
+)
+
+export default ({shapes, imageId, imageHeight, imageWidth, ...props}) => {
   return (
     <svg viewBox={`0 0 ${imageWidth} ${imageHeight}`} {...props}>
-      {shapes.map(toSvgShape)}
+      <g>
+        {shapes.map(shape => ({...shape, path: toSvgPath(shape)})).map(toSvgShape)}
+      </g>
     </svg>
   )
 }
