@@ -21,6 +21,8 @@ const AnnotationKey = ({list, style, ...props}) => {
     }
   }, [list])
 
+  const annotationsEntries = Object.entries(annotations)
+
   return (
     <ul className={key} style={{...style, '--annotations-count': annotationsEntries.length}}{...props}>
       {annotationsEntries.map(([id, annotation]) => (
