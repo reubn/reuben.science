@@ -34,10 +34,30 @@ const toSvgShape = ({id, title, type, points, props}) => {
   )
 }
 
+// import {useRef, useEffect, useState} from 'react'
 
 export default ({shapes, imageHeight, imageWidth, ...props}) => {
+/*   const svgRef = useRef()
+  const [pixelFactor, setPixelFactor] = useState(1)
+
+
+  useEffect(() => {
+    const {current: svg} = svgRef
+    const handler = () => {
+      const {width} = svg.getBoundingClientRect()
+      const pixelFactor = imageWidth / width
+
+      setPixelFactor(pixelFactor)
+    }
+
+    const resizeObserver = new ResizeObserver(handler)
+    resizeObserver.observe(svg)
+    
+    return () => resizeObserver.unobserve(svg)
+  }, [svgRef])
+ */
   return (
-    <svg viewBox={`0 0 ${imageWidth} ${imageHeight}`} {...props}>
+    <svg /* ref={svgRef} */ viewBox={`0 0 ${imageWidth} ${imageHeight}`} /* style={{'--pixelFactor': 1}} */ {...props}>
       {shapes.map(toSvgShape)}
     </svg>
   )
