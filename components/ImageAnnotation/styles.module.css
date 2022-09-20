@@ -50,7 +50,7 @@
 
 .shapes *.activeFromOther {
   fill-opacity: 0.333;
-  animation: pulse 1.25s infinite cubic-bezier(.53,1.26,.91,.91) 3s;
+  animation: pulse 1.25s infinite cubic-bezier(.53,1.26,.91,.91) 2s;
 
   transform: scale(1.25);
 }
