@@ -28,7 +28,12 @@ export default ({shapes, imageId, imageHeight, imageWidth, ...props}) => {
   return (
     <svg viewBox={`0 0 ${imageWidth} ${imageHeight}`} {...props}>
       <g className={shapesStyle}>
-        {shapes.map(shape => ({...shape, path: toSvgPath(shape)})).map(toSvgShape)}
+        { 
+          shapes
+          .sort(({active: a}, {active: b}) => (a ? 1 : 0) - (b ? 1 : 0))
+          .map(shape => ({...shape, path: toSvgPath(shape)}))
+          .map(toSvgShape)
+        }
       </g>
     </svg>
   )
