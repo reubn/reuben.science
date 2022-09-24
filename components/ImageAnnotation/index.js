@@ -34,12 +34,14 @@ const ImageAnnotation = ({image, list, hideKey=false, children, rootProps: {clas
 
   const {shapes, imageHeight, imageWidth} = parseLabelMe(json)
 
-  const displayShapes = shapes.map(({id, type, points}) =>({
+  const displayShapes = shapes.map(({id, type, points}, index) =>({
     id,
     type,
     points,
     title: list.getTooltip(id),
+    tooltip: list.getTooltip(id),
     active: annotations[id]?.active,
+    index,
     props: {
       'data-id': id,
       style: {

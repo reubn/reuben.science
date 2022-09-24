@@ -18,9 +18,11 @@ const toSvgPath = ({type, points}) => {
   return `M${points.map(([x, y]) => `${x},${y}`).join(' L')} Z`
 }
 
-const toSvgShape = ({id, path, props}) => (
-  <a href={`#key-${id}`} id={`svg-${id}`}>
-    <path d={path} {...props} />
+const toSvgShape = ({id, path, props, tooltip, index}) => (
+  <a href={`#key-${id}`} id={`svg-${id}`} key={`${id}-${index}`}>
+    <path d={path} {...props}>
+      <title>{tooltip}</title>
+    </path>
   </a>
 )
 
