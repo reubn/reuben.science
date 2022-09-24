@@ -1,0 +1,175 @@
+import ImageAnnotation, {AnnotationKey, AnnotationList} from '@/components/ImageAnnotation'
+import Image from '@/components/Image'
+
+import {marginGroup, halfWidth} from '@/components/Post/styles'
+
+import {sideBySide} from './styles'
+
+import header from './images/header.webp'
+
+export const metadata = {
+  title: 'Hacking my Wireless Doorbell',
+  description: 'Making a 433MHz Doorbell Speak 2.4GHz',
+  emoji: '🔔',
+  date: '2022-09-24',
+  category: ['dev', 'hardware', 'automation'],
+  image: header
+}
+
+export const commonAnnotations = {
+  VCC: {colour: 'red', desc: '5V', icon: '+'},
+  GND: {colour: 'dark', desc: 'Ground', icon: '-'},
+  DOUT: {colour: 'green', desc: 'Digital Out From SYN590R'},
+}
+
+I wanted a doorbell that I could integrate with my Home Assistant setup over `WiFi`. I found ~~a cheap~~ the cheapest `433MHz` doorbell on Amazon and away I went.
+The doorbell in question is a [stechro](https://amzn.to/3QR5TNi) that I got for `~£8` delivered. It seems to be a relabelled [KERUI `M523`](https://www.aliexpress.com/item/4000129230887.html). It takes a user-replaceable `CR2032`, and it works! Time will tell if it's waterproof. 
+
+# Attempt 1
+My first thought was to use an `XY-MK-5V` (also labelled `MX-RM-5V`, `XD-RF-5V`) `433MHz` receiver board, and hook that up to the `ESP8266`. These boards do work, but they're definitively at the lower limit of what's functional. They consist of a minimal resonator circuit and op-amp, and often come with various passives missing 👀. They are however — *again* — very cheap.
+
+import IMG_4536 from './images/IMG_4536.webp'
+
+export const XYMK5VList = new AnnotationList({
+  ...commonAnnotations,
+
+  ANT: {colour: 'hsl(72, 100%, 50%)', title: 'Antenna Connection Point'},
+
+  LM358: {colour: 'hsl(40, 100%, 50%)', desc: 'Op Amp'},
+  ADJ: {colour: 'aqua', title: 'Tuning Potentiometer'},
+
+  COIL: {colour: 'hsl(20, 100%, 50%)', title: 'Coil'},
+  RES: {colour: 'hsl(0, 0%, 50%)', title: 'Missing Resistor', icon: '?'},
+})
+
+<ImageAnnotation image={IMG_4536} list={XYMK5VList} alt="KERUI-M523 Circuit Top View" />
+ 
+They don't come with any sort of antenna, and so in their naked state, have a range of a few centimetres. 
+
+I fashioned a simple `1/4` wave antenna from some wire, and I tested it up to `10m`, but the directionality was too high for reliable use with the doorbell. Pulling this off would have meant designing a custom enclosure with the ability to position the antenna accurately. So I changed tack.
+
+import IMG_4473 from './images/IMG_4473.webp'
+
+export const attemptOneList = new AnnotationList({
+  ANT: {colour: 'hsl(268, 100%, 50%)', title: 'Dipole Antenna', desc: '½ Wave'},
+  'XY-MK-5V': {colour: 'hsl(350, 100%, 50%)', desc: '433MHz Receiver Board'},
+})
+
+<ImageAnnotation image={IMG_4473} list={attemptOneList} alt="ESP8266 w/ XY-MK-5V + Copper Wire 1/4 Dipole Antenna" rootProps={{className: halfWidth}} />
+
+# The Receiver
+The receiver has a `PCB` antenna manufactured with much more precision than my hand-made copper wire job, and indeed the range of the doorbell when paired with its receiver was much much better, and had no issues with directionality. This being the case I planned to reuse the antenna.
+
+Opening it up, the receiver consists of a `5V` power supply, the receiver circuitry with antenna, and a microcontroller to decode the signal, and play one of the various annoying tunes from its speaker.
+
+Importantly, the board includes a `SYN590R` `433MHz` `ASK` receiver `IC` from Synoxo. This replaces the `XY-5V-MK`, and has much better performance.
+
+After probing around, I found the power rails, and the data output from the `SYN590R` all exposed, the latter on a test pad. This was really helpful, and meant that I could plug these straight into the `ESP8266` without any additional circuitry[^5vt].
+
+I decided to decode this output instead of listening for the receiver to 'chime' as this way, I'll be able to listen for more than one transmitter in the future, and respond to them individually.
+
+export const circuitList = new AnnotationList({
+  L: {colour: 'hsl(37, 84%, 19%)', desc: 'Live'},
+  N: {colour: 'hsl(218, 100%, 25%)', desc: 'Neutral'},
+
+  ...commonAnnotations,
+  
+  PROG1: {colour: 'hsl(200, 100%, 50%)', desc: 'Programming Pin'},
+  PROG2: {colour: 'hsl(230, 100%, 50%)', desc: 'Programming Pin'},
+
+  ANT: {colour: 'hsl(72, 100%, 50%)', desc: 'PCB Antenna'},
+
+  SYN590R: {colour: 'pink-red', desc: 'ASK Receiver'},
+  FT61FC23: {colour: 'hsl(20, 100%, 50%)', desc: 'Microcontroller'},
+  'KR-060': {colour: 'hsl(30, 100%, 50%)', desc: 'Speaker Driver?'},
+
+  KP3210SG: {colour: 'hsl(40, 100%, 50%)', desc: 'SMPS IC'},
+  MB10SU: {colour: 'hsl(50, 100%, 50%)', desc: 'Bridge Rectifier'},
+  
+  SPK: {colour: 'hsl(60, 100%, 50%)', desc: 'Speaker Connector'},
+  LED: {colour: 'hsl(280, 100%, 50%)', desc: 'RGB'},
+})
+
+import TOP from './images/TOP.webp'
+import BOTTOM from './images/BOTTOM.webp'
+
+import IMG_4492 from './images/IMG_4492.webp'
+import IMG_4493 from './images/IMG_4493.webp'
+
+<section className={marginGroup}>
+  <section className={sideBySide}>
+    <ImageAnnotation image={TOP} list={circuitList} alt="KERUI-M523 Circuit Top View" hideKey />
+    <ImageAnnotation image={BOTTOM} list={circuitList} alt="KERUI-M523 Circuit Bottom View" hideKey />
+  </section>
+
+  <AnnotationKey list={circuitList} />
+
+  <section className={sideBySide}>
+    <ImageAnnotation image={IMG_4492} list={circuitList} alt="KERUI-M523 Circuit w/ Kapton + Wires" hideKey />
+    <ImageAnnotation image={IMG_4493} list={circuitList} alt="KERUI-M523 Circuit w/ WEMOS D1 Mini" hideKey />
+  </section>
+</section>
+
+The receiver housing had enough room to fit a [`WEMOS D1 Mini`](https://www.wemos.cc/en/latest/d1/d1_mini_3.1.0.html), so I Kapton'd the original board and mounted the `D1 Mini` directly on top. This keeps everything in the original housing.
+
+# ESP8266
+
+On the software side, I'm using the [`rc-switch`](https://github.com/sui77/rc-switch) library to decode the receiver output. 
+
+This is an amazing library that takes all the complexity out of decoding the signal and spits out the value transmitted together with the encoding. 
+
+The decoded information is relayed over `HTTP` to a Home Assistant [webhook](https://www.home-assistant.io/docs/automation/trigger/#webhook-trigger), where the data transmitted is matched, and actioned appropriately. 
+
+```cpp
+... 
+
+#include <RCSwitch.h>
+
+...
+
+RCSwitch rc = RCSwitch();
+
+void setupRadio() {
+  rc.enableReceive(D2);
+}
+
+void loopRadio() {
+  if (rc.available()) {
+
+    String json;
+
+    StaticJsonDocument<512> document;
+
+    document["decimal"] = rc.getReceivedValue();
+    document["length"] = rc.getReceivedBitlength();
+    document["delay"] = rc.getReceivedDelay();
+    document["protocol"] = rc.getReceivedProtocol();
+    // document["raw"] = rc.getReceivedRawdata();
+
+    serializeJson(document, json);
+
+    http.begin(client, configuration.triggerURL); //HTTP
+    http.addHeader("Content-Type", "application/json");
+    http.POST(json);
+    http.end();
+
+    rc.resetAvailable();
+  }
+}
+
+...
+```
+
+The same could be achieved with [ESPHome](https://esphome.io/components/remote_transmitter.html#remote-setting-up-rf), which is probably a better option.
+
+# Home Assistant
+
+On receiving a doorbell event, I've used my `node.js` Home Assistant scripting platform[^hAJS] to run some logic based on who's at home, who's asleep…etc, and then notify the appropriate people, who can accept or decline the door call, triggering further logic.
+
+import IMG_4500 from './images/IMG_4500.webp'
+
+<Image image={IMG_4500} alt="iOS Doorbell Notification" style={{maxWidth: '50%'}} />
+
+[^5vt]: The I/O on the `ESP8266` [is `5V` tolerant](https://twitter.com/ba0sh1/status/759239169071837184). 
+[^hAJS]: possibly coming soon
+
