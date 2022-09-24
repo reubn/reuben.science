@@ -20,8 +20,8 @@ const digitWidthReducer = (sum, digit, index, {length}) => {
   if(length === 1) return 1 // if string is single digit, length should be 1
 
   const widths = [
-    [0.5, '.'],
-    [0.75, '1']
+    [0.5, 'li.,;:|\'\"`'],
+    [0.75, '1!()/\\[]{}']
   ]
 
   return sum + (widths.find(([_, chars]) => chars.includes(digit))?.[0] ?? 1)
@@ -37,7 +37,8 @@ export const ServingsControl = ({scale, servingsAsWritten, servingsChanged, scal
   const previousScaleOutRef = useRef()
 
   const servings = scale * servingsAsWritten
-  const name = servings !== 1 ? plural : singular
+  const isPlural = servings !== 1
+  const name = isPlural ? plural : singular
 
   const [localServings, _setLocalServings] = useState(makeServingsState(servings))
   const [localScale, _setLocalScale] = useState(makeScaleState(scale))
@@ -125,6 +126,12 @@ export const ServingsControl = ({scale, servingsAsWritten, servingsChanged, scal
   const servingsDigits = (localServings.string || servingsUsedInRecipe).split('').reduce(digitWidthReducer, 0)
   const scaleDigits = localScale.string.split('').reduce(digitWidthReducer, 0)
 
+  const pluralLetters = plural.split('').reduce(digitWidthReducer, 0)
+  const singularLetters = singular.split('').reduce(digitWidthReducer, 0)
+
+  const maxLetters = Math.max(pluralLetters, singularLetters)
+  const letters = isPlural ? pluralLetters : singularLetters
+
   return (
     <div className={`${tldr} ${container}`}>
       <div className={content}>
@@ -154,8 +161,8 @@ export const ServingsControl = ({scale, servingsAsWritten, servingsChanged, scal
            type="text"
            className={servingsName}
            style={{
-             '--maxLetters': Math.max(plural.length, singular.length),
-             '--letters': name.length
+             '--maxLetters': maxLetters,
+             '--letters': letters
            }}
 
            value={name}

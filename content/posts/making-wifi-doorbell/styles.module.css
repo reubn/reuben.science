@@ -1,0 +1,25 @@
+.group {
+  margin: var(--margin) auto;
+}
+
+.sideBySide {
+  display: flex;
+}
+
+@media (max-width: 550px) {
+  .sideBySide {
+    flex-direction: column;
+  }
+}
+
+.sideBySide > * {
+  margin: 0.5rem;
+}
+
+.sideBySide > *:first-child {
+  margin-left: 0;
+}
+
+.sideBySide > *:last-child {
+  margin-right: 0;
+}

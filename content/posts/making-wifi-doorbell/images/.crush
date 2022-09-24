@@ -1,0 +1,40 @@
+header.png
+@0.5x: -near_lossless 20
+@1x: -near_lossless 20
+@2x: -q 80
+@3x: -q 75
+
+BOTTOM.png
+@0.5x: -q 100
+@1x: -q 92
+@2x: -q 75
+
+TOP.png
+@0.5x: -q 100
+@1x: -q 92
+@2x: -q 75
+
+IMG_4492.png
+@0.5x: -q 100
+@1x: -q 92
+@2x: -q 75
+
+IMG_4493.png
+@0.5x: -q 100
+@1x: -q 92
+@2x: -q 75
+
+IMG_4500.png
+@0.5x: -q 100
+@1x: -q 92
+@2x: -q 75
+
+IMG_4473.png
+@0.5x: -q 100
+@1x: -q 92
+@2x: -q 75
+
+IMG_4536.png
+@0.5x: -q 100
+@1x: -q 92
+@2x: -q 75

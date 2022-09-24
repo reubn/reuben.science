@@ -31,7 +31,7 @@ function visitor(node, index, parent) {
 
   const properties = {
     className: (parent.properties.className || []).concat('language-' + lang),
-    metastring: node.properties.metastring ? `${(lang && commentLookup[lang]?.[0]) || '//'} ${node.properties.metastring}` : undefined
+    metastring: node.data?.meta ? `${(lang && commentLookup[lang]?.[0]) || '//'} ${node.data?.meta}` : undefined
   }
 
   node.properties = properties

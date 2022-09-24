@@ -6,6 +6,8 @@
 
   width: 40%;
   height: auto;
+
+  overflow: visible;
 }
 
 @media (max-width: 650px) {
