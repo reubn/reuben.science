@@ -45,7 +45,7 @@
   transition: fill-opacity .12s ease-in, transform .06s ease-in;
 }
 
-.shapes *.active {
+.shapes *.active, .shapes *:hover {
   fill-opacity: 0.333;
   transform: scale(calc((var(--size) + (10 * var(--render-scale))) / var(--size)));
 }
