@@ -72,7 +72,7 @@ export default function Home({posts, snippets, photos}) {
 export const getStaticProps = async () => ({
   props: {
     posts: (await listPosts(0, 4)).map(dehydratePost),
-    snippets: (await listSnippets(0, 4)).map(dehydrateSnippet),
+    snippets: (await listSnippets(0, 2)).map(dehydrateSnippet),
     photos: await getPhotos(0, 8)
   }
 })
