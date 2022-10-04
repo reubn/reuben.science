@@ -63,6 +63,10 @@
   color: var(--colours-mid);
 }
 
+.description p {
+  line-height: 1.25;
+}
+
 .emoji {
   display: flex;
   justify-content: space-evenly;
