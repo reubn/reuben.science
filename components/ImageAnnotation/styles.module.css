@@ -22,6 +22,8 @@
   width: 100%;
   height: 100%;
   pointer-events: none;
+
+  --render-scale: calc(var(--viewBox-width) / var(--render-width));
 }
 
 .shapes * {
@@ -39,39 +41,33 @@
 
   stroke-linecap: round;
   stroke-linejoin: round;
-
+  
   transition: fill-opacity .12s ease-in, transform .06s ease-in;
 }
 
 .shapes *.active {
   fill-opacity: 0.333;
-  transform: scale(1.15);
+  transform: scale(calc((var(--size) + (10 * var(--render-scale))) / var(--size)));
 }
 
 .shapes *.activeFromOther {
   fill-opacity: 0.333;
   animation: pulse 1.25s infinite cubic-bezier(.53,1.26,.91,.91) 2s;
 
-  transform: scale(1.25);
+  transform: scale(calc((var(--size) + (15 * var(--render-scale))) / var(--size)));
 }
 
 @keyframes pulse {
   0% {
-    transform: scale(1.25);
+    transform: scale(calc((var(--size) + (15 * var(--render-scale))) / var(--size)));
     opacity: 1;
   }
-  25% {
-    opacity: 0.5;
-  }
-  50% {
-    opacity: 0.333;
-  }
   75% {
-    transform: scale(3);
+    transform: scale(calc((var(--size) + (50 * var(--render-scale))) / var(--size)));
     opacity: 0;
   }
   100% {
-    transform: scale(1);
+    transform: scale(calc((var(--size) + (15 * var(--render-scale))) / var(--size)));
     opacity: 0;
   }
 }
