@@ -19,11 +19,9 @@ const toSvgPath = ({type, points}) => {
 }
 
 const toSvgShape = ({id, path, props, tooltip, index}) => (
-  <a href={`#key-${id}`} id={`svg-${id}`} key={`${id}-${index}`}>
-    <path d={path} {...props}>
-      <title>{tooltip}</title>
-    </path>
-  </a>
+  <path d={path} id={`svg-${id}`} key={`${id}-${index}`} {...props}>
+    <title>{tooltip}</title>
+  </path>
 )
 
 export default ({shapes, imageId, imageHeight, imageWidth, ...props}) => {
