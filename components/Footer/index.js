@@ -1,10 +1,10 @@
-import {Camera, Twitter, Instagram, GitHub, Mail, Code} from 'react-feather'
+import {Camera, Twitter, AtSign, Instagram, Github, Mail, Code} from 'lucide-react'
 
 import {useRouter} from 'next/router'
 
 import ActiveLink from '../ActiveLink'
 
-import {footer, icons, icon, unsplash, github, mail, twitter, instagram, code} from './styles'
+import {footer, icons, icon, unsplash, github, mail, twitter, instagram, mastodon, code} from './styles'
 
 const localPart = 'me'
 
@@ -46,13 +46,16 @@ const Footer = () => {
           <Camera className={icon} />
         </a>
         <a href="//github.com/reubn" className={github} title="GitHub">
-          <GitHub className={icon} />
+          <Github className={icon} />
         </a>
         <a href="mailto:click.to.reveal@email.com" onClick={e => (window.location.href = `mailto:${localPart}@${process.env.NEXT_PUBLIC_DOMAIN}`, e.preventDefault())} className={mail} title="Email">
           <Mail className={icon} />
         </a>
         <a href="//twitter.com/reubn_" className={twitter} title="Twitter">
           <Twitter className={icon} />
+        </a>
+        <a rel="me" href="https://mastodon.social/@Reu" className={mastodon} title="Mastodon">
+          <AtSign className={icon} />
         </a>
         <a href="//instagram.com/reubn" className={instagram} title="Instagram">
           <Gradient />

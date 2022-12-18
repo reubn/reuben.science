@@ -1,4 +1,4 @@
-import {ChevronRight} from 'react-feather'
+import {ChevronRight} from 'lucide-react'
 
 import ActiveLink from '../ActiveLink'
 
