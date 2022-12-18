@@ -1,4 +1,4 @@
-import {Camera, Twitter, Instagram, GitHub, Mail, Code} from 'react-feather'
+import {Camera, Twitter, Instagram, Github, Mail, Code} from 'lucide-react'
 
 import {useRouter} from 'next/router'
 
@@ -46,7 +46,7 @@ const Footer = () => {
           <Camera className={icon} />
         </a>
         <a href="//github.com/reubn" className={github} title="GitHub">
-          <GitHub className={icon} />
+          <Github className={icon} />
         </a>
         <a href="mailto:click.to.reveal@email.com" onClick={e => (window.location.href = `mailto:${localPart}@${process.env.NEXT_PUBLIC_DOMAIN}`, e.preventDefault())} className={mail} title="Email">
           <Mail className={icon} />
