@@ -44,6 +44,9 @@
 .twitter:hover svg {
   stroke: hsl(203, 90%, 54%);
 }
+.mastodon:hover svg {
+  stroke: #6364FF;
+}
 
 .instagram svg {
   stroke: url(#instagram);
