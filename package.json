@@ -16,7 +16,7 @@
     "@next/mdx": "^12.3.1",
     "@react-hook/size": "^2.1.2",
     "@react-spring/three": "^9.5.5",
-    "@react-three/drei": "^9.40.0",
+    "@react-three/drei": "^9.50.3",
     "@react-three/fiber": "^8.8.9",
     "@react-three/postprocessing": "^2.7.0",
     "@use-gesture/react": "^10.2.22",
