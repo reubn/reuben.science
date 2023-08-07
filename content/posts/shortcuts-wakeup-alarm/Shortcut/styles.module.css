@@ -1,0 +1,45 @@
+
+.shortcut {
+  width: var(--width);
+  height: calc(var(--width) * 0.681);
+
+  border-radius: 1.1rem;
+
+  color: #fff;
+  padding: 1rem;
+
+  position: relative;
+
+  cursor: pointer;
+  margin: 0;
+
+  overflow: hidden;
+}
+
+.icon {
+  fill: #fff;
+  width: 1.25rem;
+}
+
+.shortcut p {
+  margin: 0;
+
+  position: absolute;
+  bottom: 0.75rem;
+
+  font-family: -apple-system, BlinkMacSystemFont, var(--font-family);
+  font-size: 0.9rem;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.shortcutsGroup {
+  --width: 10rem;
+  display: grid;
+  gap: 0.5rem;
+  grid-template-columns: repeat(auto-fill, var(--width));
+}
+
+.shortcutsGroup > * {
+  margin: 0;
+}

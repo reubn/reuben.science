@@ -6,6 +6,15 @@ class LangDocument extends Document {
       <Html lang="en">
         <Head />
         <body>
+        {process.env.NODE_ENV !== 'production' && <script dangerouslySetInnerHTML={{ __html: `
+  window.addEventListener('error', event => {
+    event.stopImmediatePropagation()
+  })
+
+  window.addEventListener('unhandledrejection', event => {
+    event.stopImmediatePropagation()
+  })
+` }} />}
           <Main />
           <NextScript />
         </body>

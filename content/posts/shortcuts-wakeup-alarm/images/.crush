@@ -1,0 +1,11 @@
+header.png
+@0.5x: -lossless 0
+@1x: -lossless 0
+@2x: -lossless 0
+@3x: -q 99
+
+toggleOff.png
+@1x: -lossless 0
+
+IMG_5559.png, IMG_5560.png, IMG_5561.png, IMG_5562.png
+@1x: -q 92
