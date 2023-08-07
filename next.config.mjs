@@ -86,7 +86,7 @@ const config = {
     })
 
     config.module.rules.push({
-        test: /(\.(webm|mp4|svg)$)|(\/postFiles\/)/i,
+        test: /(\.(webm|mp4|svg)$)|(\/postFiles\/)|(fileURL)/i,
         loader: 'file-loader',
         options: fileOptions
     })
