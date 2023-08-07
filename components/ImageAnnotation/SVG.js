@@ -54,7 +54,6 @@ const toSvgShape = ({id, path, dimensions: {width, height}, props, tooltip, inde
 
 export default ({shapes, imageId, imageHeight, imageWidth, ...props}) => {
   const {ref, rect} = useResize() 
-  console.log({rect})
 
   return (
     <svg ref={ref} viewBox={`0 0 ${imageWidth} ${imageHeight}`} style={{'--render-width': rect?.width, '--viewBox-width': imageWidth}} {...props}>
