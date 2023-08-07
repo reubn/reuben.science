@@ -5,7 +5,7 @@
    <description>RSS</description>
    <language>en</language>
    <link>https://reuben.science</link>
-   <lastBuildDate>Fri, 30 Dec 2022 18:28:52 GMT</lastBuildDate>
+   <lastBuildDate>Mon, 07 Aug 2023 09:39:04 GMT</lastBuildDate>
    <atom:link href="https://reuben.science/rss.xml" rel="self" type="application/rss+xml" />
    <item>
   <title>The Ultimate Adventure Maps</title>
@@ -54,6 +54,12 @@
   <description>Making a 433MHz Doorbell Speak 2.4GHz</description>
   <link>https://reuben.science/posts/making-wifi-doorbell</link>
   <pubDate>Sat, 24 Sep 2022 00:00:00 GMT</pubDate>
+</item>
+<item>
+  <title>Wakeup Lights with Shortcuts</title>
+  <description>Sunrise Lights using Shortcuts, and Home Assistant</description>
+  <link>https://reuben.science/posts/shortcuts-wakeup-alarm</link>
+  <pubDate>Mon, 07 Aug 2023 00:00:00 GMT</pubDate>
 </item>
 <item>
   <title>Perfect Sourdough Pizza</title>
