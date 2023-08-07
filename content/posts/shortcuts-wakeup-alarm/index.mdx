@@ -1,0 +1,214 @@
+import Image from '@/components/Image'
+import header from './images/header.webp'
+
+export const metadata = {
+  title: 'Wakeup Lights with Shortcuts',
+  description: 'Sunrise Lights using Shortcuts, and Home Assistant',
+  emoji: '💡',
+  date: '2023-08-07',
+  category: ['dev', 'automation'],
+  image: header
+}
+
+I wake up better in the summer than the winter. I think this is due in large part to the abundance of natural light coming through the windows in the morning. In the winter, when the days are short and the nights long, waking up without this light is often inevitable. 
+
+I wanted to try and emulate this *natural* wakeup in the mornings all year round. 
+
+I have an extensive [Home Assistant]() set up, so this wouldn't initially seem very involved. My wakeup schedule changes frequently however, and I wanted a system that could easily change with this, whilst not relying on me to remember.
+
+# Bedtime
+I already use the [Bedtime](https://support.apple.com/en-gb/HT208655) scheduling and alarms on my iPhone, so in this post I'll discuss how I bridged the gap between Home Assistant and iOS Bedtime system.
+
+Bedtime on iOS is a mess. It consists of 3 main aspects:
+- a Focus Mode that dims the display when locked and hides notifications etc.
+- the wakeup alarms
+- a sleep schedule with reminders to 'wind down', that automatically activates the Focus Mode, and wakeup alarms
+
+There is no unified point of access or coordination for these features:
+**Wakeup alarms** are visible and are managed in the **Clock app**, along with normal alarms. Wakeup alarms are set based on a **sleep schedule** that determines what days the alarm is active, and is managed in the **Health app**. The **Focus Mode** is managed through the **Focus Mode settings** and **Control Centre**.
+
+From the schedule and its days and wakeup times, alarms appear in the **Clock app** under **'Sleep | Wake Up'**.
+
+When editing a wakeup alarm, you can opt to change the next alarm, or the whole schedule. 
+
+# What are we trying to build?
+In short, the flow of the system should be:
+1. Detect the next wakeup alarm time
+2. `30min` before this alarm goes off, start fading the bedroom lights up
+
+While simple in principle, there are plenty of complications that make this somewhat awkward to achieve. And so there's a fair few steps that we'll have to work through to achieve this.
+
+# Adventures in the Walled Garden
+The first step of this process is to get the details of the active Bedtime wakeup alarm. Being in Apple's closed-off ecosystem this is not easy. There is no system API to access the information. The only place that this is accessible is via the **Shortcuts app**.
+
+The Shortcuts app is the newer, prettier, less capable evolution of macOS' Automator. It's slow, unpredictable, lacking in capability and incredible esoteric. As we'll come to see, it's also very buggy. It it does work, it's just frustrating that with some love and attention it could be **so much** better!
+
+Shortcuts allows us to get most of the details for the alarms. However, the alarms displayed in the Clock app do not always match what can be queried from Shortcuts.
+
+For example, modifying the next occurrence of an alarm will result in 2 alarms:
+- the original scheduled alarm
+- another alarm to represent the modified occurrence
+
+Only 1 alarm is shown in the app. This is understandable. What isn't is that **we are not told which alarms are enabled or disabled**: so if the user skips tomorrows alarm, we don't know this. 
+
+In most circumstances we can however infer the status of the alarm. The interactions that are possible with a Bedtime alarm, and the resulting alarms we'll receive in our Shortcut are as followed:
+
+
+import StatesDiagram from './images/StatesDiagram.js'
+
+<StatesDiagram style={{width: '100%'}}/>
+
+There can still be ambiguity between the returned alarms and the next alarm time.
+We can't solve this at present, so I've opted to work out the most likely next alarm time, prompt the user, and allow them to clarify, if the next alarm time is wrong.
+
+import IMG_5562 from './images/IMG_5562.webp'
+import IMG_5560 from './images/IMG_5560.webp'
+
+<section style={{display: 'flex'}}>
+  <Image image={IMG_5562} alt="Confirming that Alarm will Run" style={{maxWidth: '50%'}} />
+  <Image image={IMG_5560} alt="Selecting Active Alarm" style={{maxWidth: '50%'}} />
+</section>
+
+import IMG_5561 from './images/IMG_5561.webp'
+import IMG_5559 from './images/IMG_5559.webp'
+
+<section style={{display: 'flex'}}>
+  <Image image={IMG_5561} alt="Selecting Alarm time" style={{maxWidth: '50%'}} />
+  <Image image={IMG_5559} alt="Confirming that no Alarm will Run" style={{maxWidth: '50%'}} />
+</section>
+
+The logic to implement this would be very difficult to achieve in Shortcuts alone. Our escape hatch is the ability to load a `HTML` page in our Shortcut, and  run arbitrary **synchronous** `JavaScript` to calculate the next alarm that will be enabled and the time it will go off at.
+
+To assist in provide data to our script, handling errors, and getting values back out, I've written a helper Shortcut and small `JS` function.
+
+```js
+const shortcutsRuntime = (run, _input=input) => {
+  const output = {input: _input}
+
+  try {
+    run(_input, output)
+    document.write(JSON.stringify(output))
+  }
+  catch(error) {
+    document.write(JSON.stringify({error: error.message, stack: error.stack, ...output}))
+    throw error
+  }
+}
+
+// USAGE:
+shortcutsRuntime((input, output) => {
+  if(!input.a.length) throw new Error('a is empty')
+
+  output.returnValueA = input.a.replace(/apple/g, 'quince')
+  output.returnValueB = input.b.replace(/oyster/g, 'mushroom')
+}, /*{a: 'apples', b: 'scarlet elf cups'}*/)
+
+```
+
+# Scheduling the Fade
+
+Now that we have the next alarm time, we need to set the lights to start fading up `30min` before.
+
+Shortcuts only proper method of delaying executing of code is the 'Wait' action. This is limited to the life of the `Shortcut Runner` - which is often shut down in the background - making it unreliable. There are some hacks with Reminders[^reminders], but these also have caveats.
+
+Home Assistant also doesn't make scheduling one off events easy, so I've opted to run a small `Node.js` application that handles scheduling and performing the fading via the Home Assistant [WebSocket API](https://developers.home-assistant.io/docs/api/websocket).
+
+The alarms are sent to the application, along with the desired wakeup time, and timers are set and persisted to a `SQLite` database for increased resilience if the application crashes. At the appropriate time the application starts to fade in the bedroom lights via the Home Assistant API.
+
+# Fading
+Home Assistant lights support fading via the [`transition`](https://www.home-assistant.io/integrations/light/#service-lightturn_on) attribute. It's not very well documented, but this is only supported by certain lights. It's also disadvantageous because (at least for my TP-Link Kasa `LB130`) lights become unresponsive until the fade is complete. You also don't have any control over the easing/rate of change.
+
+Because of this, I've implemented the fading in the `Node.js` application.
+
+## Easing
+By the time you're awake the lights should be really bright, but at the same time, you don't want the lights to wake you up too early during the transition.
+
+I found that when I faded the lights linearly there were two main issues:
+- whilst the fade was linear, it felt artificial and did not mimic sunrise
+- the initial lowest levels of brightness were impossible to achieve as my 2 lights working together effectively doubled the minimum `lux` experienced in the room.
+
+I solved these problems using 2 techniques.
+
+Firstly, the lights are faded up using an easing function. There's not much science here: I just played with Bézier curves until it *felt* right, and until I was waking `<10min` before the alarm rang. 
+
+import FadeDemo from './FadeDemo'
+
+<FadeDemo style={{width: '100%'}} />
+
+```js
+import BezierEasing from 'bezier-easing'
+
+const easing = BezierEasing(1, .1, .82, .82)
+
+const easedProgress = Math.max(easing(linearProgress), 1 / 255) // minimum brightness
+```
+
+
+I also staggered the 2 lights, so that the 2<sup>nd</sup> light comes on `10%` of the way through the transition, fading at a faster rate to reach `100%` brightness at the same time as the first light.
+
+```js
+const waitToFade = (startAt, fn) => value => {
+  const faded = Math.max(0, (value - startAt) * (1 / (1 - startAt)))
+
+  return fn ? fn(faded) : faded
+}
+
+// USAGE
+const secondLightFade = waitToFade(10 / 100) // 10%
+const secondLightProgress = secondLightFade(firstLightProgress)
+```
+
+# The Goods
+
+## Shortcuts
+Here are the finished shortcuts, ready to install. You'll be prompted to set up the wakeup server `URL`, your `routineId`, and your wakeup duration (for the fade).
+
+They should probably be installed in the order listed below, as later shortcuts depend on earlier ones.
+
+import Shortcut, {ShortcutsGroup} from './Shortcut'
+
+<ShortcutsGroup>
+  <Shortcut name="Run JavaScript" href="https://github.com/reubn/wakeup/raw/main/shortcuts/Run%20JavaScript.shortcut" colour="yellow" />
+  <Shortcut name="Get Alarm Details" href="https://github.com/reubn/wakeup/raw/main/shortcuts/Get%20Alarm%20Details.shortcut" colour="aqua" />
+  <Shortcut name="Find Next Alarm" href="https://github.com/reubn/wakeup/raw/main/shortcuts/Find%20Next%20Alarm.shortcut" colour="orange2" />
+  <Shortcut name="Inform Server" href="https://github.com/reubn/wakeup/raw/main/shortcuts/Inform%20Server.shortcut" colour="grey3" />
+  <Shortcut name="Schedule Wakeup and Confirm" href="https://github.com/reubn/wakeup/raw/main/shortcuts/Schedule%20Wakeup%20and%20Confirm.shortcut" colour="red" />
+  <Shortcut name="Ask If Alarm Modified" href="https://github.com/reubn/wakeup/raw/main/shortcuts/Ask%20If%20Alarm%20Modified.shortcut" colour="blue1" />
+</ShortcutsGroup>
+
+## Automations
+
+To get the shortcut to run itself each evening, you should create the following automations in Shortcuts. Unfortunately these can't be imported.
+
+```
+When Wind Down starts -> Run Shortcut 'Schedule Wakeup and Confirm'
+When Bedtime starts   -> Run Shortcut 'Schedule Wakeup and Confirm'
+```
+
+What happens if you edit your alarm after 'wind down'? Well, as long as you edit the alarm in the Clock app, then we can create another automation to run when the Clock app is closed, and schedule the alarm for the new time. Create the automation as follows:
+
+```
+When "Clock" is closed -> Run Shortcut 'Ask If Alarm Modified'
+```
+
+You will have to swipe up, rather than locking your phone straight away, but it's bearable.
+
+For all of these automations you should disable `Ask Before Running` and `Notify When Run`.
+
+import toggleOff from './images/toggleOff.webp'
+
+<Image image={toggleOff} alt="Turn off Ask Before Running and Notify When Run" style={{maxWidth: '50%'}} />
+
+If you know that you'll always go to sleep before midnight say - and always be waking up after midnight, you could set an automation to set the alarm at midnight each day - doing this you loose the ability to correct mistakes, and in its present state, the shortcut would override any adjustments you'd made previously.
+
+## Server
+
+The server is available [here](https://github.com/reubn/wakeup), and can be deployed using `docker-compose`.
+You'll need to
+- set the `HA_URL` and `HA_TOKEN` environment variables
+- run `npm run createRoutine $name` to create some routines
+- create corresponding scenes in the `scenes` folder to fade your lights
+
+## What's Next?
+
+This set up isn't perfect. There are issues where iOS will display the wrong time to the user when there is a `DST` shift. The lights fade at the correct time however, so it's not a huge issue. I haven't investigated if this is another Shortcuts bug, or if it's an issue with my logic.
