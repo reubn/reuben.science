@@ -101,10 +101,22 @@
   color: var(--colours-accent);
 }
 
+.body h1 {
+  font-size: 1.5rem;
+  font-weight: 500;
+
+  margin: 2rem 0 1rem -2rem;
+}
+
 .body h2 {
+  font-size: 1.25rem;
   font-weight: 500;
 }
 
+.body h3 {
+  font-size: 1rem;
+  font-weight: 500;
+}
 
 .body h1 > a,
 .body h2 > a,
