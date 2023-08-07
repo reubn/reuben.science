@@ -21,23 +21,27 @@ const configText = await readFile(configFile, 'utf8')
 const conversions = configText.split('\n\n').flatMap(_entryText => {
   const entryText = _entryText.trim()
 
-  const [base, ...varientLines] = entryText.split('\n')
+  const [firstLine, ...varientLines] = entryText.split('\n')
 
-  const baseStem = base.replace(extensionRegex, '')
-  const extension = base.match(extensionRegex)[0]
+  const bases = firstLine.split(/\,\s+?/).map(x => x.trim()).filter(x => x)
 
-  return varientLines.flatMap(varientLine => {
-    const [varient, options] = varientLine.split(': ')
+  return bases.flatMap(base => {
+    const baseStem = base.replace(extensionRegex, '')
+    const extension = base.match(extensionRegex)[0]
 
-    if(varientWhitelist && !varientWhitelist.includes(varient)) return []
+    return varientLines.flatMap(varientLine => {
+      const [varient, options] = varientLine.split(': ')
 
-    const suffix = varient === '@1x' ? '' : varient
+      if (varientWhitelist && !varientWhitelist.includes(varient)) return []
 
-    const from = join(cwd, `${baseStem}${suffix}${extension}`)
-    const to = from.replace(new RegExp(extension + '$'), '.webp')
-    const command = `cwebp ${options} ${from} -o ${to}`
+      const suffix = varient === '@1x' ? '' : varient
 
-    return [{base, varient, from, to, command}]
+      const from = join(cwd, `${baseStem}${suffix}${extension}`)
+      const to = from.replace(new RegExp(extension + '$'), '.webp')
+      const command = `cwebp ${options} ${from} -o ${to}`
+
+      return [{ base, varient, from, to, command }]
+    })
   })
 })
 
