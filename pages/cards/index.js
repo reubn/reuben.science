@@ -6,6 +6,7 @@ import twtz from './2020.svg'
 import twto from './2021.svg'
 import twtt from './2022.svg'
 import twttb from './2022b.svg'
+import twtth from './2023.svg'
 
 import {main} from '../styles'
 
@@ -37,6 +38,11 @@ const cards = [
     title: 'Crocodile',
     year: 2022,
     svg: twtt,
+  },
+  {
+    title: 'PHOEBE',
+    year: 2023,
+    svg: twtth,
   },
 ]
 
