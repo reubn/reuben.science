@@ -27,9 +27,6 @@
   <loc>https://reuben.science/categories</loc>
 </url>
 <url>
-  <loc>https://reuben.science/</loc>
-</url>
-<url>
   <loc>https://reuben.science/posts/adventure-maps</loc>
 </url>
 <url>
@@ -61,6 +58,12 @@
 </url>
 <url>
   <loc>https://reuben.science/posts</loc>
+</url>
+<url>
+  <loc>https://reuben.science/</loc>
+</url>
+<url>
+  <loc>https://reuben.science/snippets</loc>
 </url>
 <url>
   <loc>https://reuben.science/snippets/apple-mail-add-alias</loc>
@@ -112,7 +115,4 @@
 </url>
 <url>
   <loc>https://reuben.science/snippets/xcode-remove-file-headers</loc>
-</url>
-<url>
-  <loc>https://reuben.science/snippets</loc>
 </url></urlset>
